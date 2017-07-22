@@ -22,6 +22,7 @@ public:
 private:
   void pushMultiWord(const string &word);  
 private:
+  bool stub_;
   DictionaryStorage dict_;
   map<string,int> multiWordOfOneArticle_;
   const int gWordLength = 32;
