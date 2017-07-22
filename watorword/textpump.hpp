@@ -127,6 +127,8 @@ private:
   }  
 private:
   const string dir_;
+  const string url_;
+  const string tag_;
   const string prefix_ = "url_crawl";
   int iTototl = 0;
   int iProccessed = 0;
