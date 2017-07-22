@@ -26,9 +26,8 @@ int getPred(const string &word);
 static int iConstWordBatchMax = 1000;
 
 OstrichWord::OstrichWord(const string &database) :
-stub_(false)
-dict_(new DictionaryStorage(database, "word_ostrich"))
- {
+stub_(false) {
+  dict_ = std::unique_ptr<DictionaryStorage>(new DictionaryStorage(database, "word_ostrich"));
   dict_->openDB();
 }
 
