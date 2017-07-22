@@ -84,7 +84,7 @@ public:
       }
     }
   }  
-  template<typename T> void eachTextFromMaster(const pt::ptree &task,T fn){
+  template<typename T> void eachTextFromMaster(T fn){
   }  
 
 private:
