@@ -31,7 +31,7 @@ dict_( database, "word_ostrich") {
   dict_.openDB();
 }
 
-OstrichWord::OstrichWord(const string &database) :
+OstrichWord::OstrichWord() :
 stub_(true) {
 }
 
