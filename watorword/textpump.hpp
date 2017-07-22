@@ -94,6 +94,7 @@ public:
       wget + tag_;
       wget += " -O -";
       DUMP_VAR(wget);
+      ::system(wget.c_str());
     }
   }
 
