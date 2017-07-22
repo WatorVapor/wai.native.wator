@@ -8,6 +8,7 @@ add_definitions(-DBOOST_SPIRIT_THREADSAFE)
 
 include_directories(./)
 include_directories(./watorword)
+include_directories(./tools)
 
 set(LIBS
   boost_filesystem
@@ -38,13 +39,6 @@ add_library(watorword
   watorword/word_statistics_parrot.cpp
 ) 
 
-# add_executable(wator.rawcut.app 
-#  rawcut.cpp
-#)
-#target_link_libraries(wator.rawcut.app
-#  watorword
-#  ${LIBS}
-#)
 
 add_executable(wator.ostrich.app 
   ostrich.cpp
@@ -53,13 +47,7 @@ target_link_libraries(wator.ostrich.app
   watorword
   ${LIBS}
 )
-add_executable(wator.ostrich.ja.app 
-  ostrich.ja.cpp
-)
-target_link_libraries(wator.ostrich.ja.app
-  watorword
-  ${LIBS}
-)
+
 
 add_executable(wator.parrot.app 
   parrot.cpp
@@ -69,13 +57,7 @@ target_link_libraries(wator.parrot.app
   ${LIBS}
 )
 
-add_executable(wator.parrot.ja.app 
-  parrot.ja.cpp
-)
-target_link_libraries(wator.parrot.ja.app
-  watorword
-  ${LIBS}
-)
+
 
 add_executable(wator.phoenix.app 
   phoenix.cpp
@@ -85,29 +67,7 @@ target_link_libraries(wator.phoenix.app
   ${LIBS}
 )
 
-add_executable(wator.phoenix.ja.app 
-  phoenix.ja.cpp
-)
-target_link_libraries(wator.phoenix.ja.app
-  watorword
-  ${LIBS}
-)
 
-add_executable(wator.qiangbao.app 
-  qiangbao.cpp
-)
-target_link_libraries(wator.qiangbao.app
-  watorword
-  ${LIBS}
-)
-
-add_executable(wator.qiangbao.ja.app 
-  qiangbao.ja.cpp
-)
-target_link_libraries(wator.qiangbao.ja.app
-  watorword
-  ${LIBS}
-)
 
 
 add_executable(wator.display.app display.cpp)
