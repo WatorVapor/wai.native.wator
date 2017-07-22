@@ -19,6 +19,7 @@ class TextPump {
 public:
   TextPump();
   TextPump(const string &dir);
+  TextPump(const string &url,const string &tag);
   ~TextPump();
   string statistics(void);
   // loop
