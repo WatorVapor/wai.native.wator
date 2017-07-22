@@ -26,9 +26,10 @@ int getPred(const string &word);
 static int iConstWordBatchMax = 1000;
 
 OstrichWord::OstrichWord(const string &database) :
-stub_(false),
-dict_( database, "word_ostrich") {
-  dict_.openDB();
+stub_(false)
+dict_(new DictionaryStorage(database, "word_ostrich"))
+ {
+  dict_->openDB();
 }
 
 OstrichWord::OstrichWord() :
@@ -37,7 +38,7 @@ stub_(true) {
 
 OstrichWord::~OstrichWord() {
   if(stub_ == false){
-    dict_.closeDB();
+    dict_->closeDB();
   }
 }
 void OstrichWord::learn(const vector<string> &wordBytes){
