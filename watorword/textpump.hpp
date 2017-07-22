@@ -87,7 +87,13 @@ public:
   }  
   template<typename T> void eachTextFromMaster(T fn){
     DUMP_VAR2(url_,tag_);
-  }  
+    while(true) {
+      auto wget =  "wget -6 ";
+      wget += url_ + "/" + tag_;
+      wget += " -O -";
+      DUMP_VAR(wget);
+    }
+  }
 
 private:
   template<typename T> void parseMeta(const string &pathMeata,const string &tag,T fn){
