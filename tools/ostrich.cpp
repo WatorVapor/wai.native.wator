@@ -51,6 +51,11 @@ int main(int ac,char*av[])
 }
 */
 
+#include <boost/foreach.hpp>
+#include <boost/property_tree/ptree.hpp>
+#include <boost/property_tree/json_parser.hpp>
+#include <boost/optional.hpp>
+namespace pt = boost::property_tree;
 
 int main(int ac,char*av[])
 {
@@ -59,7 +64,7 @@ int main(int ac,char*av[])
     ostrich.learn(words);
   };
   CtrlClaw claw;  
-  auto clawText = [&](string &path,string &content) {
+  auto clawText = [&](const pt::ptree &task,string &content) {
     DUMP_VAR(path);
     //DUMP_VAR(content);
     claw.claw(content);
