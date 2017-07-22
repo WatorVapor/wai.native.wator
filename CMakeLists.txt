@@ -41,7 +41,7 @@ add_library(watorword
 
 
 add_executable(wator.ostrich.app 
-  ostrich.cpp
+  tools/ostrich.cpp
 )
 target_link_libraries(wator.ostrich.app
   watorword
@@ -50,7 +50,7 @@ target_link_libraries(wator.ostrich.app
 
 
 add_executable(wator.parrot.app 
-  parrot.cpp
+  tools/parrot.cpp
 )
 target_link_libraries(wator.parrot.app
   watorword
@@ -60,7 +60,7 @@ target_link_libraries(wator.parrot.app
 
 
 add_executable(wator.phoenix.app 
-  phoenix.cpp
+  tools/phoenix.cpp
 )
 target_link_libraries(wator.phoenix.app
   watorword
@@ -70,13 +70,17 @@ target_link_libraries(wator.phoenix.app
 
 
 
-add_executable(wator.display.app display.cpp)
+add_executable(wator.display.app
+  tools/display.cpp
+)
 target_link_libraries(wator.display.app
   watorword
   ${LIBS}
 )
 
-add_executable(wator.wai.app wai.cpp)
+add_executable(wator.wai.app
+  tools/wai.cpp
+)
 target_link_libraries(wator.wai.app
   watorword
   ${LIBS}
