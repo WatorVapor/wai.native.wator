@@ -91,10 +91,10 @@ public:
       string wget =  "wget -6 ";
       wget += url_; 
       wget += "/";
-      wget + tag_;
+      wget += tag_;
       wget += " -O - ";
-      /*
       DUMP_VAR(wget);
+      /*
       ::system(wget.c_str());
       */
     }
