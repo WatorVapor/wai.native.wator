@@ -86,6 +86,7 @@ public:
     }
   }  
   template<typename T> void eachTextFromMaster(T fn){
+    DUMP_VAR2(url_,tag_);
   }  
 
 private:
