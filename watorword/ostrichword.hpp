@@ -14,6 +14,7 @@ using namespace std;
 class OstrichWord {
 public:
   OstrichWord(const string &database);
+  OstrichWord();
   ~OstrichWord();
   void learn(const vector<string> &word);
   void mergeWordByArticle(void);
