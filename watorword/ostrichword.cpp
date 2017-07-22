@@ -26,11 +26,19 @@ int getPred(const string &word);
 static int iConstWordBatchMax = 1000;
 
 OstrichWord::OstrichWord(const string &database) :
+stub_(false),
 dict_( database, "word_ostrich") {
   dict_.openDB();
 }
+
+OstrichWord::OstrichWord(const string &database) :
+stub_(true) {
+}
+
 OstrichWord::~OstrichWord() {
-  dict_.closeDB();
+  if(stub_ == false){
+    dict_.closeDB();
+  }
 }
 void OstrichWord::learn(const vector<string> &wordBytes){
   if(wordBytes.size() <2) {
