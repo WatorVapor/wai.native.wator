@@ -16,6 +16,11 @@ TextPump::TextPump(){
 TextPump::TextPump(const string &dir) 
 : dir_(dir){
 }
+TextPump::TextPump(const string &url,const string &tag) 
+: dir_("")
+,url_(url)
+,tag_(tag){
+}
 TextPump::~TextPump() {
 }
 string TextPump::statistics(void) {
