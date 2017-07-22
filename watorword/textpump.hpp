@@ -84,6 +84,9 @@ public:
       }
     }
   }  
+  template<typename T> void eachTextFromMaster(const string &tag,T fn){
+  }  
+
 private:
   template<typename T> void parseMeta(const string &pathMeata,const string &tag,T fn){
      namespace pt = boost::property_tree;
