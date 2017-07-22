@@ -89,7 +89,9 @@ public:
     DUMP_VAR2(url_,tag_);
     while(true) {
       auto wget =  "wget -6 ";
-      wget += url_ + "/" + tag_;
+      wget += url_; 
+      wget += "/";
+      wget + tag_;
       wget += " -O -";
       DUMP_VAR(wget);
     }
