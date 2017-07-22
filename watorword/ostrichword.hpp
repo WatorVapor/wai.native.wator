@@ -3,6 +3,7 @@
 #include <tuple>
 #include <vector>
 #include <map>
+#include <memory>
 using namespace std;
 #pragma once
 
@@ -23,7 +24,7 @@ private:
   void pushMultiWord(const string &word);  
 private:
   bool stub_;
-  DictionaryStorage dict_;
+  unique_ptr<DictionaryStorage> dict_;
   map<string,int> multiWordOfOneArticle_;
   const int gWordLength = 32;
 };
