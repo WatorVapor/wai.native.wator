@@ -54,7 +54,7 @@ int main(int ac,char*av[])
 
 int main(int ac,char*av[])
 {
-  OstrichWord ostrich("./db/baidu.baike");
+  OstrichWord ostrich;
   auto learnOstrich = [&](const vector<string> &words) {
     ostrich.learn(words);
   };
@@ -66,7 +66,7 @@ int main(int ac,char*av[])
     claw.eachMultiByte(learnOstrich);
     ostrich.mergeWordByArticle();
   };
-  TextPump txtPump("url_crawl/.baike.baidu.meta/");
-  txtPump.eachNewText("ostrich.train.one",clawText);
+  TextPump txtPump("https://www.wator.xyz/wai/text/train/ostrich");
+  txtPump.eachTextFromMaster(clawText);
   return 0;
 }
