@@ -92,7 +92,7 @@ public:
       wget += url_; 
       wget += "/";
       wget + tag_;
-      wget += " -O -";
+      wget += " -O - ";
       DUMP_VAR(wget);
       ::system(wget.c_str());
     }
