@@ -70,7 +70,7 @@ int main(int ac,char*av[])
     claw.eachMultiByte(learnOstrich);
     ostrich.mergeWordByArticle();
   };
-  TextPump txtPump("https://www.wator.xyz/wai/text/train/ostrich","ostrich.tain.one");
+  TextPump txtPump("https://www.wator.xyz/wai/text/train/ostrich","tain.one");
   txtPump.eachTextFromMaster(clawText);
   return 0;
 }
