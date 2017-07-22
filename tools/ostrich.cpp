@@ -65,7 +65,6 @@ int main(int ac,char*av[])
   };
   CtrlClaw claw;  
   auto clawText = [&](const pt::ptree &task,string &content) {
-    DUMP_VAR(path);
     //DUMP_VAR(content);
     claw.claw(content);
     claw.eachMultiByte(learnOstrich);
