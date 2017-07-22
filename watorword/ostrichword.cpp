@@ -92,12 +92,18 @@ void OstrichWord::mergeWordByArticle(void){
                 }
             }
             if(isShort == false) {
-                dict_.putWord(word,record.first);
+                if(stub_) {
+                } else {
+                 dict_->putWord(word,record.first);
+                }
             }
         }
     }
   multiWordOfOneArticle_.clear();
-  dict_.writeDB();
+  if(stub_) {
+  } else {
+    dict_->writeDB();
+  }
 }
 
 
