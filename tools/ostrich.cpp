@@ -140,7 +140,7 @@ void parseURL(const pt::ptree &task,string &content) {
   string task_url_upPath = "/tmp/wai.native/task_url_up.json";
   pt::write_json(task_url_upPath,upTask);
   string wgetTaskUp("curl -6 -F \"");
-  wgetTaskUp += "file=@localfile;filename=";
+  wgetTaskUp += "file=@";
   wgetTaskUp += task_url_upPath;
   wgetTaskUp += "\" ";
   wgetTaskUp += "\"https://www.wator.xyz/wai/text/train/ostrich/url/tain.one\"";
