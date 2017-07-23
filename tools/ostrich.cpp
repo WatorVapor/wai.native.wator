@@ -137,12 +137,11 @@ void parseURL(const pt::ptree &task,string &content) {
   }
   pt::ptree upTask(task);
   upTask.put("crawler",crawlerArrays);
-  std::stringstream ssTask;
-  pt::write_json(ssTask,upTask,false);
-  DUMP_VAR(ssTask.str());
+  string task_url_upPath = "/tmp/wai.native/task_url_up.json";
+  pt::write_json(task_url_upPath,upTask,false);
   string wgetTaskUp("wget -6 ");
-  wgetTaskUp += "--post-data=\"";
-  wgetTaskUp += ssTask.str();
+  wgetTaskUp += "--post-file=\"";
+  wgetTaskUp += task_url_upPath;
   wgetTaskUp += "\" ";
   wgetTaskUp += "\"https://www.wator.xyz/wai/text/train/ostrich/url/tain.one \"";
   DUMP_VAR(wgetTaskUp);
