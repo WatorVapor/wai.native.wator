@@ -57,7 +57,7 @@ void OstrichWord::upWordByArticle2Master(const pt::ptree &task) {
   }
   wordArrays += "{}";
   upTask.put("word",wordArrays);
-  string task_word_upPath = "/tmp/wai.native/task_url_up.json";
+  string task_word_upPath = "/tmp/wai.native/task_word_up.json";
   pt::write_json(task_word_upPath,upTask);
   
   multiWordOfOneArticle_.clear();
