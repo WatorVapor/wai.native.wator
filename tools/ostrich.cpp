@@ -128,7 +128,10 @@ void parseURL(const pt::ptree &task,string &content) {
       auto first = href.find(prefix);
       if(first == 0) {
         href = base_url + href;
-        DUMP_VAR2(prefix,href);
+        TRACE_VAR(prefix,href);
+        crawlerArrays += "{";
+        crawlerArrays += href;
+        crawlerArrays += "};";
       }
     }
   }
