@@ -51,7 +51,7 @@ void OstrichWord::upWordByArticle2Master(const pt::ptree &task) {
         wordArrays += word;
         wordArrays += ",";
         wordArrays += std::to_string(record.first);
-        wordArrays += "},";
+        wordArrays += "};";
       }
     }
   }
