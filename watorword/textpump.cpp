@@ -32,7 +32,8 @@ string TextPump::statistics(void) {
 namespace pt = boost::property_tree;
 
 bool TextPump::fetchMasterTask(pt::ptree &task,string &content) {
-  string taskJSONPath = "/tmp/wai.native/result.json";
+  string taskJSONPath = "/tmp/wai.native/task.json";
+  string taskTextPath = "/tmp/wai.native/task.text";
   string wget =  "wget -6 ";
   wget += url_; 
   wget += "/";
@@ -48,6 +49,13 @@ bool TextPump::fetchMasterTask(pt::ptree &task,string &content) {
     auto taskURLOpt = taskJson.get_optional<string>("url");
     if(taskURLOpt) {
       taskURL = taskURLOpt.get();
+      DUMP_VAR(taskURL);
+      string textWget = "wget ";
+      textWget += taskURL;
+      textWget += " -O ";
+      textWget += taskTextPath;
+      DUMP_VAR(textWget);
+      ::system(textWget.c_str());
     }
   } catch (const pt::json_parser::json_parser_error& e) {
     DUMP_VAR(e.what());
