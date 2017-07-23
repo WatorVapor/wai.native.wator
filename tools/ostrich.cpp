@@ -93,8 +93,7 @@ void parseURL(const pt::ptree &task,string &content) {
   std::regex rx( "<a.*?href=['|\"](.*?)['|\"]" );
   for(auto it = std::sregex_iterator(content.begin(), content.end(), rx);
       it != std::sregex_iterator();
-       ++it)
-  {
+       ++it) {
     TRACE_VAR(it->position());
     std::smatch match = *it;
     auto match_href = match.str();
@@ -104,6 +103,23 @@ void parseURL(const pt::ptree &task,string &content) {
     if(first != std::string::npos && last != std::string::npos && last > first){
       string href = match_href.substr (first + strMatchHref.size(),last-first);
       DUMP_VAR(href);
+      try {
+        auto prefixOpt = task.get_optional<string>("prefix");
+        if(prefixOpt) {
+          auto prefix = prefixOpt.get();
+          DUMP_VAR(prefix);
+          auto first = href.find(prefix);
+          if(first == 0) {
+            DUMP_VAR2(prefix,href);
+          }
+        }
+      }
+      } catch (const pt::json_parser::json_parser_error& e) {
+        DUMP_VAR(e.what());
+      }
+      catch( const std::exception & ex ) {
+        DUMP_VAR(ex.what());
+      }
     }
   }
 }
