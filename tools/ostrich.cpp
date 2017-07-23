@@ -81,7 +81,7 @@ int main(int ac,char*av[])
 }
 
 void parseURL(const pt::ptree &task,string &content) {
-  DUMP_VAR(content);
+  //DUMP_VAR(content);
   try {
     pt::ptree textXml;
     std::stringstream ss;
