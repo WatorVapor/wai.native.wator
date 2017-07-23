@@ -87,6 +87,19 @@ int main(int ac,char*av[])
 
 void parseURL(const pt::ptree &task,string &content) {
   //DUMP_VAR(content);
+  
+  boost::regex r( "<a.*?href=['|\"](.*?)['|\"]" );
+  auto startIte = content.begin();
+  auto endIte = content.begin();
+  boost::smatch result;
+  int i= 1;
+  while (boost::regex_search(startIte, endIte, result, r)) {
+    //cout << i << " : " << result.str(1) << endl;
+    DUMP_VAR2(i,result.str(1))
+    startIte = result[0].second;
+    i++;
+  }
+  
   namespace x = boost::xpressive;
   using x::s1;
   using x::_w;
