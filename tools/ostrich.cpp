@@ -85,36 +85,16 @@ int main(int ac,char*av[])
 #include <boost/xpressive/xpressive_static.hpp>
 #include <boost/regex.hpp>
 
+#include <regex>
 
 void parseURL(const pt::ptree &task,string &content) {
-  //DUMP_VAR(content);
-  
-  boost::regex r( "<a.*?href=['|\"](.*?)['|\"]" );
-  auto startIte = content.begin();
-  auto endIte = content.begin();
-  boost::smatch result;
-  int i= 1;
-  while (boost::regex_search(startIte, endIte, result, r)) {
-    //cout << i << " : " << result.str(1) << endl;
-    DUMP_VAR2(i,result.str(1))
-    startIte = result[0].second;
-    i++;
-  }
-  
-  namespace x = boost::xpressive;
-  using x::s1;
-  using x::_w;
-  using x::_;
-  x::mark_tag in_tag(1);
-  x::mark_tag tag_name(2);
-  x::sregex regex =
-          "<"  >> (tag_name = +_w) >> ">"
-               >> (in_tag = -*_) >>
-          "</" >> tag_name >> ">";
-  x::smatch what;
-  if( x::regex_match(content, what, regex) ){
-      std::cout << what[tag_name].str() << std::endl;
-      std::cout << what[in_tag].str() << std::endl;
-  }
+  //DUMP_VAR(content);  
+  std::regex r( "<a.*?href=['|\"](.*?)['|\"]" );
+  for(auto it = std::sregex_iterator(content.begin(), content.end(), rx);
+      it != std::sregex_iterator();
+       ++it)
+  {
+    DUMP_VAR(it->position());
+  }  
 }
 
