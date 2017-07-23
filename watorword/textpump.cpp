@@ -56,7 +56,12 @@ bool TextPump::fetchMasterTask(pt::ptree &task,string &content) {
       textWget += taskTextPath;
       DUMP_VAR(textWget);
       ::system(textWget.c_str());
-    }
+      std::ifstream textStream(taskTextPath);
+      std::string str((std::istreambuf_iterator<char>(textStream)),
+                   std::istreambuf_iterator<char>());
+      content = str;
+      textStream.close();
+   }
   } catch (const pt::json_parser::json_parser_error& e) {
     DUMP_VAR(e.what());
   }
