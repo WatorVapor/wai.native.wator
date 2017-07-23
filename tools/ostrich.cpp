@@ -127,7 +127,7 @@ void parseURL(const pt::ptree &task,string &content) {
       TRACE_VAR(href);
       auto first = href.find(prefix);
       if(first == 0) {
-        href = base_url + "/" + href;
+        href = base_url + href;
         DUMP_VAR2(prefix,href);
       }
     }
