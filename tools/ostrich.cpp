@@ -67,7 +67,7 @@ int main(int ac,char*av[])
   auto clawText = [&](const pt::ptree &task,string &content) {
     std::stringstream ssTask;
     pt::write_json(ssTask,task);
-    DUMP_VAR(ssTask.str());
+    TRACE_VAR(ssTask.str());
     claw.claw(content);
     claw.eachMultiByte(learnOstrich);
     ostrich.upWordByArticle2Master(task);
