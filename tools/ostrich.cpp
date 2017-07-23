@@ -94,9 +94,13 @@ void parseURL(const pt::ptree &task,string &content) {
       it != std::sregex_iterator();
        ++it)
   {
-    DUMP_VAR(it->position());
+    TRACE_VAR(it->position());
     std::smatch match = *it;
     DUMP_VAR(match.str());
+    regex rx2("href=['|\"](.*?)['|\"]");
+    std::smatch sm;
+    std::regex_match( match.str().cbegin(), match.str().cend(), sm, rx2);
+    DUMP_VAR(sm.str());
   }  
 }
 
