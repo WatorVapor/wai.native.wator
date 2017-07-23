@@ -58,19 +58,19 @@ bool TextPump::fetchMasterTask(pt::ptree &task,string &content) {
       textWget += taskTextPath;
       DUMP_VAR(textWget);
       ::system(textWget.c_str());
-/*      
       std::ifstream textStream(taskTextPath);
       std::string str((std::istreambuf_iterator<char>(textStream)),
                    std::istreambuf_iterator<char>());
       textStream.close();
       content = str;
-*/    
+/*      
       pt::ptree textXml;
       pt::read_xml(taskTextPath,textXml);
       std::istringstream ss;
       const int indent = 2;
       pt::write_xml(ss,textXml,std::locale(),pt::xml_writer_make_settings(' ', indent, widen<char>("utf-8")));
       content = ss.str();
+*/    
    }
   } catch (const pt::json_parser::json_parser_error& e) {
     DUMP_VAR(e.what());
