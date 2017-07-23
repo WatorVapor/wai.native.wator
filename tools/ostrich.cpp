@@ -99,9 +99,9 @@ void parseURL(const pt::ptree &task,string &content) {
     auto match_href = match.str();
     DUMP_VAR(match_href);
     auto first = match_href.find("href=\"");
-    auto last = match_href.find("\"");
+    auto last = match_href.find_last_of("\"");
     string href = match_href.substr (first,last-first);
     DUMP_VAR(href);
-  }  
+  }
 }
 
