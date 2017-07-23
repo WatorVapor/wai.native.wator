@@ -28,3 +28,30 @@ string TextPump::statistics(void) {
   ss << "iTototl=<" << iTototl << ">,iProccessed =<" << iProccessed  << ">";
   return ss.str();
 }
+bool TextPump::fetchMasterTask(pt::ptree &task,string &content) {
+  string taskJSONPath = "/tmp/wai.native/result.json";
+  string wget =  "wget -6 ";
+  wget += url_; 
+  wget += "/";
+  wget += tag_;
+  wget += " -O ";
+  wget += taskJSONPath;
+  DUMP_VAR(wget);
+  ::system(wget.c_str());
+  try {
+    pt::ptree taskJson;
+    pt::read_json(taskJSONPath, taskJson);
+    string taskURL;
+    auto taskURLOpt = taskJson.get_optional<string>("url");
+    if(taskURLOpt) {
+      taskURL = taskURLOpt.get();
+    }
+  } catch (const pt::json_parser::json_parser_error& e) {
+    DUMP_VAR(e.what());
+  }
+  catch( const std::exception & ex ) {
+    DUMP_VAR(ex.what());
+  }
+  return true;
+}
+
