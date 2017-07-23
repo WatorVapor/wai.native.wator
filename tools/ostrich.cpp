@@ -113,7 +113,6 @@ void parseURL(const pt::ptree &task,string &content) {
             DUMP_VAR2(prefix,href);
           }
         }
-      }
       } catch (const pt::json_parser::json_parser_error& e) {
         DUMP_VAR(e.what());
       }
