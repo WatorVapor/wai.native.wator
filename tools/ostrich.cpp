@@ -54,6 +54,7 @@ int main(int ac,char*av[])
 #include <boost/foreach.hpp>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
+#include <boost/property_tree/xml_parser.hpp>
 #include <boost/optional.hpp>
 namespace pt = boost::property_tree;
 
