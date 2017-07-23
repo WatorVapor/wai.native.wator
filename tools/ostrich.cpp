@@ -138,7 +138,7 @@ void parseURL(const pt::ptree &task,string &content) {
   pt::ptree upTask(task);
   upTask.put("crawler",crawlerArrays);
   std::stringstream ssTask;
-  pt::write_json(ssTask,upTask);
+  pt::write_json(ssTask,upTask,false);
   DUMP_VAR(ssTask.str());
   string wgetTaskUp("wget -6 ");
   wgetTaskUp += "--post-data=\"";
