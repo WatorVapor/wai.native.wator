@@ -65,7 +65,7 @@ int main(int ac,char*av[])
   };
   CtrlClaw claw;  
   auto clawText = [&](const pt::ptree &task,string &content) {
-    std::istringstream ssTask;
+    std::stringstream ssTask;
     pt::write_json(ssTask,task);
     DUMP_VAR(ssTask.str());
     claw.claw(content);
