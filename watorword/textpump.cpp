@@ -68,7 +68,7 @@ bool TextPump::fetchMasterTask(pt::ptree &task,string &content) {
       pt::ptree textXml;
       pt::read_xml(taskTextPath,textXml);
       std::istringstream ss;
-      pt::write_xml(ss,textXml);
+      pt::write_xml(ss,textXml,std::locale());
       content = ss.str();
    }
   } catch (const pt::json_parser::json_parser_error& e) {
