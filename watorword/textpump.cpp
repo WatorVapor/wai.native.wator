@@ -45,6 +45,7 @@ bool TextPump::fetchMasterTask(pt::ptree &task,string &content) {
   try {
     pt::ptree taskJson;
     pt::read_json(taskJSONPath, taskJson);
+    task = taskJson;
     string taskURL;
     auto taskURLOpt = taskJson.get_optional<string>("url");
     if(taskURLOpt) {
