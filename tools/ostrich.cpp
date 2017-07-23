@@ -97,17 +97,17 @@ void parseURL(const pt::ptree &task,string &content) {
     TRACE_VAR(it->position());
     std::smatch match = *it;
     auto match_href = match.str();
-    DUMP_VAR(match_href);
+    TRACE_VAR(match_href);
     auto first = match_href.find(strMatchHref);
     auto last = match_href.find_last_of("\"");
     if(first != std::string::npos && last != std::string::npos && last > first){
       string href = match_href.substr (first + strMatchHref.size(),last-first);
-      DUMP_VAR(href);
+      TRACE_VAR(href);
       try {
         auto prefixOpt = task.get_optional<string>("prefix");
         if(prefixOpt) {
           auto prefix = prefixOpt.get();
-          DUMP_VAR(prefix);
+          TRACE_VAR(prefix);
           auto first = href.find(prefix);
           if(first == 0) {
             DUMP_VAR2(prefix,href);
