@@ -140,5 +140,11 @@ void parseURL(const pt::ptree &task,string &content) {
   std::stringstream ssTask;
   pt::write_json(ssTask,upTask);
   DUMP_VAR(ssTask.str());
+  string wgetTaskUp("wget -6 ");
+  wgetTaskUp += "--post-data=\"";
+  wgetTaskUp += ssTask.str();
+  wgetTaskUp += "\" ";
+  wgetTaskUp += "\"https://www.wator.xyz/wai/text/train/ostrich/url/tain.one \"";
+  DUMP_VAR(wgetTaskUp);
 }
 
