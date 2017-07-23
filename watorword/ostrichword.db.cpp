@@ -15,7 +15,7 @@ using namespace std;
 #include "log.hpp"
 
 
-void OstrichWord::upWordByArticle2Master(void) {
+void OstrichWord::upWordByArticle2Master(const pt::ptree &task) {
   DUMP_VAR(multiWordOfOneArticle_.size());
   map<int,vector<string>> localMultiWordRank;
   for(auto wordSum:multiWordOfOneArticle_) {
