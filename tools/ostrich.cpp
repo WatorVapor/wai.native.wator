@@ -87,7 +87,7 @@ void parseURL(const pt::ptree &task,string &content) {
     std::stringstream ss;
     ss << content;
     pt::read_xml(ss,textXml);
-    for (const auto &elem : textXml.get_child("body")) {
+    for (const auto &elem : textXml) {
       DUMP_VAR(elem.first);
     }
   }
