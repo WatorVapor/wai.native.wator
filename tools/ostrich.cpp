@@ -123,7 +123,7 @@ void parseURL(const pt::ptree &task,string &content) {
     auto first = match_href.find(strMatchHref);
     auto last = match_href.find_last_of("\"");
     if(first != std::string::npos && last != std::string::npos && last > first){
-      string href = match_href.substr (first + strMatchHref.size(),last-first -1);
+      string href = match_href.substr (first + strMatchHref.size(),last-first -strMatchHref.size());
       TRACE_VAR(href);
       auto first = href.find(prefix);
       if(first == 0) {
