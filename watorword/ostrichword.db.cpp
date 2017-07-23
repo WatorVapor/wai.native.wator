@@ -32,6 +32,8 @@ void OstrichWord::upWordByArticle2Master(const pt::ptree &task) {
     }
   }
   DUMP_VAR(localMultiWordRank.size());
+  string wordArrays;
+  wordArrays += "[";
   for(auto &record:localMultiWordRank) {
     TRACE_VAR(record.first);
     auto words = record.second;
@@ -46,9 +48,16 @@ void OstrichWord::upWordByArticle2Master(const pt::ptree &task) {
         }
       }
       if(isShort == false) {
+        wordArrays += "{";
+        wordArrays += word;
+        wordArrays += ",";
+        wordArrays += std::to_string(record.first);
+        wordArrays += "},";
       }
     }
   }
+  wordArrays += "]";
+  upTask.put("word",wordArrays);
   std::stringstream ssTask;
   pt::write_json(ssTask,upTask);
   DUMP_VAR(ssTask.str());
