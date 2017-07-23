@@ -7,10 +7,12 @@ using namespace std;
 #pragma once
 
 #include <boost/filesystem.hpp>
+namespace fs = boost::filesystem;
 #include <boost/foreach.hpp>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
 #include <boost/optional.hpp>
+namespace pt = boost::property_tree;
 #include "log.hpp"
 
 
@@ -24,7 +26,6 @@ public:
   string statistics(void);
   // loop
   template<typename T> void eachTextFile(const string &dir,T fn){
-    namespace fs = boost::filesystem;
     const fs::path path(dir);
     BOOST_FOREACH(const fs::path& p, std::make_pair(fs::recursive_directory_iterator(path),fs::recursive_directory_iterator())){
       if (!fs::is_directory(p)){
@@ -43,7 +44,6 @@ public:
     }
   }  
   template<typename T> void eachJsonFile(const string &dir,T fn){
-    namespace fs = boost::filesystem;
     const fs::path path(dir);
     BOOST_FOREACH(const fs::path& p, std::make_pair(fs::recursive_directory_iterator(path),fs::recursive_directory_iterator())){
       if (!fs::is_directory(p)){
@@ -57,7 +57,6 @@ public:
     }
   }  
   template<typename T> void eachJsonFile(T fn){
-    namespace fs = boost::filesystem;
     const fs::path path(dir_);
     BOOST_FOREACH(const fs::path& p, std::make_pair(fs::recursive_directory_iterator(path),fs::recursive_directory_iterator())){
       if (!fs::is_directory(p)){
@@ -71,7 +70,6 @@ public:
     }
   }
   template<typename T> void eachNewText(const string &tag,T fn){
-    namespace fs = boost::filesystem;
     const fs::path path(dir_);
     BOOST_FOREACH(const fs::path& p, std::make_pair(fs::recursive_directory_iterator(path),fs::recursive_directory_iterator())){
       if (!fs::is_directory(p)){
@@ -86,7 +84,6 @@ public:
     }
   }  
   template<typename T> void eachTextFromMaster(T fn){
-    namespace pt = boost::property_tree;
    DUMP_VAR2(url_,tag_);
     //while(true)
     {
@@ -100,7 +97,6 @@ public:
 
 private:
   template<typename T> void parseMeta(const string &pathMeata,const string &tag,T fn){
-     namespace pt = boost::property_tree;
       try {
         pt::ptree textMeta;
         pt::read_json(pathMeata, textMeta);
