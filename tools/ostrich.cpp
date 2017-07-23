@@ -95,6 +95,8 @@ void parseURL(const pt::ptree &task,string &content) {
        ++it)
   {
     DUMP_VAR(it->position());
+    std::smatch match = *it;
+    DUMP_VAR(match.str());
   }  
 }
 
