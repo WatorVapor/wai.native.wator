@@ -57,6 +57,7 @@ int main(int ac,char*av[])
 #include <boost/optional.hpp>
 namespace pt = boost::property_tree;
 
+void parseURL(const pt::ptree &task,string &content);
 int main(int ac,char*av[])
 {
   OstrichWord ostrich;
@@ -71,8 +72,14 @@ int main(int ac,char*av[])
     claw.claw(content);
     claw.eachMultiByte(learnOstrich);
     ostrich.upWordByArticle2Master(task);
+    parseURL(task,content);
   };
   TextPump txtPump("https://www.wator.xyz/wai/text/train/ostrich","tain.one");
   txtPump.eachTextFromMaster(clawText);
   return 0;
 }
+
+void parseURL(const pt::ptree &task,string &content) {
+  DUMP_VAR(content);
+}
+
