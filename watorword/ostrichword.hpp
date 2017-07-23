@@ -10,6 +10,12 @@ using namespace std;
 #include <leveldb/db.h>
 #include <leveldb/write_batch.h>
 
+#include <boost/foreach.hpp>
+#include <boost/property_tree/ptree.hpp>
+#include <boost/property_tree/json_parser.hpp>
+#include <boost/optional.hpp>
+namespace pt = boost::property_tree;
+
 #include "dictstorage.hpp"
 
 class OstrichWord {
@@ -19,7 +25,7 @@ public:
   ~OstrichWord();
   void learn(const vector<string> &word);
   void mergeWordByArticle(void);
-  void upWordByArticle2Master(void);
+  void upWordByArticle2Master(const pt::ptree &task);
 
 private:
   void pushMultiWord(const string &word);  
