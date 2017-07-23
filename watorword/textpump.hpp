@@ -87,7 +87,8 @@ public:
   }  
   template<typename T> void eachTextFromMaster(T fn){
     DUMP_VAR2(url_,tag_);
-    while(true) {
+    //while(true)
+    {
       string wget =  "wget -6 ";
       wget += url_; 
       wget += "/";
