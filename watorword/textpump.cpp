@@ -66,7 +66,7 @@ bool TextPump::fetchMasterTask(pt::ptree &task,string &content) {
       content = str;
 */    
       pt::read_xml(taskTextPath,pt);
-      std::sstream ss;
+      std::istringstream ss;
       pt::write_xml(ss,pt);
       content = ss.str();
    }
