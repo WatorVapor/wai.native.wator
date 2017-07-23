@@ -28,6 +28,9 @@ string TextPump::statistics(void) {
   ss << "iTototl=<" << iTototl << ">,iProccessed =<" << iProccessed  << ">";
   return ss.str();
 }
+
+namespace pt = boost::property_tree;
+
 bool TextPump::fetchMasterTask(pt::ptree &task,string &content) {
   string taskJSONPath = "/tmp/wai.native/result.json";
   string wget =  "wget -6 ";
