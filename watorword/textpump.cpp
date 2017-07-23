@@ -66,7 +66,7 @@ bool TextPump::fetchMasterTask(pt::ptree &task,string &content) {
 /*      
       pt::ptree textXml;
       pt::read_xml(taskTextPath,textXml);
-      std::istringstream ss;
+      std::stringstream ss;
       const int indent = 2;
       pt::write_xml(ss,textXml,std::locale(),pt::xml_writer_make_settings(' ', indent, widen<char>("utf-8")));
       content = ss.str();
