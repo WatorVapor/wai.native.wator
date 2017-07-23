@@ -87,17 +87,36 @@ public:
   }  
   template<typename T> void eachTextFromMaster(T fn){
     DUMP_VAR2(url_,tag_);
-    string taskJSONPath = "/tmp/wai.native/result.json";
     //while(true)
     {
+      pt::ptree task;
+      string content;
+      if(fetchMasterTask(task,content)) {
+        fn(task,content);
+      }
+      string taskJSONPath = "/tmp/wai.native/result.json";
       string wget =  "wget -6 ";
       wget += url_; 
       wget += "/";
       wget += tag_;
-      wget += " -O - ";
+      wget += " -O ";
       wget += taskJSONPath;
       DUMP_VAR(wget);
       ::system(wget.c_str());
+      try {
+        pt::ptree taskJson;
+        pt::read_json(taskJSONPath, taskJson);
+        string taskURL;
+        auto taskURLOpt = taskJson.get_optional<string>("url");
+        if(taskURLOpt) {
+          taskURL = taskURLOpt.get();
+        }
+      } catch (const pt::json_parser::json_parser_error& e) {
+        DUMP_VAR(e.what());
+      }
+      catch( const std::exception & ex ) {
+        DUMP_VAR(ex.what());
+      }
     }
   }
 
@@ -137,7 +156,8 @@ private:
       catch( const std::exception & ex ) {
         DUMP_VAR(ex.what());
       }
-  }  
+  }
+  bool fetchMasterTask(pt::ptree &task,string &content);
 private:
   const string dir_;
   const string url_;
