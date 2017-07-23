@@ -139,8 +139,8 @@ void parseURL(const pt::ptree &task,string &content) {
   upTask.put("crawler",crawlerArrays);
   string task_url_upPath = "/tmp/wai.native/task_url_up.json";
   pt::write_json(task_url_upPath,upTask);
-  string wgetTaskUp("wget -6 ");
-  wgetTaskUp += "--post-file=\"";
+  string wgetTaskUp("curl -6 -F \"");
+  wgetTaskUp += "file=@localfile;filename=";
   wgetTaskUp += task_url_upPath;
   wgetTaskUp += "\" ";
   wgetTaskUp += "\"https://www.wator.xyz/wai/text/train/ostrich/url/tain.one\"";
