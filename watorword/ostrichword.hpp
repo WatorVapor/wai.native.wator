@@ -19,6 +19,7 @@ public:
   ~OstrichWord();
   void learn(const vector<string> &word);
   void mergeWordByArticle(void);
+  void upWordByArticle2Master(void);
 
 private:
   void pushMultiWord(const string &word);  
