@@ -83,6 +83,7 @@ int main(int ac,char*av[])
 
 #include <boost/xpressive/xpressive.hpp>
 #include <boost/xpressive/xpressive_static.hpp>
+#include <boost/regex.hpp>
 
 
 void parseURL(const pt::ptree &task,string &content) {
