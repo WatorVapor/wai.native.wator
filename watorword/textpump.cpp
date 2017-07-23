@@ -29,6 +29,7 @@ string TextPump::statistics(void) {
   return ss.str();
 }
 
+#include <boost/property_tree/xml_parser.hpp>
 namespace pt = boost::property_tree;
 
 bool TextPump::fetchMasterTask(pt::ptree &task,string &content) {
@@ -57,11 +58,17 @@ bool TextPump::fetchMasterTask(pt::ptree &task,string &content) {
       textWget += taskTextPath;
       DUMP_VAR(textWget);
       ::system(textWget.c_str());
+/*      
       std::ifstream textStream(taskTextPath);
       std::string str((std::istreambuf_iterator<char>(textStream)),
                    std::istreambuf_iterator<char>());
-      content = str;
       textStream.close();
+      content = str;
+*/    
+      pt::read_xml(taskTextPath,pt);
+      std::sstream ss;
+      pt::write_xml(ss,pt);
+      content = ss.str();
    }
   } catch (const pt::json_parser::json_parser_error& e) {
     DUMP_VAR(e.what());
