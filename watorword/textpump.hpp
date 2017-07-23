@@ -87,6 +87,7 @@ public:
   }  
   template<typename T> void eachTextFromMaster(T fn){
     DUMP_VAR2(url_,tag_);
+    string taskJSONPath = "/tmp/wai.native/result.json";
     //while(true)
     {
       string wget =  "wget -6 ";
@@ -94,6 +95,7 @@ public:
       wget += "/";
       wget += tag_;
       wget += " -O - ";
+      wget += taskJSONPath;
       DUMP_VAR(wget);
       ::system(wget.c_str());
     }
