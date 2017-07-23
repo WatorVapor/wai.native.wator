@@ -14,8 +14,6 @@ using namespace std;
 #include "ostrichword.hpp"
 #include "log.hpp"
 
-#define DUMP_VAR(x) std::cout << __func__ << ":" << __LINE__ << "::" << #x << "=<" << x << ">"<< std::endl;
-#define TRACE_VAR(x)
 
 void OstrichWord::upWordByArticle2Master(void) {
   DUMP_VAR(multiWordOfOneArticle_.size());
