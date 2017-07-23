@@ -87,6 +87,7 @@ int main(int ac,char*av[])
 
 #include <regex>
 
+const static string strMatchHref("href=\"");
 void parseURL(const pt::ptree &task,string &content) {
   //DUMP_VAR(content);  
   std::regex rx( "<a.*?href=['|\"](.*?)['|\"]" );
@@ -98,10 +99,10 @@ void parseURL(const pt::ptree &task,string &content) {
     std::smatch match = *it;
     auto match_href = match.str();
     DUMP_VAR(match_href);
-    auto first = match_href.find("href=\"");
+    auto first = match_href.find(strMatchHref);
     auto last = match_href.find_last_of("\"");
     if(first != std::string::npos && last != std::string::npos && last > first){
-      string href = match_href.substr (first,last-first);
+      string href = match_href.substr (first + strMatchHref,last-first);
       DUMP_VAR(href);
     }
   }
