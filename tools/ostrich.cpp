@@ -65,7 +65,9 @@ int main(int ac,char*av[])
   };
   CtrlClaw claw;  
   auto clawText = [&](const pt::ptree &task,string &content) {
-    DUMP_VAR(task);
+    std::istringstream ssTask;
+    pt::write_json(ssTask,task);
+    DUMP_VAR(ssTask.str());
     claw.claw(content);
     claw.eachMultiByte(learnOstrich);
     ostrich.mergeWordByArticle();
