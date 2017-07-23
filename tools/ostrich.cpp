@@ -65,7 +65,7 @@ int main(int ac,char*av[])
   };
   CtrlClaw claw;  
   auto clawText = [&](const pt::ptree &task,string &content) {
-    //DUMP_VAR(content);
+    DUMP_VAR(task);
     claw.claw(content);
     claw.eachMultiByte(learnOstrich);
     ostrich.mergeWordByArticle();
