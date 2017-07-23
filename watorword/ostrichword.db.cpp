@@ -58,7 +58,7 @@ void OstrichWord::upWordByArticle2Master(const pt::ptree &task) {
   wordArrays += "{}";
   upTask.put("word",wordArrays);
   std::stringstream ssTask;
-  pt::write_json(ssTask,upTask,false);
+  pt::write_json(ssTask,upTask);
   DUMP_VAR(ssTask.str());
   
   multiWordOfOneArticle_.clear();
