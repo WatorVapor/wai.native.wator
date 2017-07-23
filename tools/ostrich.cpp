@@ -89,8 +89,30 @@ int main(int ac,char*av[])
 
 const static string strMatchHref("href=\"");
 void parseURL(const pt::ptree &task,string &content) {
-  //DUMP_VAR(content);  
+  //DUMP_VAR(content);
   std::regex rx( "<a.*?href=['|\"](.*?)['|\"]" );
+  string prefix;
+  string base_url;
+  try {
+    auto prefixOpt = task.get_optional<string>("prefix");
+    if(prefixOpt) {
+      prefix = prefixOpt.get();
+      DUMP_VAR(prefix);
+    }
+    auto base_urlOpt = task.get_optional<string>("base_url");
+    if(base_urlOpt) {
+      base_url = base_urlOpt.get();
+      DUMP_VAR(base_url);
+    }
+  } catch (const pt::json_parser::json_parser_error& e) {
+    DUMP_VAR(e.what());
+  }
+  catch( const std::exception & ex ) {
+    DUMP_VAR(ex.what());
+  }
+
+  
+  string crawlerArrays;
   for(auto it = std::sregex_iterator(content.begin(), content.end(), rx);
       it != std::sregex_iterator();
        ++it) {
@@ -103,23 +125,17 @@ void parseURL(const pt::ptree &task,string &content) {
     if(first != std::string::npos && last != std::string::npos && last > first){
       string href = match_href.substr (first + strMatchHref.size(),last-first);
       TRACE_VAR(href);
-      try {
-        auto prefixOpt = task.get_optional<string>("prefix");
-        if(prefixOpt) {
-          auto prefix = prefixOpt.get();
-          TRACE_VAR(prefix);
-          auto first = href.find(prefix);
-          if(first == 0) {
-            DUMP_VAR2(prefix,href);
-          }
-        }
-      } catch (const pt::json_parser::json_parser_error& e) {
-        DUMP_VAR(e.what());
-      }
-      catch( const std::exception & ex ) {
-        DUMP_VAR(ex.what());
+      auto first = href.find(prefix);
+      if(first == 0) {
+        href = base_url + "/" + href;
+        DUMP_VAR2(prefix,href);
       }
     }
   }
+  pt::ptree upTask(task);
+  upTask.put("crawler",crawlerArrays);
+  std::stringstream ssTask;
+  pt::write_json(ssTask,upTask);
+  DUMP_VAR(ssTask.str());
 }
 
