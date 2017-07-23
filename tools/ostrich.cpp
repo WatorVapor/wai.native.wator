@@ -89,7 +89,7 @@ int main(int ac,char*av[])
 
 void parseURL(const pt::ptree &task,string &content) {
   //DUMP_VAR(content);  
-  std::regex r( "<a.*?href=['|\"](.*?)['|\"]" );
+  std::regex rx( "<a.*?href=['|\"](.*?)['|\"]" );
   for(auto it = std::sregex_iterator(content.begin(), content.end(), rx);
       it != std::sregex_iterator();
        ++it)
