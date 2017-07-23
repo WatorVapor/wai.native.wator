@@ -80,19 +80,27 @@ int main(int ac,char*av[])
   return 0;
 }
 
+
+#include <boost/xpressive/xpressive.hpp>
+#include <boost/xpressive/xpressive_static.hpp>
+
+
 void parseURL(const pt::ptree &task,string &content) {
   //DUMP_VAR(content);
-  try {
-    pt::ptree textXml;
-    std::stringstream ss;
-    ss << content;
-    pt::read_xml(ss,textXml);
-    for (const auto &elem : textXml) {
-      DUMP_VAR(elem.first);
-    }
-  }
-  catch( const std::exception & ex ) {
-    DUMP_VAR(ex.what());
+  namespace x = boost::xpressive;
+  using x::s1;
+  using x::_w;
+  using x::_;
+  x::mark_tag in_tag(1);
+  x::mark_tag tag_name(2);
+  x::sregex regex =
+          "<"  >> (tag_name = +_w) >> ">"
+               >> (in_tag = -*_) >>
+          "</" >> tag_name >> ">";
+  x::smatch what;
+  if( x::regex_match(content, what, regex) ){
+      std::cout << what[tag_name].str() << std::endl;
+      std::cout << what[in_tag].str() << std::endl;
   }
 }
 
