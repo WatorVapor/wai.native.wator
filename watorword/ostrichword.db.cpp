@@ -61,6 +61,7 @@ void OstrichWord::mergeWordByArticle(void){
 
 
 void OstrichWord::upWordByArticle2Master(const pt::ptree &task) {
+  auto wordArrays = pickupWordRanking();
   pt::ptree upTask = task;
   upTask.put("word",wordArrays);
   string task_word_upPath = "/tmp/wai.native/task_word_up.json";
