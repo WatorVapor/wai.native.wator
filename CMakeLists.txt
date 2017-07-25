@@ -39,6 +39,13 @@ add_library(watorword
   watorword/word_statistics_parrot.cpp
 ) 
 
+add_executable(wator.crawler.app
+  tools/crawler.cpp
+)
+target_link_libraries(wator.crawler.app
+  watorword
+  ${LIBS}
+)
 
 add_executable(wator.ostrich.app 
   tools/ostrich.cpp
@@ -85,4 +92,6 @@ target_link_libraries(wator.wai.app
   watorword
   ${LIBS}
 )
+
+
 
