@@ -85,8 +85,7 @@ public:
   }  
   template<typename T> void eachTextFromMaster(T fn){
    DUMP_VAR2(url_,tag_);
-    //while(true)
-    {
+    while(true) {
       pt::ptree task;
       string content;
       if(fetchMasterTask(task,content)) {
