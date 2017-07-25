@@ -139,7 +139,8 @@ void parseURL(const pt::ptree &task,string &content) {
   upTask.put("crawler",crawlerArrays);
   string task_url_upPath = "/tmp/wai.native/task_url_up.json";
   pt::write_json(task_url_upPath,upTask);
-  string wgetTaskUp("curl -6 -F \"");
+  //string wgetTaskUp("curl -6 -F \"");
+  string wgetTaskUp("curl -F \"");
   wgetTaskUp += "file=@";
   wgetTaskUp += task_url_upPath;
   wgetTaskUp += "\" ";
