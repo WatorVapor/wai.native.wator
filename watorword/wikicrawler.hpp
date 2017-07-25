@@ -19,6 +19,7 @@ class WikiCrawler {
 public:
   WikiCrawler();
   ~WikiCrawler();
+  void parse(const pt::ptree &task,string &content);
 private:
 private:
 };
