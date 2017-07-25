@@ -67,7 +67,7 @@ string OstrichWord::pickupWordRanking(void) {
   map<int,vector<string>> localMultiWordRank;
   for(auto wordSum:multiWordOfOneArticle_) {
     TRACE_VAR(wordSum.first,wordSum.second);
-    if(wordSum.second > 2) {
+    if(wordSum.second >= minWordRepeateTimes_) {
       TRACE_VAR(wordSum.first,wordSum.second);
       auto it = localMultiWordRank.find(wordSum.second);
       if(it != localMultiWordRank.end()){
