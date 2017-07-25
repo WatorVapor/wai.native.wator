@@ -29,6 +29,7 @@ public:
 
 private:
   void pushMultiWord(const string &word);  
+  string pickupWordRanking(void);
 private:
   bool stub_;
   unique_ptr<DictionaryStorage> dict_;
