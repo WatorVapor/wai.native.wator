@@ -67,4 +67,5 @@ void WikiCrawler::parse(const pt::ptree &task,string &content) {
   wgetTaskUp += "\" ";
   wgetTaskUp += "\"https://www.wator.xyz/wai/text/train/crawler\"";
   DUMP_VAR(wgetTaskUp);
+  ::system(wgetTaskUp.c_str());
 }
