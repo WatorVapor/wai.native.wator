@@ -65,6 +65,6 @@ void WikiCrawler::parse(const pt::ptree &task,string &content) {
   wgetTaskUp += "file=@";
   wgetTaskUp += task_url_upPath;
   wgetTaskUp += "\" ";
-  wgetTaskUp += "\"https://www.wator.xyz/wai/text/train/ostrich/url/tain.one\"";
+  wgetTaskUp += "\"https://www.wator.xyz/wai/text/train/crawler\"";
   DUMP_VAR(wgetTaskUp);
 }
