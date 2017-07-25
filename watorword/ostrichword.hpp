@@ -34,6 +34,6 @@ private:
   bool stub_;
   unique_ptr<DictionaryStorage> dict_;
   map<string,int> multiWordOfOneArticle_;
-  const int gWordLength = 32;
+  const int maxWordLength_ = 32;
   const int minWordRepeateTimes_ = 3;
 };
