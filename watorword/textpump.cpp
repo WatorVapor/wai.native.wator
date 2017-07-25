@@ -35,8 +35,8 @@ namespace pt = boost::property_tree;
 bool TextPump::fetchMasterTask(pt::ptree &task,string &content) {
   string taskJSONPath = "/tmp/wai.native/task.json";
   string taskTextPath = "/tmp/wai.native/task.text";
-  //string wget =  "wget -6 ";
-  string wget =  "wget ";
+  string wget =  "wget -6 ";
+  //string wget =  "wget ";
   wget += url_; 
   wget += "/";
   wget += tag_;
