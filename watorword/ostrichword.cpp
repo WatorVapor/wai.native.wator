@@ -55,7 +55,7 @@ void OstrichWord::learn(const vector<string> &wordBytes){
       this->pushMultiWord(jointWord);
     }
     preWords.push_back(word);
-    if(preWords.size() > gWordLength -1) {
+    if(preWords.size() > maxWordLength_ -1) {
       preWords.pop_front();
     }
   }
