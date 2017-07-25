@@ -26,10 +26,11 @@ add_library(watorword
   watorword/phoenixword.db.cpp
   watorword/qiangbaoword.cpp
   watorword/qiangbaoword.db.cpp
+  watorword/treeword.cpp
   watorword/dictstorage.cpp
   watorword/ctrlclaw.cpp
   watorword/textpump.cpp
-  watorword/treeword.cpp
+  watorword/wikicrawler.cpp
   watorword/api_entry.cpp
   watorword/api_wai.cpp
   watorword/utf8.cpp
