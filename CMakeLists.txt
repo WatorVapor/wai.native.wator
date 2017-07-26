@@ -94,5 +94,12 @@ target_link_libraries(wator.wai.app
   ${LIBS}
 )
 
+add_executable(wator.taskpool.app
+  tools/taskpool.cpp
+)
+target_link_libraries(wator.taskpool.app
+  watorword
+  ${LIBS}
+)
 
 
