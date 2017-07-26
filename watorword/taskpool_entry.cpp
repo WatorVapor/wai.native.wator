@@ -101,3 +101,21 @@ void taskpool_upd_main(void) {
     }
   }
 }
+
+
+string processText(const string &text) {
+  try {
+    pt::ptree configJson;
+    std::stringstream ss;
+    ss << text;
+    pt::read_json(ss, configJson);
+    auto langOpt  = configJson.get_optional<string>("lang");
+    if(langOpt) {
+      auto lang = langOpt.get();
+    } 
+  } catch (boost::exception &e) {
+    DUMP_VAR(boost::diagnostic_information(e));
+  }
+  return "";
+}
+
