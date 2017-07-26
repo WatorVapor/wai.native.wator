@@ -75,9 +75,11 @@ bool TextPump::fetchMasterTask(pt::ptree &task,string &content) {
    }
   } catch (const pt::json_parser::json_parser_error& e) {
     DUMP_VAR(e.what());
+    return false;
   }
   catch( const std::exception & ex ) {
     DUMP_VAR(ex.what());
+    return false;
   }
   return true;
 }
