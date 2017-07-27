@@ -151,6 +151,7 @@ string fetchCrawlerTask(const string &lang) {
       return "";
     } else {
       auto top = gVectTodoPathCN.back();
+      DUMP_VAR(top);
       gVectTodoPathCN.pop_back();
       return top;
     }
@@ -161,6 +162,7 @@ string fetchCrawlerTask(const string &lang) {
       return "";
     } else {
       auto top = gVectTodoPathJA.back();
+      DUMP_VAR(top);
       gVectTodoPathJA.pop_back();
       return top;
     }
