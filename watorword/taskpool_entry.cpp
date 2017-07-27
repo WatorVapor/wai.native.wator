@@ -103,6 +103,8 @@ void taskpool_upd_main(void) {
 }
 
 
+string fetchCrawlerTask(const string &lang);
+
 string processText(const string &text) {
   try {
     pt::ptree configJson;
@@ -112,6 +114,15 @@ string processText(const string &text) {
     auto langOpt  = configJson.get_optional<string>("lang");
     if(langOpt) {
       auto lang = langOpt.get();
+      DUMP_VAR(lang);
+      auto typeOpt  = configJson.get_optional<string>("type");
+      if(typeOpt) {
+        auto type = typeOpt.get();
+        DUMP_VAR(type);
+        if(type == "crawler") {
+          return fetchCrawlerTask(lang);
+        }
+      }
     } 
   } catch (boost::exception &e) {
     DUMP_VAR(boost::diagnostic_information(e));
@@ -119,3 +130,6 @@ string processText(const string &text) {
   return "";
 }
 
+string fetchCrawlerTask(const string &lang) {
+  DUMP_VAR(lang);
+}
