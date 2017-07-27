@@ -130,7 +130,82 @@ string processText(const string &text) {
   return "";
 }
 
+#include <boost/filesystem.hpp>
+namespace fs = boost::filesystem;
+#include <mutex>
+#include <condition_variable>
+
+
+static vector<string> gVectTodoPathCN;
+static vector<string> gVectTodoPathJA;
+static std::mutex gVectoPathMutex;
+static std::condition_variable gVectoPathCV;
+static std::mutex gVectoPathCvMutex;
+
 string fetchCrawlerTask(const string &lang) {
   DUMP_VAR(lang);
+  if(lang == "cn") {
+    std::lock_guard<std::mutex> lock(gVectoPathMutex);
+    if(gVectTodoPathCN.empty()){
+      gVectoPathCV.notify_all();
+      return "";
+    } else {
+      auto top = gVectTodoPathCN.front();
+      gVectTodoPathCN.pop();
+      return top;
+    }
+  } else if(lang == "ja") {
+    std::lock_guard<std::mutex> lock(gVectoPathMutex);
+    if(gVectTodoPathJA.empty()){
+      gVectoPathCV.notify_all();
+      return "";
+    } else {
+      auto top = gVectTodoPathJA.front();
+      gVectTodoPathJA.pop();
+      return top;
+    }
+  } else {
+  }
   return "";
+}
+
+
+static void findTodoURLs(void) {
+  {
+    fs::path path("/watorvapor/wai.storage/cn/todo");
+    BOOST_FOREACH(const fs::path& p, std::make_pair(fs::recursive_directory_iterator(path),fs::recursive_directory_iterator())){
+      if (!fs::is_directory(p)){
+        string pathText= p.string();
+        TRACE_VAR(pathText); 
+        std::ifstream textStream(pathText);
+        std::string str((std::istreambuf_iterator<char>(textStream)),
+                       std::istreambuf_iterator<char>());
+        gVectTodoPathCN.push_back(str);
+        textStream.close();
+      }
+    }
+  }
+  {
+    fs::path path("/watorvapor/wai.storage/ja/todo");
+    BOOST_FOREACH(const fs::path& p, std::make_pair(fs::recursive_directory_iterator(path),fs::recursive_directory_iterator())){
+      if (!fs::is_directory(p)){
+        string pathText= p.string();
+        TRACE_VAR(pathText); 
+        std::ifstream textStream(pathText);
+        std::string str((std::istreambuf_iterator<char>(textStream)),
+                       std::istreambuf_iterator<char>());
+        textStream.close();
+        gVectTodoPathJA.push_back(str);
+      }
+    }
+  }
+}
+
+
+void taskpool_collect(void) {
+  while(true) {
+    findTodoURLs();
+    std::unique_lock<std::mutex> lk(gVectoPathCvMutex);
+    gVectoPathCV.wait();
+  }
 }
