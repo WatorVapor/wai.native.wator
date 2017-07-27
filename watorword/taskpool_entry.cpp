@@ -142,6 +142,8 @@ static std::mutex gVectoPathMutex;
 static std::condition_variable gVectoPathCV;
 static std::mutex gVectoPathCvMutex;
 
+static int iConstPathCacheMax 1024;
+
 string fetchCrawlerTask(const string &lang) {
   DUMP_VAR(lang);
   if(lang == "cn") {
@@ -182,8 +184,11 @@ static void findTodoURLs(void) {
         std::ifstream textStream(pathText);
         std::string str((std::istreambuf_iterator<char>(textStream)),
                        std::istreambuf_iterator<char>());
-        gVectTodoPathCN.push_back(str);
         textStream.close();
+        gVectTodoPathCN.push_back(str);
+        if(gVectTodoPathCN.size() >iConstPathCacheMax){
+          break;
+        }
       }
     }
   }
@@ -198,6 +203,9 @@ static void findTodoURLs(void) {
                        std::istreambuf_iterator<char>());
         textStream.close();
         gVectTodoPathJA.push_back(str);
+        if(gVectTodoPathJA.size() >iConstPathCacheMax){
+          break;
+        }
       }
     }
   }
