@@ -53,7 +53,7 @@ bool TextPump::fetchMasterTask(pt::ptree &task,string &content) {
     if(taskURLOpt) {
       taskURL = taskURLOpt.get();
       DUMP_VAR(taskURL);
-      string textWget = "wget ";
+      string textWget = "wget --tries=3 --connect-timeout=10";
       textWget += taskURL;
       textWget += " -O ";
       textWget += taskTextPath;
