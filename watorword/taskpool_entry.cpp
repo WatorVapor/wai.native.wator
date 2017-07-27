@@ -132,4 +132,5 @@ string processText(const string &text) {
 
 string fetchCrawlerTask(const string &lang) {
   DUMP_VAR(lang);
+  return "";
 }
