@@ -207,6 +207,8 @@ static void findTodoURLs(void) {
 void taskpool_collect(void) {
   while(true) {
     findTodoURLs();
+    DUMP_VAR(gVectTodoPathCN.size());
+    DUMP_VAR(gVectTodoPathJA.size());
     std::unique_lock<std::mutex> lk(gVectoPathCvMutex);
     gVectoPathCV.wait(lk);
   }
