@@ -150,8 +150,8 @@ string fetchCrawlerTask(const string &lang) {
       gVectoPathCV.notify_all();
       return "";
     } else {
-      auto top = gVectTodoPathCN.front();
-      gVectTodoPathCN.pop_front();
+      auto top = gVectTodoPathCN.back();
+      gVectTodoPathCN.pop_back();
       return top;
     }
   } else if(lang == "ja") {
@@ -160,8 +160,8 @@ string fetchCrawlerTask(const string &lang) {
       gVectoPathCV.notify_all();
       return "";
     } else {
-      auto top = gVectTodoPathJA.front();
-      gVectTodoPathJA.pop_front();
+      auto top = gVectTodoPathJA.back();
+      gVectTodoPathJA.pop_back();
       return top;
     }
   } else {
