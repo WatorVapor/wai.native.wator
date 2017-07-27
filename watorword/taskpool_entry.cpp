@@ -151,7 +151,7 @@ string fetchCrawlerTask(const string &lang) {
       return "";
     } else {
       auto top = gVectTodoPathCN.front();
-      gVectTodoPathCN.pop();
+      gVectTodoPathCN.pop_front();
       return top;
     }
   } else if(lang == "ja") {
@@ -161,7 +161,7 @@ string fetchCrawlerTask(const string &lang) {
       return "";
     } else {
       auto top = gVectTodoPathJA.front();
-      gVectTodoPathJA.pop();
+      gVectTodoPathJA.pop_front();
       return top;
     }
   } else {
@@ -206,6 +206,6 @@ void taskpool_collect(void) {
   while(true) {
     findTodoURLs();
     std::unique_lock<std::mutex> lk(gVectoPathCvMutex);
-    gVectoPathCV.wait();
+    gVectoPathCV.wait(lk);
   }
 }
