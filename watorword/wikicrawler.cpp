@@ -7,14 +7,21 @@ WikiCrawler::~WikiCrawler(){
 }
 
 #include <regex>
+#include <boost/algorithm/string.hpp>
 
 const static string strMatchHref("href=\"");
 void WikiCrawler::parse(const pt::ptree &task,string &content) {
   //DUMP_VAR(content);
   std::regex rx( "<a.*?href=['|\"](.*?)['|\"]" );
+  string filter;
   string prefix;
   string base_url;
   try {
+    auto filterOpt = task.get_optional<string>("filter");
+    if(filterOpt) {
+      filter = filterOpt.get();
+      DUMP_VAR(filter);
+    }
     auto prefixOpt = task.get_optional<string>("prefix");
     if(prefixOpt) {
       prefix = prefixOpt.get();
@@ -46,10 +53,13 @@ void WikiCrawler::parse(const pt::ptree &task,string &content) {
     if(first != std::string::npos && last != std::string::npos && last > first){
       string href = match_href.substr (first + strMatchHref.size(),last-first -strMatchHref.size());
       TRACE_VAR(href);
-      auto first = href.find(prefix);
+      auto first = href.find(filter);
       if(first == 0) {
         href = base_url + href;
-        TRACE_VAR(prefix,href);
+        if(filter != prefix) {
+          boost::algorithm::replace_all(href, filter, prefix);
+        }
+        TRACE_VAR(filter,href);
         crawlerArrays += "{";
         crawlerArrays += href;
         crawlerArrays += "};";
