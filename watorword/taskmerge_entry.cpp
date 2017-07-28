@@ -107,24 +107,30 @@ string fetchCrawlerTask(const string &lang);
 
 string processText(const string &text) {
   try {
-    DUMP_VAR(text);
+    TRACE_VAR(text);
     pt::ptree configJson;
     std::stringstream ss;
     ss << text;
     pt::read_json(ss, configJson);
+    std::string lang;
     auto langOpt  = configJson.get_optional<string>("lang");
     if(langOpt) {
-      auto lang = langOpt.get();
-      DUMP_VAR(lang);
-      auto it =configJson.find("crawler");
-      if(it != configJson.not_found()) {
-        auto crawlerOpt = configJson.get_optional<string>("crawler");
-        if(crawlerOpt) {
-          auto crawler = crawlerOpt.get();
-          DUMP_VAR(crawler);
-        }
-      }
+      lang = langOpt.get();
     } 
+    std::string url;
+    auto urlOpt  = configJson.get_optional<string>("lang");
+    if(urlOpt) {
+      url = urlOpt.get();
+    } 
+    DUMP_VAR2(lang,url);
+    auto it =configJson.find("crawler");
+    if(it != configJson.not_found()) {
+      auto crawlerOpt = configJson.get_optional<string>("crawler");
+      if(crawlerOpt) {
+        auto crawler = crawlerOpt.get();
+        DUMP_VAR(crawler);
+      }
+    }
   } catch (boost::exception &e) {
     DUMP_VAR(boost::diagnostic_information(e));
   }
