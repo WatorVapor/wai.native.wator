@@ -64,8 +64,8 @@ private:
   }
 
   void handle_send(boost::shared_ptr<std::string> msg) {
-    TRACE_VAR(msg);
-    TRACE_VAR(*msg);
+    DUMP_VAR(msg);
+    DUMP_VAR(*msg);
   }
 
   shared_ptr<udp::socket> socket_;
