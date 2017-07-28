@@ -111,6 +111,7 @@ string fetchCrawlerTask(const string &lang);
 #include <openssl/sha.h>
 #include <cstring>
 #include <sstream>
+#include <regex>
 
 static string sha1(const string &data) {
 	unsigned char hash[SHA_DIGEST_LENGTH];
@@ -169,7 +170,7 @@ string processText(const string &text) {
         DUMP_VAR(crawler);
 				std::regex re ("/[{\s};]+/");
 				std::smatch sm;
-				td::regex_match (crawler,sm,re);
+				std::regex_match (crawler,sm,re);
 				DUMP_VAR(sm.size());
       }
     }
