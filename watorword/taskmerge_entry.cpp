@@ -144,6 +144,12 @@ static string sha1(const string &data) {
 }
 
 #include <boost/algorithm/string.hpp>
+#include <boost/filesystem.hpp>
+#include <fstream>
+
+const string WAI_STORAGE = "/watorvapor/wai.storage";
+const string WAI_STORAGE_CN = "/watorvapor/wai.storage/cn/todo/";
+const string WAI_STORAGE_JA = "/watorvapor/wai.storage/ja/todo/";
 
 string processText(const string &text) {
   try {
@@ -164,6 +170,29 @@ string processText(const string &text) {
     }
     auto doneName = sha1(urlDone);
     DUMP_VAR2(doneName,urlDone);
+    string donePath = WAI_STORAGE;
+    donePath += "/";
+    donePath += lang;
+    donePath += "/master/";
+    donePath +=  doneName;
+    
+    ofstream doneMasterFile(donePath);
+    if(doneMasterFile.is_open()) {
+      doneMasterFile << urlDone;
+      doneMasterFile.close();
+    }
+    
+    
+    string todoPath = WAI_STORAGE;
+    todoPath += "/";
+    todoPath += lang;
+    todoPath += "/todo/";
+    todoPath +=  doneName;
+    fs::path pathFS(todoPath);
+    if(fs::exists(pathFS)) {
+      fs::remove(pathFS);
+    }
+    
     auto it =configJson.find("crawler");
     if(it != configJson.not_found()) {
       auto crawlerOpt = configJson.get_optional<string>("crawler");
@@ -174,8 +203,28 @@ string processText(const string &text) {
         string delim ("{};");
         boost::split(list_string, crawler, boost::is_any_of(delim),boost::algorithm::token_compress_on);
         for(auto url:list_string){
-          auto todoName = sha1(url);
-          DUMP_VAR2(url,todoName);
+          if(url.empty() == false)
+            auto todoName = sha1(url);
+            DUMP_VAR2(url,todoName);
+            string doneCheckPath = WAI_STORAGE;
+            doneCheckPath += "/";
+            doneCheckPath += lang;
+            doneCheckPath += "/master/";
+            doneCheckPath +=  todoName;
+            fs::path doneCheckPathFS(doneCheckPath);
+            if(fs::exists(doneCheckPathFS) == false) {
+              string todoNewPath = WAI_STORAGE;
+              todoNewPath += "/";
+              todoNewPath += lang;
+              todoNewPath += "/todo/";
+              todoNewPath +=  doneName;
+              ofstream doneTodoFile(todoNewPath);
+              if(doneTodoFile.is_open()) {
+                doneTodoFile << url;
+                doneTodoFile.close();
+              }
+            }
+          }
         }
       }
     }
