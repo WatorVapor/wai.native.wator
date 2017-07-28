@@ -105,6 +105,32 @@ void taskmerge_upd_main(void) {
 
 string fetchCrawlerTask(const string &lang);
 
+#include <boost/uuid/sha1.hpp>
+#include <boost/format.hpp>
+
+static string sha1(const string &data) {
+  boost::uuids::detail::sha1 s;
+  s.process_bytes(data.c_str(), data.size());
+  unsigned int digest[5];
+  s.get_digest(digest);
+  string hash;
+  for(int i = 0; i < 5; ++i) {
+		const char* tmp = reinterpret_cast<char*>(digest);
+    hash += (boost::format("%02x")%tmp[i*4+3]).str();
+    hash += (boost::format("%02x")%tmp[i*4+2]).str();
+    hash += (boost::format("%02x")%tmp[i*4+1]).str();
+    hash += (boost::format("%02x")%tmp[i*4+0]).str();
+    /*
+    const std::string s = (boost::format("%2% %1%") % 3 % std::string("Hello")).str();
+    hash.append(tmp[i*4+3]));
+    hash.append(tmp[i*4+2]);
+    hash.append(tmp[i*4+1]);
+    hash.append(tmp[i*4]);
+    */
+  }
+  return hash;
+}
+
 string processText(const string &text) {
   try {
     TRACE_VAR(text);
@@ -121,8 +147,9 @@ string processText(const string &text) {
     auto urlOpt  = configJson.get_optional<string>("url");
     if(urlOpt) {
       url = urlOpt.get();
-    } 
-    DUMP_VAR2(lang,url);
+    }
+    auto doneName = sha1(url);
+    DUMP_VAR2(doneName,url);
     auto it =configJson.find("crawler");
     if(it != configJson.not_found()) {
       auto crawlerOpt = configJson.get_optional<string>("crawler");
