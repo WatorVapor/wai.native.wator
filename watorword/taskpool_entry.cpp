@@ -175,7 +175,7 @@ string fetchCrawlerTask(const string &lang) {
 
 
 static void findTodoURLs(void) {
-  {
+  try {
     fs::path path("/watorvapor/wai.storage/cn/todo");
     BOOST_FOREACH(const fs::path& p, std::make_pair(fs::recursive_directory_iterator(path),fs::recursive_directory_iterator())){
       if (!fs::is_directory(p)){
@@ -191,8 +191,11 @@ static void findTodoURLs(void) {
         }
       }
     }
+  } catch(std::exception &e) {
+    DUMP_VAR(e.what());
+  } catch(...) {
   }
-  {
+  try {
     fs::path path("/watorvapor/wai.storage/ja/todo");
     BOOST_FOREACH(const fs::path& p, std::make_pair(fs::recursive_directory_iterator(path),fs::recursive_directory_iterator())){
       if (!fs::is_directory(p)){
@@ -208,7 +211,11 @@ static void findTodoURLs(void) {
         }
       }
     }
+  } catch(std::exception &e) {
+    DUMP_VAR(e.what());
+  } catch(...) {
   }
+
   // add seed
   if(gVectTodoPathCN.empty()) {
     gVectTodoPathCN.push_back("https://zh.wikipedia.org/zh-cn/%E7%94%B5%E5%AD%90");
