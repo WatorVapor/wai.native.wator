@@ -107,6 +107,7 @@ string fetchCrawlerTask(const string &lang);
 
 string processText(const string &text) {
   try {
+    DUMP_VAR(text);
     pt::ptree configJson;
     std::stringstream ss;
     ss << text;
@@ -119,9 +120,6 @@ string processText(const string &text) {
       if(typeOpt) {
         auto type = typeOpt.get();
         DUMP_VAR(type);
-        if(type == "crawler") {
-          return "";
-        }
       }
     } 
   } catch (boost::exception &e) {
