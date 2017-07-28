@@ -117,7 +117,7 @@ string processText(const string &text) {
       auto lang = langOpt.get();
       DUMP_VAR(lang);
       auto it =configJson.find("crawler");
-      if(it != pt::not_found) {
+      if(it != configJson.not_found()) {
         auto crawlerOpt = configJson.get_optional<string>("crawler");
         if(crawlerOpt) {
           auto crawler = crawlerOpt.get();
