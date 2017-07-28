@@ -116,10 +116,13 @@ string processText(const string &text) {
     if(langOpt) {
       auto lang = langOpt.get();
       DUMP_VAR(lang);
-      auto typeOpt  = configJson.get_optional<string>("type");
-      if(typeOpt) {
-        auto type = typeOpt.get();
-        DUMP_VAR(type);
+      auto it =configJson.find("crawler");
+      if(it != pt::not_found) {
+        auto crawlerOpt = configJson.get_optional<string>("crawler");
+        if(crawlerOpt) {
+          auto crawler = crawlerOpt.get();
+          DUMP_VAR(crawler);
+        }
       }
     } 
   } catch (boost::exception &e) {
