@@ -35,17 +35,17 @@ public:
   void send(const std::string &msg) {
     boost::shared_ptr<std::string> message(new std::string(msg));
     socket_->async_send_to(
-        boost::asio::buffer(*message), remote_endpoint_,
-        boost::bind(&udp_server::handle_send, this, message));
+			boost::asio::buffer(*message), remote_endpoint_,
+      boost::bind(&udp_server::handle_send, this, message));
   }
 
 private:
   void start_receive() {
     socket_->async_receive_from(
-        boost::asio::buffer(recv_buffer_), remote_endpoint_,
-        boost::bind(&udp_server::handle_receive, this,
-                    boost::asio::placeholders::error,
-                    boost::asio::placeholders::bytes_transferred));
+			boost::asio::buffer(recv_buffer_), remote_endpoint_,
+      boost::bind(&udp_server::handle_receive, this,
+      boost::asio::placeholders::error,
+      boost::asio::placeholders::bytes_transferred));
   }
 
   void handle_receive(const boost::system::error_code &error,
@@ -114,10 +114,10 @@ string fetchCrawlerTask(const string &lang);
 
 static string sha1(const string &data) {
 	unsigned char hash[SHA_DIGEST_LENGTH];
-	SHA1(data.c_str(), data.size(), hash);
+	SHA1((const unsigned char*)(data.c_str()), data.size(), hash);
 	std::stringstream ss; 
 	for(auto dig:hash) {
-		ss << hex << setw(2) << setfill('0') << (int)hash[i];
+		ss << hex << setw(2) << setfill('0') << (int)dig;
 	}
   return ss.str();
 /*	
