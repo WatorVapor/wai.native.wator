@@ -203,8 +203,8 @@ string processText(const string &text) {
         list<string> list_string;
         string delim ("{};");
         boost::split(list_string, crawler, boost::is_any_of(delim),boost::algorithm::token_compress_on);
-        for(auto url:list_string){
-          if(url.empty() == false)
+        for(auto url:list_string) {
+          if(url.empty() == false) {
             auto todoName = sha1(url);
             DUMP_VAR2(url,todoName);
             string doneCheckPath = WAI_STORAGE;
