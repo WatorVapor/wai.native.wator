@@ -209,6 +209,13 @@ static void findTodoURLs(void) {
       }
     }
   }
+  // add seed
+  if(gVectTodoPathCN.empty()) {
+    gVectTodoPathCN.push_back("https://zh.wikipedia.org/zh-cn/%E7%94%B5%E5%AD%90");
+  }
+  if(gVectTodoPathJA.empty()) {
+    gVectTodoPathJA.push_back("https://ja.wikipedia.org/wiki/%E9%9B%BB%E5%AD%90");
+  }
 }
 
 
