@@ -157,13 +157,13 @@ string processText(const string &text) {
     if(langOpt) {
       lang = langOpt.get();
     } 
-    std::string url;
+    std::string urlDone;
     auto urlOpt  = configJson.get_optional<string>("url");
     if(urlOpt) {
-      url = urlOpt.get();
+      urlDone = urlOpt.get();
     }
-    auto doneName = sha1(url);
-    DUMP_VAR2(doneName,url);
+    auto doneName = sha1(urlDone);
+    DUMP_VAR2(doneName,urlDone);
     auto it =configJson.find("crawler");
     if(it != configJson.not_found()) {
       auto crawlerOpt = configJson.get_optional<string>("crawler");
@@ -174,7 +174,8 @@ string processText(const string &text) {
         string delim ("{};");
         boost::split(list_string, crawler, boost::is_any_of(delim),boost::algorithm::token_compress_on);
         for(auto url:list_string){
-          DUMP_VAR(url);
+          auto todoName = sha1(url);
+          DUMP_VAR2(url,todoName);
         }
       }
     }
