@@ -16,7 +16,7 @@ set(LIBS
   boost_thread
   pthread
   leveldb
-  openssl
+  ssl
 )
 add_library(watorword
   watorword/ostrichword.cpp
