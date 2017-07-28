@@ -50,10 +50,10 @@ private:
 
   void handle_receive(const boost::system::error_code &error,
                       std::size_t bytes_transferred) {
-    DUMP_VAR(remote_endpoint_);
-    DUMP_VAR(bytes_transferred);
+    TRACE_VAR(remote_endpoint_);
+    TRACE_VAR(bytes_transferred);
     std::string recv_str(recv_buffer_.data(), bytes_transferred);
-    DUMP_VAR(recv_str);
+    TRACE_VAR(recv_str);
     auto reuslt = processText(recv_str);
     if(reuslt.empty() == false) {
       this->send(reuslt);
@@ -64,8 +64,8 @@ private:
   }
 
   void handle_send(boost::shared_ptr<std::string> msg) {
-    DUMP_VAR(msg);
-    DUMP_VAR(*msg);
+    TRACE_VAR(msg);
+    TRACE_VAR(*msg);
   }
 
   shared_ptr<udp::socket> socket_;
@@ -118,7 +118,7 @@ string processText(const string &text) {
       lang = langOpt.get();
     } 
     std::string url;
-    auto urlOpt  = configJson.get_optional<string>("lang");
+    auto urlOpt  = configJson.get_optional<string>("url");
     if(urlOpt) {
       url = urlOpt.get();
     } 
