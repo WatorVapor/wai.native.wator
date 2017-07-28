@@ -79,26 +79,34 @@ target_link_libraries(wator.phoenix.app
 
 
 
-add_executable(wator.display.app
-  tools/display.cpp
-)
-target_link_libraries(wator.display.app
-  watorword
-  ${LIBS}
-)
+#add_executable(wator.display.app
+#  tools/display.cpp
+#)
+#target_link_libraries(wator.display.app
+#  watorword
+#  ${LIBS}
+#)
 
-add_executable(wator.wai.app
+add_executable(wator.webservice.wai.app
   tools/wai.cpp
 )
-target_link_libraries(wator.wai.app
+target_link_libraries(wator.webservice.wai.app
   watorword
   ${LIBS}
 )
 
-add_executable(wator.taskpool.app
+add_executable(wator.webservice.taskpool.app
   tools/taskpool.cpp
 )
-target_link_libraries(wator.taskpool.app
+target_link_libraries(wator.webservice.taskpool.app
+  watorword
+  ${LIBS}
+)
+
+add_executable(wator.webservice.taskmerge.app
+  tools/taskmerge.cpp
+)
+target_link_libraries(wator.webservice.taskmerge.app
   watorword
   ${LIBS}
 )
