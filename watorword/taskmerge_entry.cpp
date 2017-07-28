@@ -144,8 +144,9 @@ static string sha1(const string &data) {
 }
 
 #include <boost/algorithm/string.hpp>
-#include <boost/filesystem.hpp>
 #include <fstream>
+#include <boost/filesystem.hpp>
+namespace fs = boost::filesystem;
 
 const string WAI_STORAGE = "/watorvapor/wai.storage";
 const string WAI_STORAGE_CN = "/watorvapor/wai.storage/cn/todo/";
