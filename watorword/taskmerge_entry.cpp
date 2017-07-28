@@ -110,7 +110,7 @@ string fetchCrawlerTask(const string &lang);
 
 #include <openssl/sha.h>
 #include <cstring>
-#include <stringstream>
+#include <sstream>
 
 static string sha1(const string &data) {
 	unsigned char hash[SHA_DIGEST_LENGTH];
