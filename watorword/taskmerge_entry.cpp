@@ -143,6 +143,8 @@ static string sha1(const string &data) {
  */
 }
 
+#include <boost/algorithm/string.hpp>
+
 string processText(const string &text) {
   try {
     TRACE_VAR(text);
@@ -168,10 +170,12 @@ string processText(const string &text) {
       if(crawlerOpt) {
         auto crawler = crawlerOpt.get();
         DUMP_VAR(crawler);
-				std::regex re("/[{\\s};]+/");
-				std::smatch sm;
-				std::regex_match (crawler,sm,re);
-				DUMP_VAR(sm.size());
+        list<string> list_string;
+        string delim ("{};");
+        boost::split(list_string, crawler, boost::is_any_of(delim),boost::algorithm::token_compress_on);
+        for(auto url:list_string){
+          DUMP_VAR(url);
+        }
       }
     }
   } catch (boost::exception &e) {
