@@ -170,7 +170,7 @@ string processText(const string &text) {
       urlDone = urlOpt.get();
     }
     auto doneName = sha1(urlDone);
-    DUMP_VAR2(doneName,urlDone);
+    TRACE_VAR(doneName,urlDone);
     string donePath = WAI_STORAGE;
     donePath += "/";
     donePath += lang;
@@ -199,14 +199,14 @@ string processText(const string &text) {
       auto crawlerOpt = configJson.get_optional<string>("crawler");
       if(crawlerOpt) {
         auto crawler = crawlerOpt.get();
-        DUMP_VAR(crawler);
+        TRACE_VAR(crawler);
         list<string> list_string;
         string delim ("{};");
         boost::split(list_string, crawler, boost::is_any_of(delim),boost::algorithm::token_compress_on);
         for(auto url:list_string) {
           if(url.empty() == false) {
             auto todoName = sha1(url);
-            DUMP_VAR2(url,todoName);
+            TRACE_VAR(url,todoName);
             string doneCheckPath = WAI_STORAGE;
             doneCheckPath += "/";
             doneCheckPath += lang;
