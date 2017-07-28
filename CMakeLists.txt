@@ -32,6 +32,7 @@ add_library(watorword
   watorword/textpump.cpp
   watorword/wikicrawler.cpp
   watorword/taskpool_entry.cpp
+  watorword/taskmerge_entry.cpp
   watorword/api_entry.cpp
   watorword/api_wai.cpp
   watorword/utf8.cpp
