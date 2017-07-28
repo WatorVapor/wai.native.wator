@@ -108,7 +108,19 @@ string fetchCrawlerTask(const string &lang);
 #include <boost/uuid/sha1.hpp>
 #include <boost/format.hpp>
 
+#include <openssl/sha.h>
+#include <cstring>
+#include <stringstream>
+
 static string sha1(const string &data) {
+	unsigned char hash[SHA_DIGEST_LENGTH];
+	SHA1(data.c_str(), data.size(), hash);
+	std::stringstream ss; 
+	for(auto dig:hash) {
+		ss << hex << setw(2) << setfill('0') << (int)hash[i];
+	}
+  return ss.str();
+/*	
   boost::uuids::detail::sha1 s;
   s.process_bytes(data.c_str(), data.size());
   unsigned int digest[5];
@@ -120,15 +132,14 @@ static string sha1(const string &data) {
     hash += (boost::format("%02x")%tmp[i*4+2]).str();
     hash += (boost::format("%02x")%tmp[i*4+1]).str();
     hash += (boost::format("%02x")%tmp[i*4+0]).str();
-    /*
+
     const std::string s = (boost::format("%2% %1%") % 3 % std::string("Hello")).str();
     hash.append(tmp[i*4+3]));
     hash.append(tmp[i*4+2]);
     hash.append(tmp[i*4+1]);
     hash.append(tmp[i*4]);
-    */
   }
-  return hash;
+ */
 }
 
 string processText(const string &text) {
