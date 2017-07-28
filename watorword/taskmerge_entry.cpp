@@ -167,6 +167,10 @@ string processText(const string &text) {
       if(crawlerOpt) {
         auto crawler = crawlerOpt.get();
         DUMP_VAR(crawler);
+				std::regex re ("/[{\s};]+/");
+				std::smatch sm;
+				td::regex_match (crawler,sm,re);
+				DUMP_VAR(sm.size());
       }
     }
   } catch (boost::exception &e) {
