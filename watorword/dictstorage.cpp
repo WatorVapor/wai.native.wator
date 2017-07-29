@@ -1,9 +1,9 @@
-#include <string>
 #include <iostream>
-#include <thread>
-#include <vector>
 #include <list>
 #include <map>
+#include <string>
+#include <thread>
+#include <vector>
 using namespace std;
 
 #include <leveldb/db.h>
@@ -13,36 +13,47 @@ using namespace std;
 
 #include "dictstorage.hpp"
 
-#define DUMP_VAR(x) std::cout << __func__ << ":" << __LINE__ << "::" << #x << "=<" << x << ">"<< std::endl;
-#define DUMP_VAR2(x,y) std::cout << __func__ << ":" << __LINE__ << "::" << #x << "," << #y << "=<" << x << "," << y << ">" << std::endl;
-#define DUMP_VAR3(x,y,z) std::cout << __func__ << ":" << __LINE__ << "::" << #x << "," << #y << "," << #z << "=<" << x << "," << y << "," << z <<">" << std::endl;
-#define DUMP_VAR4(x,y,z,a) std::cout << __func__ << ":" << __LINE__ << "::" << #x << "," << #y << "," << #z << "," << #a << "=<" << x << "," << y << "," << z << "," << a <<">" << std::endl;
-#define DUMP_VAR5(x,y,z,a,b) std::cout << __func__ << ":" << __LINE__ << "::" << #x << "," << #y << "," << #z << "," << #a << "," << #b << "=<" << x << "," << y << "," << z << "," << a << "," << b <<">" << std::endl;
+#define DUMP_VAR(x)                                                            \
+  std::cout << __func__ << ":" << __LINE__ << "::" << #x << "=<" << x << ">"   \
+            << std::endl;
+#define DUMP_VAR2(x, y)                                                        \
+  std::cout << __func__ << ":" << __LINE__ << "::" << #x << "," << #y << "=<"  \
+            << x << "," << y << ">" << std::endl;
+#define DUMP_VAR3(x, y, z)                                                     \
+  std::cout << __func__ << ":" << __LINE__ << "::" << #x << "," << #y << ","   \
+            << #z << "=<" << x << "," << y << "," << z << ">" << std::endl;
+#define DUMP_VAR4(x, y, z, a)                                                  \
+  std::cout << __func__ << ":" << __LINE__ << "::" << #x << "," << #y << ","   \
+            << #z << "," << #a << "=<" << x << "," << y << "," << z << ","     \
+            << a << ">" << std::endl;
+#define DUMP_VAR5(x, y, z, a, b)                                               \
+  std::cout << __func__ << ":" << __LINE__ << "::" << #x << "," << #y << ","   \
+            << #z << "," << #a << "," << #b << "=<" << x << "," << y << ","    \
+            << z << "," << a << "," << b << ">" << std::endl;
 #define TRACE_VAR(x)
 
-static leveldb::DB* gSaveDB = nullptr;
+static leveldb::DB *gSaveDB = nullptr;
 
-DictionaryStorage::DictionaryStorage(const string &path,const string &prefix) {
+DictionaryStorage::DictionaryStorage(const string &path, const string &prefix) {
   out_db_path_ = path + "/" + prefix;
   DUMP_VAR(out_db_path_);
   iter_db_path_ = path + "/snapshot/" + prefix + "_iter.";
   DUMP_VAR(iter_db_path_);
 }
 
-DictionaryStorage::~DictionaryStorage() {
-}
-
+DictionaryStorage::~DictionaryStorage() {}
 
 void DictionaryStorage::openDB() {
-  if(gSaveDB == nullptr) {
+  if (gSaveDB == nullptr) {
     leveldb::Options options;
     options.create_if_missing = true;
     options.max_open_files = 512;
     options.paranoid_checks = true;
     options.compression = leveldb::kNoCompression;
-    //auto status = leveldb::DB::Open(options, "./db/baidu.baike/word_ostrich", &gSaveDB);
+    // auto status = leveldb::DB::Open(options, "./db/baidu.baike/word_ostrich",
+    // &gSaveDB);
     auto status = leveldb::DB::Open(options, out_db_path_, &gSaveDB);
-    if(status.ok() == false) {
+    if (status.ok() == false) {
       DUMP_VAR(status.ToString());
       gSaveDB = nullptr;
     }
@@ -50,18 +61,18 @@ void DictionaryStorage::openDB() {
 }
 
 void DictionaryStorage::closeDB() {
-  if(gSaveDB != nullptr) {
-   delete gSaveDB;
+  if (gSaveDB != nullptr) {
+    delete gSaveDB;
     gSaveDB = nullptr;
   }
 }
-void DictionaryStorage::writeDB(){
-  if(gSaveDB != nullptr) {
+void DictionaryStorage::writeDB() {
+  if (gSaveDB != nullptr) {
     leveldb::WriteOptions writeOptions;
     writeOptions.sync = true;
     auto status = gSaveDB->Write(writeOptions, &gSaveDBBatch);
     DUMP_VAR(status.ToString());
-    if(status.ok()) {
+    if (status.ok()) {
       gSaveDBBatch.Clear();
       dumpSnapshotDB();
     }
@@ -71,29 +82,30 @@ void DictionaryStorage::writeDB(){
 static int iConstSnapshotCounter = 100;
 void DictionaryStorage::dumpSnapshotDB() {
   static int iCounter = 0;
-  if(iCounter++ % iConstSnapshotCounter != iConstSnapshotCounter -1){
+  if (iCounter++ % iConstSnapshotCounter != iConstSnapshotCounter - 1) {
     return;
   }
   static int iSnapshotNumber = 0;
   string pathIter = (boost::format("%08d") % iSnapshotNumber++).str();
-  //std::reverse(pathIter.begin(), pathIter.end());
-  //string pathDump = "./db/baidu.baike/snapshot/word_ostrich_iter." + pathIter;
+  // std::reverse(pathIter.begin(), pathIter.end());
+  // string pathDump = "./db/baidu.baike/snapshot/word_ostrich_iter." +
+  // pathIter;
   string pathDump = iter_db_path_ + pathIter;
-  leveldb::DB* dumpdb = nullptr;
+  leveldb::DB *dumpdb = nullptr;
   leveldb::Options options;
   options.create_if_missing = true;
   options.compression = leveldb::kNoCompression;
   auto status = leveldb::DB::Open(options, pathDump, &dumpdb);
-  if(status.ok()){
+  if (status.ok()) {
     leveldb::WriteBatch batch;
-    if(gSaveDB){
+    if (gSaveDB) {
       leveldb::ReadOptions readOptions;
       readOptions.snapshot = gSaveDB->GetSnapshot();
       auto it = gSaveDB->NewIterator(readOptions);
       it->SeekToFirst();
       DUMP_VAR(it->Valid());
-      while(it->Valid()){
-        batch.Put( it->key(), it->value());
+      while (it->Valid()) {
+        batch.Put(it->key(), it->value());
         it->Next();
       }
       delete it;
@@ -106,21 +118,21 @@ void DictionaryStorage::dumpSnapshotDB() {
   }
 }
 
-void DictionaryStorage::putWord(const string &word,int counter){
+void DictionaryStorage::putWord(const string &word, int counter) {
   leveldb::ReadOptions readOptions;
   readOptions.verify_checksums = true;
   string valueStr;
   leveldb::Slice key(word);
-  if(gSaveDB != nullptr) {
-    auto status = gSaveDB->Get(readOptions,key,&valueStr);
+  if (gSaveDB != nullptr) {
+    auto status = gSaveDB->Get(readOptions, key, &valueStr);
     TRACE_VAR(status.ToString());
     TRACE_VAR(valueStr);
     int sum = counter;
-    if(status.ok()){
+    if (status.ok()) {
       try {
         sum += std::stoi(valueStr);
-      } catch(std::exception e) {
-        DUMP_VAR2(e.what(),valueStr);
+      } catch (std::exception e) {
+        DUMP_VAR2(e.what(), valueStr);
       }
     }
     TRACE_VAR(sum);

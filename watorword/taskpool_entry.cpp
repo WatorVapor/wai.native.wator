@@ -28,10 +28,7 @@ string processText(const string &text);
 
 class udp_server {
 public:
-  udp_server(shared_ptr<udp::socket> sock)
-      : socket_(sock) {
-    start_receive();
-  }
+  udp_server(shared_ptr<udp::socket> sock) : socket_(sock) { start_receive(); }
   void send(const std::string &msg) {
     boost::shared_ptr<std::string> message(new std::string(msg));
     socket_->async_send_to(
@@ -55,7 +52,7 @@ private:
     std::string recv_str(recv_buffer_.data(), bytes_transferred);
     DUMP_VAR(recv_str);
     auto reuslt = processText(recv_str);
-    if(reuslt.empty() == false) {
+    if (reuslt.empty() == false) {
       this->send(reuslt);
     }
     if (!error || error == boost::asio::error::message_size) {
@@ -102,7 +99,6 @@ void taskpool_upd_main(void) {
   }
 }
 
-
 string fetchCrawlerTask(const string &lang);
 
 string processText(const string &text) {
@@ -111,19 +107,19 @@ string processText(const string &text) {
     std::stringstream ss;
     ss << text;
     pt::read_json(ss, configJson);
-    auto langOpt  = configJson.get_optional<string>("lang");
-    if(langOpt) {
+    auto langOpt = configJson.get_optional<string>("lang");
+    if (langOpt) {
       auto lang = langOpt.get();
       DUMP_VAR(lang);
-      auto typeOpt  = configJson.get_optional<string>("type");
-      if(typeOpt) {
+      auto typeOpt = configJson.get_optional<string>("type");
+      if (typeOpt) {
         auto type = typeOpt.get();
         DUMP_VAR(type);
-        if(type == "crawler") {
+        if (type == "crawler") {
           return fetchCrawlerTask(lang);
         }
       }
-    } 
+    }
   } catch (boost::exception &e) {
     DUMP_VAR(boost::diagnostic_information(e));
   }
@@ -132,9 +128,8 @@ string processText(const string &text) {
 
 #include <boost/filesystem.hpp>
 namespace fs = boost::filesystem;
-#include <mutex>
 #include <condition_variable>
-
+#include <mutex>
 
 static vector<string> gVectTodoPathCN;
 static vector<string> gVectTodoPathJA;
@@ -146,9 +141,9 @@ static int iConstPathCacheMax = 1024;
 
 string fetchCrawlerTask(const string &lang) {
   DUMP_VAR(lang);
-  if(lang == "cn") {
+  if (lang == "cn") {
     std::lock_guard<std::mutex> lock(gVectoPathMutex);
-    if(gVectTodoPathCN.empty()){
+    if (gVectTodoPathCN.empty()) {
       gVectoPathCV.notify_all();
       return "";
     } else {
@@ -157,9 +152,9 @@ string fetchCrawlerTask(const string &lang) {
       gVectTodoPathCN.pop_back();
       return top;
     }
-  } else if(lang == "ja") {
+  } else if (lang == "ja") {
     std::lock_guard<std::mutex> lock(gVectoPathMutex);
-    if(gVectTodoPathJA.empty()){
+    if (gVectTodoPathJA.empty()) {
       gVectoPathCV.notify_all();
       return "";
     } else {
@@ -173,61 +168,65 @@ string fetchCrawlerTask(const string &lang) {
   return "";
 }
 
-
 static void findTodoURLs(void) {
   try {
     fs::path path("/watorvapor/wai.storage/cn/todo");
-    BOOST_FOREACH(const fs::path& p, std::make_pair(fs::recursive_directory_iterator(path),fs::recursive_directory_iterator())){
-      if (!fs::is_directory(p)){
-        string pathText= p.string();
-        TRACE_VAR(pathText); 
+    BOOST_FOREACH (const fs::path &p,
+                   std::make_pair(fs::recursive_directory_iterator(path),
+                                  fs::recursive_directory_iterator())) {
+      if (!fs::is_directory(p)) {
+        string pathText = p.string();
+        TRACE_VAR(pathText);
         std::ifstream textStream(pathText);
         std::string str((std::istreambuf_iterator<char>(textStream)),
-                       std::istreambuf_iterator<char>());
+                        std::istreambuf_iterator<char>());
         textStream.close();
         gVectTodoPathCN.push_back(str);
-        if(gVectTodoPathCN.size() >iConstPathCacheMax){
+        if (gVectTodoPathCN.size() > iConstPathCacheMax) {
           break;
         }
       }
     }
-  } catch(std::exception &e) {
+  } catch (std::exception &e) {
     DUMP_VAR(e.what());
-  } catch(...) {
+  } catch (...) {
   }
   try {
     fs::path path("/watorvapor/wai.storage/ja/todo");
-    BOOST_FOREACH(const fs::path& p, std::make_pair(fs::recursive_directory_iterator(path),fs::recursive_directory_iterator())){
-      if (!fs::is_directory(p)){
-        string pathText= p.string();
-        TRACE_VAR(pathText); 
+    BOOST_FOREACH (const fs::path &p,
+                   std::make_pair(fs::recursive_directory_iterator(path),
+                                  fs::recursive_directory_iterator())) {
+      if (!fs::is_directory(p)) {
+        string pathText = p.string();
+        TRACE_VAR(pathText);
         std::ifstream textStream(pathText);
         std::string str((std::istreambuf_iterator<char>(textStream)),
-                       std::istreambuf_iterator<char>());
+                        std::istreambuf_iterator<char>());
         textStream.close();
         gVectTodoPathJA.push_back(str);
-        if(gVectTodoPathJA.size() >iConstPathCacheMax){
+        if (gVectTodoPathJA.size() > iConstPathCacheMax) {
           break;
         }
       }
     }
-  } catch(std::exception &e) {
+  } catch (std::exception &e) {
     DUMP_VAR(e.what());
-  } catch(...) {
+  } catch (...) {
   }
 
   // add seed
-  if(gVectTodoPathCN.empty()) {
-    gVectTodoPathCN.push_back("https://zh.wikipedia.org/zh-cn/%E7%94%B5%E5%AD%90");
+  if (gVectTodoPathCN.empty()) {
+    gVectTodoPathCN.push_back(
+        "https://zh.wikipedia.org/zh-cn/%E7%94%B5%E5%AD%90");
   }
-  if(gVectTodoPathJA.empty()) {
-    gVectTodoPathJA.push_back("https://ja.wikipedia.org/wiki/%E9%9B%BB%E5%AD%90");
+  if (gVectTodoPathJA.empty()) {
+    gVectTodoPathJA.push_back(
+        "https://ja.wikipedia.org/wiki/%E9%9B%BB%E5%AD%90");
   }
 }
 
-
 void taskpool_collect(void) {
-  while(true) {
+  while (true) {
     findTodoURLs();
     DUMP_VAR(gVectTodoPathCN.size());
     DUMP_VAR(gVectTodoPathJA.size());

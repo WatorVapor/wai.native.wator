@@ -1,9 +1,9 @@
-#include <string>
 #include <iostream>
-#include <tuple>
-#include <vector>
 #include <map>
 #include <memory>
+#include <string>
+#include <tuple>
+#include <vector>
 using namespace std;
 #pragma once
 
@@ -11,9 +11,9 @@ using namespace std;
 #include <leveldb/write_batch.h>
 
 #include <boost/foreach.hpp>
-#include <boost/property_tree/ptree.hpp>
-#include <boost/property_tree/json_parser.hpp>
 #include <boost/optional.hpp>
+#include <boost/property_tree/json_parser.hpp>
+#include <boost/property_tree/ptree.hpp>
 namespace pt = boost::property_tree;
 
 #include "dictstorage.hpp"
@@ -28,12 +28,13 @@ public:
   void upWordByArticle2Master(const pt::ptree &task);
 
 private:
-  void pushMultiWord(const string &word);  
+  void pushMultiWord(const string &word);
   string pickupWordRanking(void);
+
 private:
   bool stub_;
   unique_ptr<DictionaryStorage> dict_;
-  map<string,int> multiWordOfOneArticle_;
+  map<string, int> multiWordOfOneArticle_;
   const int maxWordLength_ = 32;
   const int minWordRepeateTimes_ = 3;
 };

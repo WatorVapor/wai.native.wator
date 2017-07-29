@@ -1,10 +1,10 @@
-#include <string>
+#include <algorithm>
 #include <iostream>
-#include <thread>
-#include <vector>
 #include <list>
 #include <map>
-#include <algorithm>
+#include <string>
+#include <thread>
+#include <vector>
 using namespace std;
 
 #include <leveldb/db.h>
@@ -13,37 +13,33 @@ using namespace std;
 #include "log.hpp"
 #include "word_db_master.hpp"
 
-
-
 void dumpMaster();
 
-MasterDBWord::MasterDBWord() {
-}
-MasterDBWord::~MasterDBWord() {
-}
+MasterDBWord::MasterDBWord() {}
+MasterDBWord::~MasterDBWord() {}
 
-bool MasterDBWord::loadMasterFromDB(const string &path,bool forceCast) {
+bool MasterDBWord::loadMasterFromDB(const string &path, bool forceCast) {
   leveldb::Options options;
   options.max_open_files = 512;
   options.paranoid_checks = true;
   options.compression = leveldb::kNoCompression;
   auto status = leveldb::DB::Open(options, path, &gMasterdb);
   DUMP_VAR(status.ToString());
-  if(status.ok() == false) {
+  if (status.ok() == false) {
     gMasterdb = nullptr;
     return false;
   } else {
-    if(forceCast) {
-      if(castMasterDB(path + ".cast") == false){
+    if (forceCast) {
+      if (castMasterDB(path + ".cast") == false) {
         return false;
       }
     } else {
-      if(isExistsCastDB(path + ".cast")) {
-        if(castMasterDB(path + ".cast",false) == false){
+      if (isExistsCastDB(path + ".cast")) {
+        if (castMasterDB(path + ".cast", false) == false) {
           return false;
         }
       } else {
-        if(castMasterDB(path + ".cast") == false){
+        if (castMasterDB(path + ".cast") == false) {
           return false;
         }
       }
@@ -52,10 +48,8 @@ bool MasterDBWord::loadMasterFromDB(const string &path,bool forceCast) {
   return true;
 }
 
-
-
 void MasterDBWord::unloadMasterFromDB(void) {
-  if(gMasterdb) {
+  if (gMasterdb) {
     delete gMasterdb;
     gMasterdb = nullptr;
     delete gMasterDBCast;
@@ -63,16 +57,15 @@ void MasterDBWord::unloadMasterFromDB(void) {
   }
 }
 
-
 int MasterDBWord::getPred(const string &word) {
-  if(gMasterdb) {
+  if (gMasterdb) {
     leveldb::ReadOptions readOptions;
     readOptions.verify_checksums = true;
     leveldb::Slice key(word);
     string valueStr;
-    auto status = gMasterdb->Get(readOptions,key,&valueStr);
+    auto status = gMasterdb->Get(readOptions, key, &valueStr);
     TRACE_VAR(status.ToString());
-    if(status.ok() && valueStr.empty() == false){
+    if (status.ok() && valueStr.empty() == false) {
       TRACE_VAR(valueStr);
       return std::stoi(valueStr);
     }
@@ -80,25 +73,24 @@ int MasterDBWord::getPred(const string &word) {
   return -1;
 }
 
-
 double MasterDBWord::getDoublePred(const string &word) {
-  if(gMasterdb) {
+  if (gMasterdb) {
     leveldb::ReadOptions readOptions;
     readOptions.verify_checksums = true;
     leveldb::Slice key(word);
     string valueStr;
-    auto status = gMasterDBCast->Get(readOptions,key,&valueStr);
+    auto status = gMasterDBCast->Get(readOptions, key, &valueStr);
     TRACE_VAR(status.ToString());
-    if(status.ok() && valueStr.empty() == false){
-      TRACE_VAR(valueStr,word);
+    if (status.ok() && valueStr.empty() == false) {
+      TRACE_VAR(valueStr, word);
       return std::stod(valueStr);
     }
   }
   return -1.0;
 }
 
-void MasterDBWord::dumpMaster(void){
-  if(gMasterdb == nullptr){
+void MasterDBWord::dumpMaster(void) {
+  if (gMasterdb == nullptr) {
     return;
   }
   leveldb::ReadOptions readOptions;
@@ -106,21 +98,21 @@ void MasterDBWord::dumpMaster(void){
   auto it = gMasterdb->NewIterator(readOptions);
   it->SeekToFirst();
   DUMP_VAR(it->Valid());
-  int total =0;
-  std::map<int,vector<string>> ranking;
-  while(it->Valid()){
+  int total = 0;
+  std::map<int, vector<string>> ranking;
+  while (it->Valid()) {
     auto keyStr = it->key().ToString();
     auto valueStr = it->value().ToString();
     TRACE_VAR(keyStr);
     TRACE_VAR(valueStr);
     auto value = std::stoi(valueStr);
     TRACE_VAR(value);
-    if(value > 16){
-      //DUMP_VAR(keyStr);
-      //DUMP_VAR(valueStr);
+    if (value > 16) {
+      // DUMP_VAR(keyStr);
+      // DUMP_VAR(valueStr);
       auto it = ranking.find(value);
-      if(it == ranking.end()){
-        vector<string> words({keyStr}); 
+      if (it == ranking.end()) {
+        vector<string> words({keyStr});
         ranking[value] = words;
       } else {
         it->second.push_back(keyStr);
@@ -131,9 +123,9 @@ void MasterDBWord::dumpMaster(void){
   }
   delete it;
   gMasterdb->ReleaseSnapshot(readOptions.snapshot);
-  for(auto repeatRank:ranking) {
+  for (auto repeatRank : ranking) {
     DUMP_VAR(repeatRank.first);
-    for(auto word:repeatRank.second) {
+    for (auto word : repeatRank.second) {
       std::cout << "'" << word << "',";
     }
     std::cout << std::endl;
@@ -141,26 +133,25 @@ void MasterDBWord::dumpMaster(void){
   DUMP_VAR(total);
 }
 
-bool MasterDBWord::castMasterDB(const string &path,bool cast) {
+bool MasterDBWord::castMasterDB(const string &path, bool cast) {
   leveldb::Options options;
   options.create_if_missing = true;
   options.max_open_files = 512;
   options.paranoid_checks = true;
   options.compression = leveldb::kNoCompression;
   auto status = leveldb::DB::Open(options, path, &gMasterDBCast);
-  if(status.ok() == false) {
+  if (status.ok() == false) {
     DUMP_VAR(status.ToString());
     gMasterDBCast = nullptr;
     return false;
   } else {
     DUMP_VAR(cast);
-    if(cast) {
+    if (cast) {
       castMaster();
     }
     return true;
   }
 }
-
 
 bool MasterDBWord::isExistsCastDB(const string &path) {
   leveldb::Options options;
@@ -168,18 +159,18 @@ bool MasterDBWord::isExistsCastDB(const string &path) {
   options.max_open_files = 512;
   options.paranoid_checks = true;
   options.compression = leveldb::kNoCompression;
-  static leveldb::DB* testDB;
+  static leveldb::DB *testDB;
   auto status = leveldb::DB::Open(options, path, &testDB);
   DUMP_VAR(status.ToString());
-  if(status.ok()) {
+  if (status.ok()) {
     delete testDB;
     return true;
   } else {
     return false;
   }
 }
-void MasterDBWord::castMaster(void){
-  if(gMasterdb == nullptr){
+void MasterDBWord::castMaster(void) {
+  if (gMasterdb == nullptr) {
     return;
   }
   leveldb::ReadOptions readOptions;
@@ -188,17 +179,17 @@ void MasterDBWord::castMaster(void){
   it->SeekToFirst();
   DUMP_VAR(it->Valid());
   int topRank = 0;
-  while(it->Valid()){
+  while (it->Valid()) {
     auto keyStr = it->key().ToString();
     auto valueStr = it->value().ToString();
     TRACE_VAR(keyStr);
     TRACE_VAR(valueStr);
     auto value = std::stoi(valueStr);
     TRACE_VAR(value);
-    if(value > topRank){
+    if (value > topRank) {
       topRank = value;
-      //DUMP_VAR(keyStr);
-      //DUMP_VAR(valueStr);
+      // DUMP_VAR(keyStr);
+      // DUMP_VAR(valueStr);
     }
     it->Next();
   }
@@ -208,17 +199,18 @@ void MasterDBWord::castMaster(void){
   DUMP_VAR(it->Valid());
   leveldb::WriteOptions writeOptions;
   writeOptions.sync = true;
-  while(it->Valid()){
+  while (it->Valid()) {
     auto keyStr = it->key().ToString();
     auto valueStr = it->value().ToString();
     TRACE_VAR(keyStr);
     TRACE_VAR(valueStr);
     auto value = std::stoi(valueStr);
-    double castWeight = (double)(value)/(double)(topRank);
-    TRACE_VAR(value,castWeight);
-    auto status = gMasterDBCast->Put(writeOptions,keyStr,std::to_string(castWeight));
+    double castWeight = (double)(value) / (double)(topRank);
+    TRACE_VAR(value, castWeight);
+    auto status =
+        gMasterDBCast->Put(writeOptions, keyStr, std::to_string(castWeight));
     TRACE_VAR(status.ToString());
-    if(status.ok()) {
+    if (status.ok()) {
     } else {
       DUMP_VAR(status.ToString());
     }
@@ -227,5 +219,3 @@ void MasterDBWord::castMaster(void){
   delete it;
   gMasterdb->ReleaseSnapshot(readOptions.snapshot);
 }
-
-

@@ -1,11 +1,10 @@
-#include <string>
 #include <iostream>
+#include <string>
 #include <thread>
 using namespace std;
 
 void api_upd_main(void);
-int main(int ac,char*av[])
-{
+int main(int ac, char *av[]) {
   std::thread t(api_upd_main);
   t.join();
   return 0;

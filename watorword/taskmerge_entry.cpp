@@ -28,24 +28,21 @@ string processText(const string &text);
 
 class udp_server {
 public:
-  udp_server(shared_ptr<udp::socket> sock)
-      : socket_(sock) {
-    start_receive();
-  }
+  udp_server(shared_ptr<udp::socket> sock) : socket_(sock) { start_receive(); }
   void send(const std::string &msg) {
     boost::shared_ptr<std::string> message(new std::string(msg));
     socket_->async_send_to(
-			boost::asio::buffer(*message), remote_endpoint_,
-      boost::bind(&udp_server::handle_send, this, message));
+        boost::asio::buffer(*message), remote_endpoint_,
+        boost::bind(&udp_server::handle_send, this, message));
   }
 
 private:
   void start_receive() {
     socket_->async_receive_from(
-			boost::asio::buffer(recv_buffer_), remote_endpoint_,
-      boost::bind(&udp_server::handle_receive, this,
-      boost::asio::placeholders::error,
-      boost::asio::placeholders::bytes_transferred));
+        boost::asio::buffer(recv_buffer_), remote_endpoint_,
+        boost::bind(&udp_server::handle_receive, this,
+                    boost::asio::placeholders::error,
+                    boost::asio::placeholders::bytes_transferred));
   }
 
   void handle_receive(const boost::system::error_code &error,
@@ -55,7 +52,7 @@ private:
     std::string recv_str(recv_buffer_.data(), bytes_transferred);
     TRACE_VAR(recv_str);
     auto reuslt = processText(recv_str);
-    if(reuslt.empty() == false) {
+    if (reuslt.empty() == false) {
       this->send(reuslt);
     }
     if (!error || error == boost::asio::error::message_size) {
@@ -77,7 +74,8 @@ static void savePort(uint16_t port) {
   try {
     pt::ptree portConf;
     portConf.put("port", port);
-    pt::write_json("/watorvapor/wai.storage/conf/task.merge.api.json", portConf);
+    pt::write_json("/watorvapor/wai.storage/conf/task.merge.api.json",
+                   portConf);
   } catch (boost::exception &e) {
     DUMP_VAR(boost::diagnostic_information(e));
   }
@@ -102,50 +100,50 @@ void taskmerge_upd_main(void) {
   }
 }
 
-
 string fetchCrawlerTask(const string &lang);
 
-#include <boost/uuid/sha1.hpp>
 #include <boost/format.hpp>
+#include <boost/uuid/sha1.hpp>
 
-#include <openssl/sha.h>
 #include <cstring>
-#include <sstream>
+#include <openssl/sha.h>
 #include <regex>
+#include <sstream>
 
 static string sha1(const string &data) {
-	unsigned char hash[SHA_DIGEST_LENGTH];
-	SHA1((const unsigned char*)(data.c_str()), data.size(), hash);
-	std::stringstream ss; 
-	for(auto dig:hash) {
-		ss << hex << setw(2) << setfill('0') << (int)dig;
-	}
-  return ss.str();
-/*	
-  boost::uuids::detail::sha1 s;
-  s.process_bytes(data.c_str(), data.size());
-  unsigned int digest[5];
-  s.get_digest(digest);
-  string hash;
-  for(int i = 0; i < 5; ++i) {
-		const char* tmp = reinterpret_cast<char*>(digest);
-    hash += (boost::format("%02x")%tmp[i*4+3]).str();
-    hash += (boost::format("%02x")%tmp[i*4+2]).str();
-    hash += (boost::format("%02x")%tmp[i*4+1]).str();
-    hash += (boost::format("%02x")%tmp[i*4+0]).str();
-
-    const std::string s = (boost::format("%2% %1%") % 3 % std::string("Hello")).str();
-    hash.append(tmp[i*4+3]));
-    hash.append(tmp[i*4+2]);
-    hash.append(tmp[i*4+1]);
-    hash.append(tmp[i*4]);
+  unsigned char hash[SHA_DIGEST_LENGTH];
+  SHA1((const unsigned char *)(data.c_str()), data.size(), hash);
+  std::stringstream ss;
+  for (auto dig : hash) {
+    ss << hex << setw(2) << setfill('0') << (int)dig;
   }
- */
+  return ss.str();
+  /*
+    boost::uuids::detail::sha1 s;
+    s.process_bytes(data.c_str(), data.size());
+    unsigned int digest[5];
+    s.get_digest(digest);
+    string hash;
+    for(int i = 0; i < 5; ++i) {
+                  const char* tmp = reinterpret_cast<char*>(digest);
+      hash += (boost::format("%02x")%tmp[i*4+3]).str();
+      hash += (boost::format("%02x")%tmp[i*4+2]).str();
+      hash += (boost::format("%02x")%tmp[i*4+1]).str();
+      hash += (boost::format("%02x")%tmp[i*4+0]).str();
+
+      const std::string s = (boost::format("%2% %1%") % 3 %
+    std::string("Hello")).str();
+      hash.append(tmp[i*4+3]));
+      hash.append(tmp[i*4+2]);
+      hash.append(tmp[i*4+1]);
+      hash.append(tmp[i*4]);
+    }
+   */
 }
 
 #include <boost/algorithm/string.hpp>
-#include <fstream>
 #include <boost/filesystem.hpp>
+#include <fstream>
 namespace fs = boost::filesystem;
 
 const string WAI_STORAGE = "/watorvapor/wai.storage";
@@ -160,68 +158,68 @@ string processText(const string &text) {
     ss << text;
     pt::read_json(ss, configJson);
     std::string lang;
-    auto langOpt  = configJson.get_optional<string>("lang");
-    if(langOpt) {
+    auto langOpt = configJson.get_optional<string>("lang");
+    if (langOpt) {
       lang = langOpt.get();
-    } 
+    }
     std::string urlDone;
-    auto urlOpt  = configJson.get_optional<string>("url");
-    if(urlOpt) {
+    auto urlOpt = configJson.get_optional<string>("url");
+    if (urlOpt) {
       urlDone = urlOpt.get();
     }
     auto doneName = sha1(urlDone);
-    TRACE_VAR(doneName,urlDone);
+    TRACE_VAR(doneName, urlDone);
     string donePath = WAI_STORAGE;
     donePath += "/";
     donePath += lang;
     donePath += "/master/";
-    donePath +=  doneName;
-    
+    donePath += doneName;
+
     ofstream doneMasterFile(donePath);
-    if(doneMasterFile.is_open()) {
+    if (doneMasterFile.is_open()) {
       doneMasterFile << urlDone;
       doneMasterFile.close();
     }
-    
-    
+
     string todoPath = WAI_STORAGE;
     todoPath += "/";
     todoPath += lang;
     todoPath += "/todo/";
-    todoPath +=  doneName;
+    todoPath += doneName;
     fs::path pathFS(todoPath);
-    if(fs::exists(pathFS)) {
+    if (fs::exists(pathFS)) {
       fs::remove(pathFS);
     }
-    
-    auto it =configJson.find("crawler");
-    if(it != configJson.not_found()) {
+
+    auto it = configJson.find("crawler");
+    if (it != configJson.not_found()) {
       auto crawlerOpt = configJson.get_optional<string>("crawler");
-      if(crawlerOpt) {
+      if (crawlerOpt) {
         auto crawler = crawlerOpt.get();
         TRACE_VAR(crawler);
         list<string> list_string;
-        string delim ("{};");
-        boost::split(list_string, crawler, boost::is_any_of(delim),boost::algorithm::token_compress_on);
-	DUMP_VAR(list_string.size());
-        for(auto url:list_string) {
-          if(url.empty() == false) {
+        string delim("{};");
+        boost::split(list_string, crawler, boost::is_any_of(delim),
+                     boost::algorithm::token_compress_on);
+        DUMP_VAR(list_string.size());
+        for (auto url : list_string) {
+          if (url.empty() == false) {
             auto todoName = sha1(url);
-            TRACE_VAR(url,todoName);
+            TRACE_VAR(url, todoName);
             string doneCheckPath = WAI_STORAGE;
             doneCheckPath += "/";
             doneCheckPath += lang;
             doneCheckPath += "/master/";
-            doneCheckPath +=  todoName;
+            doneCheckPath += todoName;
             fs::path doneCheckPathFS(doneCheckPath);
-            if(fs::exists(doneCheckPathFS) == false) {
+            if (fs::exists(doneCheckPathFS) == false) {
               string todoNewPath = WAI_STORAGE;
               todoNewPath += "/";
               todoNewPath += lang;
               todoNewPath += "/todo/";
-              todoNewPath +=  doneName;
+              todoNewPath += doneName;
               ofstream doneTodoFile(todoNewPath);
-              if(doneTodoFile.is_open()) {
+              if (doneTodoFile.is_open()) {
                 doneTodoFile << url;
                 doneTodoFile.close();
               }
@@ -236,4 +234,3 @@ string processText(const string &text) {
   }
   return "success";
 }
-

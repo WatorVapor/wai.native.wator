@@ -1,12 +1,11 @@
-#include <string>
 #include <iostream>
+#include <string>
 #include <thread>
 using namespace std;
 
 void taskmerge_upd_main(void);
 
-int main(int ac,char*av[])
-{
+int main(int ac, char *av[]) {
   std::thread t(taskmerge_upd_main);
   t.join();
   return 0;

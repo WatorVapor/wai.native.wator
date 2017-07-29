@@ -1,9 +1,9 @@
-#include <string>
 #include <iostream>
-#include <thread>
-#include <vector>
 #include <list>
 #include <map>
+#include <string>
+#include <thread>
+#include <vector>
 using namespace std;
 
 #include <leveldb/db.h>
@@ -13,20 +13,18 @@ using namespace std;
 
 #include "parrotword.hpp"
 
-#define DUMP_VAR(x) std::cout << __func__ << ":" << __LINE__ << "::" << #x << "=<" << x << ">"<< std::endl;
+#define DUMP_VAR(x)                                                            \
+  std::cout << __func__ << ":" << __LINE__ << "::" << #x << "=<" << x << ">"   \
+            << std::endl;
 #define TRACE_VAR(x)
 
-
-bool loadMasterFromDB(const string &path,bool forceCast);
+bool loadMasterFromDB(const string &path, bool forceCast);
 
 bool ParrotWord::loadMaster(bool forceCast) {
- auto master = database_ + "/master/word_ostrich";
- DUMP_VAR(master);
- return loadMasterFromDB(master,forceCast);
+  auto master = database_ + "/master/word_ostrich";
+  DUMP_VAR(master);
+  return loadMasterFromDB(master, forceCast);
 }
 
 void unloadMasterFromDB(void);
-void ParrotWord::unloadMaster(void) {
- unloadMasterFromDB();
-}
-
+void ParrotWord::unloadMaster(void) { unloadMasterFromDB(); }

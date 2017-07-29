@@ -28,10 +28,7 @@ string processText(const string &text);
 
 class udp_server {
 public:
-  udp_server(shared_ptr<udp::socket> sock)
-      : socket_(sock) {
-    start_receive();
-  }
+  udp_server(shared_ptr<udp::socket> sock) : socket_(sock) { start_receive(); }
   void send(const std::string &msg) {
     boost::shared_ptr<std::string> message(new std::string(msg));
     socket_->async_send_to(
@@ -55,7 +52,7 @@ private:
     std::string recv_str(recv_buffer_.data(), bytes_transferred);
     DUMP_VAR(recv_str);
     auto reuslt = processText(recv_str);
-    if(reuslt.empty() == false) {
+    if (reuslt.empty() == false) {
       this->send(reuslt);
     }
     if (!error || error == boost::asio::error::message_size) {
@@ -73,11 +70,8 @@ private:
   boost::array<char, iConstMSGBufferMax> recv_buffer_;
 };
 
-
 bool loadMasterDB(void);
 void unloadMasterDB(void);
-
-
 
 static void savePort(uint16_t port) {
   try {
