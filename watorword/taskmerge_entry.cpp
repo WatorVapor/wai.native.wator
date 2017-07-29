@@ -123,27 +123,6 @@ static string sha1(const string &data) {
     ss << hex << setw(2) << setfill('0') << (int)dig;
   }
   return ss.str();
-  /*
-    boost::uuids::detail::sha1 s;
-    s.process_bytes(data.c_str(), data.size());
-    unsigned int digest[5];
-    s.get_digest(digest);
-    string hash;
-    for(int i = 0; i < 5; ++i) {
-                  const char* tmp = reinterpret_cast<char*>(digest);
-      hash += (boost::format("%02x")%tmp[i*4+3]).str();
-      hash += (boost::format("%02x")%tmp[i*4+2]).str();
-      hash += (boost::format("%02x")%tmp[i*4+1]).str();
-      hash += (boost::format("%02x")%tmp[i*4+0]).str();
-
-      const std::string s = (boost::format("%2% %1%") % 3 %
-    std::string("Hello")).str();
-      hash.append(tmp[i*4+3]));
-      hash.append(tmp[i*4+2]);
-      hash.append(tmp[i*4+1]);
-      hash.append(tmp[i*4]);
-    }
-   */
 }
 
 #include <boost/algorithm/string.hpp>
@@ -173,7 +152,7 @@ string processText(const string &text) {
       urlDone = urlOpt.get();
     }
     auto doneName = sha1(urlDone);
-    TRACE_VAR(doneName, urlDone);
+    DUMP_VAR2(doneName, urlDone);
     string donePath = WAI_STORAGE;
     donePath += "/";
     donePath += lang;
@@ -182,8 +161,11 @@ string processText(const string &text) {
 
     ofstream doneMasterFile(donePath);
     if (doneMasterFile.is_open()) {
+      DUMP_VAR(doneMasterFile.good());
       doneMasterFile << urlDone;
       doneMasterFile.close();
+    } else {
+      DUMP_VAR2(doneMasterFile.good(),donePath);
     }
 
     string todoPath = WAI_STORAGE;
@@ -193,7 +175,10 @@ string processText(const string &text) {
     todoPath += doneName;
     fs::path pathFS(todoPath);
     if (fs::exists(pathFS)) {
+      DUMP_VAR(fs::exists(pathFS));
       fs::remove(pathFS);
+    } else {
+      DUMP_VAR2(fs::exists(pathFS),todoPath);
     }
 
     auto it = configJson.find("crawler");
