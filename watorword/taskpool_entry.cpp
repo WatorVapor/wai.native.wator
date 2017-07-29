@@ -4,6 +4,7 @@
 #include <memory>
 #include <string>
 #include <thread>
+#include <chrono>
 using namespace std;
 
 #include <boost/array.hpp>
@@ -47,10 +48,11 @@ private:
 
   void handle_receive(const boost::system::error_code &error,
                       std::size_t bytes_transferred) {
-    DUMP_VAR(remote_endpoint_);
-    DUMP_VAR(bytes_transferred);
+    auto start = std::chrono::system_clock::now();
+    TRACE_VAR(remote_endpoint_);
+    TRACE_VAR(bytes_transferred);
     std::string recv_str(recv_buffer_.data(), bytes_transferred);
-    DUMP_VAR(recv_str);
+    TRACE_VAR(recv_str);
     auto reuslt = processText(recv_str);
     if (reuslt.empty() == false) {
       this->send(reuslt);
@@ -58,11 +60,14 @@ private:
     if (!error || error == boost::asio::error::message_size) {
       start_receive();
     }
+    auto end = std::chrono::system_clock::now();
+    std::chrono::duration<double, std::milli> fp_ms = end - start;
+    DUMP_VAR(fp_ms);
   }
 
   void handle_send(boost::shared_ptr<std::string> msg) {
-    DUMP_VAR(msg);
-    DUMP_VAR(*msg);
+    TRACE_VAR(msg);
+    TRACE_VAR(*msg);
   }
 
   shared_ptr<udp::socket> socket_;
