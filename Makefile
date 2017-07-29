@@ -21,6 +21,7 @@ SRC += $(SRC2)
 SRC += $(SRC3)
 
 format: $(SRC)
+	echo $(SRC)
 $(SRC):
 	clang-format $^ > $^.fmt
 	
