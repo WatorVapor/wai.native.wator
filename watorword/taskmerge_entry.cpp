@@ -145,7 +145,7 @@ static void markCrawler(const string &url,const string &lang) {
     ofstream doneMasterFile(donePath);
     if (doneMasterFile.is_open()) {
       DUMP_VAR(doneMasterFile.good());
-      doneMasterFile << urlDone;
+      doneMasterFile << url;
       doneMasterFile.close();
     } else {
       DUMP_VAR2(doneMasterFile.good(),donePath);
@@ -165,11 +165,11 @@ static void markCrawler(const string &url,const string &lang) {
 static void newCrawler(const string &url,const string &lang) {
   auto todoName = sha1(url);
   TRACE_VAR(url, todoName);
-  string doneCheckPath(WAI_STORAGE + "/" + lang + "/master/" + doneName);
+  string doneCheckPath(WAI_STORAGE + "/" + lang + "/master/" + todoName);
   fs::path doneCheckPathFS(doneCheckPath);
   DUMP_VAR3(url,fs::exists(doneCheckPathFS),doneCheckPath);
   if (fs::exists(doneCheckPathFS) == false) {
-    string todoNewPath(WAI_STORAGE + "/" + lang + "/todo/" + doneName);
+    string todoNewPath(WAI_STORAGE + "/" + lang + "/todo/" + todoName);
     ofstream newURLFile(todoNewPath);
     if (newURLFile.is_open()) {
       newURLFile << url;
