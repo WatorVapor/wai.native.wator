@@ -155,6 +155,7 @@ string fetchCrawlerTask(const string &lang) {
       auto top = gVectTodoPathCN.back();
       DUMP_VAR(top);
       gVectTodoPathCN.pop_back();
+      DUMP_VAR(gVectTodoPathCN.size());
       return top;
     }
   } else if (lang == "ja") {
@@ -166,6 +167,7 @@ string fetchCrawlerTask(const string &lang) {
       auto top = gVectTodoPathJA.back();
       DUMP_VAR(top);
       gVectTodoPathJA.pop_back();
+      DUMP_VAR(gVectTodoPathJA.size());
       return top;
     }
   } else {
