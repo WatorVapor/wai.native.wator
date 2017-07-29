@@ -20,7 +20,7 @@ public:
   WikiCrawler();
   ~WikiCrawler();
   void parse(const pt::ptree &task, string &content);
-
 private:
+  void up(const pt::ptree &task, string &urls);
 private:
 };
