@@ -162,14 +162,15 @@ string processText(const string &text) {
     fs::path pathDoneFS(donePath);
     if (fs::exists(pathDoneFS)) {
       DUMP_VAR2(fs::exists(pathDoneFS),donePath);
-    }
-    ofstream doneMasterFile(donePath);
-    if (doneMasterFile.is_open()) {
-      DUMP_VAR(doneMasterFile.good());
-      doneMasterFile << urlDone;
-      doneMasterFile.close();
     } else {
-      DUMP_VAR2(doneMasterFile.good(),donePath);
+      ofstream doneMasterFile(donePath);
+      if (doneMasterFile.is_open()) {
+        DUMP_VAR(doneMasterFile.good());
+        doneMasterFile << urlDone;
+        doneMasterFile.close();
+      } else {
+        DUMP_VAR2(doneMasterFile.good(),donePath);
+      }
     }
 
     string todoPath = WAI_STORAGE;
