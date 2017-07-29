@@ -20,7 +20,7 @@ using namespace boost::asio::ip;
 namespace pt = boost::property_tree;
 
 static const uint16_t iConstAPIPortRangeMin = 41264;
-static const uint16_t iConstAPIPortRangeMax = 41284;
+static const uint16_t iConstAPIPortRangeMax = 41274;
 static const uint32_t iConstMSGBufferMax = 1024 * 1024;
 
 #include "log.hpp"
