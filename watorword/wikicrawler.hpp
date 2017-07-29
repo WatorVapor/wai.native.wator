@@ -23,4 +23,5 @@ public:
 private:
   void up(const pt::ptree &task, string &urls);
 private:
+  const int iConstOnceUpURLMax = 20;
 };
