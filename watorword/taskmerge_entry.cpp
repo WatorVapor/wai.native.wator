@@ -214,7 +214,7 @@ string processText(const string &text) {
               todoNewPath += "/";
               todoNewPath += lang;
               todoNewPath += "/todo/";
-              todoNewPath += doneName;
+              todoNewPath += todoName;
               ofstream doneTodoFile(todoNewPath);
               if (doneTodoFile.is_open()) {
                 doneTodoFile << url;
