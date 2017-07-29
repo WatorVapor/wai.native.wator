@@ -142,7 +142,7 @@ static std::mutex gVectoPathMutex;
 static std::condition_variable gVectoPathCV;
 static std::mutex gVectoPathCvMutex;
 
-static int iConstPathCacheMax = 1024;
+static int iConstPathCacheMax = 32;
 
 string fetchCrawlerTask(const string &lang) {
   DUMP_VAR(lang);
