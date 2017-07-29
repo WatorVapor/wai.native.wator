@@ -62,7 +62,7 @@ private:
     }
     auto end = std::chrono::system_clock::now();
     std::chrono::duration<double, std::milli> fp_ms = end - start;
-    DUMP_VAR(fp_ms);
+    DUMP_VAR(fp_ms.count());
   }
 
   void handle_send(boost::shared_ptr<std::string> msg) {
