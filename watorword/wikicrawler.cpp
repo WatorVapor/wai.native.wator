@@ -36,7 +36,7 @@ void WikiCrawler::parse(const pt::ptree &task, string &content) {
     DUMP_VAR(ex.what());
   }
 
-  string crawlerArrays;
+  vector<string> hrefArrays;
   for (auto it = std::sregex_iterator(content.begin(), content.end(), rx);
        it != std::sregex_iterator(); ++it) {
     TRACE_VAR(it->position());
@@ -56,15 +56,31 @@ void WikiCrawler::parse(const pt::ptree &task, string &content) {
         if (filter != prefix) {
           boost::algorithm::replace_all(href, filter, prefix);
         }
+        hrefArrays.push_back(href);
         TRACE_VAR(filter, href);
-        crawlerArrays += "{";
-        crawlerArrays += href;
-        crawlerArrays += "};";
       }
     }
   }
+  string crawlerArrays;
+  int counter = 1;
+  const int onceURLMax = 40;
+  for(auto href:hrefArrays) {  
+    crawlerArrays += "{";
+    crawlerArrays += href;
+    crawlerArrays += "};";
+    if(counter++ %onceURLMax == 0){
+      this->up(task,crawlerArrays);
+      crawlerArrays.clear();
+    }
+  }
+  if(crawlerArrays.empty() == false) {
+    this->up(task,crawlerArrays);
+  }
+}
+
+void WikiCrawler::up(const pt::ptree &task, string &urls) {
   pt::ptree upTask(task);
-  upTask.put("crawler", crawlerArrays);
+  upTask.put("crawler", urls);
   string task_url_upPath = "/tmp/wai.native/task_url_up.json";
   pt::write_json(task_url_upPath, upTask);
   string wgetTaskUp("curl -6 -F \"");
