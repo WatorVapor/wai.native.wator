@@ -203,6 +203,7 @@ string processText(const string &text) {
         list<string> list_string;
         string delim ("{};");
         boost::split(list_string, crawler, boost::is_any_of(delim),boost::algorithm::token_compress_on);
+	DUMP_VAR(list_string.size());
         for(auto url:list_string) {
           if(url.empty() == false) {
             auto todoName = sha1(url);
@@ -231,7 +232,8 @@ string processText(const string &text) {
     }
   } catch (boost::exception &e) {
     DUMP_VAR(boost::diagnostic_information(e));
+    return "failure"
   }
-  return "";
+  return "success";
 }
 
