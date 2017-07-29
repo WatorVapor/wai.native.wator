@@ -208,6 +208,7 @@ string processText(const string &text) {
             doneCheckPath += "/master/";
             doneCheckPath += todoName;
             fs::path doneCheckPathFS(doneCheckPath);
+            DUMP_VAR2(fs::exists(doneCheckPathFS),doneCheckPath);
             if (fs::exists(doneCheckPathFS) == false) {
               string todoNewPath = WAI_STORAGE;
               todoNewPath += "/";
