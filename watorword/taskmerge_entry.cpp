@@ -134,6 +134,50 @@ const string WAI_STORAGE = "/watorvapor/wai.storage";
 const string WAI_STORAGE_CN = "/watorvapor/wai.storage/cn/todo/";
 const string WAI_STORAGE_JA = "/watorvapor/wai.storage/ja/todo/";
 
+static void markCrawler(const string &url,const string &lang) {
+  auto doneName = sha1(url);
+  DUMP_VAR2(doneName, url);
+  string donePath(WAI_STORAGE + "/" + lang + "/master/" + doneName);
+  fs::path pathDoneFS(donePath);
+  if (fs::exists(pathDoneFS)) {
+    DUMP_VAR2(fs::exists(pathDoneFS),donePath);
+  } else {
+    ofstream doneMasterFile(donePath);
+    if (doneMasterFile.is_open()) {
+      DUMP_VAR(doneMasterFile.good());
+      doneMasterFile << urlDone;
+      doneMasterFile.close();
+    } else {
+      DUMP_VAR2(doneMasterFile.good(),donePath);
+    }
+  }
+  string todoPath(WAI_STORAGE + "/" + lang + "/todo/" + doneName);
+  fs::path pathFS(todoPath);
+  if (fs::exists(pathFS)) {
+    DUMP_VAR(fs::exists(pathFS));
+    fs::remove(pathFS);
+  } else {
+    DUMP_VAR2(fs::exists(pathFS),todoPath);
+  }
+  DUMP_VAR2(fs::exists(pathFS),todoPath);
+}
+
+static void newCrawler(const string &url,const string &lang) {
+  auto todoName = sha1(url);
+  TRACE_VAR(url, todoName);
+  string doneCheckPath(WAI_STORAGE + "/" + lang + "/master/" + doneName);
+  fs::path doneCheckPathFS(doneCheckPath);
+  DUMP_VAR3(url,fs::exists(doneCheckPathFS),doneCheckPath);
+  if (fs::exists(doneCheckPathFS) == false) {
+    string todoNewPath(WAI_STORAGE + "/" + lang + "/todo/" + doneName);
+    ofstream newURLFile(todoNewPath);
+    if (newURLFile.is_open()) {
+      newURLFile << url;
+      newURLFile.close();
+    }
+  }
+}
+
 string processText(const string &text) {
   try {
     TRACE_VAR(text);
@@ -151,41 +195,7 @@ string processText(const string &text) {
     if (urlOpt) {
       urlDone = urlOpt.get();
     }
-    auto doneName = sha1(urlDone);
-    DUMP_VAR2(doneName, urlDone);
-    string donePath = WAI_STORAGE;
-    donePath += "/";
-    donePath += lang;
-    donePath += "/master/";
-    donePath += doneName;
-
-    fs::path pathDoneFS(donePath);
-    if (fs::exists(pathDoneFS)) {
-      DUMP_VAR2(fs::exists(pathDoneFS),donePath);
-    } else {
-      ofstream doneMasterFile(donePath);
-      if (doneMasterFile.is_open()) {
-        DUMP_VAR(doneMasterFile.good());
-        doneMasterFile << urlDone;
-        doneMasterFile.close();
-      } else {
-        DUMP_VAR2(doneMasterFile.good(),donePath);
-      }
-    }
-
-    string todoPath = WAI_STORAGE;
-    todoPath += "/";
-    todoPath += lang;
-    todoPath += "/todo/";
-    todoPath += doneName;
-    fs::path pathFS(todoPath);
-    if (fs::exists(pathFS)) {
-      DUMP_VAR(fs::exists(pathFS));
-      fs::remove(pathFS);
-    } else {
-      DUMP_VAR2(fs::exists(pathFS),todoPath);
-    }
-    DUMP_VAR2(fs::exists(pathFS),todoPath);
+    markCrawler(urlDone,lang);
 
     auto it = configJson.find("crawler");
     if (it != configJson.not_found()) {
@@ -200,27 +210,7 @@ string processText(const string &text) {
         DUMP_VAR(list_string.size());
         for (auto url : list_string) {
           if (url.empty() == false) {
-            auto todoName = sha1(url);
-            TRACE_VAR(url, todoName);
-            string doneCheckPath = WAI_STORAGE;
-            doneCheckPath += "/";
-            doneCheckPath += lang;
-            doneCheckPath += "/master/";
-            doneCheckPath += todoName;
-            fs::path doneCheckPathFS(doneCheckPath);
-            DUMP_VAR3(url,fs::exists(doneCheckPathFS),doneCheckPath);
-            if (fs::exists(doneCheckPathFS) == false) {
-              string todoNewPath = WAI_STORAGE;
-              todoNewPath += "/";
-              todoNewPath += lang;
-              todoNewPath += "/todo/";
-              todoNewPath += todoName;
-              ofstream doneTodoFile(todoNewPath);
-              if (doneTodoFile.is_open()) {
-                doneTodoFile << url;
-                doneTodoFile.close();
-              }
-            }
+            newCrawler(url,lang);
           }
         }
       }
