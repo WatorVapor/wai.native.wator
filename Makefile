@@ -21,5 +21,5 @@ SRC += $(SRC2)
 SRC += $(SRC3)
 
 format: $(SRC)
-	clang-format $<
+	clang-format $< > $<.fmt
 
