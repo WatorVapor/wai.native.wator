@@ -63,12 +63,11 @@ void WikiCrawler::parse(const pt::ptree &task, string &content) {
   }
   string crawlerArrays;
   int counter = 1;
-  const int onceURLMax = 40;
   for(auto href:hrefArrays) {  
     crawlerArrays += "{";
     crawlerArrays += href;
     crawlerArrays += "};";
-    if(counter++ %onceURLMax == 0){
+    if(counter++ %iConstOnceUpURLMax == 0){
       this->up(task,crawlerArrays);
       crawlerArrays.clear();
     }
