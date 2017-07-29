@@ -175,7 +175,8 @@ string fetchCrawlerTask(const string &lang) {
   return "";
 }
 
-static void findTodoURLs(void) {
+
+static void findToduURLsCN(void) {
   try {
     fs::path path("/watorvapor/wai.storage/cn/todo");
     BOOST_FOREACH (const fs::path &p,
@@ -198,6 +199,14 @@ static void findTodoURLs(void) {
     DUMP_VAR(e.what());
   } catch (...) {
   }
+  // add seed
+  if (gVectTodoPathCN.empty()) {
+    gVectTodoPathCN.push_back(
+        "https://zh.wikipedia.org/zh-cn/%E7%94%B5%E5%AD%90");
+  }
+}
+
+static void findToduURLsJA(void) {
   try {
     fs::path path("/watorvapor/wai.storage/ja/todo");
     BOOST_FOREACH (const fs::path &p,
@@ -221,14 +230,19 @@ static void findTodoURLs(void) {
   } catch (...) {
   }
 
-  // add seed
-  if (gVectTodoPathCN.empty()) {
-    gVectTodoPathCN.push_back(
-        "https://zh.wikipedia.org/zh-cn/%E7%94%B5%E5%AD%90");
-  }
   if (gVectTodoPathJA.empty()) {
     gVectTodoPathJA.push_back(
         "https://ja.wikipedia.org/wiki/%E9%9B%BB%E5%AD%90");
+  }
+}
+
+
+static void findTodoURLs(void) {
+  if (gVectTodoPathCN.empty()) {
+    findToduURLsCN();
+  }
+  if (gVectTodoPathJA.empty()) {
+    findToduURLsJA();
   }
 }
 
