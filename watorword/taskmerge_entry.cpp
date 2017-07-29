@@ -21,7 +21,7 @@ namespace pt = boost::property_tree;
 
 static const uint16_t iConstAPIPortRangeMin = 41284;
 static const uint16_t iConstAPIPortRangeMax = 41294;
-static const uint32_t iConstMSGBufferMax = 1024 * 1024;
+static const uint32_t iConstMSGBufferMax = 20*1024 * 1024;
 
 #include "log.hpp"
 
