@@ -20,7 +20,11 @@ SRC := $(SRC1)
 SRC += $(SRC2)
 SRC += $(SRC3)
 
-format: $(SRC)
-$(SRC):
-	clang-format $^ > $^.fmt
+FORMAT      := $(addsuffix .fmt,$(SRC))
+SRC_FOR	    := $(basename $(FORMAT))
+
+format: $(FORMAT)
+$(FORMAT):
+	clang-format -style=llvm $(basename $@) > $@
+	mv $@ $(basename $@) 
 	
