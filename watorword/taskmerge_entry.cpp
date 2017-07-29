@@ -232,7 +232,7 @@ string processText(const string &text) {
     }
   } catch (boost::exception &e) {
     DUMP_VAR(boost::diagnostic_information(e));
-    return "failure"
+    return "failure";
   }
   return "success";
 }
