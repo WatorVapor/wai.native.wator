@@ -159,6 +159,10 @@ string processText(const string &text) {
     donePath += "/master/";
     donePath += doneName;
 
+    fs::path pathDoneFS(donePath);
+    if (fs::exists(pathDoneFS)) {
+      DUMP_VAR2(fs::exists(pathDoneFS),donePath);
+    }
     ofstream doneMasterFile(donePath);
     if (doneMasterFile.is_open()) {
       DUMP_VAR(doneMasterFile.good());
@@ -180,6 +184,7 @@ string processText(const string &text) {
     } else {
       DUMP_VAR2(fs::exists(pathFS),todoPath);
     }
+    DUMP_VAR2(fs::exists(pathFS),todoPath);
 
     auto it = configJson.find("crawler");
     if (it != configJson.not_found()) {
