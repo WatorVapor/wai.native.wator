@@ -42,7 +42,7 @@ void WikiCrawler::parse(const pt::ptree &task, string &content) {
     vector<string> hrefArrays;
     auto sliceLongTextCounter = content.size()/iConstMaxConten +1;
     
-    for(int =0;i < sliceLongTextCounter ;i++) {
+    for(int i=0;i < sliceLongTextCounter ;i++) {
       size_t length = content.size()%iConstMaxConten;
       std::string slice = content.substr(i*iConstMaxConten,length);
       for (auto it = std::sregex_iterator(content.begin(), content.end(), rx);
