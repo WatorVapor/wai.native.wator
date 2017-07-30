@@ -140,7 +140,7 @@ static void markCrawler(const string &url,const string &lang) {
   DUMP_VAR2(doneName, url);
   string donePath(WAI_STORAGE + "/" + lang + "/master/" + doneName);
   fs::path pathDoneFS(donePath);
-  if (fs::exists(pathDoneFS == false)) {
+  if (fs::exists(pathDoneFS) == false) {
     ofstream doneMasterFile(donePath);
     if (doneMasterFile.is_open()) {
       doneMasterFile << url;
