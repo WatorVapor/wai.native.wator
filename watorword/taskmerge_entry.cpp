@@ -53,10 +53,7 @@ private:
     TRACE_VAR(bytes_transferred);
     std::string recv_str(recv_buffer_.data(), bytes_transferred);
     TRACE_VAR(recv_str);
-    auto reuslt = processText(recv_str);
-    if (reuslt.empty() == false) {
-      this->send(reuslt);
-    }
+    processText(recv_str);
     if (!error || error == boost::asio::error::message_size) {
       start_receive();
     }
