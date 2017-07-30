@@ -224,3 +224,6 @@ string processText(const string &text) {
   }
   return "success";
 }
+
+void taskmerge_write_main(void){
+}
