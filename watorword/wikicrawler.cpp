@@ -7,10 +7,11 @@ WikiCrawler::~WikiCrawler() {}
 #include <boost/algorithm/string.hpp>
 #include <regex>
 
+
+const static int iConstMaxConten = 1024*256;
 const static string strMatchHref("href=\"");
 void WikiCrawler::parse(const pt::ptree &task, string &content) {
   // DUMP_VAR(content);
-  std::regex rx("<a.*?href=['|\"](.*?)['|\"]");
   string filter;
   string prefix;
   string base_url;
@@ -37,44 +38,51 @@ void WikiCrawler::parse(const pt::ptree &task, string &content) {
   }
 
   try {
+    std::regex rx("<a.*?href=['|\"](.*?)['|\"]");
     vector<string> hrefArrays;
-    for (auto it = std::sregex_iterator(content.begin(), content.end(), rx);
-         it != std::sregex_iterator(); ++it) {
-      TRACE_VAR(it->position());
-      std::smatch match = *it;
-      auto match_href = match.str();
-      TRACE_VAR(match_href);
-      auto first = match_href.find(strMatchHref);
-      auto last = match_href.find_last_of("\"");
-      if (first != std::string::npos && last != std::string::npos &&
-          last > first) {
-        string href = match_href.substr(first + strMatchHref.size(),
-                                        last - first - strMatchHref.size());
-        TRACE_VAR(href);
-        auto first = href.find(filter);
-        if (first == 0) {
-          href = base_url + href;
-          if (filter != prefix) {
-            boost::algorithm::replace_all(href, filter, prefix);
+    auto sliceLongTextCounter = content.size()/iConstMaxConten +1;
+    
+    for(int =0;i < sliceLongTextCounter ;i++) {
+      size_t length = content.size()%iConstMaxConten;
+      std::string slice = content.substr(i*iConstMaxConten,length);
+      for (auto it = std::sregex_iterator(content.begin(), content.end(), rx);
+           it != std::sregex_iterator(); ++it) {
+        TRACE_VAR(it->position());
+        std::smatch match = *it;
+        auto match_href = match.str();
+        TRACE_VAR(match_href);
+        auto first = match_href.find(strMatchHref);
+        auto last = match_href.find_last_of("\"");
+        if (first != std::string::npos && last != std::string::npos &&
+            last > first) {
+          string href = match_href.substr(first + strMatchHref.size(),
+                                          last - first - strMatchHref.size());
+          TRACE_VAR(href);
+          auto first = href.find(filter);
+          if (first == 0) {
+            href = base_url + href;
+            if (filter != prefix) {
+              boost::algorithm::replace_all(href, filter, prefix);
+            }
+            hrefArrays.push_back(href);
+            TRACE_VAR(filter, href);
           }
-          hrefArrays.push_back(href);
-          TRACE_VAR(filter, href);
         }
       }
-    }
-    string crawlerArrays;
-    int counter = 1;
-    for(auto href:hrefArrays) {  
-      crawlerArrays += "{";
-      crawlerArrays += href;
-      crawlerArrays += "};";
-      if(counter++ %iConstOnceUpURLMax == 0){
-        this->up(task,crawlerArrays);
-        crawlerArrays.clear();
+      string crawlerArrays;
+      int counter = 1;
+      for(auto href:hrefArrays) {  
+        crawlerArrays += "{";
+        crawlerArrays += href;
+        crawlerArrays += "};";
+        if(counter++ %iConstOnceUpURLMax == 0){
+          this->up(task,crawlerArrays);
+          crawlerArrays.clear();
+        }
       }
-    }
-    if(crawlerArrays.empty() == false) {
-      this->up(task,crawlerArrays);
+      if(crawlerArrays.empty() == false) {
+        this->up(task,crawlerArrays);
+      }
     }
   } catch (const std::exception &ex) {
     DUMP_VAR(ex.what());
