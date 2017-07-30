@@ -5,7 +5,7 @@ WikiCrawler::WikiCrawler() {}
 WikiCrawler::~WikiCrawler() {}
 
 #include <boost/algorithm/string.hpp>
-#include <regex>
+#include <boost/regex.hpp>
 
 
 const static int iConstMaxConten = 1024*256;
@@ -38,17 +38,17 @@ void WikiCrawler::parse(const pt::ptree &task, string &content) {
   }
 
   try {
-    std::regex rx("<a.*?href=['|\"](.*?)['|\"]");
+    boost::regex rx("<a.*?href=['|\"](.*?)['|\"]");
     vector<string> hrefArrays;
     auto sliceLongTextCounter = content.size()/iConstMaxConten +1;
     
-    for(int i=0;i < sliceLongTextCounter ;i++) {
-      size_t length = content.size()%iConstMaxConten;
-      std::string slice = content.substr(i*iConstMaxConten,length);
-      for (auto it = std::sregex_iterator(slice.begin(), slice.end(), rx);
+    //for(int i=0;i < sliceLongTextCounter ;i++) {
+      //size_t length = content.size()%iConstMaxConten;
+      //std::string slice = content.substr(i*iConstMaxConten,length);
+      for (auto it = boost::sregex_iterator(content.begin(), content.end(), rx);
            it != std::sregex_iterator(); ++it) {
         TRACE_VAR(it->position());
-        std::smatch match = *it;
+        boost::smatch match = *it;
         auto match_href = match.str();
         TRACE_VAR(match_href);
         auto first = match_href.find(strMatchHref);
@@ -83,7 +83,7 @@ void WikiCrawler::parse(const pt::ptree &task, string &content) {
       if(crawlerArrays.empty() == false) {
         this->up(task,crawlerArrays);
       }
-    }
+    //}
   } catch (const std::exception &ex) {
     DUMP_VAR(ex.what());
   }
