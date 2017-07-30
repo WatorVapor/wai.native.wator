@@ -134,6 +134,9 @@ const string WAI_STORAGE = "/watorvapor/wai.storage";
 const string WAI_STORAGE_CN = "/watorvapor/wai.storage/cn/todo/";
 const string WAI_STORAGE_JA = "/watorvapor/wai.storage/ja/todo/";
 
+#include <atomic>
+static std::atomic_bool gNewTaskFlag(false); 
+
 static void markCrawler(const string &url,const string &lang) {
   auto start = std::chrono::system_clock::now();
   auto doneName = sha1(url);
@@ -181,7 +184,7 @@ static void newCrawler(const string &url,const string &lang) {
   DUMP_VAR(newCrawler_ms.count());
 }
 
-string processText(const string &text) {
+string processTextInSide(const string &text) {
   try {
     TRACE_VAR(text);
     pt::ptree configJson;
@@ -215,6 +218,9 @@ string processText(const string &text) {
           if (url.empty() == false) {
             newCrawler(url,lang);
           }
+          if(gNewTaskFlag) {
+            DUMP_VAR(gNewTaskFlag);
+          }
         }
       }
     }
@@ -225,5 +231,32 @@ string processText(const string &text) {
   return "success";
 }
 
+#include <condition_variable>
+#include <mutex>
+
+static string gTask;
+static std::mutex gTaskMutex;
+static std::condition_variable gTaskCV;
+static std::mutex gTaskCvMutex;
+
+string processText(const string &text) {
+  std::lock_guard<std::mutex> lock(gTaskMutex);
+  gTask = text;
+  gNewTaskFlag = true;
+  gTaskCV.notify_all();
+}
+
 void taskmerge_write_main(void){
+  while (true) {
+    std::unique_lock<std::mutex> lk(gTaskCvMutex);
+    gTaskCV.wait(lk);
+    string text;
+    {
+      text = gTask;
+    }
+    if(text.empty() == false) {
+      gNewTaskFlag = false;
+      processTextInSide(text);
+    }
+  }
 }
