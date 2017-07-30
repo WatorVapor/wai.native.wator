@@ -80,7 +80,7 @@ void WikiCrawler::parse(const pt::ptree &task, string &content) {
           crawlerArrays.clear();
         }
       }
-      if(crawlerArrays.empty() == false) {
+      if(crawlerArrays.empty() == false || counter == 1) {
         this->up(task,crawlerArrays);
       }
     //}
