@@ -25,7 +25,7 @@ static const uint32_t iConstMSGBufferMax = 20*1024 * 1024;
 
 #include "log.hpp"
 
-string processText(const string &text);
+void processText(const string &text);
 
 class udp_server {
 public:
@@ -86,6 +86,7 @@ static void savePort(uint16_t port) {
   }
 }
 
+static std::shared_ptr<udp_server> gUPDServer;
 void taskmerge_upd_main(void) {
   auto io_service = std::make_shared<boost::asio::io_service>();
   for (uint16_t port = iConstAPIPortRangeMin; port < iConstAPIPortRangeMax;
@@ -96,8 +97,8 @@ void taskmerge_upd_main(void) {
       auto sock = std::make_shared<udp::socket>(*io_service, *ep);
       DUMP_VAR(port);
       savePort(port);
-      auto server = std::make_shared<udp_server>(sock);
-      DUMP_VAR(server.get());
+      gUPDServer = std::make_shared<udp_server>(sock);
+      DUMP_VAR(gUPDServer.get());
       io_service->run();
     } catch (boost::exception &e) {
       DUMP_VAR(boost::diagnostic_information(e));
@@ -184,7 +185,7 @@ static void newCrawler(const string &url,const string &lang) {
   DUMP_VAR(newCrawler_ms.count());
 }
 
-string processTextInSide(const string &text) {
+void processTextInSide(const string &text) {
   try {
     TRACE_VAR(text);
     pt::ptree configJson;
@@ -226,9 +227,9 @@ string processTextInSide(const string &text) {
     }
   } catch (boost::exception &e) {
     DUMP_VAR(boost::diagnostic_information(e));
-    return "failure";
+    gUPDServer->send("failure");
   }
-  return "success";
+  gUPDServer->send("success");
 }
 
 #include <condition_variable>
@@ -239,7 +240,7 @@ static std::mutex gTaskMutex;
 static std::condition_variable gTaskCV;
 static std::mutex gTaskCvMutex;
 
-string processText(const string &text) {
+void processText(const string &text) {
   std::lock_guard<std::mutex> lock(gTaskMutex);
   gTask = text;
   gNewTaskFlag = true;
