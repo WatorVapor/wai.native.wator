@@ -45,7 +45,7 @@ void WikiCrawler::parse(const pt::ptree &task, string &content) {
     for(int i=0;i < sliceLongTextCounter ;i++) {
       size_t length = content.size()%iConstMaxConten;
       std::string slice = content.substr(i*iConstMaxConten,length);
-      for (auto it = std::sregex_iterator(content.begin(), content.end(), rx);
+      for (auto it = std::sregex_iterator(slice.begin(), slice.end(), rx);
            it != std::sregex_iterator(); ++it) {
         TRACE_VAR(it->position());
         std::smatch match = *it;
