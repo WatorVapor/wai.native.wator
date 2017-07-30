@@ -218,6 +218,7 @@ void processTextInSide(const string &text) {
           }
           if(gNewTaskFlag) {
             DUMP_VAR(gNewTaskFlag);
+            break;
           }
         }
       }
