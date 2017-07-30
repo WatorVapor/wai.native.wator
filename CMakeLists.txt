@@ -14,6 +14,7 @@ set(LIBS
   boost_filesystem
   boost_system
   boost_thread
+  boost_regex
   pthread
   leveldb
   ssl
