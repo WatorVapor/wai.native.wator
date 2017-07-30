@@ -46,7 +46,7 @@ void WikiCrawler::parse(const pt::ptree &task, string &content) {
       //size_t length = content.size()%iConstMaxConten;
       //std::string slice = content.substr(i*iConstMaxConten,length);
       for (auto it = boost::sregex_iterator(content.begin(), content.end(), rx);
-           it != std::sregex_iterator(); ++it) {
+           it != boost::sregex_iterator(); ++it) {
         TRACE_VAR(it->position());
         boost::smatch match = *it;
         auto match_href = match.str();
