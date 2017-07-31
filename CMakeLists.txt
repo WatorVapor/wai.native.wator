@@ -8,6 +8,7 @@ add_definitions(-DBOOST_SPIRIT_THREADSAFE)
 
 include_directories(./)
 include_directories(./watorword)
+include_directories(./utilities)
 include_directories(./tools)
 
 set(LIBS
