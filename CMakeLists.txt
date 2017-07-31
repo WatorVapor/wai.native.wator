@@ -102,6 +102,7 @@ target_link_libraries(wator.webservice.wai.app
 
 add_library(utilitieswator
   utilities/train_master_entry.cpp
+  utilities/word_master_entry.cpp
 )
 
 
