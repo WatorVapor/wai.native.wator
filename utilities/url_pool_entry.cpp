@@ -85,7 +85,7 @@ static void savePort(uint16_t port) {
   }
 }
 
-void taskpool_upd_main(void) {
+void urlpool_upd_main(void) {
   auto io_service = std::make_shared<boost::asio::io_service>();
   for (uint16_t port = iConstAPIPortRangeMin; port < iConstAPIPortRangeMax;
        port++) {
@@ -246,7 +246,7 @@ static void findTodoURLs(void) {
   }
 }
 
-void taskpool_collect(void) {
+void urlpool_collect(void) {
   while (true) {
     findTodoURLs();
     DUMP_VAR(gVectTodoPathCN.size());
