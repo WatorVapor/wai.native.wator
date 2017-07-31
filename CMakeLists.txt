@@ -35,8 +35,6 @@ add_library(watorword
   watorword/ctrlclaw.cpp
   watorword/textpump.cpp
   watorword/wikicrawler.cpp
-  watorword/taskpool_entry.cpp
-  watorword/taskmerge_entry.cpp
   watorword/api_entry.cpp
   watorword/api_wai.cpp
   watorword/utf8.cpp
@@ -104,6 +102,8 @@ target_link_libraries(wator.webservice.wai.app
 add_library(utilitieswator
   utilities/train_master_entry.cpp
   utilities/word_master_entry.cpp
+  utilities/taskpool_entry.cpp
+  utilities/taskmerge_entry.cpp
 )
 
 
@@ -111,7 +111,7 @@ add_executable(wator.webservice.taskpool.app
   tools/taskpool.cpp
 )
 target_link_libraries(wator.webservice.taskpool.app
-  watorword
+  utilitieswator
   ${LIBS}
 )
 
@@ -119,7 +119,7 @@ add_executable(wator.webservice.taskmerge.app
   tools/taskmerge.cpp
 )
 target_link_libraries(wator.webservice.taskmerge.app
-  watorword
+  utilitieswator
   ${LIBS}
 )
 
