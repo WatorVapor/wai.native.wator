@@ -84,7 +84,7 @@ static void savePort(uint16_t port) {
 }
 
 static std::shared_ptr<udp_server> gUPDServer;
-void taskmerge_upd_main(void) {
+void urlmerge_upd_main(void) {
   auto io_service = std::make_shared<boost::asio::io_service>();
   for (uint16_t port = iConstAPIPortRangeMin; port < iConstAPIPortRangeMax;
        port++) {
@@ -245,7 +245,7 @@ void processText(const string &text) {
   gTaskCV.notify_all();
 }
 
-void taskmerge_write_main(void){
+void urlmerge_write_main(void){
   while (true) {
     std::unique_lock<std::mutex> lk(gTaskCvMutex);
     gTaskCV.wait(lk);
