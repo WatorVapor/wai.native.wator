@@ -115,4 +115,20 @@ target_link_libraries(wator.webservice.taskmerge.app
   ${LIBS}
 )
 
+add_executable(wator.webservice.trainmaster.app
+  tools/trainmaster.cpp
+)
+target_link_libraries(wator.webservice.trainmaster.app
+  watorword
+  ${LIBS}
+)
+
+add_executable(wator.webservice.wordmaster.app
+  tools/wordmaster.cpp
+)
+target_link_libraries(wator.webservice.wordmaster.app
+  watorword
+  ${LIBS}
+)
+
 
