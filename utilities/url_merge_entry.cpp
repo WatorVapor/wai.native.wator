@@ -76,7 +76,7 @@ static void savePort(uint16_t port) {
   try {
     pt::ptree portConf;
     portConf.put("port", port);
-    pt::write_json("/watorvapor/wai.storage/conf/task.merge.api.json",
+    pt::write_json("/watorvapor/wai.storage/conf/url.merge.api.json",
                    portConf);
   } catch (boost::exception &e) {
     DUMP_VAR(boost::diagnostic_information(e));
