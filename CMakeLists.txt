@@ -102,23 +102,23 @@ target_link_libraries(wator.webservice.wai.app
 add_library(utilitieswator
   utilities/train_master_entry.cpp
   utilities/word_master_entry.cpp
-  utilities/taskpool_entry.cpp
-  utilities/taskmerge_entry.cpp
+  utilities/url_pool_entry.cpp
+  utilities/url_merge_entry.cpp
 )
 
 
-add_executable(wator.webservice.taskpool.app
-  tools/taskpool.cpp
+add_executable(wator.webservice.urlpool.app
+  tools/urlpool.cpp
 )
-target_link_libraries(wator.webservice.taskpool.app
+target_link_libraries(wator.webservice.urlpool.app
   utilitieswator
   ${LIBS}
 )
 
-add_executable(wator.webservice.taskmerge.app
-  tools/taskmerge.cpp
+add_executable(wator.webservice.urlmerge.app
+  tools/urlmerge.cpp
 )
-target_link_libraries(wator.webservice.taskmerge.app
+target_link_libraries(wator.webservice.urlmerge.app
   utilitieswator
   ${LIBS}
 )
