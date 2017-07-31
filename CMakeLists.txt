@@ -99,6 +99,12 @@ target_link_libraries(wator.webservice.wai.app
   ${LIBS}
 )
 
+
+add_library(utilitieswator
+  utilities/train_master_entry.cpp
+)
+
+
 add_executable(wator.webservice.taskpool.app
   tools/taskpool.cpp
 )
@@ -119,7 +125,7 @@ add_executable(wator.webservice.trainmaster.app
   tools/trainmaster.cpp
 )
 target_link_libraries(wator.webservice.trainmaster.app
-  watorword
+  utilitieswator
   ${LIBS}
 )
 
@@ -127,7 +133,7 @@ add_executable(wator.webservice.wordmaster.app
   tools/wordmaster.cpp
 )
 target_link_libraries(wator.webservice.wordmaster.app
-  watorword
+  utilitieswator
   ${LIBS}
 )
 
