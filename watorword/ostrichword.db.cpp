@@ -60,13 +60,14 @@ void OstrichWord::mergeWordByArticle(void) {
 
 void OstrichWord::upWordByArticle2Master(const pt::ptree &task) {
   auto wordArrays = pickupWordRanking();
+  multiWordOfOneArticle_.clear();
+
   pt::ptree upTask = task;
   upTask.put("word", wordArrays);
   string task_word_upPath = "/tmp/wai.native/task_word_up.json";
   pt::write_json(task_word_upPath, upTask);
-  multiWordOfOneArticle_.clear();
   
-  auto tagOpt = taskJson.get_optional<string>("tag");
+  auto tagOpt = task.get_optional<string>("tag");
   if (tagOpt) {
     auto tag = tagOpt.get();
     string wgetTaskUp("curl -6 -F \"");
