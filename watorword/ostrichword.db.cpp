@@ -72,7 +72,7 @@ void OstrichWord::upWordByArticle2Master(const pt::ptree &task) {
     string wgetTaskUp("curl -6 -F \"");
     // string wgetTaskUp("curl -F \"");
     wgetTaskUp += "file=@";
-    wgetTaskUp += task_url_upPath;
+    wgetTaskUp += task_word_upPath;
     wgetTaskUp += "\" ";
     wgetTaskUp += "\"https://www.wator.xyz/wai/text/train/ostrich/";
     wgetTaskUp += tag;
