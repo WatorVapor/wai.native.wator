@@ -29,7 +29,7 @@ public:
 
 private:
   void pushMultiWord(const string &word);
-  string pickupWordRanking(void);
+  vector<string> pickupWordRanking(void);
 
 private:
   bool stub_;
