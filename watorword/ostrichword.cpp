@@ -93,13 +93,13 @@ vector<string> OstrichWord::pickupWordRanking(void) {
       }
       if(iCounter%50) {
         upWords += "{}";
-        wordArrays.push_back(words);
+        wordArrays.push_back(upWords);
         upWords.clear();
       }
     }
   }
   upWords += "{}";
-  wordArrays.push_back(words);
+  wordArrays.push_back(upWords);
   return wordArrays;
 }
 
