@@ -79,6 +79,6 @@ void OstrichWord::upWordByArticle2Master(const pt::ptree &task) {
     wgetTaskUp += tag;
     wgetTaskUp += "\"";
     DUMP_VAR(wgetTaskUp);
-    //::system(wgetTaskUp.c_str());
+    ::system(wgetTaskUp.c_str());
   }
 }
