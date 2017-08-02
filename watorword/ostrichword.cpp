@@ -68,7 +68,7 @@ vector<string> OstrichWord::pickupWordRanking(void) {
   }
   DUMP_VAR(localMultiWordRank.size());
   vector<string> wordArrays;
-  string words;
+  string upWords;
   int iCounter = 1;
   for (auto &record : localMultiWordRank) {
     TRACE_VAR(record.first);
@@ -84,20 +84,21 @@ vector<string> OstrichWord::pickupWordRanking(void) {
         }
       }
       if (isShort == false) {
-        words += "{";
-        words += word;
-        words += ",";
-        words += std::to_string(record.first/minWordRepeateTimes_);
-        words += "};";
+        upWords += "{";
+        upWords += word;
+        upWords += ",";
+        upWords += std::to_string(record.first/minWordRepeateTimes_);
+        upWords += "};";
         iCounter++;
       }
       if(iCounter%50) {
-        words += "{}";
+        upWords += "{}";
         wordArrays.push_back(words);
+        upWords.clear();
       }
     }
   }
-  words += "{}";
+  upWords += "{}";
   wordArrays.push_back(words);
   return wordArrays;
 }
