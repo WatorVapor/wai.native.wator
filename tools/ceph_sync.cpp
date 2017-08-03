@@ -5,6 +5,7 @@ using namespace std;
 
 #include "log.hpp"
 
+#include <boost/foreach.hpp>
 #include <boost/filesystem.hpp>
 namespace fs = boost::filesystem;
 
