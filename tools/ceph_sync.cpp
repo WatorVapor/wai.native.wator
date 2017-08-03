@@ -21,12 +21,14 @@ int main(int ac, char *av[]) {
                                   fs::recursive_directory_iterator())) {
       if (!fs::is_directory(p)) {
         string pathText = p.string();
-        DUMP_VAR(pathText);
+        TRACE_VAR(pathText);
         string cmd = "cp -f ";
         cmd += pathText;
         cmd += " ";
         cmd += av[2];
         cmd += "/";
+        DUMP_VAR(cmd);
+        ::system(cmd.c_str());
       }
     }
   } catch (std::exception &e) {
