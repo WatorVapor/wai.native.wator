@@ -142,8 +142,8 @@ target_link_libraries(wator.webservice.wordmaster.app
 add_executable(wator.ceph_sync.app
   tools/ceph_sync.cpp
 )
-target_link_libraries(wator.webservice.app
-  ${LIBSceph_sync
+target_link_libraries(wator.ceph_sync.app
+  ${LIBS}
 )
 
 
