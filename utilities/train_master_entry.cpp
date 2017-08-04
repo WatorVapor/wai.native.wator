@@ -104,7 +104,9 @@ void tain_master_upd_main(void) {
   }
 }
 
-string fetchCrawlerTask(const string &lang);
+string fetchOstrichTask(const string &lang);
+string fetchParrotTask(const string &lang);
+string fetchPhoenixTask(const string &lang);
 
 string processText(const string &text) {
   try {
