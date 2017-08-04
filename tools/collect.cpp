@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <thread>
+#include <fstream>
 using namespace std;
 
 #include "log.hpp"
@@ -22,7 +23,7 @@ int main(int ac, char *av[]) {
       if (!fs::is_directory(p)) {
         string pathText = p.string();
         DUMP_VAR(pathText);
-        std::ifstream textStream(taskTextPath);
+        std::ifstream textStream(pathText);
         std::string str((std::istreambuf_iterator<char>(textStream)),
                         std::istreambuf_iterator<char>());
         textStream.close();
