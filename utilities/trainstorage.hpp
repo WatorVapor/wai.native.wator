@@ -7,11 +7,14 @@ using namespace std;
 
 class TrainTaskStorage {
 public:
-  TrainTaskStorage(const string &path, const string &prefix);
+  TrainTaskStorage();
   ~TrainTaskStorage();
 private:
-  void open();
-  void close();
+  void open(void);
+  void close(void);
 private:
-  string out_db_path_;
+  leveldb::DB *master_todo_db_;
+  leveldb::DB *ostrich_done_db_;
+  leveldb::DB *parrot_done_db_;
+  leveldb::DB *phoenix_done_db_;
 };
