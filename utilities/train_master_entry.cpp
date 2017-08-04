@@ -79,7 +79,7 @@ static void savePort(uint16_t port) {
   try {
     pt::ptree portConf;
     portConf.put("port", port);
-    pt::write_json("/watorvapor/wai.storage/conf/task.pool.api.json", portConf);
+    pt::write_json("/watorvapor/wai.storage/conf/train.master.api.json", portConf);
   } catch (boost::exception &e) {
     DUMP_VAR(boost::diagnostic_information(e));
   }
@@ -120,8 +120,14 @@ string processText(const string &text) {
       if (typeOpt) {
         auto type = typeOpt.get();
         DUMP_VAR(type);
-        if (type == "crawler") {
-          return fetchCrawlerTask(lang);
+        if (type == "ostrich") {
+          return fetchOstrichTask(lang);
+        }
+        if (type == "parrot") {
+          return fetchParrotTask(lang);
+        }
+        if (type == "phoenix") {
+          return fetchPhoenixTask(lang);
         }
       }
     }
@@ -144,115 +150,29 @@ static std::mutex gVectoPathCvMutex;
 
 static int iConstPathCacheMax = 32;
 
-string fetchCrawlerTask(const string &lang) {
+string fetchOstrichTask(const string &lang) {
   DUMP_VAR(lang);
   if (lang == "cn") {
-    std::lock_guard<std::mutex> lock(gVectoPathMutex);
-    if (gVectTodoPathCN.empty()) {
-      gVectoPathCV.notify_all();
-      return "";
-    } else {
-      auto top = gVectTodoPathCN.back();
-      DUMP_VAR(top);
-      gVectTodoPathCN.pop_back();
-      DUMP_VAR(gVectTodoPathCN.size());
-      return top;
-    }
   } else if (lang == "ja") {
-    std::lock_guard<std::mutex> lock(gVectoPathMutex);
-    if (gVectTodoPathJA.empty()) {
-      gVectoPathCV.notify_all();
-      return "";
-    } else {
-      auto top = gVectTodoPathJA.back();
-      DUMP_VAR(top);
-      gVectTodoPathJA.pop_back();
-      DUMP_VAR(gVectTodoPathJA.size());
-      return top;
-    }
+  } else {
+  }
+  return "";
+}
+string fetchParrotTask(const string &lang) {
+  DUMP_VAR(lang);
+  if (lang == "cn") {
+  } else if (lang == "ja") {
+  } else {
+  }
+  return "";
+}
+string fetchPhoenixTask(const string &lang) {
+  DUMP_VAR(lang);
+  if (lang == "cn") {
+  } else if (lang == "ja") {
   } else {
   }
   return "";
 }
 
-
-static void findToduURLsCN(void) {
-  try {
-    fs::path path("/watorvapor/wai.storage/cn/todo");
-    BOOST_FOREACH (const fs::path &p,
-                   std::make_pair(fs::recursive_directory_iterator(path),
-                                  fs::recursive_directory_iterator())) {
-      if (!fs::is_directory(p)) {
-        string pathText = p.string();
-        TRACE_VAR(pathText);
-        std::ifstream textStream(pathText);
-        std::string str((std::istreambuf_iterator<char>(textStream)),
-                        std::istreambuf_iterator<char>());
-        textStream.close();
-        gVectTodoPathCN.push_back(str);
-        if (gVectTodoPathCN.size() > iConstPathCacheMax) {
-          break;
-        }
-      }
-    }
-  } catch (std::exception &e) {
-    DUMP_VAR(e.what());
-  } catch (...) {
-  }
-  // add seed
-  if (gVectTodoPathCN.empty()) {
-    gVectTodoPathCN.push_back(
-        "https://zh.wikipedia.org/zh-cn/%E7%94%B5%E5%AD%90");
-  }
-}
-
-static void findToduURLsJA(void) {
-  try {
-    fs::path path("/watorvapor/wai.storage/ja/todo");
-    BOOST_FOREACH (const fs::path &p,
-                   std::make_pair(fs::recursive_directory_iterator(path),
-                                  fs::recursive_directory_iterator())) {
-      if (!fs::is_directory(p)) {
-        string pathText = p.string();
-        TRACE_VAR(pathText);
-        std::ifstream textStream(pathText);
-        std::string str((std::istreambuf_iterator<char>(textStream)),
-                        std::istreambuf_iterator<char>());
-        textStream.close();
-        gVectTodoPathJA.push_back(str);
-        if (gVectTodoPathJA.size() > iConstPathCacheMax) {
-          break;
-        }
-      }
-    }
-  } catch (std::exception &e) {
-    DUMP_VAR(e.what());
-  } catch (...) {
-  }
-
-  if (gVectTodoPathJA.empty()) {
-    gVectTodoPathJA.push_back(
-        "https://ja.wikipedia.org/wiki/%E9%9B%BB%E5%AD%90");
-  }
-}
-
-
-static void findTodoURLs(void) {
-  if (gVectTodoPathCN.empty()) {
-    findToduURLsCN();
-  }
-  if (gVectTodoPathJA.empty()) {
-    findToduURLsJA();
-  }
-}
-
-void tain_master_collect(void) {
-  while (true) {
-    findTodoURLs();
-    DUMP_VAR(gVectTodoPathCN.size());
-    DUMP_VAR(gVectTodoPathJA.size());
-    std::unique_lock<std::mutex> lk(gVectoPathCvMutex);
-    gVectoPathCV.wait(lk);
-  }
-}
 
