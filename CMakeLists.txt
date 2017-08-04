@@ -104,6 +104,8 @@ add_library(utilitieswator
   utilities/word_master_entry.cpp
   utilities/url_pool_entry.cpp
   utilities/url_merge_entry.cpp
+  utilities/dictstorage.cpp
+  utilities/trainstorage.cpp
 )
 
 
