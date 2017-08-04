@@ -14,5 +14,4 @@ private:
   void close();
 private:
   string out_db_path_;
-  string iter_db_path_;
 };
