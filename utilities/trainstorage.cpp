@@ -65,12 +65,24 @@ void TrainTaskStorage::open(void) {
   OPEN_LEVELDB_CREATE("/watorvapor/wai.storage/train/phoenix/ja",phoenix_done_ja_db_);
 }
 
+CLOSE_LEVELDB
 
+#define CLOSE_LEVELDB(ptr)\
+{\
+  if (ptr != nullptr) {
+    delete ptr;
+    ptr = nullptr;
+  }
+}
 
 void TrainTaskStorage::close(void) {
-  if (gSaveDB != nullptr) {
-    delete gSaveDB;
-    gSaveDB = nullptr;
-  }
+  CLOSE_LEVELDB(master_todo_cn_db_);
+  CLOSE_LEVELDB(master_todo_ja_db_);
+  CLOSE_LEVELDB(ostrich_done_cn_db_);
+  CLOSE_LEVELDB(parrot_done_cn_db_);
+  CLOSE_LEVELDB(phoenix_done_cn_db_);
+  CLOSE_LEVELDB(ostrich_done_ja_db_);
+  CLOSE_LEVELDB(parrot_done_ja_db_);
+  CLOSE_LEVELDB(phoenix_done_ja_db_);
 }
 
