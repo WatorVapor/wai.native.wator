@@ -85,6 +85,11 @@ static void savePort(uint16_t port) {
   }
 }
 
+#include "trainstorage.hpp"
+
+static std::shared_ptr<udp_server> gUPDServer;
+static std::shared_ptr<TrainTaskStorage > gStorage;
+
 void tain_master_upd_main(void) {
   auto io_service = std::make_shared<boost::asio::io_service>();
   for (uint16_t port = iConstAPIPortRangeMin; port < iConstAPIPortRangeMax;
@@ -95,8 +100,10 @@ void tain_master_upd_main(void) {
       auto sock = std::make_shared<udp::socket>(*io_service, *ep);
       DUMP_VAR(port);
       savePort(port);
-      auto server = std::make_shared<udp_server>(sock);
-      DUMP_VAR(server.get());
+      gUPDServer = std::make_shared<udp_server>(sock);
+      DUMP_VAR(gUPDServer.get());
+      gStorage = std::make_shared<TrainTaskStorage>();
+      DUMP_VAR(gStorage.get());
       io_service->run();
     } catch (boost::exception &e) {
       DUMP_VAR(boost::diagnostic_information(e));
