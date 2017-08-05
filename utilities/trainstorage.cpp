@@ -69,10 +69,10 @@ CLOSE_LEVELDB
 
 #define CLOSE_LEVELDB(ptr)\
 {\
-  if (ptr != nullptr) {
-    delete ptr;
-    ptr = nullptr;
-  }
+  if (ptr != nullptr) {\
+    delete ptr;\
+    ptr = nullptr;\
+  }\
 }
 
 void TrainTaskStorage::close(void) {
