@@ -38,7 +38,7 @@ TrainTaskStorage::~TrainTaskStorage() {}
 }
   
 
-#define OPEN_LEVELDB_NO_CREATE(name,ptr)
+#define OPEN_LEVELDB_NO_CREATE(name,ptr)\
 {\
   if (master_todo_db_ == nullptr) {\
     leveldb::Options options;\
