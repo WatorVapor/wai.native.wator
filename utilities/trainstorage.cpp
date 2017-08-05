@@ -23,7 +23,7 @@ TrainTaskStorage::~TrainTaskStorage() {}
 
 #define OPEN_LEVELDB_CREATE(name,ptr)\
 {\
-  if (master_todo_db_ == nullptr) {\
+  if (name == nullptr) {\
     leveldb::Options options;\
     options.create_if_missing = true;\
     options.max_open_files = 512;\
@@ -40,7 +40,7 @@ TrainTaskStorage::~TrainTaskStorage() {}
 
 #define OPEN_LEVELDB_NO_CREATE(name,ptr)\
 {\
-  if (master_todo_db_ == nullptr) {\
+  if (name == nullptr) {\
     leveldb::Options options;\
     options.create_if_missing = false;\
     options.max_open_files = 512;\
