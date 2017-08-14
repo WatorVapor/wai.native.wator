@@ -14,7 +14,7 @@ void udp_server::send(const std::string &msg) {
       boost::bind(&udp_server::handle_send, this, message));
 }
 
-void udp_server::start_receive(function<void (std::string)> fn) {
+void udp_server::start_receive(function<void (const std::string&)> fn) {
   func_ = fn;
   socket_->async_receive_from(
       boost::asio::buffer(recv_buffer_), remote_endpoint_,
