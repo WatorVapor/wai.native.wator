@@ -101,25 +101,4 @@ void URLStorage::dumpSnapshotDB() {
   }
 }
 
-void URLStorage::putWord(const string &word, int counter) {
-  leveldb::ReadOptions readOptions;
-  readOptions.verify_checksums = true;
-  string valueStr;
-  leveldb::Slice key(word);
-  if (gSaveDB != nullptr) {
-    auto status = gSaveDB->Get(readOptions, key, &valueStr);
-    TRACE_VAR(status.ToString());
-    TRACE_VAR(valueStr);
-    int sum = counter;
-    if (status.ok()) {
-      try {
-        sum += std::stoi(valueStr);
-      } catch (std::exception e) {
-        DUMP_VAR2(e.what(), valueStr);
-      }
-    }
-    TRACE_VAR(sum);
-    leveldb::Slice value(std::to_string(sum));
-    gSaveDBBatch.Put(key, value);
-  }
-}
+
