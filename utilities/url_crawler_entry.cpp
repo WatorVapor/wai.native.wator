@@ -121,6 +121,11 @@ string fetchCrawlerTask(const string &lang) {
   return "";
 }
 
+#include "urlstorage.hpp"
+std::shared_ptr<URLStorage> gCNMasterStorage;
+std::shared_ptr<URLStorage> gCNTodoStorage;
+std::shared_ptr<URLStorage> gJAMasterStorage;
+std::shared_ptr<URLStorage> gJATodoStorage;
 
 static void findToduURLsCN(void) {
   try {
@@ -193,6 +198,10 @@ static void findTodoURLs(void) {
 }
 
 void url_crawler_collect(void) {
+  gCNMasterStorage = std::make_shared<URLStorage>("/watorvapor/wai.storage/leveldb/cn/master");
+  gCNTodoStorage = std::make_shared<URLStorage>("/watorvapor/wai.storage/leveldb/cn/todo");
+  gJAMasterStorage = std::make_shared<URLStorage>("/watorvapor/wai.storage/leveldb/ja/master");
+  gJATodoStorage = std::make_shared<URLStorage>("/watorvapor/wai.storage/leveldb/ja/todo");
   while (true) {
     findTodoURLs();
     DUMP_VAR(gVectTodoPathCN.size());
