@@ -19,8 +19,8 @@ using namespace boost::asio::ip;
 #include <boost/property_tree/ptree.hpp>
 namespace pt = boost::property_tree;
 
-static const uint16_t iConstAPIPortRangeMin = 41264;
-static const uint16_t iConstAPIPortRangeMax = 41274;
+static const uint16_t iConstPoolAPIPortRangeMin = 41264;
+static const uint16_t iConstPoolAPIPortRangeMax = 41274;
 
 #include "log.hpp"
 #include "udp_entry.hpp"
@@ -31,7 +31,7 @@ static void processText(const std::string &text);
 
 void url_crawler_upd_main(void) {
   auto io_service = std::make_shared<boost::asio::io_service>();
-  for (uint16_t port = iConstAPIPortRangeMin; port < iConstAPIPortRangeMax;
+  for (uint16_t port = iConstPoolAPIPortRangeMin; port < iConstPoolAPIPortRangeMax;
        port++) {
     try {
       auto ep =
