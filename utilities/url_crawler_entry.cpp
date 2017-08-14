@@ -75,3 +75,11 @@ void processText(const std::string &text) {
   return ;
 }
 
+
+
+static const uint16_t iConstAPIPortRangeMin = 41284;
+static const uint16_t iConstAPIPortRangeMax = 41294;
+
+
+static void processText2(const std::string &text);
+
