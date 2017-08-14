@@ -129,23 +129,7 @@ std::shared_ptr<URLStorage> gJATodoStorage;
 
 static void findToduURLsCN(void) {
   try {
-    fs::path path("/watorvapor/wai.storage/cn/todo");
-    BOOST_FOREACH (const fs::path &p,
-                   std::make_pair(fs::recursive_directory_iterator(path),
-                                  fs::recursive_directory_iterator())) {
-      if (!fs::is_directory(p)) {
-        string pathText = p.string();
-        TRACE_VAR(pathText);
-        std::ifstream textStream(pathText);
-        std::string str((std::istreambuf_iterator<char>(textStream)),
-                        std::istreambuf_iterator<char>());
-        textStream.close();
-        gVectTodoPathCN.push_back(str);
-        if (gVectTodoPathCN.size() > iConstPathCacheMax) {
-          break;
-        }
-      }
-    }
+    gCNTodoStorage->gets(iConstPathCacheMax,gVectTodoPathCN);
   } catch (std::exception &e) {
     DUMP_VAR(e.what());
   } catch (...) {
@@ -159,28 +143,11 @@ static void findToduURLsCN(void) {
 
 static void findToduURLsJA(void) {
   try {
-    fs::path path("/watorvapor/wai.storage/ja/todo");
-    BOOST_FOREACH (const fs::path &p,
-                   std::make_pair(fs::recursive_directory_iterator(path),
-                                  fs::recursive_directory_iterator())) {
-      if (!fs::is_directory(p)) {
-        string pathText = p.string();
-        TRACE_VAR(pathText);
-        std::ifstream textStream(pathText);
-        std::string str((std::istreambuf_iterator<char>(textStream)),
-                        std::istreambuf_iterator<char>());
-        textStream.close();
-        gVectTodoPathJA.push_back(str);
-        if (gVectTodoPathJA.size() > iConstPathCacheMax) {
-          break;
-        }
-      }
-    }
+    gJATodoStorage->gets(iConstPathCacheMax,gVectTodoPathJA);
   } catch (std::exception &e) {
     DUMP_VAR(e.what());
   } catch (...) {
   }
-
   if (gVectTodoPathJA.empty()) {
     gVectTodoPathJA.push_back(
         "https://ja.wikipedia.org/wiki/%E9%9B%BB%E5%AD%90");
