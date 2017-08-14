@@ -3,7 +3,6 @@
 
 static const uint16_t iConstAPIPortRangeMin = 41264;
 static const uint16_t iConstAPIPortRangeMax = 41274;
-static const uint32_t iConstMSGBufferMax = 1024 * 1024;
 string processText(const string &text);
 
 
