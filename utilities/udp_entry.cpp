@@ -1,6 +1,11 @@
 #include "udp_entry.hpp"
 #include "log.hpp"
 using namespace std;
+
+#include <boost/array.hpp>
+#include <boost/asio.hpp>
+#include <boost/bind.hpp>
+#include <boost/exception/all.hpp>
 using namespace boost::asio::ip;
 
 udp_server::udp_server(shared_ptr<udp::socket> sock) : socket_(sock) { start_receive(); }
