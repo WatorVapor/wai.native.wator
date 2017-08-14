@@ -1,3 +1,4 @@
+#pragma once
 #include <cinttypes>
 #include <exception>
 #include <iostream>
@@ -5,7 +6,6 @@
 #include <string>
 #include <thread>
 #include <chrono>
-#pragma once
 
 #include <boost/array.hpp>
 #include <boost/asio.hpp>
