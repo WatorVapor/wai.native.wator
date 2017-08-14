@@ -25,6 +25,7 @@ static const uint16_t iConstAPIPortRangeMax = 41274;
 #include "log.hpp"
 #include "udp_entry.hpp"
 
+static void processText(const string &text);
 
 
 
@@ -39,6 +40,7 @@ void urlpool_upd_main(void) {
       DUMP_VAR(port);
       savePort(port,"/watorvapor/wai.storage/conf/url.pool.api.json");
       auto server = std::make_shared<udp_server>(sock);
+      server->start_receive(processText);
       DUMP_VAR(server.get());
       io_service->run();
     } catch (boost::exception &e) {
@@ -49,7 +51,7 @@ void urlpool_upd_main(void) {
 
 string fetchCrawlerTask(const string &lang);
 
-string processText(const string &text) {
+void processText(const string &text) {
   try {
     pt::ptree configJson;
     std::stringstream ss;
@@ -64,14 +66,15 @@ string processText(const string &text) {
         auto type = typeOpt.get();
         DUMP_VAR(type);
         if (type == "crawler") {
-          return fetchCrawlerTask(lang);
+          fetchCrawlerTask(lang);
+          return;
         }
       }
     }
   } catch (boost::exception &e) {
     DUMP_VAR(boost::diagnostic_information(e));
   }
-  return "";
+  return ;
 }
 
 #include <boost/filesystem.hpp>
