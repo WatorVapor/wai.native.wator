@@ -24,6 +24,8 @@ namespace fs = boost::filesystem;
 #include <condition_variable>
 #include <mutex>
 
+#include "log.hpp"
+
 static vector<string> gVectTodoPathCN;
 static vector<string> gVectTodoPathJA;
 static std::mutex gVectoPathMutex;
