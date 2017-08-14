@@ -25,7 +25,7 @@ static const uint16_t iConstAPIPortRangeMax = 41274;
 #include "log.hpp"
 #include "udp_entry.hpp"
 
-static void processText(const string &text);
+static void processText(const std::string &text);
 
 
 
@@ -52,7 +52,7 @@ void urlpool_upd_main(void) {
 
 string fetchCrawlerTask(const string &lang);
 
-void processText(const string &text) {
+void processText(const std::string &text) {
   try {
     pt::ptree configJson;
     std::stringstream ss;
