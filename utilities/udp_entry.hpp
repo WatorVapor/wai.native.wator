@@ -20,7 +20,7 @@ class udp_server {
 public:
   udp_server(shared_ptr<udp::socket> sock);
   void send(const std::string &msg);
-  void start_receive(function<void (std::string)> fn);
+  void start_receive(std::function<void (std::string)> fn);
 private:
   void start_receive();
   void handle_receive(const boost::system::error_code &error,
@@ -32,7 +32,7 @@ private:
   shared_ptr<udp::socket> socket_;
   udp::endpoint remote_endpoint_;
   boost::array<char, iConstMSGBufferMax> recv_buffer_;
-  function<void (std::string)> func_;
+  std::function<void (std::string)> func_;
 };
 
 void savePort(uint16_t port,const std::string &conf);
