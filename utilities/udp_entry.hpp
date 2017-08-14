@@ -6,6 +6,7 @@
 #include <string>
 #include <thread>
 #include <chrono>
+#include <functional>
 using namespace std;
 
 #include <boost/array.hpp>
@@ -30,6 +31,7 @@ private:
   shared_ptr<udp::socket> socket_;
   udp::endpoint remote_endpoint_;
   boost::array<char, iConstMSGBufferMax> recv_buffer_;
+  function<void (std::string)> func_;
 };
 
 void savePort(uint16_t port,const std::string &conf);
