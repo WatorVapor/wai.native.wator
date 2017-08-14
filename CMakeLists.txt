@@ -106,6 +106,7 @@ add_library(utilitieswator
   utilities/url_merge_entry.cpp
   utilities/dictstorage.cpp
   utilities/trainstorage.cpp
+  utilities/udp_entry.cpp
 )
 
 
