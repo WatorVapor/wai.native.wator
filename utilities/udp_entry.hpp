@@ -20,8 +20,9 @@ class udp_server {
 public:
   udp_server(shared_ptr<udp::socket> sock);
   void send(const std::string &msg);
-private:
   void start_receive(function<void (std::string)> fn);
+private:
+  void start_receive();
   void handle_receive(const boost::system::error_code &error,
                       std::size_t bytes_transferred);
   void handle_send(boost::shared_ptr<std::string> msg);
