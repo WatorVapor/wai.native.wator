@@ -15,7 +15,6 @@ using namespace std;
 #include "log.hpp"
 
 
-static leveldb::DB *gSaveDB = nullptr;
 
 URLStorage::URLStorage (const string &path) {
   out_db_path_ = path + "/";
@@ -24,39 +23,38 @@ URLStorage::URLStorage (const string &path) {
   DUMP_VAR(iter_db_path_);
 }
 
-URLStorage::~URLStorage() {}
+URLStorage::~URLStorage() {
+}
 
 void URLStorage::openDB() {
-  if (gSaveDB == nullptr) {
+  if (save_ == nullptr) {
     leveldb::Options options;
     options.create_if_missing = true;
     options.max_open_files = 512;
     options.paranoid_checks = true;
     options.compression = leveldb::kNoCompression;
-    // auto status = leveldb::DB::Open(options, "./db/baidu.baike/word_ostrich",
-    // &gSaveDB);
-    auto status = leveldb::DB::Open(options, out_db_path_, &gSaveDB);
+    auto status = leveldb::DB::Open(options, out_db_path_, &save_);
     if (status.ok() == false) {
       DUMP_VAR(status.ToString());
-      gSaveDB = nullptr;
+      save_ = nullptr;
     }
   }
 }
 
 void URLStorage::closeDB() {
-  if (gSaveDB != nullptr) {
-    delete gSaveDB;
-    gSaveDB = nullptr;
+  if (save_ != nullptr) {
+    delete save_;
+    save_ = nullptr;
   }
 }
 void URLStorage::writeDB() {
-  if (gSaveDB != nullptr) {
+  if (save_ != nullptr) {
     leveldb::WriteOptions writeOptions;
     writeOptions.sync = true;
-    auto status = gSaveDB->Write(writeOptions, &gSaveDBBatch);
+    auto status = save_->Write(writeOptions, &saveBatch_);
     DUMP_VAR(status.ToString());
     if (status.ok()) {
-      gSaveDBBatch.Clear();
+      saveBatch_.Clear();
       dumpSnapshotDB();
     }
   }
@@ -70,9 +68,6 @@ void URLStorage::dumpSnapshotDB() {
   }
   static int iSnapshotNumber = 0;
   string pathIter = (boost::format("%08d") % iSnapshotNumber++).str();
-  // std::reverse(pathIter.begin(), pathIter.end());
-  // string pathDump = "./db/baidu.baike/snapshot/word_ostrich_iter." +
-  // pathIter;
   string pathDump = iter_db_path_ + pathIter;
   leveldb::DB *dumpdb = nullptr;
   leveldb::Options options;
@@ -81,10 +76,10 @@ void URLStorage::dumpSnapshotDB() {
   auto status = leveldb::DB::Open(options, pathDump, &dumpdb);
   if (status.ok()) {
     leveldb::WriteBatch batch;
-    if (gSaveDB) {
+    if (save_) {
       leveldb::ReadOptions readOptions;
-      readOptions.snapshot = gSaveDB->GetSnapshot();
-      auto it = gSaveDB->NewIterator(readOptions);
+      readOptions.snapshot = save_->GetSnapshot();
+      auto it = save_->NewIterator(readOptions);
       it->SeekToFirst();
       DUMP_VAR(it->Valid());
       while (it->Valid()) {
@@ -92,7 +87,7 @@ void URLStorage::dumpSnapshotDB() {
         it->Next();
       }
       delete it;
-      gSaveDB->ReleaseSnapshot(readOptions.snapshot);
+      save_->ReleaseSnapshot(readOptions.snapshot);
     }
     leveldb::WriteOptions writeOptions;
     writeOptions.sync = true;
