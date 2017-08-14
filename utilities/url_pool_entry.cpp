@@ -27,15 +27,6 @@ static const uint16_t iConstAPIPortRangeMax = 41274;
 
 
 
-static void savePort(uint16_t port) {
-  try {
-    pt::ptree portConf;
-    portConf.put("port", port);
-    pt::write_json("/watorvapor/wai.storage/conf/url.pool.api.json", portConf);
-  } catch (boost::exception &e) {
-    DUMP_VAR(boost::diagnostic_information(e));
-  }
-}
 
 void urlpool_upd_main(void) {
   auto io_service = std::make_shared<boost::asio::io_service>();
@@ -46,7 +37,7 @@ void urlpool_upd_main(void) {
           std::make_shared<udp::endpoint>(address::from_string("::1"), port);
       auto sock = std::make_shared<udp::socket>(*io_service, *ep);
       DUMP_VAR(port);
-      savePort(port);
+      savePort(port,"/watorvapor/wai.storage/conf/url.pool.api.json");
       auto server = std::make_shared<udp_server>(sock);
       DUMP_VAR(server.get());
       io_service->run();
