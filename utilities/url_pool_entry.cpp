@@ -40,8 +40,7 @@ void urlpool_upd_main(void) {
       DUMP_VAR(port);
       savePort(port,"/watorvapor/wai.storage/conf/url.pool.api.json");
       auto server = std::make_shared<udp_server>(sock);
-      auto procText = std::bind(processText);
-      server->start_receive(procText);
+      server->start_receive(processText);
       DUMP_VAR(server.get());
       io_service->run();
     } catch (boost::exception &e) {
