@@ -41,3 +41,13 @@ void udp_server::handle_send(boost::shared_ptr<std::string> msg) {
   DUMP_VAR(*msg);
 }
 
+void savePort(uint16_t port,const std::string &conf) {
+  try {
+    pt::ptree portConf;
+    portConf.put("port", port);
+    pt::write_json(conf, portConf);
+  } catch (boost::exception &e) {
+    DUMP_VAR(boost::diagnostic_information(e));
+  }
+}
+
