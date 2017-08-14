@@ -1,7 +1,6 @@
 #include "udp_entry.hpp"
 #include "log.hpp"
 
-string processText(const string &text);
 
 
 udp_server::udp_server(shared_ptr<udp::socket> sock) : socket_(sock) { start_receive(); }
@@ -27,7 +26,7 @@ void udp_server::handle_receive(const boost::system::error_code &error,
   TRACE_VAR(bytes_transferred);
   std::string recv_str(recv_buffer_.data(), bytes_transferred);
   TRACE_VAR(recv_str);
-  processText(recv_str);
+  func_(recv_str);
   if (!error || error == boost::asio::error::message_size) {
     start_receive();
   }
