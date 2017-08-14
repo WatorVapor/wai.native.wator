@@ -7,11 +7,12 @@ using namespace std;
 
 class URLStorage {
 public:
-  URLStorage(const string &path);
+  URLStorage(const std::string &path);
   ~URLStorage();
   void openDB();
   void closeDB();
   void writeDB();
+  void gets(int max,vector<std::string> &urls);
   void dumpSnapshotDB();
 private:
 private:
