@@ -202,6 +202,10 @@ void url_crawler_collect(void) {
   gCNTodoStorage = std::make_shared<URLStorage>("/watorvapor/wai.storage/leveldb/cn/todo");
   gJAMasterStorage = std::make_shared<URLStorage>("/watorvapor/wai.storage/leveldb/ja/master");
   gJATodoStorage = std::make_shared<URLStorage>("/watorvapor/wai.storage/leveldb/ja/todo");
+  gCNMasterStorage->openDB();
+  gCNTodoStorage->openDB();
+  gJAMasterStorage->openDB();
+  gJATodoStorage->openDB();
   while (true) {
     findTodoURLs();
     DUMP_VAR(gVectTodoPathCN.size());
@@ -209,4 +213,12 @@ void url_crawler_collect(void) {
     std::unique_lock<std::mutex> lk(gVectoPathCvMutex);
     gVectoPathCV.wait(lk);
   }
+  gCNMasterStorage->writeDB();
+  gCNTodoStorage->writeDB();
+  gJAMasterStorage->writeDB();
+  gJATodoStorage->writeDB();
+  gCNMasterStorage->closeDB();
+  gCNTodoStorage->closeDB();
+  gJAMasterStorage->closeDB();
+  gJATodoStorage->closeDB();
 }
