@@ -60,6 +60,26 @@ void URLStorage::writeDB() {
   }
 }
 
+void URLStorage::gets(int max,vector<std::string> &urls) {
+  if (save_) {
+    leveldb::ReadOptions readOptions;
+    readOptions.snapshot = save_->GetSnapshot();
+    auto it = save_->NewIterator(readOptions);
+    it->SeekToFirst();
+    DUMP_VAR(it->Valid());
+    int number = 0;
+    while (it->Valid()) {
+      if(++number > max){
+        break;
+      }
+      urls.push_back(it->value());
+      it->Next();
+    }
+    delete it;
+    save_->ReleaseSnapshot(readOptions.snapshot);
+  }
+}
+
 static int iConstSnapshotCounter = 100;
 void URLStorage::dumpSnapshotDB() {
   static int iCounter = 0;
