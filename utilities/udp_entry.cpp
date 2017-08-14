@@ -41,6 +41,12 @@ void udp_server::handle_send(boost::shared_ptr<std::string> msg) {
   DUMP_VAR(*msg);
 }
 
+#include <boost/foreach.hpp>
+#include <boost/optional.hpp>
+#include <boost/property_tree/json_parser.hpp>
+#include <boost/property_tree/ptree.hpp>
+namespace pt = boost::property_tree;
+
 void savePort(uint16_t port,const std::string &conf) {
   try {
     pt::ptree portConf;
