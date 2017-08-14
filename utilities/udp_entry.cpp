@@ -1,20 +1,6 @@
 #include "udp_entry.hpp"
 #include "log.hpp"
 
-#include <cinttypes>
-#include <exception>
-#include <iostream>
-#include <memory>
-#include <string>
-#include <thread>
-#include <chrono>
-using namespace std;
-
-#include <boost/array.hpp>
-#include <boost/asio.hpp>
-#include <boost/bind.hpp>
-#include <boost/exception/all.hpp>
-using namespace boost::asio::ip;
 
 udp_server::udp_server(shared_ptr<udp::socket> sock) : socket_(sock) { start_receive(); }
 void udp_server::send(const std::string &msg) {
