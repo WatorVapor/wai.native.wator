@@ -1,8 +1,8 @@
 #include "udp_entry.hpp"
 #include "log.hpp"
 
-static const uint16_t iConstAPIPortRangeMin = 41264;
-static const uint16_t iConstAPIPortRangeMax = 41274;
+static const uint16_t iConstAPIPortRangeMin = 41224;
+static const uint16_t iConstAPIPortRangeMax = 41264;
 string processText(const string &text);
 
 
