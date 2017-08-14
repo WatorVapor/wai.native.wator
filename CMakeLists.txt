@@ -105,6 +105,8 @@ add_library(utilitieswator
   utilities/url_pool_entry.cpp
   utilities/url_merge_entry.cpp
   utilities/url_crawler_entry.cpp
+  utilities/url_crawler_fetch_task.cpp
+  utilities/url_crawler_save_task.cpp
   utilities/urlstorage.cpp
   utilities/dictstorage.cpp
   utilities/trainstorage.cpp
