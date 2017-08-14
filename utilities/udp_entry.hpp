@@ -26,6 +26,7 @@ private:
   void handle_send(boost::shared_ptr<std::string> msg);
 public:
 private:
+  const uint32_t iConstMSGBufferMax = 10 * 1024 * 1024;
   shared_ptr<udp::socket> socket_;
   udp::endpoint remote_endpoint_;
   boost::array<char, iConstMSGBufferMax> recv_buffer_;
