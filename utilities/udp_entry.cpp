@@ -3,12 +3,24 @@
 
 
 
-udp_server::udp_server(shared_ptr<udp::socket> sock) : socket_(sock) { start_receive(); }
+udp_server::udp_server(shared_ptr<udp::socket> sock) : socket_(sock) 
+{ 
+  start_receive(); 
+}
 void udp_server::send(const std::string &msg) {
   boost::shared_ptr<std::string> message(new std::string(msg));
   socket_->async_send_to(
       boost::asio::buffer(*message), remote_endpoint_,
       boost::bind(&udp_server::handle_send, this, message));
+}
+
+void udp_server::start_receive(function<void (std::string)> fn) {
+  func_ = fn;
+  socket_->async_receive_from(
+      boost::asio::buffer(recv_buffer_), remote_endpoint_,
+      boost::bind(&udp_server::handle_receive, this,
+                  boost::asio::placeholders::error,
+                  boost::asio::placeholders::bytes_transferred));
 }
 
 void udp_server::start_receive() {
@@ -18,6 +30,7 @@ void udp_server::start_receive() {
                   boost::asio::placeholders::error,
                   boost::asio::placeholders::bytes_transferred));
 }
+
 
 void udp_server::handle_receive(const boost::system::error_code &error,
                     std::size_t bytes_transferred) {
