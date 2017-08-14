@@ -6,16 +6,16 @@
 #include <string>
 #include <thread>
 #include <chrono>
+using namespace std;
 
 #include <boost/array.hpp>
 #include <boost/asio.hpp>
 #include <boost/bind.hpp>
 #include <boost/exception/all.hpp>
+using namespace boost::asio::ip;
 
 
 class udp_server {
-using namespace std;
-using namespace boost::asio::ip;
 public:
   udp_server(shared_ptr<udp::socket> sock);
   void send(const std::string &msg);
