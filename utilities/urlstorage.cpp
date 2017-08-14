@@ -72,7 +72,7 @@ void URLStorage::gets(int max,vector<std::string> &urls) {
       if(++number > max){
         break;
       }
-      urls.push_back(it->value());
+      urls.push_back(it->value().ToString());
       it->Next();
     }
     delete it;
