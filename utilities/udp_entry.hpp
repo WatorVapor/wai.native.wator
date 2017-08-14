@@ -32,3 +32,4 @@ private:
   boost::array<char, iConstMSGBufferMax> recv_buffer_;
 };
 
+void savePort(uint16_t port,const std::string &conf);
