@@ -127,6 +127,14 @@ target_link_libraries(wator.webservice.urlmerge.app
   ${LIBS}
 )
 
+add_executable(wator.webservice.urlcrawler.app
+  tools/urlcrawler.cpp
+)
+target_link_libraries(wator.webservice.urlcrawler.app
+  utilitieswator
+  ${LIBS}
+)
+
 add_executable(wator.webservice.trainmaster.app
   tools/trainmaster.cpp
 )
