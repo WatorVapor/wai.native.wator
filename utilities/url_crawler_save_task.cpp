@@ -12,6 +12,9 @@ using namespace std;
 #include <condition_variable>
 #include <mutex>
 #include <atomic>
+
+#include "log.hpp"
+
 extern std::atomic_bool gNewTaskFlag;
 extern string gTask;
 extern std::mutex gTaskMutex;
