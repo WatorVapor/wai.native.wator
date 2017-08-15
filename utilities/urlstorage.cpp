@@ -115,6 +115,7 @@ bool URLStorage::is_has(const std::string &key) {
 }
 string URLStorage::summary(void) {
   string sum;
+  sum += out_db_path_;
   if (save_) {
     leveldb::ReadOptions readOptions;
     std::string value;
@@ -123,9 +124,8 @@ string URLStorage::summary(void) {
     DUMP_VAR(status);
     if(status) {
       DUMP_VAR(sum);
-      sum = value;
+      sum += value;
     }
-    leveldb::ReadOptions readOptions;
     readOptions.snapshot = save_->GetSnapshot();
     auto it = save_->NewIterator(readOptions);
     it->SeekToFirst();
@@ -137,7 +137,6 @@ string URLStorage::summary(void) {
     delete it;
     save_->ReleaseSnapshot(readOptions.snapshot);
     sum += "\n";
-    sum += out_db_path_;
     sum += "total num =<";
     sum += std::to_string(number);
     sum += ">";
