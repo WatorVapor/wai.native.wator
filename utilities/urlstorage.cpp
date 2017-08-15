@@ -142,8 +142,6 @@ string URLStorage::summary(void) {
     sum += ">";
     sum += "\n";
   }
-    
-  }
   return sum;
 }
 
