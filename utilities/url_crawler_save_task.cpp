@@ -115,7 +115,7 @@ static void newCrawler(const string &url,const string &lang) {
 }
 
 #include "udp_entry.hpp"
-extern std::shared_ptr<udp_server> gUPDServer;
+extern std::shared_ptr<udp_server> gSaveServer;
 
 
 void processTextInSide(const string &text) {
@@ -161,9 +161,9 @@ void processTextInSide(const string &text) {
     }
   } catch (boost::exception &e) {
     DUMP_VAR(boost::diagnostic_information(e));
-    gUPDServer->send("failure");
+    gSaveServer->send("failure");
   }
-  gUPDServer->send("success");
+  gSaveServer->send("success");
 }
 
 
