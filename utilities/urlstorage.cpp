@@ -122,6 +122,7 @@ string URLStorage::summary(void) {
     auto status = save_->Get(readOptions,sKey,&value);
     DUMP_VAR(status.ToString());
     if(status.ok()) {
+      DUMP_VAR(sum);
       sum = value;
     }
   }
