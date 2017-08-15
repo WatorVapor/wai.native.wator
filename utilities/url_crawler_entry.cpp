@@ -48,7 +48,7 @@ void url_crawler_fetch_upd_main(void) {
   }
 }
 
-string fetchCrawlerTask(const string &lang);
+void fetchCrawlerTask(const string &lang);
 
 void processText(const std::string &text) {
   try {
