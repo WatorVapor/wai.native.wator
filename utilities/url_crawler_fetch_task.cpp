@@ -137,4 +137,15 @@ void url_crawler_collect(void) {
   gJATodoStorage->closeDB();
 }
 
+void fetchSummary(void) {
+  auto summary;
+  summary += gCNMasterStorage->summary();
+  summary += "\n";
+  summary += gCNTodoStorage->summary();;
+  summary += "\n";
+  summary += gJAMasterStorage->summary();;
+  summary += "\n";
+  summary += gJATodoStorage->summary();;
+  gFetchServer->send(summary);
+}
 
