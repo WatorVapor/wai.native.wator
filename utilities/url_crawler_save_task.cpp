@@ -114,6 +114,7 @@ static void newCrawler(const string &url,const string &lang) {
   DUMP_VAR(newCrawler_ms.count());
 }
 
+#include "udp_entry.hpp"
 extern std::shared_ptr<udp_server> gUPDServer;
 
 void processTextInSide(const string &text) {
