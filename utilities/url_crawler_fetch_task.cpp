@@ -34,35 +34,38 @@ static std::mutex gVectoPathCvMutex;
 
 static int iConstPathCacheMax = 32;
 
-string fetchCrawlerTask(const string &lang) {
+#include "udp_entry.hpp"
+extern std::shared_ptr<udp_server> gFetchServer;
+
+void fetchCrawlerTask(const string &lang) {
   DUMP_VAR(lang);
   if (lang == "cn") {
     std::lock_guard<std::mutex> lock(gVectoPathMutex);
     if (gVectTodoPathCN.empty()) {
       gVectoPathCV.notify_all();
-      return "";
+      gFetchServer->send("");
     } else {
       auto top = gVectTodoPathCN.back();
       DUMP_VAR(top);
       gVectTodoPathCN.pop_back();
       DUMP_VAR(gVectTodoPathCN.size());
-      return top;
+      gFetchServer->send(top);
     }
   } else if (lang == "ja") {
     std::lock_guard<std::mutex> lock(gVectoPathMutex);
     if (gVectTodoPathJA.empty()) {
       gVectoPathCV.notify_all();
-      return "";
+      gFetchServer->send("");
     } else {
       auto top = gVectTodoPathJA.back();
       DUMP_VAR(top);
       gVectTodoPathJA.pop_back();
       DUMP_VAR(gVectTodoPathJA.size());
-      return top;
+      gFetchServer->send(top);
     }
   } else {
   }
-  return "";
+  gFetchServer->send("");
 }
 
 #include "urlstorage.hpp"
