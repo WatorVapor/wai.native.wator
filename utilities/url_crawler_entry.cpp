@@ -80,6 +80,8 @@ static const uint16_t iConstSaveAPIPortRangeMin = 41284;
 static const uint16_t iConstSaveAPIPortRangeMax = 41294;
 static void processText2(const std::string &text);
 
+std::shared_ptr<udp_server> gUPDServer;
+
 void url_crawler_save_upd_main(void) {
   auto io_service = std::make_shared<boost::asio::io_service>();
   for (uint16_t port = iConstSaveAPIPortRangeMin; port < iConstSaveAPIPortRangeMax;
