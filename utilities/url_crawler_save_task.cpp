@@ -71,24 +71,14 @@ static void markCrawler(const string &url,const string &lang) {
   auto start = std::chrono::system_clock::now();
   auto doneName = sha1(url);
   DUMP_VAR2(doneName, url);
-  string donePath(WAI_STORAGE + "/" + lang + "/master/" + doneName);
-  fs::path pathDoneFS(donePath);
-  if (fs::exists(pathDoneFS) == false) {
-    ofstream doneMasterFile(donePath);
-    if (doneMasterFile.is_open()) {
-      doneMasterFile << url;
-      doneMasterFile.close();
-    }
-  }
-  string todoPath(WAI_STORAGE + "/" + lang + "/todo/" + doneName);
-  fs::path pathFS(todoPath);
-  if (fs::exists(pathFS)) {
-    DUMP_VAR(fs::exists(pathFS));
-    fs::remove(pathFS);
+  if(lang == "cn") {
+    gCNMasterStorage->add(doneName,url);
+    gCNTodoStorage->remove(doneName,url);
+  } else if(lang == "ja") {
+    gJAMasterStorage->add(doneName,url);
+    gJATodoStorage->remove(doneName,url);
   } else {
-    DUMP_VAR2(fs::exists(pathFS),todoPath);
   }
-  DUMP_VAR2(fs::exists(pathFS),todoPath);
   auto end = std::chrono::system_clock::now();
   std::chrono::duration<double, std::milli> markCrawler_ms = end - start;
   DUMP_VAR(markCrawler_ms.count());
@@ -98,16 +88,16 @@ static void newCrawler(const string &url,const string &lang) {
   auto start = std::chrono::system_clock::now();
   auto todoName = sha1(url);
   TRACE_VAR(url, todoName);
-  string doneCheckPath(WAI_STORAGE + "/" + lang + "/master/" + todoName);
-  fs::path doneCheckPathFS(doneCheckPath);
-  DUMP_VAR3(fs::exists(doneCheckPathFS),url,doneCheckPath);
-  if (fs::exists(doneCheckPathFS) == false) {
-    string todoNewPath(WAI_STORAGE + "/" + lang + "/todo/" + todoName);
-    ofstream newURLFile(todoNewPath);
-    if (newURLFile.is_open()) {
-      newURLFile << url;
-      newURLFile.close();
+  
+  if(lang == "cn") {
+    if(gCNMasterStorage->is_has(todoName) == false) {
+      gCNTodoStorage->add(todoName,url);
     }
+  } else if(lang == "ja") {
+    if(gJAMasterStorage->is_has(todoName) == false) {
+      gJATodoStorage->add(todoName,url);
+    }
+  } else {
   }
   auto end = std::chrono::system_clock::now();
   std::chrono::duration<double, std::milli> newCrawler_ms = end - start;
