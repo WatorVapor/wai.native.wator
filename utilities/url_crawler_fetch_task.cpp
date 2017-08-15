@@ -138,7 +138,7 @@ void url_crawler_collect(void) {
 }
 
 void fetchSummary(void) {
-  auto summary;
+  std::string summary;
   summary += gCNMasterStorage->summary();
   summary += "\n";
   summary += gCNTodoStorage->summary();;
