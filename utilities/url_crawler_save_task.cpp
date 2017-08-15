@@ -6,6 +6,7 @@
 #include <string>
 #include <thread>
 #include <chrono>
+#include <list>
 using namespace std;
 
 
@@ -14,6 +15,14 @@ using namespace std;
 #include <atomic>
 
 #include "log.hpp"
+
+
+#include <boost/foreach.hpp>
+#include <boost/optional.hpp>
+#include <boost/property_tree/json_parser.hpp>
+#include <boost/property_tree/ptree.hpp>
+namespace pt = boost::property_tree;
+
 
 extern std::atomic_bool gNewTaskFlag;
 extern string gTask;
@@ -106,6 +115,7 @@ static void newCrawler(const string &url,const string &lang) {
 
 #include "udp_entry.hpp"
 extern std::shared_ptr<udp_server> gUPDServer;
+
 
 void processTextInSide(const string &text) {
   try {
