@@ -112,6 +112,7 @@ add_library(utilitieswator
   utilities/dictstorage.cpp
   utilities/trainstorage.cpp
   utilities/udp_entry.cpp
+  utilities/log.cpp
 )
 
 
