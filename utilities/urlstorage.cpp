@@ -119,9 +119,9 @@ string URLStorage::summary(void) {
     leveldb::ReadOptions readOptions;
     std::string value;
     leveldb::Slice sKey("leveldb.stats");
-    auto status = save_->Get(readOptions,sKey,&value);
-    DUMP_VAR(status.ToString());
-    if(status.ok()) {
+    auto status = save_->GetProperty(readOptions,sKey,&value);
+    DUMP_VAR(status);
+    if(status) {
       DUMP_VAR(sum);
       sum = value;
     }
