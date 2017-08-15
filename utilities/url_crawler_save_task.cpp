@@ -48,6 +48,12 @@ static string sha1(const string &data) {
 #include <atomic>
 static std::atomic_bool gNewTaskFlag(false); 
 
+#include "urlstorage.hpp"
+extern std::shared_ptr<URLStorage> gCNMasterStorage;
+extern std::shared_ptr<URLStorage> gCNTodoStorage;
+extern std::shared_ptr<URLStorage> gJAMasterStorage;
+extern std::shared_ptr<URLStorage> gJATodoStorage;
+
 static void markCrawler(const string &url,const string &lang) {
   auto start = std::chrono::system_clock::now();
   auto doneName = sha1(url);
