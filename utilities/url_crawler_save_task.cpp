@@ -22,6 +22,7 @@ using namespace std;
 #include <boost/property_tree/json_parser.hpp>
 #include <boost/property_tree/ptree.hpp>
 namespace pt = boost::property_tree;
+#include <boost/algorithm/string.hpp>
 
 
 extern std::atomic_bool gNewTaskFlag;
