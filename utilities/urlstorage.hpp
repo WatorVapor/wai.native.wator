@@ -14,6 +14,9 @@ public:
   void writeDB();
   void gets(int max,vector<std::string> &urls);
   void dumpSnapshotDB();
+  void add(const std::string &key,const std::string &value);
+  void remove(const std::string &key);
+  bool is_has(const std::string &key);
 private:
 private:
   string out_db_path_;
