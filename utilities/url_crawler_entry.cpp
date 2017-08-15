@@ -40,7 +40,7 @@ void url_crawler_fetch_upd_main(void) {
       savePort(port,"/watorvapor/wai.storage/conf/url.fetch.api.json");
       gFetchServer = std::make_shared<udp_server>(sock);
       gFetchServer->start_receive(processText);
-      DUMP_VAR(server.get());
+      DUMP_VAR(gFetchServer.get());
       io_service->run();
     } catch (boost::exception &e) {
       DUMP_VAR(boost::diagnostic_information(e));
@@ -96,7 +96,7 @@ void url_crawler_save_upd_main(void) {
       savePort(port,"/watorvapor/wai.storage/conf/url.save.api.json");
       gSaveServer = std::make_shared<udp_server>(sock);
       gSaveServer->start_receive(processText2);
-      DUMP_VAR(gUPDServer.get());
+      DUMP_VAR(gSaveServer.get());
       io_service->run();
     } catch (boost::exception &e) {
       DUMP_VAR(boost::diagnostic_information(e));
