@@ -50,6 +50,8 @@ void url_crawler_fetch_upd_main(void) {
 
 void fetchCrawlerTask(const string &lang);
 
+void fetchSummary(void);
+
 void processText(const std::string &text) {
   try {
     pt::ptree configJson;
@@ -69,6 +71,10 @@ void processText(const std::string &text) {
           return;
         }
       }
+    }
+    auto summaryOpt = configJson.get_optional<string>("summary");
+    if (summaryOpt) {
+      fetchSummary();
     }
   } catch (boost::exception &e) {
     DUMP_VAR(boost::diagnostic_information(e));
