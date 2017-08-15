@@ -1,6 +1,7 @@
 #include <cinttypes>
 #include <exception>
 #include <iostream>
+#include <iomanip>
 #include <memory>
 #include <string>
 #include <thread>
