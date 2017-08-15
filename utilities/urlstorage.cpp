@@ -113,7 +113,10 @@ bool URLStorage::is_has(const std::string &key) {
   }
   return false;
 }
-
+string URLStorage::summary(void) {
+  string sum;
+  return sum;
+}
 
 
 
