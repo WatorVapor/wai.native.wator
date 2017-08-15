@@ -19,24 +19,23 @@ using namespace boost::asio::ip;
 #include <boost/property_tree/ptree.hpp>
 namespace pt = boost::property_tree;
 
-static const uint16_t iConstPoolAPIPortRangeMin = 41264;
-static const uint16_t iConstPoolAPIPortRangeMax = 41274;
-
 #include "log.hpp"
 #include "udp_entry.hpp"
 
-static void processText(const std::string &text);
+static const uint16_t iConstFetchAPIPortRangeMin = 41264;
+static const uint16_t iConstFetchAPIPortRangeMax = 41274;
 
-void url_crawler_upd_main(void) {
+static void processText(const std::string &text);
+void url_crawler_fetch_upd_main(void) {
   auto io_service = std::make_shared<boost::asio::io_service>();
-  for (uint16_t port = iConstPoolAPIPortRangeMin; port < iConstPoolAPIPortRangeMax;
+  for (uint16_t port = iConstFetchAPIPortRangeMin; port < iConstFetchAPIPortRangeMax;
        port++) {
     try {
       auto ep =
           std::make_shared<udp::endpoint>(address::from_string("::1"), port);
       auto sock = std::make_shared<udp::socket>(*io_service, *ep);
       DUMP_VAR(port);
-      savePort(port,"/watorvapor/wai.storage/conf/url.pool.api.json");
+      savePort(port,"/watorvapor/wai.storage/conf/url.fetch.api.json");
       auto server = std::make_shared<udp_server>(sock);
       server->start_receive(processText);
       DUMP_VAR(server.get());
@@ -77,9 +76,42 @@ void processText(const std::string &text) {
 
 
 
-static const uint16_t iConstAPIPortRangeMin = 41284;
-static const uint16_t iConstAPIPortRangeMax = 41294;
-
-
+static const uint16_t iConstSaveAPIPortRangeMin = 41284;
+static const uint16_t iConstSaveAPIPortRangeMax = 41294;
 static void processText2(const std::string &text);
+
+void url_crawler_save_upd_main(void) {
+  auto io_service = std::make_shared<boost::asio::io_service>();
+  for (uint16_t port = iConstSaveAPIPortRangeMin; port < iConstSaveAPIPortRangeMax;
+       port++) {
+    try {
+      auto ep =
+          std::make_shared<udp::endpoint>(address::from_string("::1"), port);
+      auto sock = std::make_shared<udp::socket>(*io_service, *ep);
+      DUMP_VAR(port);
+      savePort(port,"/watorvapor/wai.storage/conf/url.save.api.json");
+      gUPDServer = std::make_shared<udp_server>(sock);
+      gUPDServer->start_receive(processText2);
+      DUMP_VAR(gUPDServer.get());
+      io_service->run();
+    } catch (boost::exception &e) {
+      DUMP_VAR(boost::diagnostic_information(e));
+    }
+  }
+}
+
+#include <condition_variable>
+#include <mutex>
+
+string gTask;
+std::mutex gTaskMutex;
+std::condition_variable gTaskCV;
+std::mutex gTaskCvMutex;
+
+void processText2(const string &text) {
+  std::lock_guard<std::mutex> lock(gTaskMutex);
+  gTask = text;
+  gNewTaskFlag = true;
+  gTaskCV.notify_all();
+}
 
