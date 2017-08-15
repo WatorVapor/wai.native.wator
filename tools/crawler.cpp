@@ -4,6 +4,7 @@
 #include <string>
 #include <thread>
 #include <vector>
+#include <cstdlib>
 using namespace std;
 
 #include "log.hpp"
@@ -19,6 +20,7 @@ namespace pt = boost::property_tree;
 #include "wikicrawler.hpp"
 
 int main(int ac, char *av[]) {
+  ::system("mkdir -p /tmp/wai.native");
 
   WikiCrawler clawler;
   auto clawText = [&](const pt::ptree &task, string &content) {
