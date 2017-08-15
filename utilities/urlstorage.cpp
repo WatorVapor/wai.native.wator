@@ -84,8 +84,8 @@ void URLStorage::add(const std::string &key,const std::string &value) {
   if (save_) {
     leveldb::WriteOptions writeOptions;
     writeOptions.sync = true;
-    Slice sKey(key);
-    Slice sValue(value);
+    leveldb::Slice sKey(key);
+    leveldb::Slice sValue(value);
     auto status = save_->Put(writeOptions,sKey,sValue);
     DUMP_VAR(status.ToString());
   }
@@ -95,7 +95,7 @@ void URLStorage::remove(const std::string &key) {
     leveldb::WriteOptions writeOptions;
     writeOptions.sync = true;
     std::string value;
-    Slice sKey(key);
+    leveldb::Slice sKey(key);
     auto status = save_->Delete(writeOptions,sKey);
     DUMP_VAR(status.ToString());
   }
@@ -104,7 +104,7 @@ bool URLStorage::is_has(const std::string &key) {
   if (save_) {
     leveldb::ReadOptions readOptions;
     std::string value;
-    Slice sKey(key);
+    leveldb::Slice sKey(key);
     auto status = save_->Get(readOptions,sKey,&value);
     if(status.ok()) {
       return true;
