@@ -160,6 +160,7 @@ add_executable(wator.collect.app
   tools/collect.cpp
 )
 target_link_libraries(wator.collect.app
+  utilitieswator
   ${LIBS}
 )
 
