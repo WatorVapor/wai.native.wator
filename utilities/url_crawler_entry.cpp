@@ -25,6 +25,8 @@ namespace pt = boost::property_tree;
 static const uint16_t iConstFetchAPIPortRangeMin = 41264;
 static const uint16_t iConstFetchAPIPortRangeMax = 41274;
 
+std::shared_ptr<udp_server> gFetchServer;
+
 static void processText(const std::string &text);
 void url_crawler_fetch_upd_main(void) {
   auto io_service = std::make_shared<boost::asio::io_service>();
@@ -36,8 +38,8 @@ void url_crawler_fetch_upd_main(void) {
       auto sock = std::make_shared<udp::socket>(*io_service, *ep);
       DUMP_VAR(port);
       savePort(port,"/watorvapor/wai.storage/conf/url.fetch.api.json");
-      auto server = std::make_shared<udp_server>(sock);
-      server->start_receive(processText);
+      gFetchServer = std::make_shared<udp_server>(sock);
+      gFetchServer->start_receive(processText);
       DUMP_VAR(server.get());
       io_service->run();
     } catch (boost::exception &e) {
@@ -80,7 +82,7 @@ static const uint16_t iConstSaveAPIPortRangeMin = 41284;
 static const uint16_t iConstSaveAPIPortRangeMax = 41294;
 static void processText2(const std::string &text);
 
-std::shared_ptr<udp_server> gUPDServer;
+std::shared_ptr<udp_server> gSaveServer;
 
 void url_crawler_save_upd_main(void) {
   auto io_service = std::make_shared<boost::asio::io_service>();
@@ -92,8 +94,8 @@ void url_crawler_save_upd_main(void) {
       auto sock = std::make_shared<udp::socket>(*io_service, *ep);
       DUMP_VAR(port);
       savePort(port,"/watorvapor/wai.storage/conf/url.save.api.json");
-      gUPDServer = std::make_shared<udp_server>(sock);
-      gUPDServer->start_receive(processText2);
+      gSaveServer = std::make_shared<udp_server>(sock);
+      gSaveServer->start_receive(processText2);
       DUMP_VAR(gUPDServer.get());
       io_service->run();
     } catch (boost::exception &e) {
