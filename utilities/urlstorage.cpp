@@ -115,6 +115,16 @@ bool URLStorage::is_has(const std::string &key) {
 }
 string URLStorage::summary(void) {
   string sum;
+  if (save_) {
+    leveldb::ReadOptions readOptions;
+    std::string value;
+    leveldb::Slice sKey("leveldb.stats");
+    auto status = save_->Get(readOptions,sKey,&value);
+    DUMP_VAR(status.ToString());
+    if(status.ok()) {
+      sum = value;
+    }
+  }
   return sum;
 }
 
