@@ -17,7 +17,7 @@ using namespace std;
 
 
 URLStorage::URLStorage (const string &path) {
-  out_db_path_ = path + "/";
+  out_db_path_ = path;
   DUMP_VAR(out_db_path_);
   iter_db_path_ = path + "/snapshot/" + "iter.";
   DUMP_VAR(iter_db_path_);
@@ -125,6 +125,25 @@ string URLStorage::summary(void) {
       DUMP_VAR(sum);
       sum = value;
     }
+    leveldb::ReadOptions readOptions;
+    readOptions.snapshot = save_->GetSnapshot();
+    auto it = save_->NewIterator(readOptions);
+    it->SeekToFirst();
+    int number = 0;
+    while (it->Valid()) {
+      ++number;
+      it->Next();
+    }
+    delete it;
+    save_->ReleaseSnapshot(readOptions.snapshot);
+    sum += "\n";
+    sum += out_db_path_;
+    sum += "total num =<";
+    sum += std::to_string(number);
+    sum += ">";
+    sum += "\n";
+  }
+    
   }
   return sum;
 }
