@@ -82,10 +82,10 @@ static void markCrawler(const string &url,const string &lang) {
   DUMP_VAR2(doneName, url);
   if(lang == "cn") {
     gCNMasterStorage->add(doneName,url);
-    gCNTodoStorage->remove(doneName,url);
+    gCNTodoStorage->remove(doneName);
   } else if(lang == "ja") {
     gJAMasterStorage->add(doneName,url);
-    gJATodoStorage->remove(doneName,url);
+    gJATodoStorage->remove(doneName);
   } else {
   }
   auto end = std::chrono::system_clock::now();
