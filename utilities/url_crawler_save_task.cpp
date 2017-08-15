@@ -10,7 +10,8 @@ using namespace std;
 
 #include <condition_variable>
 #include <mutex>
-
+#include <atomic>
+extern std::atomic_bool gNewTaskFlag;
 extern string gTask;
 extern std::mutex gTaskMutex;
 extern std::condition_variable gTaskCV;
@@ -55,8 +56,6 @@ static string sha1(const string &data) {
 
 
 
-#include <atomic>
-extern std::atomic_bool gNewTaskFlag; 
 
 #include "urlstorage.hpp"
 extern std::shared_ptr<URLStorage> gCNMasterStorage;
