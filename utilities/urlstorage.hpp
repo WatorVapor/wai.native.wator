@@ -17,6 +17,7 @@ public:
   void add(const std::string &key,const std::string &value);
   void remove(const std::string &key);
   bool is_has(const std::string &key);
+  string summary(void);
 private:
 private:
   string out_db_path_;
