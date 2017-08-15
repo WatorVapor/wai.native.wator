@@ -104,7 +104,8 @@ void url_crawler_save_upd_main(void) {
 
 #include <condition_variable>
 #include <mutex>
-
+#include <atomic>
+std::atomic_bool gNewTaskFlag(false); 
 string gTask;
 std::mutex gTaskMutex;
 std::condition_variable gTaskCV;
