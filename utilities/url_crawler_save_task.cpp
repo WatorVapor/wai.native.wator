@@ -46,7 +46,7 @@ static string sha1(const string &data) {
 
 
 #include <atomic>
-static std::atomic_bool gNewTaskFlag(false); 
+extern std::atomic_bool gNewTaskFlag; 
 
 #include "urlstorage.hpp"
 extern std::shared_ptr<URLStorage> gCNMasterStorage;
