@@ -106,6 +106,7 @@ bool URLStorage::is_has(const std::string &key) {
     std::string value;
     leveldb::Slice sKey(key);
     auto status = save_->Get(readOptions,sKey,&value);
+    DUMP_VAR(status.ToString());
     if(status.ok()) {
       return true;
     }
