@@ -125,10 +125,10 @@ target_link_libraries(wator.webservice.urlcrawler.app
   ${LIBS}
 )
 
-add_executable(wator.webservice.trainmaster.app
-  tools/trainmaster.cpp
+add_executable(wator.webservice.train.app
+  tools/train.cpp
 )
-target_link_libraries(wator.webservice.trainmaster.app
+target_link_libraries(wator.webservice.train.app
   utilitieswator
   ${LIBS}
 )
