@@ -35,6 +35,13 @@ int main(int ac, char *av[]) {
   gJATodoStorage->openDB();
   gJAJointStorage->openDB();  
   
+  gCNMasterStorage->copy(gCNJointStorage);
+  gCNTodoStorage->copy(gCNJointStorage);
+
+  gJAMasterStorage->copy(gJAJointStorage);
+  gJATodoStorage->copy(gJAJointStorage);
+
+  
   gCNMasterStorage->closeDB();
   gCNTodoStorage->closeDB();
   gCNJointStorage->closeDB();
