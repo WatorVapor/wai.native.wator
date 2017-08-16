@@ -155,7 +155,8 @@ void URLStorage::copy(std::shared_ptr<URLStorage> dst) {
     writeOptions.sync = true;
     while (it->Valid()) {
       DUMP_VAR2(it->key().ToString(),it->value().ToString());
-      dst->save_->Put(writeOptions,it->key(), it->value());
+      auto status = dst->save_->Put(writeOptions,it->key(), it->value());
+      DUMP_VAR(status.ToString());
       it->Next();
     }
     delete it;
