@@ -116,22 +116,6 @@ add_library(utilitieswator
 )
 
 
-add_executable(wator.webservice.urlpool.app
-  tools/urlpool.cpp
-)
-target_link_libraries(wator.webservice.urlpool.app
-  utilitieswator
-  ${LIBS}
-)
-
-add_executable(wator.webservice.urlmerge.app
-  tools/urlmerge.cpp
-)
-target_link_libraries(wator.webservice.urlmerge.app
-  utilitieswator
-  ${LIBS}
-)
-
 add_executable(wator.webservice.urlcrawler.app
   tools/urlcrawler.cpp
 )
@@ -148,13 +132,6 @@ target_link_libraries(wator.webservice.trainmaster.app
   ${LIBS}
 )
 
-add_executable(wator.webservice.wordmaster.app
-  tools/wordmaster.cpp
-)
-target_link_libraries(wator.webservice.wordmaster.app
-  utilitieswator
-  ${LIBS}
-)
 
 add_executable(wator.collect.app
   tools/collect.cpp
