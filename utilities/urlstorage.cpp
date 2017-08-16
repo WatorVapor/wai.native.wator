@@ -151,8 +151,11 @@ void URLStorage::copy(std::shared_ptr<URLStorage> dst) {
     readOptions.snapshot = this->save_->GetSnapshot();
     auto it = this->save_->NewIterator(readOptions);
     it->SeekToFirst();
+    leveldb::WriteOptions writeOptions;
+    writeOptions.sync = true;
     while (it->Valid()) {
-      dst->save_->Put(it->key(), it->value());
+      DUMP_VAR2(it->key().ToString(),it->value().ToString());
+      dst->save_->Put(writeOptions,it->key(), it->value());
       it->Next();
     }
     delete it;
