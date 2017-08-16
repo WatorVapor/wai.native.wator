@@ -101,7 +101,9 @@ target_link_libraries(wator.webservice.wai.app
 
 
 add_library(utilitieswator
-  utilities/train_entry.cpp.cpp
+  utilities/train_entry.cpp
+  utilities/train_fetch_task.cpp
+  utilities/train_save_task.cpp
 #  utilities/url_pool_entry.cpp
 #  utilities/url_merge_entry.cpp
   utilities/url_crawler_entry.cpp
