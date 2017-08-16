@@ -59,7 +59,7 @@ string fetchOstrichTask(const string &lang);
 string fetchParrotTask(const string &lang);
 string fetchPhoenixTask(const string &lang);
 
-string processText(const string &text) {
+void processText(const std::string &text) {
   try {
     pt::ptree configJson;
     std::stringstream ss;
@@ -74,20 +74,22 @@ string processText(const string &text) {
         auto type = typeOpt.get();
         DUMP_VAR(type);
         if (type == "ostrich") {
-          return fetchOstrichTask(lang);
+          fetchOstrichTask(lang);
+          return;
         }
         if (type == "parrot") {
-          return fetchParrotTask(lang);
+          fetchParrotTask(lang);
+          return;
         }
         if (type == "phoenix") {
-          return fetchPhoenixTask(lang);
+          fetchPhoenixTask(lang);
+          return;
         }
       }
     }
   } catch (boost::exception &e) {
     DUMP_VAR(boost::diagnostic_information(e));
   }
-  return "";
 }
 
 #include <boost/filesystem.hpp>
