@@ -1,4 +1,5 @@
 #include <string>
+#include <memory>
 using namespace std;
 #pragma once
 
@@ -18,6 +19,7 @@ public:
   void remove(const std::string &key);
   bool is_has(const std::string &key);
   string summary(void);
+  void copy(std::shared_ptr<URLStorage> dst);
 private:
 private:
   string out_db_path_;
