@@ -164,4 +164,11 @@ target_link_libraries(wator.collect.app
   ${LIBS}
 )
 
+add_executable(wator.joint.app
+  tools/joint.cpp
+)
+target_link_libraries(wator.joint.app
+  utilitieswator
+  ${LIBS}
+)
 
