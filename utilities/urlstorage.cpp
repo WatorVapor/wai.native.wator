@@ -145,6 +145,20 @@ string URLStorage::summary(void) {
   return sum;
 }
 
+void URLStorage::copy(std::shared_ptr<URLStorage> dst) {
+  if (this->save_ && dst->save_) {
+    leveldb::ReadOptions readOptions;
+    readOptions.snapshot = this->save_->GetSnapshot();
+    auto it = this->save_->NewIterator(readOptions);
+    it->SeekToFirst();
+    while (it->Valid()) {
+      dst->save_->Put(it->key(), it->value());
+      it->Next();
+    }
+    delete it;
+    save_->ReleaseSnapshot(readOptions.snapshot);
+  }
+}
 
 
 static int iConstSnapshotCounter = 100;
