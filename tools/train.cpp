@@ -6,6 +6,7 @@ using namespace std;
 void train_fetch_upd_main(void);
 void train_collect(void);
 void train_save_upd_main(void);
+
 void train_word_write(void);
 
 int main(int ac, char *av[]) {
