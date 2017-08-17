@@ -24,11 +24,11 @@ using namespace std;
 namespace pt = boost::property_tree;
 #include <boost/algorithm/string.hpp>
 
-string saveOstrichTask(const string &lang) {
+void saveOstrichTask(const string &lang) {
 }
-string saveParrotTask(const string &lang) {
+void saveParrotTask(const string &lang) {
 }
-string savePhoenixTask(const string &lang) {
+void savePhoenixTask(const string &lang) {
 }
 
 void train_word_write(void) {
