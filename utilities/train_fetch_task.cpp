@@ -84,6 +84,11 @@ static void findTodo(void) {
 }
 #define END_DB(x) \
 {\
+  gCNDone ## x ## Storage->writeDB();\
+  gCNTodo ## x ## Storage->writeDB();\
+  gJADone ## x ## Storage->writeDB();\
+  gJATodo ## x ## Storage->writeDB();\
+  \
   gCNDone ## x ## Storage->closeDB();\
   gCNTodo ## x ## Storage->closeDB();\
   gJADone ## x ## Storage->closeDB();\
@@ -98,10 +103,6 @@ void train_collect(void) {
   gJATodoOstrichStorage = std::make_shared<URLStorage>("/watorvapor/wai.storage/train/ostrich/todo/ja");
   
   START_DB(Ostrich);
-  gCNDoneOstrichStorage->openDB();
-  gCNTodoOstrichStorage->openDB();
-  gJADoneOstrichStorage->openDB();
-  gJATodoOstrichStorage->openDB();
   
   while (true) {
     findTodo();
@@ -110,15 +111,6 @@ void train_collect(void) {
     std::unique_lock<std::mutex> lk(gTodoCvMutex);
     gTodoCV.wait(lk);
   }
-  gCNDoneOstrichStorage->writeDB();
-  gCNTodoOstrichStorage->writeDB();
-  gJADoneOstrichStorage->writeDB();
-  gJATodoOstrichStorage->writeDB();
-  
-  gCNDoneOstrichStorage->closeDB();
-  gCNTodoOstrichStorage->closeDB();
-  gJADoneOstrichStorage->closeDB();
-  gJATodoOstrichStorage->closeDB();
   END_DB(Ostrich);
 }
 
