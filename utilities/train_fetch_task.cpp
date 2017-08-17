@@ -6,6 +6,7 @@
 using namespace std;
 
 #include "log.hpp"
+#include "udp_entry.hpp"
 
 static vector<string> gOstrichTodoCN;
 static vector<string> gOstrichTodoJA;
@@ -15,6 +16,7 @@ static std::condition_variable gTodoCV;
 static std::mutex gTodoCvMutex;
 
 static int iConstPathCacheMax = 32;
+
 
 extern std::shared_ptr<udp_server> gFetchServer;
 
