@@ -85,17 +85,17 @@ static void findTodoURLs(void) {
 
 #define START_DB(x) \
 {\
-  gCNDone##xStorage->openDB();\
-  gCNTodo##xStorage->openDB();\
-  gJADone##xStorage->openDB();\
-  gJATodo##xStorage->openDB();\
+  gCNDone ## x ## Storage->openDB();\
+  gCNTodo ## x ## Storage->openDB();\
+  gJADone ## x ## Storage->openDB();\
+  gJATodo ## x ## Storage->openDB();\
 }
 #define END_DB(x) \
 {\
-  gCNDone##xStorage->closeDB();\
-  gCNTodo##xStorage->closeDB();\
-  gJADone##xStorage->closeDB();\
-  gJATodo##xStorage->closeDB();\
+  gCNDone ## x ## Storage->closeDB();\
+  gCNTodo ## x ## Storage->closeDB();\
+  gJADone ## x ## Storage->closeDB();\
+  gJATodo ## x ## Storage->closeDB();\
 }
 
 
