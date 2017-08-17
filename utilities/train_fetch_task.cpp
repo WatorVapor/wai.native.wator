@@ -7,11 +7,12 @@ using namespace std;
 
 #include "log.hpp"
 
-static vector<string> gVectTodoPathCN;
-static vector<string> gVectTodoPathJA;
-static std::mutex gVectoPathMutex;
-static std::condition_variable gVectoPathCV;
-static std::mutex gVectoPathCvMutex;
+static vector<string> gOstrichTodoCN;
+static vector<string> gOstrichTodoJA;
+
+static std::mutex gTodoMutex;
+static std::condition_variable gTodoCV;
+static std::mutex gTodoCvMutex;
 
 static int iConstPathCacheMax = 32;
 
@@ -46,40 +47,31 @@ std::shared_ptr<URLStorage> gCNTodoOstrichStorage;
 std::shared_ptr<URLStorage> gJADoneOstrichStorage;
 std::shared_ptr<URLStorage> gJATodoOstrichStorage;
 
-static void findToduURLsCN(void) {
+static void findOstrichTodoCN(void) {
   try {
-    gCNTodoStorage->gets(iConstPathCacheMax,gVectTodoPathCN);
+    gCNTodoOstrichStorage->gets(iConstPathCacheMax,gVectTodoPathCN);
   } catch (std::exception &e) {
     DUMP_VAR(e.what());
   } catch (...) {
   }
-  // add seed
-  if (gVectTodoPathCN.empty()) {
-    gVectTodoPathCN.push_back(
-        "https://zh.wikipedia.org/zh-cn/%E7%94%B5%E5%AD%90");
-  }
 }
 
-static void findToduURLsJA(void) {
+static void findOstrichTodoJA(void) {
   try {
-    gJATodoStorage->gets(iConstPathCacheMax,gVectTodoPathJA);
+    gJATodoOstrichStorage->gets(iConstPathCacheMax,gVectTodoPathJA);
   } catch (std::exception &e) {
     DUMP_VAR(e.what());
   } catch (...) {
   }
-  if (gVectTodoPathJA.empty()) {
-    gVectTodoPathJA.push_back(
-        "https://ja.wikipedia.org/wiki/%E9%9B%BB%E5%AD%90");
-  }
 }
 
 
-static void findTodoURLs(void) {
-  if (gVectTodoPathCN.empty()) {
-    findToduURLsCN();
+static void findTodo(void) {
+  if (gOstrichTodoCN.empty()) {
+    findOstrichTodoCN();
   }
-  if (gVectTodoPathJA.empty()) {
-    findToduURLsJA();
+  if (findOstrichTodoJA.empty()) {
+    findOstrichTodoJA();
   }
 }
 
@@ -112,11 +104,11 @@ void train_collect(void) {
   gJATodoOstrichStorage->openDB();
   
   while (true) {
-    findTodoURLs();
-    DUMP_VAR(gVectTodoPathCN.size());
-    DUMP_VAR(gVectTodoPathJA.size());
-    std::unique_lock<std::mutex> lk(gVectoPathCvMutex);
-    gVectoPathCV.wait(lk);
+    findTodo();
+    DUMP_VAR(gOstrichTodoCN.size());
+    DUMP_VAR(gOstrichTodoJA.size());
+    std::unique_lock<std::mutex> lk(gTodoCvMutex);
+    gTodoCV.wait(lk);
   }
   gCNDoneOstrichStorage->writeDB();
   gCNTodoOstrichStorage->writeDB();
