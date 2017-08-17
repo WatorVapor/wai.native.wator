@@ -97,6 +97,7 @@ public:
       if (fetchMasterTask(task, content)) {
         fn(task, content);
       }
+      break;
     }
   }
 
