@@ -93,6 +93,7 @@ static void processText2(const std::string &text);
 std::shared_ptr<udp_server> gSaveServer;
 
 void train_save_upd_main(void) {
+  DUMP_VAR("train_save_upd_main");
   auto io_service = std::make_shared<boost::asio::io_service>();
   for (uint16_t port = iConstSaveAPIPortRangeMin; port < iConstSaveAPIPortRangeMin;
        port++) {
