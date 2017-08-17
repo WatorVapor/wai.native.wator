@@ -49,7 +49,7 @@ std::shared_ptr<URLStorage> gJATodoOstrichStorage;
 
 static void findOstrichTodoCN(void) {
   try {
-    gCNTodoOstrichStorage->gets(iConstPathCacheMax,gVectTodoPathCN);
+    gCNTodoOstrichStorage->gets(iConstPathCacheMax,gOstrichTodoCN);
   } catch (std::exception &e) {
     DUMP_VAR(e.what());
   } catch (...) {
@@ -58,7 +58,7 @@ static void findOstrichTodoCN(void) {
 
 static void findOstrichTodoJA(void) {
   try {
-    gJATodoOstrichStorage->gets(iConstPathCacheMax,gVectTodoPathJA);
+    gJATodoOstrichStorage->gets(iConstPathCacheMax,gOstrichTodoJA);
   } catch (std::exception &e) {
     DUMP_VAR(e.what());
   } catch (...) {
@@ -70,7 +70,7 @@ static void findTodo(void) {
   if (gOstrichTodoCN.empty()) {
     findOstrichTodoCN();
   }
-  if (findOstrichTodoJA.empty()) {
+  if (gOstrichTodoJA.empty()) {
     findOstrichTodoJA();
   }
 }
