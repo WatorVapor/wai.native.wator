@@ -93,13 +93,13 @@ static void processText2(const std::string &text);
 std::shared_ptr<udp_server> gSaveServer;
 
 void train_save_upd_main(void) {
-  DUMP_VAR("train_save_upd_main");
+  //DUMP_VAR("train_save_upd_main");
   auto io_service = std::make_shared<boost::asio::io_service>();
-  DUMP_VAR("train_save_upd_main");
-  for (uint16_t port = iConstSaveAPIPortRangeMin; port < iConstSaveAPIPortRangeMin;
+  //DUMP_VAR("train_save_upd_main");
+  for (uint16_t port = iConstSaveAPIPortRangeMin; port < iConstSaveAPIPortRangeMax;
        port++) {
     try {
-      DUMP_VAR(port);
+      //DUMP_VAR(port);
       auto ep =
           std::make_shared<udp::endpoint>(address::from_string("::1"), port);
       auto sock = std::make_shared<udp::socket>(*io_service, *ep);
