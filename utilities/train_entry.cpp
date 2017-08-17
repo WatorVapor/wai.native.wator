@@ -113,9 +113,9 @@ void train_save_upd_main(void) {
 }
 
 
-string saveOstrichTask(const string &lang);
-string saveParrotTask(const string &lang);
-string savePhoenixTask(const string &lang);
+void saveOstrichTask(const string &lang);
+void saveParrotTask(const string &lang);
+void savePhoenixTask(const string &lang);
 
 void processText2(const std::string &text) {
   try {
