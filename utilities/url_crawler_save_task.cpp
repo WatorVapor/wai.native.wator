@@ -58,7 +58,7 @@ void url_crawler_write_main(void){
 #include <regex>
 #include <sstream>
 
-static string sha1(const string &data) {
+string sha1(const string &data) {
   unsigned char hash[SHA_DIGEST_LENGTH];
   SHA1((const unsigned char *)(data.c_str()), data.size(), hash);
   std::stringstream ss;
