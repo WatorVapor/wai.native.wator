@@ -4,6 +4,7 @@
 #include <string>
 #include <thread>
 #include <vector>
+#include <cstdlib>
 using namespace std;
 
 #include "log.hpp"
@@ -57,6 +58,7 @@ int main(int ac,char*av[])
 namespace pt = boost::property_tree;
 
 int main(int ac, char *av[]) {
+  ::system("mkdir -p /tmp/wai.native");
   OstrichWord ostrich;
   auto learnOstrich = [&](const vector<string> &words) {
     ostrich.learn(words);
