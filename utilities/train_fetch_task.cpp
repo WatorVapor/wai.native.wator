@@ -4,6 +4,8 @@
 #include <string>
 using namespace std;
 
+#include "log.hpp"
+
 static vector<string> gVectTodoPathCN;
 static vector<string> gVectTodoPathJA;
 static std::mutex gVectoPathMutex;
