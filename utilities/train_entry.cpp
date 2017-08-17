@@ -116,9 +116,9 @@ void train_save_upd_main(void) {
 }
 
 
-void saveOstrichTask(const string &lang);
-void saveParrotTask(const string &lang);
-void savePhoenixTask(const string &lang);
+void saveOstrichTask(const string &lang,const string &url,const string &word);
+void saveParrotTask(const string &lang,const string &url,const string &word);
+void savePhoenixTask(const string &lang,const string &url,const string &word);
 
 void processText2(const std::string &text) {
   try {
@@ -127,23 +127,28 @@ void processText2(const std::string &text) {
     ss << text;
     pt::read_json(ss, configJson);
     auto langOpt = configJson.get_optional<string>("lang");
-    if (langOpt) {
+    auto urlOpt = configJson.get_optional<string>("url");
+    auto wordOpt = configJson.get_optional<string>("word");
+    if (langOpt && urlOpt && wordOpt) {
       auto lang = langOpt.get();
+      auto url = urlOpt.get();
+      auto word = wordOpt.get();
       DUMP_VAR(lang);
+      DUMP_VAR(url);
       auto typeOpt = configJson.get_optional<string>("type");
       if (typeOpt) {
         auto type = typeOpt.get();
         DUMP_VAR(type);
         if (type == "ostrich") {
-          saveOstrichTask(lang);
+          saveOstrichTask(lang,url,word);
           return;
         }
         if (type == "parrot") {
-          saveParrotTask(lang);
+          saveParrotTask(lang,url,word);
           return;
         }
         if (type == "phoenix") {
-          savePhoenixTask(lang);
+          savePhoenixTask(lang,url,word);
           return;
         }
       }
