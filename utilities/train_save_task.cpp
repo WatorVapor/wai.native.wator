@@ -24,11 +24,19 @@ using namespace std;
 namespace pt = boost::property_tree;
 #include <boost/algorithm/string.hpp>
 
+
+#include "udp_entry.hpp"
+extern std::shared_ptr<udp_server> gSaveServer;
+
+
 void saveOstrichTask(const string &lang) {
+  gSaveServer->send("success");
 }
 void saveParrotTask(const string &lang) {
+  gSaveServer->send("success");
 }
 void savePhoenixTask(const string &lang) {
+  gSaveServer->send("success");
 }
 
 void train_word_write(void) {
