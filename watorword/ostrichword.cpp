@@ -98,8 +98,10 @@ vector<string> OstrichWord::pickupWordRanking(void) {
       }
     }
   }
-  upWords += "{}";
-  wordArrays.push_back(upWords);
+  if(upWords.empty()==false) {
+    upWords += "{}";
+    wordArrays.push_back(upWords);
+  }
   return wordArrays;
 }
 
