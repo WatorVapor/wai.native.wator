@@ -30,7 +30,7 @@ std::shared_ptr<udp_server> gFetchServer;
 
 
 
-void tain_fetch_upd_main(void) {
+void train_fetch_upd_main(void) {
   auto io_service = std::make_shared<boost::asio::io_service>();
   for (uint16_t port = iConstFetchAPIPortRangeMin; port < iConstFetchAPIPortRangeMax;
        port++) {
@@ -43,7 +43,6 @@ void tain_fetch_upd_main(void) {
       gFetchServer = std::make_shared<udp_server>(sock);
       gFetchServer->start_receive(processText);
       DUMP_VAR(gFetchServer.get());
-      DUMP_VAR(gStorage.get());
       io_service->run();
     } catch (boost::exception &e) {
       DUMP_VAR(boost::diagnostic_information(e));
@@ -93,7 +92,7 @@ static const uint16_t iConstSaveAPIPortRangeMax = 41314;
 static void processText2(const std::string &text);
 std::shared_ptr<udp_server> gSaveServer;
 
-void tain_save_upd_main(void) {
+void train_save_upd_main(void) {
   auto io_service = std::make_shared<boost::asio::io_service>();
   for (uint16_t port = iConstSaveAPIPortRangeMin; port < iConstSaveAPIPortRangeMin;
        port++) {
@@ -106,7 +105,6 @@ void tain_save_upd_main(void) {
       gSaveServer = std::make_shared<udp_server>(sock);
       gSaveServer->start_receive(processText2);
       DUMP_VAR(gSaveServer.get());
-      DUMP_VAR(gStorage.get());
       io_service->run();
     } catch (boost::exception &e) {
       DUMP_VAR(boost::diagnostic_information(e));
