@@ -22,16 +22,13 @@ namespace pt = boost::property_tree;
 
 #include "log.hpp"
 #include "udp_entry.hpp"
-static const uint16_t iConstFetchAPIPortRangeMin = 41264;
-static const uint16_t iConstFetchAPIPortRangeMax = 41274;
 
+static const uint16_t iConstFetchAPIPortRangeMin = 41284;
+static const uint16_t iConstFetchAPIPortRangeMax = 41294;
 static void processText(const std::string &text);
-
 std::shared_ptr<udp_server> gFetchServer;
 
 
-#include "trainstorage.hpp"
-static std::shared_ptr<TrainTaskStorage > gStorage;
 
 void tain_fetch_upd_main(void) {
   auto io_service = std::make_shared<boost::asio::io_service>();
@@ -46,7 +43,6 @@ void tain_fetch_upd_main(void) {
       gFetchServer = std::make_shared<udp_server>(sock);
       gFetchServer->start_receive(processText);
       DUMP_VAR(gFetchServer.get());
-      gStorage = std::make_shared<TrainTaskStorage>();
       DUMP_VAR(gStorage.get());
       io_service->run();
     } catch (boost::exception &e) {
@@ -92,5 +88,67 @@ void processText(const std::string &text) {
   }
 }
 
+static const uint16_t iConstSaveAPIPortRangeMin = 41284;
+static const uint16_t iConstSaveAPIPortRangeMax = 41294;
+static void processText2(const std::string &text);
+std::shared_ptr<udp_server> gSaveServer;
 
+void tain_save_upd_main(void) {
+  auto io_service = std::make_shared<boost::asio::io_service>();
+  for (uint16_t port = iConstSaveAPIPortRangeMin; port < iConstSaveAPIPortRangeMin;
+       port++) {
+    try {
+      auto ep =
+          std::make_shared<udp::endpoint>(address::from_string("::1"), port);
+      auto sock = std::make_shared<udp::socket>(*io_service, *ep);
+      DUMP_VAR(port);
+      savePort(port,"/watorvapor/wai.storage/conf/train.save.api.json");
+      gSaveServer = std::make_shared<udp_server>(sock);
+      gSaveServer->start_receive(processText2);
+      DUMP_VAR(gSaveServer.get());
+      DUMP_VAR(gStorage.get());
+      io_service->run();
+    } catch (boost::exception &e) {
+      DUMP_VAR(boost::diagnostic_information(e));
+    }
+  }
+}
+
+
+string saveOstrichTask(const string &lang);
+string saveParrotTask(const string &lang);
+string savePhoenixTask(const string &lang);
+
+void processText2(const std::string &text) {
+  try {
+    pt::ptree configJson;
+    std::stringstream ss;
+    ss << text;
+    pt::read_json(ss, configJson);
+    auto langOpt = configJson.get_optional<string>("lang");
+    if (langOpt) {
+      auto lang = langOpt.get();
+      DUMP_VAR(lang);
+      auto typeOpt = configJson.get_optional<string>("type");
+      if (typeOpt) {
+        auto type = typeOpt.get();
+        DUMP_VAR(type);
+        if (type == "ostrich") {
+          saveOstrichTask(lang);
+          return;
+        }
+        if (type == "parrot") {
+          saveParrotTask(lang);
+          return;
+        }
+        if (type == "phoenix") {
+          savePhoenixTask(lang);
+          return;
+        }
+      }
+    }
+  } catch (boost::exception &e) {
+    DUMP_VAR(boost::diagnostic_information(e));
+  }
+}
 
