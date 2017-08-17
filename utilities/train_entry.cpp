@@ -98,6 +98,7 @@ void train_save_upd_main(void) {
   for (uint16_t port = iConstSaveAPIPortRangeMin; port < iConstSaveAPIPortRangeMin;
        port++) {
     try {
+      DUMP_VAR(port);
       auto ep =
           std::make_shared<udp::endpoint>(address::from_string("::1"), port);
       auto sock = std::make_shared<udp::socket>(*io_service, *ep);
