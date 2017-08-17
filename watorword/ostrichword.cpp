@@ -90,11 +90,11 @@ vector<string> OstrichWord::pickupWordRanking(void) {
         upWords += std::to_string(record.first/minWordRepeateTimes_);
         upWords += "};";
         iCounter++;
-      }
-      if(iCounter%50) {
-        upWords += "{}";
-        wordArrays.push_back(upWords);
-        upWords.clear();
+        if(iCounter % 50 == 0) {
+          upWords += "{}";
+          wordArrays.push_back(upWords);
+          upWords.clear();
+        }
       }
     }
   }
