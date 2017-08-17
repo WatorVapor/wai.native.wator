@@ -1,5 +1,6 @@
 #include <condition_variable>
 #include <mutex>
+#include <vector>
 using namespace std;
 
 static vector<string> gVectTodoPathCN;
@@ -80,17 +81,17 @@ static void findTodoURLs(void) {
 
 #define START_DB(x) \
 {\
-  gCNDone#xStorage->openDB();\
-  gCNTodo#xStorage->openDB();\
-  gJADone#xStorage->openDB();\
-  gJATodo#xStorage->openDB();\
+  gCNDone##xStorage->openDB();\
+  gCNTodo##xStorage->openDB();\
+  gJADone##xStorage->openDB();\
+  gJATodo##xStorage->openDB();\
 }
 #define END_DB(x) \
 {\
-  gCNDoneOstrichStorage->closeDB();\
-  gCNTodoOstrichStorage->closeDB();\
-  gJADoneOstrichStorage->closeDB();\
-  gJATodoOstrichStorage->closeDB();\
+  gCNDone##xStorage->closeDB();\
+  gCNTodo##xStorage->closeDB();\
+  gJADone##xStorage->closeDB();\
+  gJATodo##xStorage->closeDB();\
 }
 
 
