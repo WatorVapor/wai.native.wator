@@ -16,10 +16,34 @@ static std::mutex gTodoCvMutex;
 
 static int iConstPathCacheMax = 32;
 
+extern std::shared_ptr<udp_server> gFetchServer;
+
 string fetchOstrichTask(const string &lang) {
   DUMP_VAR(lang);
   if (lang == "cn") {
+    std::lock_guard<std::mutex> lock(gTodoMutex);
+    if (gOstrichTodoCN.empty()) {
+      gTodoCV.notify_all();
+      gFetchServer->send("");
+    } else {
+      auto top = gOstrichTodoCN.back();
+      DUMP_VAR(top);
+      gOstrichTodoCN.pop_back();
+      DUMP_VAR(gOstrichTodoCN.size());
+      gFetchServer->send(top);
+    }
   } else if (lang == "ja") {
+    std::lock_guard<std::mutex> lock(gTodoMutex);
+    if (gOstrichTodoJA.empty()) {
+      gTodoCV.notify_all();
+      gFetchServer->send("");
+    } else {
+      auto top = gOstrichTodoJA.back();
+      DUMP_VAR(top);
+      gOstrichTodoJA.pop_back();
+      DUMP_VAR(gOstrichTodoJA.size());
+      gFetchServer->send(top);
+    }
   } else {
   }
   return "";
