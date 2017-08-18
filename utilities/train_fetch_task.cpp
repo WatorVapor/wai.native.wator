@@ -72,6 +72,10 @@ std::shared_ptr<URLStorage> gCNTodoOstrichStorage;
 std::shared_ptr<URLStorage> gJADoneOstrichStorage;
 std::shared_ptr<URLStorage> gJATodoOstrichStorage;
 
+#include "dictstorage.hpp"
+std::shared_ptr<DictionaryStorage> gCNOstrichDict;
+std::shared_ptr<DictionaryStorage> gJAOstrichDict;
+
 static void findOstrichTodoCN(void) {
   try {
     gCNTodoOstrichStorage->gets(iConstPathCacheMax, gOstrichTodoCN);
@@ -105,6 +109,8 @@ static void findTodo(void) {
     gCNTodo##x##Storage->openDB();                                             \
     gJADone##x##Storage->openDB();                                             \
     gJATodo##x##Storage->openDB();                                             \
+    gCN##x##Dict->openDB();                                             \
+    gJA##x##Dict->openDB();                                             \
   }
 #define END_DB(x)                                                              \
   {                                                                            \
@@ -112,11 +118,15 @@ static void findTodo(void) {
     gCNTodo##x##Storage->writeDB();                                            \
     gJADone##x##Storage->writeDB();                                            \
     gJATodo##x##Storage->writeDB();                                            \
-                                                                               \
+    gCN##x##Dict->writeDB();                                             \
+    gJA##x##Dict->writeDB();                                             \
+                                                                             \
     gCNDone##x##Storage->closeDB();                                            \
     gCNTodo##x##Storage->closeDB();                                            \
     gJADone##x##Storage->closeDB();                                            \
     gJATodo##x##Storage->closeDB();                                            \
+    gCN##x##Dict->closeDB();                                             \
+    gJA##x##Dict->closeDB();                                             \
   }
 
 void train_collect(void) {
@@ -128,6 +138,10 @@ void train_collect(void) {
       "/watorvapor/wai.storage/train/ostrich/done/ja");
   gJATodoOstrichStorage = std::make_shared<URLStorage>(
       "/watorvapor/wai.storage/train/ostrich/todo/ja");
+  gCNOstrichDict = std::make_shared<DictionaryStorage>(
+      "/watorvapor/wai.storage/train/ostrich/dict/cn");
+  gJAOstrichDict = std::make_shared<DictionaryStorage>(
+      "/watorvapor/wai.storage/train/ostrich/dict/ja");
 
   START_DB(Ostrich);
 
