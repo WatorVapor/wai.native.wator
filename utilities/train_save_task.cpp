@@ -37,21 +37,31 @@ std::shared_ptr<DictionaryStorage> gJAOstrichDict;
 
 string sha1(const string &data);
 
-static void markOstrich(const string &url, const string &lang) {
+static bool markOstrich(const string &url, const string &lang) {
+  bool ret = true;
   auto start = std::chrono::system_clock::now();
   auto doneName = sha1(url);
   DUMP_VAR2(doneName, url);
   if (lang == "cn") {
-    gCNDoneOstrichStorage->add(doneName, url);
+    if(gCNDoneOstrichStorage->is_has(doneName)) {
+      ret = false;
+    } else {
+      gCNDoneOstrichStorage->add(doneName, url);
+    }
     gCNTodoOstrichStorage->remove(doneName);
   } else if (lang == "ja") {
-    gJADoneOstrichStorage->add(doneName, url);
+    if(gJADoneOstrichStorage->is_has(doneName)) {
+      ret = false;
+    } else {
+      gJADoneOstrichStorage->add(doneName, url);
+    }
     gJATodoOstrichStorage->remove(doneName);
   } else {
   }
   auto end = std::chrono::system_clock::now();
   std::chrono::duration<double, std::milli> markOstrich_ms = end - start;
   DUMP_VAR(markOstrich_ms.count());
+  return ret;
 }
 
 void saveOstrichTask(const string &lang, const string &url,
