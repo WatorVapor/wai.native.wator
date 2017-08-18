@@ -83,7 +83,7 @@ void saveOstrichTask(const string &lang, const string &url,
       if(list_words.size() ==2) {
         auto key = list_words.front();
         auto val = list_words.back();
-        DUMP_VAR(key,val);
+        DUMP_VAR2(key,val);
       }
     }
   }
