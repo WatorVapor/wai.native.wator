@@ -118,8 +118,6 @@ static void findTodo(void) {
     gCNTodo##x##Storage->writeDB();                                            \
     gJADone##x##Storage->writeDB();                                            \
     gJATodo##x##Storage->writeDB();                                            \
-    gCN##x##Dict->writeDB();                                             \
-    gJA##x##Dict->writeDB();                                             \
                                                                              \
     gCNDone##x##Storage->closeDB();                                            \
     gCNTodo##x##Storage->closeDB();                                            \
