@@ -11,8 +11,8 @@ using namespace std;
 #include <leveldb/db.h>
 #include <leveldb/write_batch.h>
 
-#include "ostrichword.hpp"
 #include "log.hpp"
+#include "ostrichword.hpp"
 int getPred(const string &word);
 
 static int iConstWordBatchMax = 1000;
@@ -87,10 +87,10 @@ vector<string> OstrichWord::pickupWordRanking(void) {
         upWords += "{";
         upWords += word;
         upWords += ",";
-        upWords += std::to_string(record.first/minWordRepeateTimes_);
+        upWords += std::to_string(record.first / minWordRepeateTimes_);
         upWords += "};";
         iCounter++;
-        if(iCounter % 50 == 0) {
+        if (iCounter % 50 == 0) {
           upWords += "{}";
           wordArrays.push_back(upWords);
           upWords.clear();
@@ -98,7 +98,7 @@ vector<string> OstrichWord::pickupWordRanking(void) {
       }
     }
   }
-  if(upWords.empty()==false) {
+  if (upWords.empty() == false) {
     upWords += "{}";
     wordArrays.push_back(upWords);
   }

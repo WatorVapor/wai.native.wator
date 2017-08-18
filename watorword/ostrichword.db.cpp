@@ -61,7 +61,7 @@ void OstrichWord::mergeWordByArticle(void) {
 void OstrichWord::upWordByArticle2Master(const pt::ptree &task) {
   auto wordArrays = pickupWordRanking();
   multiWordOfOneArticle_.clear();
-  for(auto word:wordArrays) {
+  for (auto word : wordArrays) {
     DUMP_VAR(word);
     pt::ptree upTask = task;
     upTask.put("word", word);

@@ -1,10 +1,10 @@
+#include <cstdlib>
 #include <fstream>
 #include <iostream>
 #include <streambuf>
 #include <string>
 #include <thread>
 #include <vector>
-#include <cstdlib>
 using namespace std;
 
 #include "log.hpp"

@@ -1,13 +1,13 @@
+#include <fstream>
 #include <iostream>
 #include <string>
 #include <thread>
-#include <fstream>
 using namespace std;
 
 #include "log.hpp"
 
-#include <boost/foreach.hpp>
 #include <boost/filesystem.hpp>
+#include <boost/foreach.hpp>
 namespace fs = boost::filesystem;
 
 #include <leveldb/db.h>
@@ -50,9 +50,8 @@ static void writeDB(void) {
   }
 }
 
-
 int main(int ac, char *av[]) {
-  if(ac <3) {
+  if (ac < 3) {
     DUMP_VAR(ac);
     return 0;
   }
@@ -75,7 +74,7 @@ int main(int ac, char *av[]) {
         leveldb::Slice key(filename);
         leveldb::Slice value(str);
         gSaveDBBatch.Put(key, value);
-        if(iCounter++ % 100 == 0) {
+        if (iCounter++ % 100 == 0) {
           writeDB();
         }
       }
