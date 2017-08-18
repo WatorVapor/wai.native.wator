@@ -26,7 +26,19 @@ namespace pt = boost::property_tree;
 
 
 #include "udp_entry.hpp"
-extern std::shared_ptr<udp_server> gSaveServer;
+extern std::shared_ptr<udp_server> gSaveTrainServer;
+
+#include "urlstorage.hpp"
+extern std::shared_ptr<URLStorage> gCNDoneOstrichStorage;
+extern std::shared_ptr<URLStorage> gCNTodoOstrichStorage;
+extern std::shared_ptr<URLStorage> gJADoneOstrichStorage;
+extern std::shared_ptr<URLStorage> gJATodoOstrichStorage;
+
+
+#include "dictstorage.hpp"
+std::shared_ptr<DictionaryStorage> gCNOstrichDict;
+std::shared_ptr<DictionaryStorage> gJAOstrichDict;
+
 
 string sha1(const string &data);
 
@@ -52,15 +64,28 @@ static void markOstrich(const string &url,const string &lang) {
 
 void saveOstrichTask(const string &lang,const string &url,const string &word) {
   //markOstrich(url,lang);
-  gSaveServer->send("success");
+  DUMP_VAR3(lang,url,word);
+	list<string> list_string;
+	string delim("{};");
+	boost::split(list_string, word, boost::is_any_of(delim),
+	             boost::algorithm::token_compress_on);
+	DUMP_VAR(list_string.size());
+	for (auto word : list_string) {
+	  DUMP_VAR(word);
+	  if (word.empty() == false) {
+	  }
+	}
+  gSaveTrainServer->send("success");
 }
 void saveParrotTask(const string &lang,const string &url,const string &word) {
-  gSaveServer->send("success");
+  gSaveTrainServer->send("success");
 }
 void savePhoenixTask(const string &lang,const string &url,const string &word) {
-  gSaveServer->send("success");
+  gSaveTrainServer->send("success");
 }
 
 void train_word_write(void) {
+  gCNOstrichDict = std::make_shared<DictionaryStorage>("/watorvapor/wai.storage/train/ostrich/dict/cn");
+  gJAOstrichDict = std::make_shared<DictionaryStorage>("/watorvapor/wai.storage/train/ostrich/dict/ja");
 }
 

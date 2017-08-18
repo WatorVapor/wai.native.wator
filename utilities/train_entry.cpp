@@ -26,7 +26,7 @@ namespace pt = boost::property_tree;
 static const uint16_t iConstFetchAPIPortRangeMin = 41284;
 static const uint16_t iConstFetchAPIPortRangeMax = 41294;
 static void processText(const std::string &text);
-std::shared_ptr<udp_server> gFetchServer;
+std::shared_ptr<udp_server> gFetchTrainServer;
 
 
 
@@ -40,9 +40,9 @@ void train_fetch_upd_main(void) {
       auto sock = std::make_shared<udp::socket>(*io_service, *ep);
       DUMP_VAR(port);
       savePort(port,"/watorvapor/wai.storage/conf/train.fetch.api.json");
-      gFetchServer = std::make_shared<udp_server>(sock);
-      gFetchServer->start_receive(processText);
-      DUMP_VAR(gFetchServer.get());
+      gFetchTrainServer = std::make_shared<udp_server>(sock);
+      gFetchTrainServer->start_receive(processText);
+      DUMP_VAR(gFetchTrainServer.get());
       io_service->run();
     } catch (boost::exception &e) {
       DUMP_VAR(boost::diagnostic_information(e));
@@ -90,7 +90,7 @@ void processText(const std::string &text) {
 static const uint16_t iConstSaveAPIPortRangeMin = 41304;
 static const uint16_t iConstSaveAPIPortRangeMax = 41314;
 static void processText2(const std::string &text);
-std::shared_ptr<udp_server> gSaveServer;
+std::shared_ptr<udp_server> gSaveTrainServer;
 
 void train_save_upd_main(void) {
   //DUMP_VAR("train_save_upd_main");
@@ -105,9 +105,9 @@ void train_save_upd_main(void) {
       auto sock = std::make_shared<udp::socket>(*io_service, *ep);
       DUMP_VAR(port);
       savePort(port,"/watorvapor/wai.storage/conf/train.save.api.json");
-      gSaveServer = std::make_shared<udp_server>(sock);
-      gSaveServer->start_receive(processText2);
-      DUMP_VAR(gSaveServer.get());
+      gSaveTrainServer = std::make_shared<udp_server>(sock);
+      gSaveTrainServer->start_receive(processText2);
+      DUMP_VAR(gSaveTrainServer.get());
       io_service->run();
     } catch (boost::exception &e) {
       DUMP_VAR(boost::diagnostic_information(e));

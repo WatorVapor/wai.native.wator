@@ -7,17 +7,15 @@ using namespace std;
 
 class DictionaryStorage {
 public:
-  DictionaryStorage(const string &path, const string &prefix);
+  DictionaryStorage(const string &path);
   ~DictionaryStorage();
   void openDB();
   void closeDB();
-  void writeDB();
-  void dumpSnapshotDB();
   void putWord(const string &word, int counter);
-
 private:
 private:
   string out_db_path_;
   string iter_db_path_;
+  leveldb::DB *save_;
   leveldb::WriteBatch gSaveDBBatch;
 };
