@@ -96,9 +96,7 @@ static bool markOstrich(const string &url, const string &lang) {
 void saveOstrichTask(const string &lang, const string &url,
                      const string &word) {
   DUMP_VAR3(lang, url, word);
-  if(markOstrich(url,lang) == false) {
-    return;
-  }
+  markOstrich(url,lang);
   auto save = [&](const string &key,int counter) {
     if (lang == "cn") {
       gCNOstrichDict->putWord(key,counter);
