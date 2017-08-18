@@ -121,4 +121,6 @@ void train_word_write(void) {
       "/watorvapor/wai.storage/train/ostrich/dict/cn");
   gJAOstrichDict = std::make_shared<DictionaryStorage>(
       "/watorvapor/wai.storage/train/ostrich/dict/ja");
+  gCNOstrichDict->openDB();
+  gJAOstrichDict->openDB();
 }
