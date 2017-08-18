@@ -32,8 +32,8 @@ extern std::shared_ptr<URLStorage> gJADoneOstrichStorage;
 extern std::shared_ptr<URLStorage> gJATodoOstrichStorage;
 
 #include "dictstorage.hpp"
-std::shared_ptr<DictionaryStorage> gCNOstrichDict;
-std::shared_ptr<DictionaryStorage> gJAOstrichDict;
+extern std::shared_ptr<DictionaryStorage> gCNOstrichDict;
+extern std::shared_ptr<DictionaryStorage> gJAOstrichDict;
 
 string sha1(const string &data);
 
@@ -117,10 +117,4 @@ void savePhoenixTask(const string &lang, const string &url,
 }
 
 void train_word_write(void) {
-  gCNOstrichDict = std::make_shared<DictionaryStorage>(
-      "/watorvapor/wai.storage/train/ostrich/dict/cn");
-  gJAOstrichDict = std::make_shared<DictionaryStorage>(
-      "/watorvapor/wai.storage/train/ostrich/dict/ja");
-  gCNOstrichDict->openDB();
-  gJAOstrichDict->openDB();
 }
