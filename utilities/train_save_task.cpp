@@ -37,6 +37,33 @@ std::shared_ptr<DictionaryStorage> gJAOstrichDict;
 
 string sha1(const string &data);
 
+template <typename T> void eachWord(const string &word,T fn) {
+  list<string> list_string;
+  string delim("{};");
+  boost::split(list_string, word, boost::is_any_of(delim),
+               boost::algorithm::token_compress_on);
+  DUMP_VAR(list_string.size());
+  for (auto wordPair : list_string) {
+    DUMP_VAR(wordPair);
+    if (wordPair.empty() == false) {
+      string delim2(",");
+      list<string> list_words;
+      boost::split(list_words, wordPair, boost::is_any_of(delim2),
+               boost::algorithm::token_compress_on);
+      if(list_words.size() ==2) {
+        auto key = list_words.front();
+        auto val = list_words.back();
+        DUMP_VAR2(key,val);
+        auto counter = std::stoi(val);
+        if(counter > 0) {
+          fn(key,counter);
+        }
+      }
+    }
+  }
+}; 
+
+
 static bool markOstrich(const string &url, const string &lang) {
   bool ret = true;
   auto start = std::chrono::system_clock::now();
@@ -64,31 +91,7 @@ static bool markOstrich(const string &url, const string &lang) {
   return ret;
 }
 
-template <typename T> void eachWord(const string &word,T fn) {
-  list<string> list_string;
-  string delim("{};");
-  boost::split(list_string, word, boost::is_any_of(delim),
-               boost::algorithm::token_compress_on);
-  DUMP_VAR(list_string.size());
-  for (auto wordPair : list_string) {
-    DUMP_VAR(wordPair);
-    if (wordPair.empty() == false) {
-      string delim2(",");
-      list<string> list_words;
-      boost::split(list_words, wordPair, boost::is_any_of(delim2),
-               boost::algorithm::token_compress_on);
-      if(list_words.size() ==2) {
-        auto key = list_words.front();
-        auto val = list_words.back();
-        DUMP_VAR2(key,val);
-        auto counter = std::stoi(val);
-        if(counter > 0) {
-          fn(key,counter);
-        }
-      }
-    }
-  }
-}; 
+
 
 void saveOstrichTask(const string &lang, const string &url,
                      const string &word) {
@@ -97,34 +100,14 @@ void saveOstrichTask(const string &lang, const string &url,
     return;
   }
   auto save = [&](const string &key,int counter) {
-    gCNOstrichDict->putWord(key,counter);
+    if (lang == "cn") {
+      gCNOstrichDict->putWord(key,counter);
+    } else if (lang == "ja") {
+      gJAOstrichDict->putWord(key,counter);
+    } else {
+    }
   };
   eachWord(word,save);
-/*
-  list<string> list_string;
-  string delim("{};");
-  boost::split(list_string, word, boost::is_any_of(delim),
-               boost::algorithm::token_compress_on);
-  DUMP_VAR(list_string.size());
-  for (auto wordPair : list_string) {
-    DUMP_VAR(wordPair);
-    if (wordPair.empty() == false) {
-      string delim2(",");
-      list<string> list_words;
-      boost::split(list_words, wordPair, boost::is_any_of(delim2),
-               boost::algorithm::token_compress_on);
-      if(list_words.size() ==2) {
-        auto key = list_words.front();
-        auto val = list_words.back();
-        DUMP_VAR2(key,val);
-        auto counter = std::stoi(val);
-        if(counter > 0) {
-          gCNOstrichDict->putWord(key,counter);
-        }
-      }
-    }
-  }
-  */
   gSaveTrainServer->send("success");
 }
 void saveParrotTask(const string &lang, const string &url, const string &word) {
