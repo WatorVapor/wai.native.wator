@@ -98,7 +98,7 @@ void saveOstrichTask(const string &lang, const string &url,
   }
   auto save = [&](const string &key,int counter) {
     gCNOstrichDict->putWord(key,counter);
-  }
+  };
   eachWord(word,save);
 /*
   list<string> list_string;
