@@ -1,20 +1,16 @@
 #include "udp_entry.hpp"
 #include "log.hpp"
 
-
-
-udp_server::udp_server(shared_ptr<udp::socket> sock) : socket_(sock) 
-{ 
-  start_receive(); 
+udp_server::udp_server(shared_ptr<udp::socket> sock) : socket_(sock) {
+  start_receive();
 }
 void udp_server::send(const std::string &msg) {
   boost::shared_ptr<std::string> message(new std::string(msg));
-  socket_->async_send_to(
-      boost::asio::buffer(*message), remote_endpoint_,
-      boost::bind(&udp_server::handle_send, this, message));
+  socket_->async_send_to(boost::asio::buffer(*message), remote_endpoint_,
+                         boost::bind(&udp_server::handle_send, this, message));
 }
 
-void udp_server::start_receive(function<void (const std::string&)> fn) {
+void udp_server::start_receive(function<void(const std::string &)> fn) {
   func_ = fn;
   socket_->async_receive_from(
       boost::asio::buffer(recv_buffer_), remote_endpoint_,
@@ -31,9 +27,8 @@ void udp_server::start_receive() {
                   boost::asio::placeholders::bytes_transferred));
 }
 
-
 void udp_server::handle_receive(const boost::system::error_code &error,
-                    std::size_t bytes_transferred) {
+                                std::size_t bytes_transferred) {
   auto start = std::chrono::system_clock::now();
   TRACE_VAR(remote_endpoint_);
   TRACE_VAR(bytes_transferred);
@@ -59,7 +54,7 @@ void udp_server::handle_send(boost::shared_ptr<std::string> msg) {
 #include <boost/property_tree/ptree.hpp>
 namespace pt = boost::property_tree;
 
-void savePort(uint16_t port,const std::string &conf) {
+void savePort(uint16_t port, const std::string &conf) {
   try {
     pt::ptree portConf;
     portConf.put("port", port);
@@ -68,4 +63,3 @@ void savePort(uint16_t port,const std::string &conf) {
     DUMP_VAR(boost::diagnostic_information(e));
   }
 }
-

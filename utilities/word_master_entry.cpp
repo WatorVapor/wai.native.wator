@@ -1,10 +1,10 @@
+#include <chrono>
 #include <cinttypes>
 #include <exception>
 #include <iostream>
 #include <memory>
 #include <string>
 #include <thread>
-#include <chrono>
 using namespace std;
 
 #include <boost/array.hpp>
@@ -21,7 +21,7 @@ namespace pt = boost::property_tree;
 
 static const uint16_t iConstAPIPortRangeMin = 41284;
 static const uint16_t iConstAPIPortRangeMax = 41294;
-static const uint32_t iConstMSGBufferMax = 20*1024 * 1024;
+static const uint32_t iConstMSGBufferMax = 20 * 1024 * 1024;
 
 #include "log.hpp"
 
@@ -133,9 +133,9 @@ const string WAI_STORAGE_CN = "/watorvapor/wai.storage/cn/todo/";
 const string WAI_STORAGE_JA = "/watorvapor/wai.storage/ja/todo/";
 
 #include <atomic>
-static std::atomic_bool gNewTaskFlag(false); 
+static std::atomic_bool gNewTaskFlag(false);
 
-static void markCrawler(const string &url,const string &lang) {
+static void markCrawler(const string &url, const string &lang) {
   auto start = std::chrono::system_clock::now();
   auto doneName = sha1(url);
   DUMP_VAR2(doneName, url);
@@ -154,21 +154,21 @@ static void markCrawler(const string &url,const string &lang) {
     DUMP_VAR(fs::exists(pathFS));
     fs::remove(pathFS);
   } else {
-    DUMP_VAR2(fs::exists(pathFS),todoPath);
+    DUMP_VAR2(fs::exists(pathFS), todoPath);
   }
-  DUMP_VAR2(fs::exists(pathFS),todoPath);
+  DUMP_VAR2(fs::exists(pathFS), todoPath);
   auto end = std::chrono::system_clock::now();
   std::chrono::duration<double, std::milli> markCrawler_ms = end - start;
   DUMP_VAR(markCrawler_ms.count());
 }
 
-static void newCrawler(const string &url,const string &lang) {
+static void newCrawler(const string &url, const string &lang) {
   auto start = std::chrono::system_clock::now();
   auto todoName = sha1(url);
   TRACE_VAR(url, todoName);
   string doneCheckPath(WAI_STORAGE + "/" + lang + "/master/" + todoName);
   fs::path doneCheckPathFS(doneCheckPath);
-  DUMP_VAR3(fs::exists(doneCheckPathFS),url,doneCheckPath);
+  DUMP_VAR3(fs::exists(doneCheckPathFS), url, doneCheckPath);
   if (fs::exists(doneCheckPathFS) == false) {
     string todoNewPath(WAI_STORAGE + "/" + lang + "/todo/" + todoName);
     ofstream newURLFile(todoNewPath);
@@ -199,7 +199,7 @@ void processTextInSide(const string &text) {
     if (urlOpt) {
       urlDone = urlOpt.get();
     }
-    markCrawler(urlDone,lang);
+    markCrawler(urlDone, lang);
 
     auto it = configJson.find("crawler");
     if (it != configJson.not_found()) {
@@ -214,9 +214,9 @@ void processTextInSide(const string &text) {
         DUMP_VAR(list_string.size());
         for (auto url : list_string) {
           if (url.empty() == false) {
-            newCrawler(url,lang);
+            newCrawler(url, lang);
           }
-          if(gNewTaskFlag) {
+          if (gNewTaskFlag) {
             DUMP_VAR(gNewTaskFlag);
             break;
           }
@@ -245,15 +245,13 @@ void processText(const string &text) {
   gTaskCV.notify_all();
 }
 
-void wordmaster_write_main(void){
+void wordmaster_write_main(void) {
   while (true) {
     std::unique_lock<std::mutex> lk(gTaskCvMutex);
     gTaskCV.wait(lk);
     string text;
-    {
-      text = gTask;
-    }
-    if(text.empty() == false) {
+    { text = gTask; }
+    if (text.empty() == false) {
       gNewTaskFlag = false;
       processTextInSide(text);
     }

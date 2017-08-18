@@ -9,9 +9,11 @@ class TrainTaskStorage {
 public:
   TrainTaskStorage();
   ~TrainTaskStorage();
+
 private:
   void open(void);
   void close(void);
+
 private:
   leveldb::DB *master_todo_cn_db_;
   leveldb::DB *master_todo_ja_db_;

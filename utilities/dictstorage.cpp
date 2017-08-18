@@ -6,13 +6,10 @@
 #include <vector>
 using namespace std;
 
-
 #include <boost/format.hpp>
 
 #include "dictstorage.hpp"
 #include "log.hpp"
-
-
 
 DictionaryStorage::DictionaryStorage(const string &path) {
   out_db_path_ = path;
@@ -45,8 +42,6 @@ void DictionaryStorage::closeDB() {
   }
 }
 
-
-
 void DictionaryStorage::putWord(const string &word, int counter) {
   leveldb::ReadOptions readOptions;
   readOptions.verify_checksums = true;
@@ -68,6 +63,6 @@ void DictionaryStorage::putWord(const string &word, int counter) {
     leveldb::Slice value(std::to_string(sum));
     leveldb::WriteOptions writeOptions;
     writeOptions.sync = true;
-    save_->Put(writeOptions,key, value);
+    save_->Put(writeOptions, key, value);
   }
 }

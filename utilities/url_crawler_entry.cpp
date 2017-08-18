@@ -1,10 +1,10 @@
+#include <chrono>
 #include <cinttypes>
 #include <exception>
 #include <iostream>
 #include <memory>
 #include <string>
 #include <thread>
-#include <chrono>
 using namespace std;
 
 #include <boost/array.hpp>
@@ -30,14 +30,14 @@ std::shared_ptr<udp_server> gFetchServer;
 static void processText(const std::string &text);
 void url_crawler_fetch_upd_main(void) {
   auto io_service = std::make_shared<boost::asio::io_service>();
-  for (uint16_t port = iConstFetchAPIPortRangeMin; port < iConstFetchAPIPortRangeMax;
-       port++) {
+  for (uint16_t port = iConstFetchAPIPortRangeMin;
+       port < iConstFetchAPIPortRangeMax; port++) {
     try {
       auto ep =
           std::make_shared<udp::endpoint>(address::from_string("::1"), port);
       auto sock = std::make_shared<udp::socket>(*io_service, *ep);
       DUMP_VAR(port);
-      savePort(port,"/watorvapor/wai.storage/conf/url.fetch.api.json");
+      savePort(port, "/watorvapor/wai.storage/conf/url.fetch.api.json");
       gFetchServer = std::make_shared<udp_server>(sock);
       gFetchServer->start_receive(processText);
       DUMP_VAR(gFetchServer.get());
@@ -79,10 +79,8 @@ void processText(const std::string &text) {
   } catch (boost::exception &e) {
     DUMP_VAR(boost::diagnostic_information(e));
   }
-  return ;
+  return;
 }
-
-
 
 static const uint16_t iConstSaveAPIPortRangeMin = 41284;
 static const uint16_t iConstSaveAPIPortRangeMax = 41294;
@@ -92,14 +90,14 @@ std::shared_ptr<udp_server> gSaveServer;
 
 void url_crawler_save_upd_main(void) {
   auto io_service = std::make_shared<boost::asio::io_service>();
-  for (uint16_t port = iConstSaveAPIPortRangeMin; port < iConstSaveAPIPortRangeMax;
-       port++) {
+  for (uint16_t port = iConstSaveAPIPortRangeMin;
+       port < iConstSaveAPIPortRangeMax; port++) {
     try {
       auto ep =
           std::make_shared<udp::endpoint>(address::from_string("::1"), port);
       auto sock = std::make_shared<udp::socket>(*io_service, *ep);
       DUMP_VAR(port);
-      savePort(port,"/watorvapor/wai.storage/conf/url.save.api.json");
+      savePort(port, "/watorvapor/wai.storage/conf/url.save.api.json");
       gSaveServer = std::make_shared<udp_server>(sock);
       gSaveServer->start_receive(processText2);
       DUMP_VAR(gSaveServer.get());
@@ -110,10 +108,10 @@ void url_crawler_save_upd_main(void) {
   }
 }
 
+#include <atomic>
 #include <condition_variable>
 #include <mutex>
-#include <atomic>
-std::atomic_bool gNewTaskFlag(false); 
+std::atomic_bool gNewTaskFlag(false);
 string gTask;
 std::mutex gTaskMutex;
 std::condition_variable gTaskCV;
@@ -125,4 +123,3 @@ void processText2(const string &text) {
   gNewTaskFlag = true;
   gTaskCV.notify_all();
 }
-

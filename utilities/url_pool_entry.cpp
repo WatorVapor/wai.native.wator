@@ -1,10 +1,10 @@
+#include <chrono>
 #include <cinttypes>
 #include <exception>
 #include <iostream>
 #include <memory>
 #include <string>
 #include <thread>
-#include <chrono>
 using namespace std;
 
 #include <boost/array.hpp>
@@ -27,8 +27,6 @@ static const uint16_t iConstAPIPortRangeMax = 41274;
 
 static void processText(const std::string &text);
 
-
-
 void urlpool_upd_main(void) {
   auto io_service = std::make_shared<boost::asio::io_service>();
   for (uint16_t port = iConstAPIPortRangeMin; port < iConstAPIPortRangeMax;
@@ -38,7 +36,7 @@ void urlpool_upd_main(void) {
           std::make_shared<udp::endpoint>(address::from_string("::1"), port);
       auto sock = std::make_shared<udp::socket>(*io_service, *ep);
       DUMP_VAR(port);
-      savePort(port,"/watorvapor/wai.storage/conf/url.pool.api.json");
+      savePort(port, "/watorvapor/wai.storage/conf/url.pool.api.json");
       auto server = std::make_shared<udp_server>(sock);
       server->start_receive(processText);
       DUMP_VAR(server.get());
@@ -74,7 +72,7 @@ void processText(const std::string &text) {
   } catch (boost::exception &e) {
     DUMP_VAR(boost::diagnostic_information(e));
   }
-  return ;
+  return;
 }
 
 #include <boost/filesystem.hpp>
@@ -120,7 +118,6 @@ string fetchCrawlerTask(const string &lang) {
   }
   return "";
 }
-
 
 static void findToduURLsCN(void) {
   try {
@@ -181,7 +178,6 @@ static void findToduURLsJA(void) {
         "https://ja.wikipedia.org/wiki/%E9%9B%BB%E5%AD%90");
   }
 }
-
 
 static void findTodoURLs(void) {
   if (gVectTodoPathCN.empty()) {

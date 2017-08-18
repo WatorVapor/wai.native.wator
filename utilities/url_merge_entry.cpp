@@ -1,10 +1,10 @@
+#include <chrono>
 #include <cinttypes>
 #include <exception>
 #include <iostream>
 #include <memory>
 #include <string>
 #include <thread>
-#include <chrono>
 using namespace std;
 
 #include <boost/array.hpp>
@@ -27,10 +27,6 @@ static const uint16_t iConstAPIPortRangeMax = 41294;
 
 static void processText(const std::string &text);
 
-
-
-
-
 static std::shared_ptr<udp_server> gUPDServer;
 void urlmerge_upd_main(void) {
   auto io_service = std::make_shared<boost::asio::io_service>();
@@ -41,7 +37,7 @@ void urlmerge_upd_main(void) {
           std::make_shared<udp::endpoint>(address::from_string("::1"), port);
       auto sock = std::make_shared<udp::socket>(*io_service, *ep);
       DUMP_VAR(port);
-      savePort(port,"/watorvapor/wai.storage/conf/url.merge.api.json");
+      savePort(port, "/watorvapor/wai.storage/conf/url.merge.api.json");
       gUPDServer = std::make_shared<udp_server>(sock);
       gUPDServer->start_receive(processText);
       DUMP_VAR(gUPDServer.get());
@@ -82,9 +78,9 @@ const string WAI_STORAGE_CN = "/watorvapor/wai.storage/cn/todo/";
 const string WAI_STORAGE_JA = "/watorvapor/wai.storage/ja/todo/";
 
 #include <atomic>
-static std::atomic_bool gNewTaskFlag(false); 
+static std::atomic_bool gNewTaskFlag(false);
 
-static void markCrawler(const string &url,const string &lang) {
+static void markCrawler(const string &url, const string &lang) {
   auto start = std::chrono::system_clock::now();
   auto doneName = sha1(url);
   DUMP_VAR2(doneName, url);
@@ -103,21 +99,21 @@ static void markCrawler(const string &url,const string &lang) {
     DUMP_VAR(fs::exists(pathFS));
     fs::remove(pathFS);
   } else {
-    DUMP_VAR2(fs::exists(pathFS),todoPath);
+    DUMP_VAR2(fs::exists(pathFS), todoPath);
   }
-  DUMP_VAR2(fs::exists(pathFS),todoPath);
+  DUMP_VAR2(fs::exists(pathFS), todoPath);
   auto end = std::chrono::system_clock::now();
   std::chrono::duration<double, std::milli> markCrawler_ms = end - start;
   DUMP_VAR(markCrawler_ms.count());
 }
 
-static void newCrawler(const string &url,const string &lang) {
+static void newCrawler(const string &url, const string &lang) {
   auto start = std::chrono::system_clock::now();
   auto todoName = sha1(url);
   TRACE_VAR(url, todoName);
   string doneCheckPath(WAI_STORAGE + "/" + lang + "/master/" + todoName);
   fs::path doneCheckPathFS(doneCheckPath);
-  DUMP_VAR3(fs::exists(doneCheckPathFS),url,doneCheckPath);
+  DUMP_VAR3(fs::exists(doneCheckPathFS), url, doneCheckPath);
   if (fs::exists(doneCheckPathFS) == false) {
     string todoNewPath(WAI_STORAGE + "/" + lang + "/todo/" + todoName);
     ofstream newURLFile(todoNewPath);
@@ -148,7 +144,7 @@ void processTextInSide(const string &text) {
     if (urlOpt) {
       urlDone = urlOpt.get();
     }
-    markCrawler(urlDone,lang);
+    markCrawler(urlDone, lang);
 
     auto it = configJson.find("crawler");
     if (it != configJson.not_found()) {
@@ -163,9 +159,9 @@ void processTextInSide(const string &text) {
         DUMP_VAR(list_string.size());
         for (auto url : list_string) {
           if (url.empty() == false) {
-            newCrawler(url,lang);
+            newCrawler(url, lang);
           }
-          if(gNewTaskFlag) {
+          if (gNewTaskFlag) {
             DUMP_VAR(gNewTaskFlag);
             break;
           }
@@ -194,15 +190,13 @@ void processText(const string &text) {
   gTaskCV.notify_all();
 }
 
-void urlmerge_write_main(void){
+void urlmerge_write_main(void) {
   while (true) {
     std::unique_lock<std::mutex> lk(gTaskCvMutex);
     gTaskCV.wait(lk);
     string text;
-    {
-      text = gTask;
-    }
-    if(text.empty() == false) {
+    { text = gTask; }
+    if (text.empty() == false) {
       gNewTaskFlag = false;
       processTextInSide(text);
     }

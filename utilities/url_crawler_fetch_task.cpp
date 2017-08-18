@@ -1,10 +1,10 @@
+#include <chrono>
 #include <cinttypes>
 #include <exception>
 #include <iostream>
 #include <memory>
 #include <string>
 #include <thread>
-#include <chrono>
 using namespace std;
 
 #include <boost/array.hpp>
@@ -76,7 +76,7 @@ std::shared_ptr<URLStorage> gJATodoStorage;
 
 static void findToduURLsCN(void) {
   try {
-    gCNTodoStorage->gets(iConstPathCacheMax,gVectTodoPathCN);
+    gCNTodoStorage->gets(iConstPathCacheMax, gVectTodoPathCN);
   } catch (std::exception &e) {
     DUMP_VAR(e.what());
   } catch (...) {
@@ -90,7 +90,7 @@ static void findToduURLsCN(void) {
 
 static void findToduURLsJA(void) {
   try {
-    gJATodoStorage->gets(iConstPathCacheMax,gVectTodoPathJA);
+    gJATodoStorage->gets(iConstPathCacheMax, gVectTodoPathJA);
   } catch (std::exception &e) {
     DUMP_VAR(e.what());
   } catch (...) {
@@ -100,7 +100,6 @@ static void findToduURLsJA(void) {
         "https://ja.wikipedia.org/wiki/%E9%9B%BB%E5%AD%90");
   }
 }
-
 
 static void findTodoURLs(void) {
   if (gVectTodoPathCN.empty()) {
@@ -112,10 +111,14 @@ static void findTodoURLs(void) {
 }
 
 void url_crawler_collect(void) {
-  gCNMasterStorage = std::make_shared<URLStorage>("/watorvapor/wai.storage/leveldb/cn/master");
-  gCNTodoStorage = std::make_shared<URLStorage>("/watorvapor/wai.storage/leveldb/cn/todo");
-  gJAMasterStorage = std::make_shared<URLStorage>("/watorvapor/wai.storage/leveldb/ja/master");
-  gJATodoStorage = std::make_shared<URLStorage>("/watorvapor/wai.storage/leveldb/ja/todo");
+  gCNMasterStorage =
+      std::make_shared<URLStorage>("/watorvapor/wai.storage/leveldb/cn/master");
+  gCNTodoStorage =
+      std::make_shared<URLStorage>("/watorvapor/wai.storage/leveldb/cn/todo");
+  gJAMasterStorage =
+      std::make_shared<URLStorage>("/watorvapor/wai.storage/leveldb/ja/master");
+  gJATodoStorage =
+      std::make_shared<URLStorage>("/watorvapor/wai.storage/leveldb/ja/todo");
   gCNMasterStorage->openDB();
   gCNTodoStorage->openDB();
   gJAMasterStorage->openDB();
@@ -141,11 +144,13 @@ void fetchSummary(void) {
   std::string summary;
   summary += gCNMasterStorage->summary();
   summary += "\n";
-  summary += gCNTodoStorage->summary();;
+  summary += gCNTodoStorage->summary();
+  ;
   summary += "\n";
-  summary += gJAMasterStorage->summary();;
+  summary += gJAMasterStorage->summary();
+  ;
   summary += "\n";
-  summary += gJATodoStorage->summary();;
+  summary += gJATodoStorage->summary();
+  ;
   gFetchServer->send(summary);
 }
-

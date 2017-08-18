@@ -1,21 +1,19 @@
+#include <chrono>
 #include <cinttypes>
 #include <exception>
-#include <iostream>
 #include <iomanip>
+#include <iostream>
+#include <list>
 #include <memory>
 #include <string>
 #include <thread>
-#include <chrono>
-#include <list>
 using namespace std;
 
-
+#include <atomic>
 #include <condition_variable>
 #include <mutex>
-#include <atomic>
 
 #include "log.hpp"
-
 
 #include <boost/foreach.hpp>
 #include <boost/optional.hpp>
@@ -24,31 +22,26 @@ using namespace std;
 namespace pt = boost::property_tree;
 #include <boost/algorithm/string.hpp>
 
-
 extern std::atomic_bool gNewTaskFlag;
 extern string gTask;
 extern std::mutex gTaskMutex;
 extern std::condition_variable gTaskCV;
 extern std::mutex gTaskCvMutex;
 
-
 static void processTextInSide(const string &text);
 
-void url_crawler_write_main(void){
+void url_crawler_write_main(void) {
   while (true) {
     std::unique_lock<std::mutex> lk(gTaskCvMutex);
     gTaskCV.wait(lk);
     string text;
-    {
-      text = gTask;
-    }
-    if(text.empty() == false) {
+    { text = gTask; }
+    if (text.empty() == false) {
       gNewTaskFlag = false;
       processTextInSide(text);
     }
   }
 }
-
 
 #include <boost/format.hpp>
 #include <boost/uuid/sha1.hpp>
@@ -68,24 +61,21 @@ string sha1(const string &data) {
   return ss.str();
 }
 
-
-
-
 #include "urlstorage.hpp"
 extern std::shared_ptr<URLStorage> gCNMasterStorage;
 extern std::shared_ptr<URLStorage> gCNTodoStorage;
 extern std::shared_ptr<URLStorage> gJAMasterStorage;
 extern std::shared_ptr<URLStorage> gJATodoStorage;
 
-static void markCrawler(const string &url,const string &lang) {
+static void markCrawler(const string &url, const string &lang) {
   auto start = std::chrono::system_clock::now();
   auto doneName = sha1(url);
   DUMP_VAR2(doneName, url);
-  if(lang == "cn") {
-    gCNMasterStorage->add(doneName,url);
+  if (lang == "cn") {
+    gCNMasterStorage->add(doneName, url);
     gCNTodoStorage->remove(doneName);
-  } else if(lang == "ja") {
-    gJAMasterStorage->add(doneName,url);
+  } else if (lang == "ja") {
+    gJAMasterStorage->add(doneName, url);
     gJATodoStorage->remove(doneName);
   } else {
   }
@@ -94,18 +84,18 @@ static void markCrawler(const string &url,const string &lang) {
   DUMP_VAR(markCrawler_ms.count());
 }
 
-static void newCrawler(const string &url,const string &lang) {
+static void newCrawler(const string &url, const string &lang) {
   auto start = std::chrono::system_clock::now();
   auto todoName = sha1(url);
   TRACE_VAR(url, todoName);
-  
-  if(lang == "cn") {
-    if(gCNMasterStorage->is_has(todoName) == false) {
-      gCNTodoStorage->add(todoName,url);
+
+  if (lang == "cn") {
+    if (gCNMasterStorage->is_has(todoName) == false) {
+      gCNTodoStorage->add(todoName, url);
     }
-  } else if(lang == "ja") {
-    if(gJAMasterStorage->is_has(todoName) == false) {
-      gJATodoStorage->add(todoName,url);
+  } else if (lang == "ja") {
+    if (gJAMasterStorage->is_has(todoName) == false) {
+      gJATodoStorage->add(todoName, url);
     }
   } else {
   }
@@ -116,7 +106,6 @@ static void newCrawler(const string &url,const string &lang) {
 
 #include "udp_entry.hpp"
 extern std::shared_ptr<udp_server> gSaveServer;
-
 
 void processTextInSide(const string &text) {
   try {
@@ -135,7 +124,7 @@ void processTextInSide(const string &text) {
     if (urlOpt) {
       urlDone = urlOpt.get();
     }
-    markCrawler(urlDone,lang);
+    markCrawler(urlDone, lang);
 
     auto it = configJson.find("crawler");
     if (it != configJson.not_found()) {
@@ -150,9 +139,9 @@ void processTextInSide(const string &text) {
         DUMP_VAR(list_string.size());
         for (auto url : list_string) {
           if (url.empty() == false) {
-            newCrawler(url,lang);
+            newCrawler(url, lang);
           }
-          if(gNewTaskFlag) {
+          if (gNewTaskFlag) {
             DUMP_VAR(gNewTaskFlag);
             break;
           }
@@ -165,6 +154,3 @@ void processTextInSide(const string &text) {
   }
   gSaveServer->send("success");
 }
-
-
-

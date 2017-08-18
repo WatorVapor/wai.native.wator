@@ -11,20 +11,17 @@ using namespace std;
 
 #include <boost/format.hpp>
 
-#include "urlstorage.hpp"
 #include "log.hpp"
+#include "urlstorage.hpp"
 
-
-
-URLStorage::URLStorage (const string &path) {
+URLStorage::URLStorage(const string &path) {
   out_db_path_ = path;
   DUMP_VAR(out_db_path_);
   iter_db_path_ = path + "/snapshot/" + "iter.";
   DUMP_VAR(iter_db_path_);
 }
 
-URLStorage::~URLStorage() {
-}
+URLStorage::~URLStorage() {}
 
 void URLStorage::openDB() {
   if (save_ == nullptr) {
@@ -60,7 +57,7 @@ void URLStorage::writeDB() {
   }
 }
 
-void URLStorage::gets(int max,vector<std::string> &urls) {
+void URLStorage::gets(int max, vector<std::string> &urls) {
   if (save_) {
     leveldb::ReadOptions readOptions;
     readOptions.snapshot = save_->GetSnapshot();
@@ -69,7 +66,7 @@ void URLStorage::gets(int max,vector<std::string> &urls) {
     DUMP_VAR(it->Valid());
     int number = 0;
     while (it->Valid()) {
-      if(++number > max){
+      if (++number > max) {
         break;
       }
       urls.push_back(it->value().ToString());
@@ -80,13 +77,13 @@ void URLStorage::gets(int max,vector<std::string> &urls) {
   }
 }
 
-void URLStorage::add(const std::string &key,const std::string &value) {
+void URLStorage::add(const std::string &key, const std::string &value) {
   if (save_) {
     leveldb::WriteOptions writeOptions;
     writeOptions.sync = true;
     leveldb::Slice sKey(key);
     leveldb::Slice sValue(value);
-    auto status = save_->Put(writeOptions,sKey,sValue);
+    auto status = save_->Put(writeOptions, sKey, sValue);
     DUMP_VAR(status.ToString());
   }
 }
@@ -96,7 +93,7 @@ void URLStorage::remove(const std::string &key) {
     writeOptions.sync = true;
     std::string value;
     leveldb::Slice sKey(key);
-    auto status = save_->Delete(writeOptions,sKey);
+    auto status = save_->Delete(writeOptions, sKey);
     DUMP_VAR(status.ToString());
   }
 }
@@ -105,9 +102,9 @@ bool URLStorage::is_has(const std::string &key) {
     leveldb::ReadOptions readOptions;
     std::string value;
     leveldb::Slice sKey(key);
-    auto status = save_->Get(readOptions,sKey,&value);
+    auto status = save_->Get(readOptions, sKey, &value);
     DUMP_VAR(status.ToString());
-    if(status.ok()) {
+    if (status.ok()) {
       return true;
     }
   }
@@ -120,9 +117,9 @@ string URLStorage::summary(void) {
     leveldb::ReadOptions readOptions;
     std::string value;
     leveldb::Slice sKey("leveldb.stats");
-    auto status = save_->GetProperty(sKey,&value);
+    auto status = save_->GetProperty(sKey, &value);
     DUMP_VAR(status);
-    if(status) {
+    if (status) {
       DUMP_VAR(sum);
       sum += value;
     }
@@ -154,8 +151,8 @@ void URLStorage::copy(std::shared_ptr<URLStorage> dst) {
     leveldb::WriteOptions writeOptions;
     writeOptions.sync = true;
     while (it->Valid()) {
-      DUMP_VAR2(it->key().ToString(),it->value().ToString());
-      auto status = dst->save_->Put(writeOptions,it->key(), it->value());
+      DUMP_VAR2(it->key().ToString(), it->value().ToString());
+      auto status = dst->save_->Put(writeOptions, it->key(), it->value());
       DUMP_VAR(status.ToString());
       it->Next();
     }
@@ -163,7 +160,6 @@ void URLStorage::copy(std::shared_ptr<URLStorage> dst) {
     save_->ReleaseSnapshot(readOptions.snapshot);
   }
 }
-
 
 static int iConstSnapshotCounter = 100;
 void URLStorage::dumpSnapshotDB() {
@@ -200,5 +196,3 @@ void URLStorage::dumpSnapshotDB() {
     delete dumpdb;
   }
 }
-
-

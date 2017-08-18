@@ -1,5 +1,5 @@
-#include <string>
 #include <memory>
+#include <string>
 using namespace std;
 #pragma once
 
@@ -13,13 +13,14 @@ public:
   void openDB();
   void closeDB();
   void writeDB();
-  void gets(int max,vector<std::string> &urls);
+  void gets(int max, vector<std::string> &urls);
   void dumpSnapshotDB();
-  void add(const std::string &key,const std::string &value);
+  void add(const std::string &key, const std::string &value);
   void remove(const std::string &key);
   bool is_has(const std::string &key);
   string summary(void);
   void copy(std::shared_ptr<URLStorage> dst);
+
 private:
 private:
   string out_db_path_;
