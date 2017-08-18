@@ -73,9 +73,18 @@ void saveOstrichTask(const string &lang, const string &url,
   boost::split(list_string, word, boost::is_any_of(delim),
                boost::algorithm::token_compress_on);
   DUMP_VAR(list_string.size());
-  for (auto word : list_string) {
-    DUMP_VAR(word);
-    if (word.empty() == false) {
+  for (auto wordPair : list_string) {
+    DUMP_VAR(wordPair);
+    if (wordPair.empty() == false) {
+      string delim2(",");
+      list<string> list_words;
+      boost::split(list_words, wordPair, boost::is_any_of(delim2),
+               boost::algorithm::token_compress_on);
+      if(list_words.size() ==2) {
+        auto key = list_words.front();
+        auto val = list_words.back();
+        DUMP_VAR(key,val);
+      }
     }
   }
   gSaveTrainServer->send("success");
