@@ -47,9 +47,13 @@ void train_fetch_upd_main(void) {
   }
 }
 
-string fetchOstrichTask(const string &lang);
-string fetchParrotTask(const string &lang);
-string fetchPhoenixTask(const string &lang);
+void fetchOstrichTask(const string &lang);
+void fetchParrotTask(const string &lang);
+void fetchPhoenixTask(const string &lang);
+
+void fetchOstrichSummary(void);
+void fetchParrotSummary(void);
+void fetchPhoenixSummary(void);
 
 void processText(const std::string &text) {
   try {
@@ -57,26 +61,41 @@ void processText(const std::string &text) {
     std::stringstream ss;
     ss << text;
     pt::read_json(ss, configJson);
+    auto typeOpt = configJson.get_optional<string>("type");
     auto langOpt = configJson.get_optional<string>("lang");
-    if (langOpt) {
+    if (langOpt && typeOpt) {
       auto lang = langOpt.get();
       DUMP_VAR(lang);
-      auto typeOpt = configJson.get_optional<string>("type");
-      if (typeOpt) {
-        auto type = typeOpt.get();
-        DUMP_VAR(type);
-        if (type == "ostrich") {
-          fetchOstrichTask(lang);
-          return;
-        }
-        if (type == "parrot") {
-          fetchParrotTask(lang);
-          return;
-        }
-        if (type == "phoenix") {
-          fetchPhoenixTask(lang);
-          return;
-        }
+      auto type = typeOpt.get();
+      DUMP_VAR(type);
+      if (type == "ostrich") {
+        fetchOstrichTask(lang);
+        return;
+      }
+      if (type == "parrot") {
+        fetchParrotTask(lang);
+        return;
+      }
+      if (type == "phoenix") {
+        fetchPhoenixTask(lang);
+        return;
+      }
+    }
+    auto summaryOpt = configJson.get_optional<string>("summary");
+    if (summaryOpt && typeOpt) {
+      auto type = typeOpt.get();
+      DUMP_VAR(type);
+      if (type == "ostrich") {
+        fetchOstrichSummary();
+        return;
+      }
+      if (type == "parrot") {
+        fetchParrotSummary();
+        return;
+      }
+      if (type == "phoenix") {
+        fetchPhoenixSummary();
+        return;
       }
     }
   } catch (boost::exception &e) {
