@@ -19,7 +19,7 @@ static int iConstPathCacheMax = 32;
 
 extern std::shared_ptr<udp_server> gFetchTrainServer;
 
-string fetchOstrichTask(const string &lang) {
+void fetchOstrichTask(const string &lang) {
   DUMP_VAR(lang);
   if (lang == "cn") {
     std::lock_guard<std::mutex> lock(gTodoMutex);
@@ -47,24 +47,24 @@ string fetchOstrichTask(const string &lang) {
     }
   } else {
   }
-  return "";
 }
-string fetchParrotTask(const string &lang) {
+void fetchParrotTask(const string &lang) {
   DUMP_VAR(lang);
   if (lang == "cn") {
   } else if (lang == "ja") {
   } else {
   }
-  return "";
 }
-string fetchPhoenixTask(const string &lang) {
+void fetchPhoenixTask(const string &lang) {
   DUMP_VAR(lang);
   if (lang == "cn") {
   } else if (lang == "ja") {
   } else {
   }
-  return "";
 }
+
+
+
 
 #include "urlstorage.hpp"
 std::shared_ptr<URLStorage> gCNDoneOstrichStorage;
@@ -151,4 +151,31 @@ void train_collect(void) {
     gTodoCV.wait(lk);
   }
   END_DB(Ostrich);
+}
+
+
+
+void fetchOstrichSummary(void) {
+  std::string summary;
+  summary += gCNDoneOstrichStorage->summary();
+  summary += "\n";
+  summary += gCNTodoOstrichStorage->summary();
+  ;
+  summary += "\n";
+  summary += gJADoneOstrichStorage->summary();
+  ;
+  summary += "\n";
+  summary += gJATodoOstrichStorage->summary();
+  ;
+  summary += "\n";
+  summary += gCNOstrichDict->summary();
+  ;
+  summary += "\n";
+  summary += gJAOstrichDict->summary();
+  ;
+  gFetchTrainServer->send(summary);
+}
+void fetchParrotSummary(void) {
+}
+void fetchPhoenixSummary(void) {
 }
