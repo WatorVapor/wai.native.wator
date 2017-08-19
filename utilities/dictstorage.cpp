@@ -67,3 +67,36 @@ void DictionaryStorage::putWord(const string &word, int counter) {
     DUMP_VAR3(status.ToString(),word,sum);
   }
 }
+
+string DictionaryStorage::summary(void) {
+  string sum;
+  sum += out_db_path_;
+  if (save_) {
+    leveldb::ReadOptions readOptions;
+    std::string value;
+    leveldb::Slice sKey("leveldb.stats");
+    auto status = save_->GetProperty(sKey, &value);
+    DUMP_VAR(status);
+    if (status) {
+      DUMP_VAR(sum);
+      sum += value;
+    }
+    readOptions.snapshot = save_->GetSnapshot();
+    auto it = save_->NewIterator(readOptions);
+    it->SeekToFirst();
+    int number = 0;
+    while (it->Valid()) {
+      ++number;
+      it->Next();
+    }
+    delete it;
+    save_->ReleaseSnapshot(readOptions.snapshot);
+    sum += "\n";
+    sum += "total num =<";
+    sum += std::to_string(number);
+    sum += ">";
+    sum += "\n";
+  }
+  return sum;
+}
+
