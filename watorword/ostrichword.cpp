@@ -102,6 +102,10 @@ vector<string> OstrichWord::pickupWordRanking(void) {
     upWords += "{}";
     wordArrays.push_back(upWords);
   }
+  if(localMultiWordRank.empty()) {
+    upWords += "{}";
+    wordArrays.push_back(upWords);
+  }
   return wordArrays;
 }
 
