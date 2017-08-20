@@ -26,7 +26,6 @@ ParrotWord::ParrotWord(const string &database)
   dict_.openDB();
 }
 ParrotWord::~ParrotWord() {
-  push2DB();
   dict_.closeDB();
 }
 void ParrotWord::learn(const vector<string> &wordBytes, const string &text) {
@@ -66,18 +65,8 @@ void ParrotWord::mergeWordPrediction(void) {
     }
   }
 }
-void ParrotWord::push2DB(void) {
-  for (auto wp : gMultiWordSum) {
-    TRACE_VAR(wp.first, wp.second);
-    if (wp.second > 2) {
-      dict_.putWord(wp.first, wp.second);
-    }
-  }
-  dict_.writeDB();
-}
 
 void ParrotWord::commitArticle(void) {
-  this->push2DB();
   gMultiWordSum.clear();
 }
 
