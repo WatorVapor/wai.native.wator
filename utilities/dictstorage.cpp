@@ -51,10 +51,10 @@ void DictionaryStorage::putWord(const string &word, int counter) {
     auto status = save_->Get(readOptions, key, &valueStr);
     TRACE_VAR(status.ToString());
     TRACE_VAR(valueStr);
-    int sum = counter;
+    long long sum = counter;
     if (status.ok()) {
       try {
-        sum += std::stoi(valueStr);
+        sum += std::stoull(valueStr);
       } catch (std::exception e) {
         DUMP_VAR2(e.what(), valueStr);
       }
