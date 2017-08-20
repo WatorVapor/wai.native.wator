@@ -6,11 +6,7 @@
 using namespace std;
 #pragma once
 
-#include <leveldb/db.h>
-#include <leveldb/write_batch.h>
-
 #include "dictstorage.hpp"
-
 class ParrotWord {
   typedef std::tuple<std::string, int, int, double, double> WordElement;
 
@@ -28,11 +24,9 @@ private:
   void cutTextByRank(const string &text);
   void calcPrediction(void);
   void getWordPrediction(const string &text);
-
+  
   void mergeWordPrediction(void);
-
-  void push2DB(void);
-
+  
   void dumpRank();
   void dumpSeq();
   void dumpPreds();
@@ -49,5 +43,5 @@ private:
 
   static map<string, int> gMultiWordSum;
   const int gWordLength = 32;
-  leveldb::WriteBatch gSaveDBBatch;
+  const int minWordRepeateTimes_ = 9;
 };
