@@ -5,10 +5,11 @@ using namespace std;
 #include <leveldb/db.h>
 #include <leveldb/write_batch.h>
 
-class DictionaryStorage {
+class DictionaryMaster {
  public:
-  DictionaryStorage(const string &path, const string &prefix);
-  ~DictionaryStorage();
+  DictionaryMaster(const string &path, const string &prefix);
+  DictionaryMaster(const string &path);
+  ~DictionaryMaster();
   void openDB();
   void closeDB();
   void writeDB();
