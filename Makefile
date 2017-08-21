@@ -29,6 +29,7 @@ SRC_FOR	    := $(basename $(FORMAT))
 
 format: $(FORMAT)
 $(FORMAT):
-	clang-format -style=LLVM $(basename $@) > $@
+	#clang-format -style=LLVM $(basename $@) > $@
+	clang-format $(basename $@) > $@
 	mv $@ $(basename $@) 
 	
