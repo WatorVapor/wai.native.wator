@@ -17,16 +17,16 @@ using namespace std;
 
 static leveldb::DB *gSaveDB = nullptr;
 
-DictionaryStorage::DictionaryStorage(const string &path, const string &prefix) {
+DictionaryMaster::DictionaryMaster(const string &path, const string &prefix) {
   out_db_path_ = path + "/" + prefix;
   DUMP_VAR(out_db_path_);
   iter_db_path_ = path + "/snapshot/" + prefix + "_iter.";
   DUMP_VAR(iter_db_path_);
 }
 
-DictionaryStorage::~DictionaryStorage() {}
+DictionaryMaster::~DictionaryMaster() {}
 
-void DictionaryStorage::openDB() {
+void DictionaryMaster::openDB() {
   if (gSaveDB == nullptr) {
     leveldb::Options options;
     options.create_if_missing = true;
@@ -43,13 +43,13 @@ void DictionaryStorage::openDB() {
   }
 }
 
-void DictionaryStorage::closeDB() {
+void DictionaryMaster::closeDB() {
   if (gSaveDB != nullptr) {
     delete gSaveDB;
     gSaveDB = nullptr;
   }
 }
-void DictionaryStorage::writeDB() {
+void DictionaryMaster::writeDB() {
   if (gSaveDB != nullptr) {
     leveldb::WriteOptions writeOptions;
     writeOptions.sync = true;
@@ -63,7 +63,7 @@ void DictionaryStorage::writeDB() {
 }
 
 static int iConstSnapshotCounter = 100;
-void DictionaryStorage::dumpSnapshotDB() {
+void DictionaryMaster::dumpSnapshotDB() {
   static int iCounter = 0;
   if (iCounter++ % iConstSnapshotCounter != iConstSnapshotCounter - 1) {
     return;
@@ -101,7 +101,7 @@ void DictionaryStorage::dumpSnapshotDB() {
   }
 }
 
-void DictionaryStorage::putWord(const string &word, int counter) {
+void DictionaryMaster::putWord(const string &word, int counter) {
   leveldb::ReadOptions readOptions;
   readOptions.verify_checksums = true;
   string valueStr;
