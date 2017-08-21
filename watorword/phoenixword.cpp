@@ -13,28 +13,11 @@ using namespace std;
 #include <leveldb/write_batch.h>
 
 #include "phoenixword.hpp"
+#include "log.hpp"
 
 double getDoublePred(const string &word);
 
-#define DUMP_VAR(x)                                                          \
-  std::cout << __func__ << ":" << __LINE__ << "::" << #x << "=<" << x << ">" \
-            << std::endl;
-#define DUMP_VAR2(x, y)                                                       \
-  std::cout << __func__ << ":" << __LINE__ << "::" << #x << "," << #y << "=<" \
-            << x << "," << y << ">" << std::endl;
-#define DUMP_VAR3(x, y, z)                                                   \
-  std::cout << __func__ << ":" << __LINE__ << "::" << #x << "," << #y << "," \
-            << #z << "=<" << x << "," << y << "," << z << ">" << std::endl;
-#define DUMP_VAR4(x, y, z, a)                                                \
-  std::cout << __func__ << ":" << __LINE__ << "::" << #x << "," << #y << "," \
-            << #z << "," << #a << "=<" << x << "," << y << "," << z << ","   \
-            << a << ">" << std::endl;
-#define DUMP_VAR5(x, y, z, a, b)                                             \
-  std::cout << __func__ << ":" << __LINE__ << "::" << #x << "," << #y << "," \
-            << #z << "," << #a << "," << #b << "=<" << x << "," << y << ","  \
-            << z << "," << a << "," << b << ">" << std::endl;
 
-#define TRACE_VAR(...)
 
 map<string, int> PhoenixWord::gMultiWordSum;
 
@@ -43,12 +26,9 @@ static const int gWeightAdjustBase = 4;
 static const double gWeightAdjustRateMax = 16.0;
 
 PhoenixWord::PhoenixWord(const string &database)
-    : dict_(database, "word_phoenix"), database_(database) {
-  dict_.openDB();
+    : database_(database) {
 }
 PhoenixWord::~PhoenixWord() {
-  push2DB();
-  dict_.closeDB();
 }
 void PhoenixWord::learn(const vector<string> &wordBytes, const string &text) {
   if (wordBytes.size() < 2) {
