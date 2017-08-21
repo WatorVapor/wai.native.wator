@@ -99,7 +99,9 @@ void ParrotWord::getRawRank(const vector<string> &Bytes) {
           statisticsMinWordSize_ = jointWord.size();
         }
         statisticsRank_[jointWord] = std::make_tuple(pred, pred);
-        wordHintSeq_[wordPos] = std::make_tuple(jointWord,wordPos,jointWord.size(),pred, pred);
+  
+        auto elem = std::make_tuple(jointWord, wordPos, jointWord.size(), pred, pred);
+        wordHintSeq_.insert(std::make_pair(wordPos, elem));
       }
       it++;
     }
