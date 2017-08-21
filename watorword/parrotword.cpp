@@ -193,7 +193,7 @@ void ParrotWord::calcPrediction(void) {
   place_length += std::get<2>(lastPos->second);
   TRACE_VAR(place_length);
   vector<bool> placeholder;
-  for (int i = 0; i < place_length; i++) {
+  for (int i = 0; i < place_length +1; i++) {
     placeholder.push_back(false);
   }
 
