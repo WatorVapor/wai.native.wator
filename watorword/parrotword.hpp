@@ -40,7 +40,7 @@ private:
   multimap<int, WordElement> wordSeqTopSelected_;
   vector<string> prediWords_;
   int statisticsMinWordSize_;
-  int ap_;
+  int ap_ = 0;
 
   static map<string, int> gMultiWordSum;
   const int gWordLength = 32;
