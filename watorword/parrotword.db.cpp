@@ -12,11 +12,7 @@ using namespace std;
 #include <boost/format.hpp>
 
 #include "parrotword.hpp"
-
-#define DUMP_VAR(x)                                                          \
-  std::cout << __func__ << ":" << __LINE__ << "::" << #x << "=<" << x << ">" \
-            << std::endl;
-#define TRACE_VAR(x)
+#include "log.hpp"
 
 bool loadMasterFromDB(const string &path, bool forceCast);
 
