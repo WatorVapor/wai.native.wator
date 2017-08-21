@@ -31,3 +31,5 @@
 *.out
 *.app
 object
+db/*/cn
+db/*/ja
