@@ -6,7 +6,6 @@
 using namespace std;
 #pragma once
 
-#include "dictstorage.hpp"
 class ParrotWord {
   typedef std::tuple<std::string, int, int, double, double> WordElement;
 
@@ -33,7 +32,6 @@ class ParrotWord {
   void dumpPredWords();
 
  private:
-  DictionaryStorage dict_;
   string database_;
   map<string, tuple<double, double>> statisticsRank_;
   multimap<int, WordElement> wordHintSeq_;
