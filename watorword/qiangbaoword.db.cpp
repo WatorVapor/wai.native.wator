@@ -13,26 +13,9 @@ using namespace std;
 
 #include "qiangbaoword.hpp"
 #include "word_db_master.hpp"
+#include "log.hpp"
 
-#define DUMP_VAR(x)                                                          \
-  std::cout << __func__ << ":" << __LINE__ << "::" << #x << "=<" << x << ">" \
-            << std::endl;
-#define DUMP_VAR2(x, y)                                                       \
-  std::cout << __func__ << ":" << __LINE__ << "::" << #x << "," << #y << "=<" \
-            << x << "," << y << ">" << std::endl;
-#define DUMP_VAR3(x, y, z)                                                   \
-  std::cout << __func__ << ":" << __LINE__ << "::" << #x << "," << #y << "," \
-            << #z << "=<" << x << "," << y << "," << z << ">" << std::endl;
-#define DUMP_VAR4(x, y, z, a)                                                \
-  std::cout << __func__ << ":" << __LINE__ << "::" << #x << "," << #y << "," \
-            << #z << "," << #a << "=<" << x << "," << y << "," << z << ","   \
-            << a << ">" << std::endl;
-#define DUMP_VAR5(x, y, z, a, b)                                             \
-  std::cout << __func__ << ":" << __LINE__ << "::" << #x << "," << #y << "," \
-            << #z << "," << #a << "," << #b << "=<" << x << "," << y << ","  \
-            << z << "," << a << "," << b << ">" << std::endl;
 
-#define TRACE_VAR(...)
 
 bool QiangbaoWord::loadMaster(bool castForce) {
   auto master = database_ + "/master/word_phoenix";
@@ -53,9 +36,9 @@ void QiangbaoWord::dumpPredWords() {
 void QiangbaoWord::push2DB(void) {
   for (auto wp : gMultiWordSum) {
     TRACE_VAR(wp.first, wp.second);
-    dict_.putWord(wp.first, wp.second);
+    //dict_.putWord(wp.first, wp.second);
   }
-  dict_.writeDB();
+  //dict_.writeDB();
 }
 
 void QiangbaoWord::dumpRank() {
