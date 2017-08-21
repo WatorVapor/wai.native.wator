@@ -36,6 +36,7 @@ private:
   DictionaryStorage dict_;
   string database_;
   map<string, tuple<double, double>> statisticsRank_;
+  multimap<int, WordElement> wordHintSeq_;
   multimap<int, WordElement> wordSeq_;
   multimap<int, WordElement> wordSeqTopSelected_;
   vector<string> prediWords_;
