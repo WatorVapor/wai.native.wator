@@ -174,7 +174,7 @@ void ParrotWord::calcPrediction(void) {
     auto range = std::get<2>(elem.second);
     auto weight = std::get<3>(elem.second);
     auto weight2 = std::get<4>(elem.second);
-    TRACE_VAR(word, pos, range, weight);
+    DUMP_VAR4(word, pos, range, weight);
     auto elemNew = std::make_tuple(word, pos, range, weight, weight2);
     weightElem.insert(std::make_pair(weight, elemNew));
   }
