@@ -89,7 +89,7 @@ void ParrotWord::getRawRank(const vector<string> &Bytes) {
       jointWord = *it + jointWord;
       TRACE_VAR(jointWord);
       auto pred = getDoublePred(jointWord);
-      wordPos--;
+      wordPos -= it->size();
       if (pred > 0) {
         TRACE_VAR(jointWord, pred);
         TRACE_VAR(jointWord.size());
@@ -105,7 +105,7 @@ void ParrotWord::getRawRank(const vector<string> &Bytes) {
       }
       it++;
     }
-    baseLinePos++;
+    baseLinePos += word.size();
     preWords.push_back(word);
     if (preWords.size() > gWordLength - 1) {
       preWords.pop_front();
