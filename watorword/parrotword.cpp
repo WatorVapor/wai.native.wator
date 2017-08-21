@@ -68,6 +68,7 @@ void ParrotWord::mergeWordPrediction(void) {
 
 void ParrotWord::commitArticle(void) {
   gMultiWordSum.clear();
+  ap_ = 0;
 }
 
 void ParrotWord::getRawRank(const vector<string> &Bytes) {
