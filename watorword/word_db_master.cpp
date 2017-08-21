@@ -17,20 +17,6 @@ static leveldb::DB *gMasterdb = nullptr;
 static leveldb::DB *gMasterDBCast = nullptr;
 
 void dumpMaster();
-void loadMasterFromDB(void) {
-  leveldb::Options options;
-  options.max_open_files = 512;
-  options.paranoid_checks = true;
-  options.compression = leveldb::kNoCompression;
-  auto status = leveldb::DB::Open(
-      options, "db/baidu.baike/master/word_statistics", &gMasterdb);
-  DUMP_VAR(status.ToString());
-  if (status.ok() == false) {
-    gMasterdb = nullptr;
-  } else {
-    // dumpMaster();
-  }
-}
 
 void castMaster(void);
 static bool castMasterDB(const string &path, bool cast = true) {
