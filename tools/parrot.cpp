@@ -29,10 +29,10 @@ static string shortTxt(
     u8"人造卫星能够成功执行预定任务，单凭卫星本身是不行的，"
     u8"而需要完整的卫星工程系统");
 
-/*
+
 int main(int ac,char*av[])
 {
-  ParrotWord parrot("./db/baidu.baike");
+  ParrotWord parrot("./db/ostrich/cn");
   if(parrot.loadMaster(false)==false) {
     return 0;
   }
@@ -48,8 +48,9 @@ int main(int ac,char*av[])
   parrot.unloadMaster();
   return 0;
 }
-*/
 
+
+/*
 int main(int ac, char *av[]) {
   CtrlClaw claw;
   ParrotWord parrot("./db/baidu.baike");
@@ -71,3 +72,4 @@ int main(int ac, char *av[]) {
   parrot.unloadMaster();
   return 0;
 }
+*/
