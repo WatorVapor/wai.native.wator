@@ -30,6 +30,6 @@ SRC_FOR	    := $(basename $(FORMAT))
 format: $(FORMAT)
 $(FORMAT):
 	#clang-format -style=LLVM $(basename $@) > $@
-	clang-format $(basename $@) > $@
+	clang-format -style=Google $(basename $@) > $@
 	mv $@ $(basename $@) 
 	
