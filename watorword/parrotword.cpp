@@ -78,6 +78,7 @@ void ParrotWord::getRawRank(const vector<string> &Bytes) {
   wordSeq_.clear();
   wordSeqTopSelected_.clear();
   prediWords_.clear();
+  ap_++;
 
   list<string> preWords;
   TRACE_VAR(statisticsMinWordSize_);
