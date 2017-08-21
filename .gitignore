@@ -32,4 +32,6 @@
 *.app
 object
 db/*/cn
+db/*/cn.cast
 db/*/ja
+db/*/ja.cast
