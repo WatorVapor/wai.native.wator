@@ -29,7 +29,7 @@ SRC_FOR	    := $(basename $(FORMAT))
 
 format: $(FORMAT)
 $(FORMAT):
-	#clang-format -style=LLVM $(basename $@) > $@
-	clang-format -style=Google $(basename $@) > $@
+	clang-format -style=-style="{BasedOnStyle: llvm, IndentWidth: 2}" $(basename $@) > $@
+	#clang-format -style=Google $(basename $@) > $@
 	mv $@ $(basename $@) 
 	
