@@ -9,7 +9,6 @@ using namespace std;
 #include <leveldb/db.h>
 #include <leveldb/write_batch.h>
 
-#include "dictstorage.hpp"
 class PredictionTree;
 
 class PhoenixWord {
@@ -46,7 +45,6 @@ class PhoenixWord {
   void dumpPredWords();
 
  private:
-  DictionaryStorage dict_;
   string database_;
 
   map<string, tuple<double, double>> phoenixRank_;
