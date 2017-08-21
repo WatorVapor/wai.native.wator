@@ -21,7 +21,7 @@ using namespace std;
 bool loadMasterFromDB(const string &path, bool forceCast);
 
 bool ParrotWord::loadMaster(bool forceCast) {
-  auto master = database_ + "/master/word_ostrich";
+  auto master = database_;
   DUMP_VAR(master);
   return loadMasterFromDB(master, forceCast);
 }
