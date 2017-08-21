@@ -6,15 +6,15 @@ using namespace std;
 #include <leveldb/write_batch.h>
 
 class TrainTaskStorage {
-public:
+ public:
   TrainTaskStorage();
   ~TrainTaskStorage();
 
-private:
+ private:
   void open(void);
   void close(void);
 
-private:
+ private:
   leveldb::DB *master_todo_cn_db_;
   leveldb::DB *master_todo_ja_db_;
   leveldb::DB *ostrich_done_cn_db_;

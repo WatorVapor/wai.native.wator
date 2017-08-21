@@ -16,19 +16,19 @@ using namespace std;
 using namespace boost::asio::ip;
 
 class udp_server {
-public:
+ public:
   udp_server(shared_ptr<udp::socket> sock);
   void send(const std::string &msg);
   void start_receive(std::function<void(const std::string &)> fn);
 
-private:
+ private:
   void start_receive();
   void handle_receive(const boost::system::error_code &error,
                       std::size_t bytes_transferred);
   void handle_send(boost::shared_ptr<std::string> msg);
 
-public:
-private:
+ public:
+ private:
   static const uint32_t iConstMSGBufferMax = 20 * 1024 * 1024;
   shared_ptr<udp::socket> socket_;
   udp::endpoint remote_endpoint_;

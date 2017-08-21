@@ -6,7 +6,7 @@ using namespace std;
 #include <leveldb/write_batch.h>
 
 class DictionaryStorage {
-public:
+ public:
   DictionaryStorage(const string &path);
   ~DictionaryStorage();
   void openDB();
@@ -14,8 +14,8 @@ public:
   void putWord(const string &word, int counter);
   string summary(void);
 
-private:
-private:
+ private:
+ private:
   string out_db_path_;
   string iter_db_path_;
   leveldb::DB *save_;

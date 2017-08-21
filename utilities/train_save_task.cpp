@@ -37,7 +37,8 @@ extern std::shared_ptr<DictionaryStorage> gJAOstrichDict;
 
 string sha1(const string &data);
 
-template <typename T> void eachWord(const string &word, T fn) {
+template <typename T>
+void eachWord(const string &word, T fn) {
   list<string> list_string;
   string delim("{};");
   boost::split(list_string, word, boost::is_any_of(delim),

@@ -17,18 +17,18 @@ using namespace std;
 namespace pt = boost::property_tree;
 
 class OstrichWord {
-public:
+ public:
   OstrichWord(const string &database);
   OstrichWord();
   ~OstrichWord();
   void learn(const vector<string> &word);
   void upWordByArticle2Master(const pt::ptree &task);
 
-private:
+ private:
   void pushMultiWord(const string &word);
   vector<string> pickupWordRanking(void);
 
-private:
+ private:
   map<string, int> multiWordOfOneArticle_;
   const int maxWordLength_ = 32;
   const int minWordRepeateTimes_ = 9;

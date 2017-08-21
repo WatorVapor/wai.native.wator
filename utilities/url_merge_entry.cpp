@@ -53,8 +53,8 @@ string fetchCrawlerTask(const string &lang);
 #include <boost/format.hpp>
 #include <boost/uuid/sha1.hpp>
 
-#include <cstring>
 #include <openssl/sha.h>
+#include <cstring>
 #include <regex>
 #include <sstream>
 

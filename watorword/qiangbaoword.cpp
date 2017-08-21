@@ -15,22 +15,22 @@ using namespace std;
 #include "qiangbaoword.hpp"
 #include "word_db_master.hpp"
 
-#define DUMP_VAR(x)                                                            \
-  std::cout << __func__ << ":" << __LINE__ << "::" << #x << "=<" << x << ">"   \
+#define DUMP_VAR(x)                                                          \
+  std::cout << __func__ << ":" << __LINE__ << "::" << #x << "=<" << x << ">" \
             << std::endl;
-#define DUMP_VAR2(x, y)                                                        \
-  std::cout << __func__ << ":" << __LINE__ << "::" << #x << "," << #y << "=<"  \
+#define DUMP_VAR2(x, y)                                                       \
+  std::cout << __func__ << ":" << __LINE__ << "::" << #x << "," << #y << "=<" \
             << x << "," << y << ">" << std::endl;
-#define DUMP_VAR3(x, y, z)                                                     \
-  std::cout << __func__ << ":" << __LINE__ << "::" << #x << "," << #y << ","   \
+#define DUMP_VAR3(x, y, z)                                                   \
+  std::cout << __func__ << ":" << __LINE__ << "::" << #x << "," << #y << "," \
             << #z << "=<" << x << "," << y << "," << z << ">" << std::endl;
-#define DUMP_VAR4(x, y, z, a)                                                  \
-  std::cout << __func__ << ":" << __LINE__ << "::" << #x << "," << #y << ","   \
-            << #z << "," << #a << "=<" << x << "," << y << "," << z << ","     \
+#define DUMP_VAR4(x, y, z, a)                                                \
+  std::cout << __func__ << ":" << __LINE__ << "::" << #x << "," << #y << "," \
+            << #z << "," << #a << "=<" << x << "," << y << "," << z << ","   \
             << a << ">" << std::endl;
-#define DUMP_VAR5(x, y, z, a, b)                                               \
-  std::cout << __func__ << ":" << __LINE__ << "::" << #x << "," << #y << ","   \
-            << #z << "," << #a << "," << #b << "=<" << x << "," << y << ","    \
+#define DUMP_VAR5(x, y, z, a, b)                                             \
+  std::cout << __func__ << ":" << __LINE__ << "::" << #x << "," << #y << "," \
+            << #z << "," << #a << "," << #b << "=<" << x << "," << y << ","  \
             << z << "," << a << "," << b << ">" << std::endl;
 
 #define TRACE_VAR(...)
@@ -121,7 +121,6 @@ void QiangbaoWord::commitArticle(void) {
 }
 
 void QiangbaoWord::getRawRank(const vector<string> &Bytes) {
-
   phoenixRank_.clear();
   rawRankMinWordSize_ = 32;
   wordSeq_.clear();
@@ -298,8 +297,8 @@ void QiangbaoWord::calcPrediction(void) {
   this->mergeWordPrediction();
 }
 
-#include "treeword.hpp"
 #include <typeinfo>
+#include "treeword.hpp"
 
 void QiangbaoWord::calcPrediction(
     const multimap<int, WordElement> &clearWordSeq) {

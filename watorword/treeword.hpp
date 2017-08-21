@@ -10,7 +10,7 @@ using namespace std;
 class PredictionTree : public std::enable_shared_from_this<PredictionTree> {
   typedef std::tuple<std::string, int, int, double, double, int> WordElement;
 
-public:
+ public:
   PredictionTree();
   PredictionTree(shared_ptr<PredictionTree> root, int index);
   ~PredictionTree();
@@ -21,14 +21,14 @@ public:
   // {pred,vector of words}
   void flatPredSeq(multimap<int, vector<WordElement>> &flat, double &weightSum);
 
-private:
+ private:
   bool setWordSeq(const multimap<int, WordElement> &clearWordSeq, int pos);
   void flatPredSeqInside(multimap<int, vector<WordElement>> &flat,
                          double &weightMax);
   void getPredSeq(vector<WordElement> &seq, double &weightMax);
   void dumpAllPreds(int depth);
 
-private:
+ private:
   weak_ptr<PredictionTree> root_;
   vector<shared_ptr<PredictionTree>> nodes_;
   int index_;

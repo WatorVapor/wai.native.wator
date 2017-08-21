@@ -6,14 +6,15 @@ using namespace std;
 #pragma once
 
 class CtrlClaw {
-public:
+ public:
   CtrlClaw();
   ~CtrlClaw();
   void claw(const string &article);
   void cut(const string &article);
 
   // loop
-  template <typename T> void eachSentence(T fn) {
+  template <typename T>
+  void eachSentence(T fn) {
     for (auto pair : sentence_words_) {
       auto strWord = std::get<0>(pair);
       auto word = std::get<1>(pair);
@@ -21,20 +22,21 @@ public:
     }
   }
   // loop multi bytes
-  template <typename T> void eachMultiByte(T fn) {
+  template <typename T>
+  void eachMultiByte(T fn) {
     for (auto pair : sentence_words_) {
       auto word = std::get<1>(pair);
       fn(word);
     }
   }
 
-private:
+ private:
   void clear(void);
   bool isOneByte(const string &utf8);
   bool isTwoByte(const string &utf8);
   bool isCtrlMultiByte(const string &utf8);
 
-private:
+ private:
   string article_;
   vector<string> sentences_;
   vector<tuple<string, vector<string>>> sentence_words_;

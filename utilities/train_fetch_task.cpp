@@ -100,28 +100,28 @@ static void findTodo(void) {
   }
 }
 
-#define START_DB(x)                                                            \
-  {                                                                            \
-    gCNDone##x##Storage->openDB();                                             \
-    gCNTodo##x##Storage->openDB();                                             \
-    gJADone##x##Storage->openDB();                                             \
-    gJATodo##x##Storage->openDB();                                             \
-    gCN##x##Dict->openDB();                                                    \
-    gJA##x##Dict->openDB();                                                    \
+#define START_DB(x)                \
+  {                                \
+    gCNDone##x##Storage->openDB(); \
+    gCNTodo##x##Storage->openDB(); \
+    gJADone##x##Storage->openDB(); \
+    gJATodo##x##Storage->openDB(); \
+    gCN##x##Dict->openDB();        \
+    gJA##x##Dict->openDB();        \
   }
-#define END_DB(x)                                                              \
-  {                                                                            \
-    gCNDone##x##Storage->writeDB();                                            \
-    gCNTodo##x##Storage->writeDB();                                            \
-    gJADone##x##Storage->writeDB();                                            \
-    gJATodo##x##Storage->writeDB();                                            \
-                                                                               \
-    gCNDone##x##Storage->closeDB();                                            \
-    gCNTodo##x##Storage->closeDB();                                            \
-    gJADone##x##Storage->closeDB();                                            \
-    gJATodo##x##Storage->closeDB();                                            \
-    gCN##x##Dict->closeDB();                                                   \
-    gJA##x##Dict->closeDB();                                                   \
+#define END_DB(x)                   \
+  {                                 \
+    gCNDone##x##Storage->writeDB(); \
+    gCNTodo##x##Storage->writeDB(); \
+    gJADone##x##Storage->writeDB(); \
+    gJATodo##x##Storage->writeDB(); \
+                                    \
+    gCNDone##x##Storage->closeDB(); \
+    gCNTodo##x##Storage->closeDB(); \
+    gJADone##x##Storage->closeDB(); \
+    gJATodo##x##Storage->closeDB(); \
+    gCN##x##Dict->closeDB();        \
+    gJA##x##Dict->closeDB();        \
   }
 
 void train_collect(void) {

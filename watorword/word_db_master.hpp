@@ -8,7 +8,7 @@ using namespace std;
 #include <leveldb/write_batch.h>
 
 class MasterDBWord {
-public:
+ public:
   MasterDBWord();
   ~MasterDBWord();
   bool loadMasterFromDB(const string &path, bool castForce);
@@ -16,14 +16,14 @@ public:
   int getPred(const string &word);
   double getDoublePred(const string &word);
 
-private:
+ private:
   bool castMasterDB(const string &path, bool cast = true);
   bool isExistsCastDB(const string &path);
   void castMaster(void);
   void dumpMaster(void);
 
-public:
-private:
+ public:
+ private:
   leveldb::DB *gMasterdb = nullptr;
   leveldb::DB *gMasterDBCast = nullptr;
 };

@@ -7,7 +7,7 @@ using namespace std;
 #include <leveldb/write_batch.h>
 
 class URLStorage {
-public:
+ public:
   URLStorage(const std::string &path);
   ~URLStorage();
   void openDB();
@@ -21,8 +21,8 @@ public:
   string summary(void);
   void copy(std::shared_ptr<URLStorage> dst);
 
-private:
-private:
+ private:
+ private:
   string out_db_path_;
   string iter_db_path_;
   leveldb::DB *save_;

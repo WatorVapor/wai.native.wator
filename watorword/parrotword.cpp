@@ -69,7 +69,6 @@ void ParrotWord::commitArticle(void) {
 }
 
 void ParrotWord::getRawRank(const vector<string> &Bytes) {
-
   statisticsRank_.clear();
   statisticsMinWordSize_ = 32;
   wordHintSeq_.clear();

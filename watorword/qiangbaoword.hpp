@@ -23,7 +23,7 @@ class MasterDBWord;
 class QiangbaoWord {
   typedef std::tuple<std::string, int, int, double, double, int> WordElement;
 
-public:
+ public:
   QiangbaoWord(const string &database);
   ~QiangbaoWord();
   void learn(const vector<string> &word, const string &text);
@@ -32,7 +32,7 @@ public:
   void unloadMaster(void);
   void commitArticle(void);
 
-private:
+ private:
   void getRawRank(const vector<string> &Bytes);
   void adjustRank(void);
   void cutTextByRank(const string &text);
@@ -54,7 +54,7 @@ private:
   void dumpPreds();
   void dumpPredWords();
 
-private:
+ private:
   DictionaryStorage dict_;
   string database_;
   pt::ptree result_;

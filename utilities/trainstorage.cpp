@@ -18,20 +18,20 @@ TrainTaskStorage::TrainTaskStorage() {}
 
 TrainTaskStorage::~TrainTaskStorage() {}
 
-#define OPEN_LEVELDB(name, ptr, create)                                        \
-  {                                                                            \
-    if (name == nullptr) {                                                     \
-      leveldb::Options options;                                                \
-      options.create_if_missing = create;                                      \
-      options.max_open_files = 512;                                            \
-      options.paranoid_checks = true;                                          \
-      options.compression = leveldb::kNoCompression;                           \
-      auto status = leveldb::DB::Open(options, name, &ptr);                    \
-      if (status.ok() == false) {                                              \
-        DUMP_VAR(status.ToString());                                           \
-        ptr = nullptr;                                                         \
-      }                                                                        \
-    }                                                                          \
+#define OPEN_LEVELDB(name, ptr, create)                     \
+  {                                                         \
+    if (name == nullptr) {                                  \
+      leveldb::Options options;                             \
+      options.create_if_missing = create;                   \
+      options.max_open_files = 512;                         \
+      options.paranoid_checks = true;                       \
+      options.compression = leveldb::kNoCompression;        \
+      auto status = leveldb::DB::Open(options, name, &ptr); \
+      if (status.ok() == false) {                           \
+        DUMP_VAR(status.ToString());                        \
+        ptr = nullptr;                                      \
+      }                                                     \
+    }                                                       \
   }
 
 void TrainTaskStorage::open(void) {
@@ -54,12 +54,12 @@ void TrainTaskStorage::open(void) {
                true);
 }
 
-#define CLOSE_LEVELDB(ptr)                                                     \
-  {                                                                            \
-    if (ptr != nullptr) {                                                      \
-      delete ptr;                                                              \
-      ptr = nullptr;                                                           \
-    }                                                                          \
+#define CLOSE_LEVELDB(ptr) \
+  {                        \
+    if (ptr != nullptr) {  \
+      delete ptr;          \
+      ptr = nullptr;       \
+    }                      \
   }
 
 void TrainTaskStorage::close(void) {

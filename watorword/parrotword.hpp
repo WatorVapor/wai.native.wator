@@ -10,7 +10,7 @@ using namespace std;
 class ParrotWord {
   typedef std::tuple<std::string, int, int, double, double> WordElement;
 
-public:
+ public:
   ParrotWord(const string &database);
   ~ParrotWord();
   void learn(const vector<string> &word, const string &text);
@@ -18,7 +18,7 @@ public:
   void unloadMaster(void);
   void commitArticle(void);
 
-private:
+ private:
   void getRawRank(const vector<string> &Bytes);
   void adjustRank(void);
   void cutTextByRank(const string &text);
@@ -32,7 +32,7 @@ private:
   void dumpPreds();
   void dumpPredWords();
 
-private:
+ private:
   DictionaryStorage dict_;
   string database_;
   map<string, tuple<double, double>> statisticsRank_;

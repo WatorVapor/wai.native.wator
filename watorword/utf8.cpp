@@ -5,11 +5,11 @@
 #include <vector>
 using namespace std;
 
-#define DUMP_VAR(x)                                                            \
-  std::cout << __func__ << ":" << __LINE__ << "::" << #x << "=<" << x << ">"   \
+#define DUMP_VAR(x)                                                          \
+  std::cout << __func__ << ":" << __LINE__ << "::" << #x << "=<" << x << ">" \
             << std::endl;
-#define HEX_VAR(x)                                                             \
-  std::cout << __func__ << ":" << __LINE__ << "::" << #x << "=<"               \
+#define HEX_VAR(x)                                               \
+  std::cout << __func__ << ":" << __LINE__ << "::" << #x << "=<" \
             << boost::format("0x%02x") % x << ">" << std::endl;
 
 #define TRACE_VAR(x)

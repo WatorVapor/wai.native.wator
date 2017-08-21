@@ -10,8 +10,8 @@ using namespace std;
 #include <leveldb/db.h>
 #include <leveldb/write_batch.h>
 
-#define DUMP_VAR(x)                                                            \
-  std::cout << __func__ << ":" << __LINE__ << "::" << #x << "=<" << x << ">"   \
+#define DUMP_VAR(x)                                                          \
+  std::cout << __func__ << ":" << __LINE__ << "::" << #x << "=<" << x << ">" \
             << std::endl;
 #define TRACE_VAR(x)
 

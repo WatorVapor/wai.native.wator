@@ -10,14 +10,14 @@ using namespace std;
 #include <leveldb/write_batch.h>
 
 class CharCut {
-public:
+ public:
   CharCut();
   ~CharCut();
   void pushContent(const vector<string> &input);
   void compressRanking(void);
   void dumpSum(void);
 
-private:
+ private:
   bool isFiltOut(const string &utf8);
   bool isOneByte(const string &utf8);
   bool isCtrlMultiByte(const string &utf8);
@@ -32,7 +32,7 @@ private:
   void writeDB();
   void dumpSnapshotDB();
 
-private:
+ private:
   static map<string, int> gMultiWordSum;
   // static map<int,vector<string>> gMultiWordRank;
   static map<string, int> gOneWordSum;

@@ -27,7 +27,7 @@ static const uint32_t iConstMSGBufferMax = 1024 * 1024;
 string processText(const string &text);
 
 class udp_server {
-public:
+ public:
   udp_server(shared_ptr<udp::socket> sock) : socket_(sock) { start_receive(); }
   void send(const std::string &msg) {
     boost::shared_ptr<std::string> message(new std::string(msg));
@@ -36,7 +36,7 @@ public:
         boost::bind(&udp_server::handle_send, this, message));
   }
 
-private:
+ private:
   void start_receive() {
     socket_->async_receive_from(
         boost::asio::buffer(recv_buffer_), remote_endpoint_,

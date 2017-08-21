@@ -6,10 +6,10 @@
 extern std::mutex gDumpVarMutex;
 
 #if 0
-#define DUMP_VAR(x)                                                            \
-  {                                                                            \
-    BOOST_LOG_TRIVIAL(debug)                                                   \
-        << __FUNCTION__ << "::" << #x << "=<" << x << ">";                     \
+#define DUMP_VAR(x)                                        \
+  {                                                        \
+    BOOST_LOG_TRIVIAL(debug)                               \
+        << __FUNCTION__ << "::" << #x << "=<" << x << ">"; \
   }
 #endif
 
@@ -19,11 +19,11 @@ extern std::mutex gDumpVarMutex;
     std::cout << __func__ << ":" << __LINE__ << "::" << #x << "=<" << x << ">" \
               << std::endl;                                                    \
   }
-#define DUMP_VAR2(x, y)                                                        \
-  {                                                                            \
-    std::lock_guard<std::mutex> lock(gDumpVarMutex);                           \
-    std::cout << __func__ << ":" << __LINE__ << "::" << #x << "," << #y        \
-              << "=<" << x << "," << y << ">" << std::endl;                    \
+#define DUMP_VAR2(x, y)                                                 \
+  {                                                                     \
+    std::lock_guard<std::mutex> lock(gDumpVarMutex);                    \
+    std::cout << __func__ << ":" << __LINE__ << "::" << #x << "," << #y \
+              << "=<" << x << "," << y << ">" << std::endl;             \
   }
 #define DUMP_VAR3(x, y, z)                                                     \
   {                                                                            \

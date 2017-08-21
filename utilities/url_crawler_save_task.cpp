@@ -46,8 +46,8 @@ void url_crawler_write_main(void) {
 #include <boost/format.hpp>
 #include <boost/uuid/sha1.hpp>
 
-#include <cstring>
 #include <openssl/sha.h>
+#include <cstring>
 #include <regex>
 #include <sstream>
 

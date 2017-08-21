@@ -16,14 +16,15 @@ namespace pt = boost::property_tree;
 #include "log.hpp"
 
 class TextPump {
-public:
+ public:
   TextPump();
   TextPump(const string &dir);
   TextPump(const string &url, const string &tag);
   ~TextPump();
   string statistics(void);
   // loop
-  template <typename T> void eachTextFile(const string &dir, T fn) {
+  template <typename T>
+  void eachTextFile(const string &dir, T fn) {
     const fs::path path(dir);
     BOOST_FOREACH (const fs::path &p,
                    std::make_pair(fs::recursive_directory_iterator(path),
@@ -43,7 +44,8 @@ public:
       }
     }
   }
-  template <typename T> void eachJsonFile(const string &dir, T fn) {
+  template <typename T>
+  void eachJsonFile(const string &dir, T fn) {
     const fs::path path(dir);
     BOOST_FOREACH (const fs::path &p,
                    std::make_pair(fs::recursive_directory_iterator(path),
@@ -58,7 +60,8 @@ public:
       }
     }
   }
-  template <typename T> void eachJsonFile(T fn) {
+  template <typename T>
+  void eachJsonFile(T fn) {
     const fs::path path(dir_);
     BOOST_FOREACH (const fs::path &p,
                    std::make_pair(fs::recursive_directory_iterator(path),
@@ -73,7 +76,8 @@ public:
       }
     }
   }
-  template <typename T> void eachNewText(const string &tag, T fn) {
+  template <typename T>
+  void eachNewText(const string &tag, T fn) {
     const fs::path path(dir_);
     BOOST_FOREACH (const fs::path &p,
                    std::make_pair(fs::recursive_directory_iterator(path),
@@ -89,7 +93,8 @@ public:
       }
     }
   }
-  template <typename T> void eachTextFromMaster(T fn) {
+  template <typename T>
+  void eachTextFromMaster(T fn) {
     DUMP_VAR2(url_, tag_);
     while (true) {
       pt::ptree task;
@@ -100,7 +105,7 @@ public:
     }
   }
 
-private:
+ private:
   template <typename T>
   void parseMeta(const string &pathMeata, const string &tag, T fn) {
     try {
@@ -138,7 +143,7 @@ private:
   }
   bool fetchMasterTask(pt::ptree &task, string &content);
 
-private:
+ private:
   const string dir_;
   const string url_;
   const string tag_;

@@ -16,14 +16,14 @@ namespace pt = boost::property_tree;
 #include "log.hpp"
 
 class WikiCrawler {
-public:
+ public:
   WikiCrawler();
   ~WikiCrawler();
   void parse(const pt::ptree &task, string &content);
 
-private:
+ private:
   void up(const pt::ptree &task, string &urls);
 
-private:
+ private:
   const int iConstOnceUpURLMax = 20;
 };

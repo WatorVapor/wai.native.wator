@@ -16,7 +16,6 @@ std::shared_ptr<URLStorage> gCNJointStorage;
 std::shared_ptr<URLStorage> gJAJointStorage;
 
 int main(int ac, char *av[]) {
-
   gCNMasterStorage =
       std::make_shared<URLStorage>("/watorvapor/wai.storage/leveldb/cn/master");
   gCNTodoStorage =
