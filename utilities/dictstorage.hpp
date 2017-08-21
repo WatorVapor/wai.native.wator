@@ -13,6 +13,7 @@ public:
   void closeDB();
   void putWord(const string &word, int counter);
   string summary(void);
+
 private:
 private:
   string out_db_path_;

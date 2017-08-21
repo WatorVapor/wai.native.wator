@@ -16,7 +16,6 @@ using namespace std;
 double getDoublePred(const string &word);
 #include "log.hpp"
 
-
 map<string, int> ParrotWord::gMultiWordSum;
 
 static int iConstWordBatchMax = 1000;
@@ -25,9 +24,7 @@ ParrotWord::ParrotWord(const string &database)
     : dict_(database, "word_parrot"), database_(database) {
   dict_.openDB();
 }
-ParrotWord::~ParrotWord() {
-  dict_.closeDB();
-}
+ParrotWord::~ParrotWord() { dict_.closeDB(); }
 void ParrotWord::learn(const vector<string> &wordBytes, const string &text) {
   if (wordBytes.size() < 2) {
     return;

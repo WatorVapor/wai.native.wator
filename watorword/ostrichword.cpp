@@ -17,13 +17,11 @@ int getPred(const string &word);
 
 static int iConstWordBatchMax = 1000;
 
-OstrichWord::OstrichWord(const string &database)  {
-}
+OstrichWord::OstrichWord(const string &database) {}
 
 OstrichWord::OstrichWord() {}
 
-OstrichWord::~OstrichWord() {
-}
+OstrichWord::~OstrichWord() {}
 void OstrichWord::learn(const vector<string> &wordBytes) {
   if (wordBytes.size() < 2) {
     return;
@@ -96,7 +94,7 @@ vector<string> OstrichWord::pickupWordRanking(void) {
     upWords += "{}";
     wordArrays.push_back(upWords);
   }
-  if(localMultiWordRank.empty()) {
+  if (localMultiWordRank.empty()) {
     upWords += "{}";
     wordArrays.push_back(upWords);
   }

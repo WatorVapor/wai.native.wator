@@ -63,9 +63,6 @@ void fetchPhoenixTask(const string &lang) {
   }
 }
 
-
-
-
 #include "urlstorage.hpp"
 std::shared_ptr<URLStorage> gCNDoneOstrichStorage;
 std::shared_ptr<URLStorage> gCNTodoOstrichStorage;
@@ -109,8 +106,8 @@ static void findTodo(void) {
     gCNTodo##x##Storage->openDB();                                             \
     gJADone##x##Storage->openDB();                                             \
     gJATodo##x##Storage->openDB();                                             \
-    gCN##x##Dict->openDB();                                             \
-    gJA##x##Dict->openDB();                                             \
+    gCN##x##Dict->openDB();                                                    \
+    gJA##x##Dict->openDB();                                                    \
   }
 #define END_DB(x)                                                              \
   {                                                                            \
@@ -118,13 +115,13 @@ static void findTodo(void) {
     gCNTodo##x##Storage->writeDB();                                            \
     gJADone##x##Storage->writeDB();                                            \
     gJATodo##x##Storage->writeDB();                                            \
-                                                                             \
+                                                                               \
     gCNDone##x##Storage->closeDB();                                            \
     gCNTodo##x##Storage->closeDB();                                            \
     gJADone##x##Storage->closeDB();                                            \
     gJATodo##x##Storage->closeDB();                                            \
-    gCN##x##Dict->closeDB();                                             \
-    gJA##x##Dict->closeDB();                                             \
+    gCN##x##Dict->closeDB();                                                   \
+    gJA##x##Dict->closeDB();                                                   \
   }
 
 void train_collect(void) {
@@ -153,8 +150,6 @@ void train_collect(void) {
   END_DB(Ostrich);
 }
 
-
-
 void fetchOstrichSummary(void) {
   std::string summary;
   summary += gCNDoneOstrichStorage->summary();
@@ -175,7 +170,5 @@ void fetchOstrichSummary(void) {
   ;
   gFetchTrainServer->send(summary);
 }
-void fetchParrotSummary(void) {
-}
-void fetchPhoenixSummary(void) {
-}
+void fetchParrotSummary(void) {}
+void fetchPhoenixSummary(void) {}

@@ -64,7 +64,7 @@ void DictionaryStorage::putWord(const string &word, int counter) {
     leveldb::WriteOptions writeOptions;
     writeOptions.sync = true;
     status = save_->Put(writeOptions, key, value);
-    DUMP_VAR3(status.ToString(),word,sum);
+    DUMP_VAR3(status.ToString(), word, sum);
   }
 }
 
@@ -99,4 +99,3 @@ string DictionaryStorage::summary(void) {
   }
   return sum;
 }
-

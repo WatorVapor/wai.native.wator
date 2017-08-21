@@ -37,7 +37,7 @@ extern std::shared_ptr<DictionaryStorage> gJAOstrichDict;
 
 string sha1(const string &data);
 
-template <typename T> void eachWord(const string &word,T fn) {
+template <typename T> void eachWord(const string &word, T fn) {
   list<string> list_string;
   string delim("{};");
   boost::split(list_string, word, boost::is_any_of(delim),
@@ -49,20 +49,19 @@ template <typename T> void eachWord(const string &word,T fn) {
       string delim2(",");
       list<string> list_words;
       boost::split(list_words, wordPair, boost::is_any_of(delim2),
-               boost::algorithm::token_compress_on);
-      if(list_words.size() ==2) {
+                   boost::algorithm::token_compress_on);
+      if (list_words.size() == 2) {
         auto key = list_words.front();
         auto val = list_words.back();
-        DUMP_VAR2(key,val);
+        DUMP_VAR2(key, val);
         auto counter = std::stoi(val);
-        if(counter > 0) {
-          fn(key,counter);
+        if (counter > 0) {
+          fn(key, counter);
         }
       }
     }
   }
-}; 
-
+};
 
 static bool markOstrich(const string &url, const string &lang) {
   bool ret = true;
@@ -70,14 +69,14 @@ static bool markOstrich(const string &url, const string &lang) {
   auto doneName = sha1(url);
   DUMP_VAR2(doneName, url);
   if (lang == "cn") {
-    if(gCNDoneOstrichStorage->is_has(doneName)) {
+    if (gCNDoneOstrichStorage->is_has(doneName)) {
       ret = false;
     } else {
       gCNDoneOstrichStorage->add(doneName, url);
     }
     gCNTodoOstrichStorage->remove(doneName);
   } else if (lang == "ja") {
-    if(gJADoneOstrichStorage->is_has(doneName)) {
+    if (gJADoneOstrichStorage->is_has(doneName)) {
       ret = false;
     } else {
       gJADoneOstrichStorage->add(doneName, url);
@@ -91,21 +90,19 @@ static bool markOstrich(const string &url, const string &lang) {
   return ret;
 }
 
-
-
 void saveOstrichTask(const string &lang, const string &url,
                      const string &word) {
   DUMP_VAR3(lang, url, word);
-  markOstrich(url,lang);
-  auto save = [&](const string &key,int counter) {
+  markOstrich(url, lang);
+  auto save = [&](const string &key, int counter) {
     if (lang == "cn") {
-      gCNOstrichDict->putWord(key,counter);
+      gCNOstrichDict->putWord(key, counter);
     } else if (lang == "ja") {
-      gJAOstrichDict->putWord(key,counter);
+      gJAOstrichDict->putWord(key, counter);
     } else {
     }
   };
-  eachWord(word,save);
+  eachWord(word, save);
   gSaveTrainServer->send("success");
 }
 void saveParrotTask(const string &lang, const string &url, const string &word) {
@@ -116,5 +113,4 @@ void savePhoenixTask(const string &lang, const string &url,
   gSaveTrainServer->send("success");
 }
 
-void train_word_write(void) {
-}
+void train_word_write(void) {}

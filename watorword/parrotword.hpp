@@ -24,9 +24,9 @@ private:
   void cutTextByRank(const string &text);
   void calcPrediction(void);
   void getWordPrediction(const string &text);
-  
+
   void mergeWordPrediction(void);
-  
+
   void dumpRank();
   void dumpSeq();
   void dumpPreds();

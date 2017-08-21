@@ -14,7 +14,6 @@ using namespace std;
 #include "log.hpp"
 #include "ostrichword.hpp"
 
-
 void OstrichWord::upWordByArticle2Master(const pt::ptree &task) {
   auto wordArrays = pickupWordRanking();
   multiWordOfOneArticle_.clear();
