@@ -33,9 +33,9 @@ void ParrotWord::learn(const vector<string> &wordBytes, const string &text) {
     TRACE_VAR(mbyte);
   }
   this->getRawRank(wordBytes);
-  this->adjustRank();
+  //this->adjustRank();
   // this->dumpRank();
-  this->cutTextByRank(text);
+ // this->cutTextByRank(text);
   // this->dumpSeq();
   this->calcPrediction();
   this->getWordPrediction(text);
@@ -139,6 +139,7 @@ void ParrotWord::dumpRank() {
   }
 }
 
+/*
 static vector<size_t> find_all_substr(const string &sub, const string &text) {
   vector<size_t> positions;
   auto pos = text.find(sub, 0);
@@ -165,13 +166,15 @@ void ParrotWord::cutTextByRank(const string &text) {
     }
   }
 }
+*/
+
 void ParrotWord::calcPrediction(void) {
-  TRACE_VAR(wordSeq_.size());
-  if (wordSeq_.empty()) {
+  TRACE_VAR(wordHintSeq_.size());
+  if (wordHintSeq_.empty()) {
     return;
   }
   multimap<double, WordElement> weightElem;
-  for (auto elem : wordSeq_) {
+  for (auto elem : wordHintSeq_) {
     TRACE_VAR(elem.first);
     auto word = std::get<0>(elem.second);
     auto pos = std::get<1>(elem.second);
@@ -182,8 +185,8 @@ void ParrotWord::calcPrediction(void) {
     auto elemNew = std::make_tuple(word, pos, range, weight, weight2);
     weightElem.insert(std::make_pair(weight, elemNew));
   }
-  auto lastPos = wordSeq_.rbegin();
-  auto firstPos = wordSeq_.begin();
+  auto lastPos = wordHintSeq_.rbegin();
+  auto firstPos = wordHintSeq_.begin();
   auto place_length = lastPos->first - firstPos->first;
   place_length += std::get<2>(lastPos->second);
   TRACE_VAR(place_length);
