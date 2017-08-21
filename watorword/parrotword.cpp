@@ -207,7 +207,7 @@ void ParrotWord::calcPrediction(void) {
     auto pos = std::get<1>(itWeight->second);
     auto range = std::get<2>(itWeight->second);
     auto weight = std::get<3>(itWeight->second);
-    TRACE_VAR(word, pos, range, weight);
+    DUMP_VAR4(word, pos, range, weight);
 
     auto offsetWord = pos - place_begin;
     bool hasPlaceFlag = true;
