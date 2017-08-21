@@ -3,7 +3,7 @@ var db = levelup('/watorvapor/wai.storage/train/ostrich/cp.dict/cn')
 db.createReadStream()
   .on('data', function (data) {
     var value = parseInt(data.value);
-    if(value > 100) {
+    if(value > 9) {
       console.log(data.key, '=', data.value)
     }
   })
