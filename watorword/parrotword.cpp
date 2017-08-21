@@ -188,6 +188,8 @@ void ParrotWord::calcPrediction(void) {
   auto lastPos = wordHintSeq_.rbegin();
   auto firstPos = wordHintSeq_.begin();
   auto place_length = lastPos->first - firstPos->first;
+  DUMP_VAR2(lastPos->first,firstPos->first);
+
   place_length += std::get<2>(lastPos->second);
   TRACE_VAR(place_length);
   vector<bool> placeholder;
