@@ -21,10 +21,9 @@ map<string, int> ParrotWord::gMultiWordSum;
 static int iConstWordBatchMax = 1000;
 
 ParrotWord::ParrotWord(const string &database)
-    : dict_(database), database_(database) {
-  dict_.openDB();
+    : database_(database) {
 }
-ParrotWord::~ParrotWord() { dict_.closeDB(); }
+ParrotWord::~ParrotWord() {  }
 void ParrotWord::learn(const vector<string> &wordBytes, const string &text) {
   if (wordBytes.size() < 2) {
     return;
