@@ -28,10 +28,11 @@ FORMAT      := $(addsuffix .fmt,$(SRC))
 SRC_FOR	    := $(basename $(FORMAT))
 
 
-STYLE = "{BasedOnStyle: llvm, IndentWidth: 2}"
+#STYLE = "{BasedOnStyle: llvm, IndentWidth: 2}"
+STYLE = "{BasedOnStyle: Google, IndentWidth: 2}"
+
 format: $(FORMAT)
 $(FORMAT):
 	clang-format -style=$(STYLE) $(basename $@) > $@
-	#clang-format -style=Google $(basename $@) > $@
 	mv $@ $(basename $@) 
 	
