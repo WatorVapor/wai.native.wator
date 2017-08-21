@@ -16,7 +16,6 @@ using namespace std;
 #include <boost/property_tree/ptree.hpp>
 namespace pt = boost::property_tree;
 
-#include "dictstorage.hpp"
 class PredictionTree;
 class MasterDBWord;
 
@@ -55,7 +54,6 @@ class QiangbaoWord {
   void dumpPredWords();
 
  private:
-  DictionaryStorage dict_;
   string database_;
   pt::ptree result_;
   string clearResult_;
