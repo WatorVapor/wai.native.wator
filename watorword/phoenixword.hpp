@@ -51,6 +51,7 @@ private:
 
   map<string, tuple<double, double>> phoenixRank_;
   int rawRankMinWordSize_;
+  int ap_;
 
   multimap<int, WordElement> wordSeq_;
   vector<multimap<int, WordElement>> noConflictWordSeq_;
