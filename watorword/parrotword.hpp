@@ -26,6 +26,8 @@ class ParrotWord {
   void getWordPrediction(const string &text);
 
   void mergeWordPrediction(void);
+  
+  void dumpDot(void);
 
   void dumpRank();
   void dumpSeq();
