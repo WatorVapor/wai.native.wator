@@ -59,24 +59,22 @@ void ParrotWord::dumpPreds() {
 
 #include <utility>
 #include <string>
-#include <boost/graph/adjacency_list.hpp>
+#include <boost/graph/directed_graph.hpp>
 #include <boost/graph/graph_utility.hpp>
 #include <boost/graph/graphviz.hpp>
 using namespace boost;
 using namespace boost::graph_detail;
 
-typedef boost::adjacency_list<> Graph;
+typedef boost::directed_graph<> Graph;
 
 typedef std::pair<string, string> Edge;
 typedef boost::graph_traits < Graph >::vertex_descriptor Vertex;
 
 void ParrotWord::dumpDot(void) {
-  const Graph g();
-  int vertex = 0;
+  const Graph g;
   for (auto elem : wordHintSeq_) {
     auto word = std::get<0>(elem.second);
-    auto vrtx = boost::add_vertex(g);
-    vertex++;
+    auto vrtx = g.add_vertex();
   }
   boost::write_graphviz(std::cout, g);
 }
