@@ -57,6 +57,22 @@ void ParrotWord::dumpPreds() {
   }
 }
 
+#include <fstream>
+#include <vector>
+#include <string>
+#include <boost/graph/adjacency_list.hpp>
+#include <boost/graph/graphviz.hpp>
+
+typedef
+    boost::adjacency_list<boost::listS, boost::vecS, boost::directedS,
+        boost::no_property, boost::property<boost::edge_weight_t, int>>
+Graph;
+
+typedef std::pair<string, string> Edge;
+
 void ParrotWord::dumpDot(void) {
+  std::vector<Edge> edges;
+  Graph g(edges.begin(), edges.end());
+  boost::print_graph(g);
 }
 
