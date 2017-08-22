@@ -131,8 +131,8 @@ void ParrotWord::adjustRank() {
   }
 }
 
-double ParrotWord::adjustWeight(double weight) {
-    double rate = (double)word.size() / (double)statisticsMinWordSize_ - 1.0;
+double ParrotWord::adjustWeight(int width,double weight) {
+    double rate = (double)width / (double)statisticsMinWordSize_ - 1.0;
     double rate2 = ::pow(gWeigthAdjustBase, rate);
     TRACE_VAR(rate, rate2);
     auto weight_adj = weight * rate2;
@@ -154,7 +154,7 @@ void ParrotWord::calcPrediction(void) {
     auto range = std::get<2>(elem.second);
     auto weight = std::get<3>(elem.second);
     auto weight2 = std::get<4>(elem.second);
-    auto weight_adj = adjustWeight(weight);
+    auto weight_adj = adjustWeight(word.size(),weight);
     DUMP_VAR5(word, pos, range,weight_adj,weight);
     auto elemNew = std::make_tuple(word, pos, range, weight_adj, weight2);
     weightElem.insert(std::make_pair(weight_adj, elemNew));
