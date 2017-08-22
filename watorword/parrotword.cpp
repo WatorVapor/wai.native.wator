@@ -131,35 +131,15 @@ void ParrotWord::adjustRank() {
   }
 }
 
-
-/*
-static vector<size_t> find_all_substr(const string &sub, const string &text) {
-  vector<size_t> positions;
-  auto pos = text.find(sub, 0);
-  while (pos != string::npos) {
-    positions.push_back(pos);
-    pos = text.find(sub, pos + 1);
-  }
-  return positions;
+double ParrotWord::adjustWeight(double weight) {
+    double rate = (double)word.size() / (double)statisticsMinWordSize_ - 1.0;
+    double rate2 = ::pow(gWeigthAdjustBase, rate);
+    TRACE_VAR(rate, rate2);
+    auto weight_adj = weight * rate2;
+    return weight_adj;
 }
 
-void ParrotWord::cutTextByRank(const string &text) {
-  for (auto it = statisticsRank_.begin(); it != statisticsRank_.end(); it++) {
-    auto rankRepeat = std::get<0>(it->second);
-    auto rankorig = std::get<1>(it->second);
-    TRACE_VAR(rankRepeat);
-    auto word = it->first;
-    TRACE_VAR(word);
-    auto posAll = find_all_substr(word, text);
-    for (auto pos : posAll) {
-      auto range = word.size();
-      TRACE_VAR(word, pos, range, rankRepeat, rankorig);
-      auto elem = std::make_tuple(word, pos, word.size(), rankRepeat, rankorig);
-      wordSeq_.insert(std::make_pair(pos, elem));
-    }
-  }
-}
-*/
+
 
 void ParrotWord::calcPrediction(void) {
   TRACE_VAR(wordHintSeq_.size());
@@ -174,9 +154,10 @@ void ParrotWord::calcPrediction(void) {
     auto range = std::get<2>(elem.second);
     auto weight = std::get<3>(elem.second);
     auto weight2 = std::get<4>(elem.second);
-    DUMP_VAR4(word, pos, range, weight);
-    auto elemNew = std::make_tuple(word, pos, range, weight, weight2);
-    weightElem.insert(std::make_pair(weight, elemNew));
+    auto weight_adj = adjustWeight(weight);
+    DUMP_VAR5(word, pos, range,weight_adj,weight);
+    auto elemNew = std::make_tuple(word, pos, range, weight_adj, weight2);
+    weightElem.insert(std::make_pair(weight_adj, elemNew));
   }
   auto lastPos = wordHintSeq_.rbegin();
   auto firstPos = wordHintSeq_.begin();
