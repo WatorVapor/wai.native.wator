@@ -93,7 +93,7 @@ void ParrotWord::dumpDot(void) {
         auto rangeNext = vertexs.equal_range(next);
         for (auto itNext = rangeNext.first; itNext != rangeNext.second; itNext++) {
           auto vrtxNext = std::get<1>(itNext->second);
-          g.add_edge(vrtxSelf, vrtxSelf);
+          g.add_edge(vrtxSelf, vrtxNext);
         }
         break;
       }
