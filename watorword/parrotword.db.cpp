@@ -62,9 +62,6 @@ void ParrotWord::dumpPreds() {
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/graph/graph_utility.hpp>
 #include <boost/graph/graphviz.hpp>
-
-#include <boost/graph/directed_graph.hpp>
-#include <boost/graph/labeled_graph.hpp>
 using namespace boost;
 using namespace boost::graph_detail;
 
