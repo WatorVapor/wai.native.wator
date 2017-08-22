@@ -71,11 +71,11 @@ typedef std::pair<string, string> Edge;
 typedef boost::graph_traits < Graph >::vertex_descriptor Vertex;
 
 void ParrotWord::dumpDot(void) {
-  const Graph g;
+  const Graph g();
   int vertex = 0;
   for (auto elem : wordHintSeq_) {
     auto word = std::get<0>(elem.second);
-    boost::add_vertex(vertex, g);
+    auto vrtx = boost::add_vertex(g);
     vertex++;
   }
   boost::write_graphviz(std::cout, g);
