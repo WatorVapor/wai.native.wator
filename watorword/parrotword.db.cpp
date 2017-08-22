@@ -65,6 +65,7 @@ void ParrotWord::dumpPreds() {
 
 #include <boost/graph/directed_graph.hpp>
 #include <boost/graph/labeled_graph.hpp>
+ using namespace boost::graph_detail;
 
 //typedef boost::adjacency_list<boost::listS, boost::vecS, boost::directedS> Graph;
 typedef boost::labeled_graph<Digraph, string> Graph;
