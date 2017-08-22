@@ -140,7 +140,7 @@ void ParrotWord::calcPrediction(void) {
     auto weight = std::get<3>(elem.second);
     auto weight2 = std::get<4>(elem.second);
     auto weight_adj = adjustWeight(word.size(),weight);
-    DUMP_VAR5(word, pos, range,weight_adj,weight);
+    TRACE_VAR(word, pos, range,weight_adj,weight);
     auto elemNew = std::make_tuple(word, pos, range, weight_adj, weight2);
     weightElem.insert(std::make_pair(weight_adj, elemNew));
   }
@@ -166,7 +166,7 @@ void ParrotWord::calcPrediction(void) {
     auto pos = std::get<1>(itWeight->second);
     auto range = std::get<2>(itWeight->second);
     auto weight = std::get<3>(itWeight->second);
-    DUMP_VAR4(word, pos, range, weight);
+    TRACE_VAR(word, pos, range, weight);
 
     auto offsetWord = pos - place_begin;
     bool hasPlaceFlag = true;
@@ -200,11 +200,11 @@ void ParrotWord::getWordPrediction(const string &text) {
     auto pos = std::get<1>(elem.second);
     auto range = std::get<2>(elem.second);
     auto weight = std::get<3>(elem.second);
-    DUMP_VAR4(word, pos, range, weight);
+    TRACE_VAR(word, pos, range, weight);
     boost::algorithm::replace_all(textRemain, word, " ");
     prediWords_.push_back(word);
   }
-  DUMP_VAR(textRemain);
+  TRACE_VAR(textRemain);
   list<string> list_textRemain;
   boost::split(list_textRemain, textRemain, boost::is_space(),
                boost::algorithm::token_compress_on);
