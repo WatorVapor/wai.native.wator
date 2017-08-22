@@ -56,3 +56,7 @@ void ParrotWord::dumpPreds() {
     DUMP_VAR4(word, pos, range, weight);
   }
 }
+
+void ParrotWord::dumpDot(void) {
+}
+
