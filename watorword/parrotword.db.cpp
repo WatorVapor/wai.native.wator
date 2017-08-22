@@ -72,7 +72,7 @@ typedef std::pair<string, string> Edge;
 
 void ParrotWord::dumpDot(void) {
   std::vector<Edge> edges;
-  Graph g(edges.begin(), edges.end());
+  Graph g(edges.begin(), edges.end(),wordHintSeq_.size());
   boost::print_graph(g);
 }
 
