@@ -68,8 +68,7 @@ void ParrotWord::dumpPreds() {
 using namespace boost;
 using namespace boost::graph_detail;
 
-typedef boost::adjacency_list<boost::listS, boost::vecS, boost::directedS> Graph;
-//typedef labeled_graph<Digraph, std::string> Graph;
+typedef boost::adjacency_list<> Graph;
 
 typedef std::pair<string, string> Edge;
 typedef boost::graph_traits < Graph >::vertex_descriptor Vertex;
