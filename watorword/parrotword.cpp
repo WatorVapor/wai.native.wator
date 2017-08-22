@@ -211,7 +211,7 @@ void ParrotWord::getWordPrediction(const string &text) {
   for (auto remain : list_textRemain) {
     TRACE_VAR(remain);
     TRACE_VAR(remain.size());
-    if (remain.size() > 1 && remain.size() < 4) {
+    if (remain.size() > 1) {
       prediWords_.push_back(remain);
     }
   }
