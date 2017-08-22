@@ -73,7 +73,7 @@ void ParrotWord::dumpDot(void) {
   const std::vector<Edge> edges = {
     {u"即是", u"互相"}
   };
-  const Graph g(edges.begin(), edges.end(), edges.size());
+  const Graph g;
   boost::write_graphviz(std::cout, g);
 }
 
