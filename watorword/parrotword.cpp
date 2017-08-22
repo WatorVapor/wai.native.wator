@@ -114,7 +114,7 @@ void ParrotWord::getRawRank(const vector<string> &Bytes) {
   TRACE_VAR(statisticsMinWordSize_);
 }
 
-static const int gWeigthAdjustBase = 64;
+static const int gWeigthAdjustBase = 1024;
 void ParrotWord::adjustRank() {
   for (auto rPair : statisticsRank_) {
     TRACE_VAR(rPair.first, rPair.second);
