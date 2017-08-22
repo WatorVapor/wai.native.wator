@@ -59,6 +59,7 @@ void ParrotWord::dumpPreds() {
 
 #include <utility>
 #include <string>
+#include <sstream>
 #include <boost/graph/directed_graph.hpp>
 #include <boost/graph/graph_utility.hpp>
 #include <boost/graph/graphviz.hpp>
@@ -99,6 +100,8 @@ void ParrotWord::dumpDot(void) {
       }
     }
   }
-  boost::write_graphviz(std::cout, g);
+  std::stringstream ss;
+  boost::write_graphviz(ss, g);
+  DUMP_VAR(ss.str());
 }
 
