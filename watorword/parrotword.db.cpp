@@ -76,5 +76,6 @@ void ParrotWord::dumpDot(void) {
   };
   const Graph g(edges.begin(), edges.end(), N);
   boost::print_graph(g, name.c_str());
+  boost::write_graphviz(std::cout, g);
 }
 
