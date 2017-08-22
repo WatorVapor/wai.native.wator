@@ -114,22 +114,7 @@ void ParrotWord::getRawRank(const vector<string> &Bytes) {
   TRACE_VAR(statisticsMinWordSize_);
 }
 
-static const int gWeigthAdjustBase = 1024;
-void ParrotWord::adjustRank() {
-  for (auto rPair : statisticsRank_) {
-    TRACE_VAR(rPair.first, rPair.second);
-    auto word = rPair.first;
-    auto weight = std::get<0>(rPair.second);
-    TRACE_VAR(word, weight, word.size());
-    double rate = (double)word.size() / (double)statisticsMinWordSize_ - 1.0;
-    double rate2 = ::pow(gWeigthAdjustBase, rate);
-    TRACE_VAR(rate, rate2);
-    auto weight_adj = weight * rate2;
-    TRACE_VAR(word, word.size(), weight, weight_adj);
-    statisticsRank_[word] = std::make_tuple(weight_adj, weight);
-    ;
-  }
-}
+static const int gWeigthAdjustBase = 256;
 
 double ParrotWord::adjustWeight(int width,double weight) {
     double rate = (double)width / (double)statisticsMinWordSize_ - 1.0;
@@ -215,7 +200,7 @@ void ParrotWord::getWordPrediction(const string &text) {
     auto pos = std::get<1>(elem.second);
     auto range = std::get<2>(elem.second);
     auto weight = std::get<3>(elem.second);
-    TRACE_VAR(word, pos, range, weight);
+    DUMP_VAR4(word, pos, range, weight);
     boost::algorithm::replace_all(textRemain, word, " ");
     prediWords_.push_back(word);
   }
