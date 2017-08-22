@@ -70,6 +70,7 @@ typedef boost::directed_graph<> Graph;
 
 typedef std::pair<string, string> Edge;
 typedef boost::graph_traits < Graph >::vertex_descriptor Vertex;
+typedef boost::graph_traits < Graph >::vertex_property_type VertexPt;
 
 void ParrotWord::dumpDot(void) {
   Graph g;
