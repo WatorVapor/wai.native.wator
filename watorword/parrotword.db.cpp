@@ -77,14 +77,14 @@ void ParrotWord::dumpDot(void) {
     auto word = std::get<0>(elem.second);
     auto position = std::get<1>(elem.second);
     auto vrtx = g.add_vertex();
-    auto vrtxPr = std::make_tuple(string,vrtx);
+    auto vrtxPr = std::make_tuple(word,vrtx);
     vertexs.insert(std::make_pair(position,vrtxPr));
   }
   for (auto elem : wordHintSeq_) {
     auto word = std::get<0>(elem.second);
     auto position = std::get<1>(elem.second);
     auto range = std::get<2>(elem.second);
-    auto next = position + next;
+    auto next = position + range;
     auto rangeSelf = vertexs.equal_range(position);
     for (auto itSelf = rangeSelf.first; itSelf != rangeSelf.second; itSelf++) {
       auto wordSelf = std::get<0>(itSelf->second);
