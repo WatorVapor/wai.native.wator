@@ -20,6 +20,7 @@ class ParrotWord {
  private:
   void getRawRank(const vector<string> &Bytes);
   void adjustRank(void);
+  double ParrotWord::adjustWeight(double weight);
   void cutTextByRank(const string &text);
   void calcPrediction(void);
   void getWordPrediction(const string &text);
