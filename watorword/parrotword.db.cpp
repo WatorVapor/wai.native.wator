@@ -72,12 +72,32 @@ typedef boost::graph_traits < Graph >::vertex_descriptor Vertex;
 
 void ParrotWord::dumpDot(void) {
   Graph g;
-  multimap<int, Vertex> vertexs;
+  multimap<int, std::tuple<string,Vertex>> vertexs;
   for (auto elem : wordHintSeq_) {
     auto word = std::get<0>(elem.second);
     auto position = std::get<1>(elem.second);
     auto vrtx = g.add_vertex();
-    vertexs.insert(std::make_pair(position,vrtx));
+    auto vrtxPr = std::make_tuple(string,vrtx);
+    vertexs.insert(std::make_pair(position,vrtxPr));
+  }
+  for (auto elem : wordHintSeq_) {
+    auto word = std::get<0>(elem.second);
+    auto position = std::get<1>(elem.second);
+    auto range = std::get<2>(elem.second);
+    auto next = position + next;
+    auto rangeSelf = vertexs.equal_range(position);
+    for (auto itSelf = rangeSelf.first; itSelf != rangeSelf.second; itSelf++) {
+      auto wordSelf = std::get<0>(itSelf->second);
+      auto vrtxSelf = std::get<1>(itSelf->second);
+      if(word == wordSelf) {
+        auto rangeNext = vertexs.equal_range(next);
+        for (auto itNext = rangeNext.first; itNext != rangeNext.second; itNext++) {
+          auto vrtxNext = std::get<1>(itNext->second);
+          g.add_edge(vrtxSelf, vrtxSelf);
+        }
+        break;
+      }
+    }
   }
   boost::write_graphviz(std::cout, g);
 }
