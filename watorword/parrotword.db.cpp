@@ -64,7 +64,7 @@ void ParrotWord::dumpPreds() {
 #include <boost/graph/graphviz.hpp>
 typedef boost::adjacency_list<boost::listS, boost::vecS, boost::directedS> Graph;
 typedef std::pair<string, string> Edge;
-typedef boost::graph_traits < Graph >::vertex_descriptor Vertex
+typedef boost::graph_traits < Graph >::vertex_descriptor Vertex;
 
 void ParrotWord::dumpDot(void) {
   const Graph g;
