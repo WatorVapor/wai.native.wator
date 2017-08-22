@@ -64,17 +64,16 @@ void ParrotWord::dumpPreds() {
 #include <boost/graph/graphviz.hpp>
 
 typedef boost::adjacency_list<boost::listS, boost::vecS, boost::directedS> Graph;
-typedef std::pair<int, int> Edge;
+typedef std::pair<string, string> Edge;
 
 enum { A, B, C, D, E, N };
 
 
 void ParrotWord::dumpDot(void) {
   const std::vector<Edge> edges = {
-    {A, B}, {A, C}, {A, D},
-    {B, E}, {C, E}, {D, E}
+    {u"即是", u"互相"}
   };
-  const Graph g(edges.begin(), edges.end(), N);
+  const Graph g(edges.begin(), edges.end(), edges.size());
   boost::write_graphviz(std::cout, g);
 }
 
