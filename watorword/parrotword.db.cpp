@@ -70,10 +70,11 @@ enum { A, B, C, D, E, N };
 
 
 void ParrotWord::dumpDot(void) {
-  const std::vector<Edge> edges = {
-    {u8"即是", u8"互相"}
-  };
   const Graph g;
+  for (auto elem : wordHintSeq_) {
+    auto word = std::get<0>(elem.second);
+    Vertex v1 = add_vertex(string(word), g);
+  }
   boost::write_graphviz(std::cout, g);
 }
 
