@@ -67,7 +67,6 @@ typedef boost::adjacency_list<boost::listS, boost::vecS, boost::directedS> Graph
 typedef std::pair<int, int> Edge;
 
 enum { A, B, C, D, E, N };
-const std::string name = "ABCDE";
 
 
 void ParrotWord::dumpDot(void) {
@@ -76,7 +75,6 @@ void ParrotWord::dumpDot(void) {
     {B, E}, {C, E}, {D, E}
   };
   const Graph g(edges.begin(), edges.end(), N);
-  boost::print_graph(g, name.c_str());
   boost::write_graphviz(std::cout, g);
 }
 
