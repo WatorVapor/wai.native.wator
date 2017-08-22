@@ -204,7 +204,7 @@ void ParrotWord::getWordPrediction(const string &text) {
     boost::algorithm::replace_all(textRemain, word, " ");
     prediWords_.push_back(word);
   }
-  TRACE_VAR(textRemain);
+  DUMP_VAR(textRemain);
   list<string> list_textRemain;
   boost::split(list_textRemain, textRemain, boost::is_space(),
                boost::algorithm::token_compress_on);
