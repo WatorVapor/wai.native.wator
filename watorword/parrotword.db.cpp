@@ -111,7 +111,17 @@ void ParrotWord::dumpDot(void) {
   }
   std::stringstream ss;
   auto lw = boost::make_label_writer(labelVertex);
-  boost::write_graphviz(ss, g,lw);
+  
+  struct sample_graph_writer {
+    void operator()(std::ostream& out) const {
+      out << "graph [bgcolor=lightgrey]" << std::endl;
+      out << "node [shape=circle color=white]" << std::endl;
+      out << "edge [style=dashed]" << std::endl;
+    }
+  };
+  
+  
+  boost::write_graphviz(ss, g,sample_graph_writer);
   DUMP_VAR(ss.str());
   for(auto p :labelVertex) {
     delete [] p;
