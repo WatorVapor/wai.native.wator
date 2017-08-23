@@ -66,11 +66,12 @@ void ParrotWord::dumpPreds() {
 using namespace boost;
 using namespace boost::graph_detail;
 
+#include <boost/algorithm/string.hpp>
+
 typedef boost::directed_graph<> Graph;
 
 typedef std::pair<string, string> Edge;
 typedef boost::graph_traits < Graph >::vertex_descriptor Vertex;
-//typedef boost::graph_traits < Graph >::vertex_property_type VertexPt;
 
 void ParrotWord::dumpDot(void) {
   Graph g;
@@ -106,13 +107,15 @@ void ParrotWord::dumpDot(void) {
   static int counter = 0;
   struct sample_graph_writer {
     void operator()(std::ostream& out,void* data) const {
-      //int *index = (int*)data;
-      //DUMP_VAR(*index);
       auto word = labelVertex.at(counter);
       out << " [ label = \"";
       out << word;
       out << "\" ]";
-      //DUMP_VAR2(word,counter);
+      if(counter == 0) {
+        out << "\n";
+        out << "rankdir=LR;\n";
+        out << "graph [charset=\"UTF-8\"];\n";
+      }
       counter++;
     }
   };
@@ -120,7 +123,8 @@ void ParrotWord::dumpDot(void) {
   
   std::stringstream ss;
   boost::write_graphviz(ss, g,gw);
-  DUMP_VAR(ss.str());
+  auto dotStr = ss.str();
+  DUMP_VAR(dotStr);
   // dot -v -T svg 1.dot -o 1.svg
 
   counter = 0;
