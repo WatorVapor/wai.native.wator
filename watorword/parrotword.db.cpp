@@ -113,10 +113,10 @@ void ParrotWord::dumpDot(void) {
   //auto lw = boost::make_label_writer(labelVertex);
   
   struct sample_graph_writer {
-    void operator()(std::ostream& out,void* i) const {
-      out << "graph [bgcolor=lightgrey]" << std::endl;
-      out << "node [shape=circle color=white]" << std::endl;
-      out << "edge [style=dashed]" << std::endl;
+    void operator()(std::ostream& out,void* data) const {
+      int *index = (int*)data;
+      DUMP_VAR(*index);
+      out << "[label=]";
     }
   };
   sample_graph_writer gw;
