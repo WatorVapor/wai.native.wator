@@ -118,7 +118,8 @@ void ParrotWord::dumpDot(void) {
   
   std::stringstream ss;
   boost::write_graphviz(ss, g,gw);
-  auto dotStr = boost::algorithm::replace_all(ss.str(), "digraph G {", "digraph G { \n rankdir=LR;\n graph [charset=\"UTF-8\"];\n");
+  auto dotStr = ss.str();
+  dotStr = boost::algorithm::replace_all(dotStr, "digraph G {", "digraph G { \n rankdir=LR;\n graph [charset=\"UTF-8\"];\n");
   DUMP_VAR(dotStr);
   // dot -v -T svg 1.dot -o 1.svg
 
