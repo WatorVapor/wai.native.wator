@@ -121,13 +121,9 @@ void ParrotWord::dumpDot(void) {
   std::stringstream ss;
   boost::write_graphviz(ss, g,gw);
   DUMP_VAR(ss.str());
+  // dot -v -T svg 1.dot -o 1.svg
+
   counter = 0;
   labelVertex.clear();
-  /*
-  for(auto p :labelVertex) {
-    delete [] p;
-  }
-  delete [] labelVertex;
-  */
 }
 
