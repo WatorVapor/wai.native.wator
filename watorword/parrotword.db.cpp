@@ -75,7 +75,7 @@ typedef boost::graph_traits < Graph >::vertex_descriptor Vertex;
 void ParrotWord::dumpDot(void) {
   Graph g;
   multimap<int, std::tuple<string,Vertex>> vertexs;
-  vector<string> labelVertex;
+  static vector<string> labelVertex;
   for (auto elem : wordHintSeq_) {
     auto word = std::get<0>(elem.second);
     auto position = std::get<1>(elem.second);
@@ -103,6 +103,7 @@ void ParrotWord::dumpDot(void) {
       }
     }
   }
+  static int counter = 0;
   struct sample_graph_writer {
     void operator()(std::ostream& out,void* data) const {
       int *index = (int*)data;
@@ -112,13 +113,14 @@ void ParrotWord::dumpDot(void) {
       DUMP_VAR2(word,counter);
       counter++;
     }
-    int counter = 0;
   };
   sample_graph_writer gw;
   
   std::stringstream ss;
   boost::write_graphviz(ss, g,gw);
   DUMP_VAR(ss.str());
+  counter = 0;
+  labelVertex.clear();
   /*
   for(auto p :labelVertex) {
     delete [] p;
