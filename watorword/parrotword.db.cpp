@@ -109,8 +109,7 @@ void ParrotWord::dumpDot(void) {
       }
     }
   }
-  std::stringstream ss;
-  auto lw = boost::make_label_writer(labelVertex);
+  //auto lw = boost::make_label_writer(labelVertex);
   
   struct sample_graph_writer {
     void operator()(std::ostream& out) const {
@@ -121,6 +120,7 @@ void ParrotWord::dumpDot(void) {
   };
   
   
+  std::stringstream ss;
   boost::write_graphviz(ss, g,sample_graph_writer);
   DUMP_VAR(ss.str());
   for(auto p :labelVertex) {
