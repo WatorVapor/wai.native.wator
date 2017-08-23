@@ -75,7 +75,7 @@ typedef boost::graph_traits < Graph >::vertex_descriptor Vertex;
 void ParrotWord::dumpDot(void) {
   Graph g;
   multimap<int, std::tuple<string,Vertex>> vertexs;
-  char* labelVertex[] = new char* [wordHintSeq_.size()];
+  //char* labelVertex[] = new char* [wordHintSeq_.size()];
   //vector<string> labelVertex;
   int i = 0;
   for (auto elem : wordHintSeq_) {
@@ -85,9 +85,10 @@ void ParrotWord::dumpDot(void) {
     auto vrtx = g.add_vertex();
     auto vrtxPr = std::make_tuple(word,vrtx);
     vertexs.insert(std::make_pair(position,vrtxPr));
-    labelVertex[i] = new char [word.size() +1];
-    strncpy(labelVertex[i],word.c_str(),word.size());
-    labelVertex[i][word.size()] =0;
+    
+    //labelVertex[i] = new char [word.size() +1];
+    //strncpy(labelVertex[i],word.c_str(),word.size());
+    //labelVertex[i][word.size()] =0;
     i++;
   }
   for (auto elem : wordHintSeq_) {
