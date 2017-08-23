@@ -119,14 +119,16 @@ void ParrotWord::dumpDot(void) {
       out << "edge [style=dashed]" << std::endl;
     }
   };
-  
+  sample_graph_writer gw;
   
   std::stringstream ss;
-  boost::write_graphviz(ss, g,sample_graph_writer);
+  boost::write_graphviz(ss, g,gw);
   DUMP_VAR(ss.str());
+  /*
   for(auto p :labelVertex) {
     delete [] p;
   }
   delete [] labelVertex;
+  */
 }
 
