@@ -77,6 +77,7 @@ void ParrotWord::dumpDot(void) {
   multimap<int, std::tuple<string,Vertex>> vertexs;
   char* labelVertex[] = new char* [wordHintSeq_.size()];
   //vector<string> labelVertex;
+  int i = 0;
   for (auto elem : wordHintSeq_) {
     auto word = std::get<0>(elem.second);
     auto position = std::get<1>(elem.second);
@@ -87,6 +88,7 @@ void ParrotWord::dumpDot(void) {
     labelVertex[i] = new char [word.size() +1];
     strncpy(labelVertex[i],word.c_str(),word.size());
     labelVertex[i][word.size()] =0;
+    i++;
   }
   for (auto elem : wordHintSeq_) {
     auto word = std::get<0>(elem.second);
