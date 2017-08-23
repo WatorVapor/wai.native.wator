@@ -109,7 +109,7 @@ void ParrotWord::dumpDot(void) {
       DUMP_VAR(*index);
       out << "[label=]";
       auto word = labelVertex.at(counter);
-      DUMP_VAR(word);
+      DUMP_VAR2(word,counter);
       counter++;
     }
     int counter = 0;
