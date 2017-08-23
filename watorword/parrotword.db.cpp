@@ -103,16 +103,16 @@ void ParrotWord::dumpDot(void) {
       }
     }
   }
-  int i = 0;
   struct sample_graph_writer {
     void operator()(std::ostream& out,void* data) const {
       int *index = (int*)data;
       DUMP_VAR(*index);
       out << "[label=]";
-      auto word = labelVertex.at(i);
+      auto word = labelVertex.at(counter);
       DUMP_VAR(word);
-      i++;
+      counter++;
     }
+    int counter = 0;
   };
   sample_graph_writer gw;
   
