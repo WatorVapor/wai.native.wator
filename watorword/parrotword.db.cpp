@@ -106,11 +106,13 @@ void ParrotWord::dumpDot(void) {
   static int counter = 0;
   struct sample_graph_writer {
     void operator()(std::ostream& out,void* data) const {
-      int *index = (int*)data;
-      DUMP_VAR(*index);
-      out << "[label=]";
+      //int *index = (int*)data;
+      //DUMP_VAR(*index);
       auto word = labelVertex.at(counter);
-      DUMP_VAR2(word,counter);
+      out << " [ label = \"";
+      out << word;
+      out << "\" ]";
+      //DUMP_VAR2(word,counter);
       counter++;
     }
   };
