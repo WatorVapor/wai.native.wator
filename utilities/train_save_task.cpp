@@ -47,9 +47,9 @@ void eachWord(const string &word, T fn) {
   string delim("{};");
   boost::split(list_string, word, boost::is_any_of(delim),
                boost::algorithm::token_compress_on);
-  DUMP_VAR(list_string.size());
+  TRACE_VAR(list_string.size());
   for (auto wordPair : list_string) {
-    DUMP_VAR(wordPair);
+    TRACE_VAR(wordPair);
     if (wordPair.empty() == false) {
       string delim2(",");
       list<string> list_words;
@@ -58,7 +58,7 @@ void eachWord(const string &word, T fn) {
       if (list_words.size() == 2) {
         auto key = list_words.front();
         auto val = list_words.back();
-        DUMP_VAR2(key, val);
+        TRACE_VAR(key, val);
         auto counter = std::stoi(val);
         if (counter > 0) {
           fn(key, counter);
@@ -67,6 +67,7 @@ void eachWord(const string &word, T fn) {
     }
   }
 };
+
 
 static bool markOstrich(const string &url, const string &lang) {
   bool ret = true;
@@ -97,7 +98,7 @@ static bool markOstrich(const string &url, const string &lang) {
 
 void saveOstrichTask(const string &lang, const string &url,
                      const string &word) {
-  DUMP_VAR3(lang, url, word);
+  TRACE_VAR(lang, url, word);
   markOstrich(url, lang);
   auto save = [&](const string &key, int counter) {
     if (lang == "cn") {
@@ -110,7 +111,46 @@ void saveOstrichTask(const string &lang, const string &url,
   eachWord(word, save);
   gSaveTrainServer->send("success");
 }
+
+static bool markParrot(const string &url, const string &lang) {
+  bool ret = true;
+  auto start = std::chrono::system_clock::now();
+  auto doneName = sha1(url);
+  DUMP_VAR2(doneName, url);
+  if (lang == "cn") {
+    if (gCNDoneParrotStorage->is_has(doneName)) {
+      ret = false;
+    } else {
+      gCNDoneParrotStorage->add(doneName, url);
+    }
+    gCNTodoParrotStorage->remove(doneName);
+  } else if (lang == "ja") {
+    if (gJADoneParrotStorage->is_has(doneName)) {
+      ret = false;
+    } else {
+      gJADoneParrotStorage->add(doneName, url);
+    }
+    gJATodoParrotStorage->remove(doneName);
+  } else {
+  }
+  auto end = std::chrono::system_clock::now();
+  std::chrono::duration<double, std::milli> markOstrich_ms = end - start;
+  DUMP_VAR(markOstrich_ms.count());
+  return ret;
+}
+
 void saveParrotTask(const string &lang, const string &url, const string &word) {
+  TRACE_VAR(lang, url, word);
+  markParrot(url, lang);
+  auto save = [&](const string &key, int counter) {
+    if (lang == "cn") {
+      gCNParrotDict->putWord(key, counter);
+    } else if (lang == "ja") {
+      gJAParrotDict->putWord(key, counter);
+    } else {
+    }
+  };
+  eachWord(word, save);
   gSaveTrainServer->send("success");
 }
 void savePhoenixTask(const string &lang, const string &url,
