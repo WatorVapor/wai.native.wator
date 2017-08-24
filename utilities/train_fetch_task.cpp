@@ -188,43 +188,12 @@ void train_collect(void) {
 void fetchOstrichSummary(void) {
   std::string summary;
   FETCH_SUMMARY(Ostrich);
-  summary += gCNDoneOstrichStorage->summary();
-  summary += "\n";
-  summary += gCNTodoOstrichStorage->summary();
-  ;
-  summary += "\n";
-  summary += gJADoneOstrichStorage->summary();
-  ;
-  summary += "\n";
-  summary += gJATodoOstrichStorage->summary();
-  ;
-  summary += "\n";
-  summary += gCNOstrichDict->summary();
-  ;
-  summary += "\n";
-  summary += gJAOstrichDict->summary();
-  ;
   gFetchTrainServer->send(summary);
 }
 void fetchParrotSummary(void) {
   std::string summary;
   FETCH_SUMMARY(Parrot);
- summary += gCNDoneParrotStorage->summary();
-  summary += "\n";
-  summary += gCNTodoParrotStorage->summary();
-  ;
-  summary += "\n";
-  summary += gJADoneParrotStorage->summary();
-  ;
-  summary += "\n";
-  summary += gJATodoParrotStorage->summary();
-  ;
-  summary += "\n";
-  summary += gCNParrotDict->summary();
-  ;
-  summary += "\n";
-  summary += gJAParrotDict->summary();
-  ;
   gFetchTrainServer->send(summary);
 }
-void fetchPhoenixSummary(void) {}
+void fetchPhoenixSummary(void) {
+}
