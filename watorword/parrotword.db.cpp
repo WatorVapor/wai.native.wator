@@ -42,6 +42,12 @@ void ParrotWord::commitArticle(void) {
   ap_ = 0;
 }
 
+void ParrotWord::commitArticle(const pt::ptree &task) {
+  gMultiWordSum.clear();
+  ap_ = 0;
+}
+
+
 void ParrotWord::dumpRank() {
   for (auto rPair : statisticsRank_) {
     auto word = rPair.first;
