@@ -6,6 +6,13 @@
 using namespace std;
 #pragma once
 
+#include <boost/foreach.hpp>
+#include <boost/optional.hpp>
+#include <boost/property_tree/json_parser.hpp>
+#include <boost/property_tree/ptree.hpp>
+namespace pt = boost::property_tree;
+
+
 class ParrotWord {
   typedef std::tuple<std::string, int, int, double, double> WordElement;
 
