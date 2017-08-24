@@ -36,7 +36,8 @@ extern std::shared_ptr<DictionaryStorage> gJA##stage##Dict;\
 
 #include "urlstorage.hpp"
 #include "dictstorage.hpp"
-EXTERN_DECLARE_DB(Ostrich):
+EXTERN_DECLARE_DB(Ostrich);
+EXTERN_DECLARE_DB(Parrot);
 
 string sha1(const string &data);
 
