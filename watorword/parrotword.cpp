@@ -42,7 +42,7 @@ void ParrotWord::learn(const vector<string> &wordBytes, const string &text) {
   DUMP_VAR(text);
   // this->dumpPreds();
   this->dumpPredWords();
-  this->mergeWordPrediction();
+  this->collectWord();
 }
 void ParrotWord::dumpPredWords() {
   for (auto parrot : prediWords_) {
