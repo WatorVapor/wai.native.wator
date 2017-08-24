@@ -46,13 +46,12 @@ class ParrotWord {
   string database_;
   map<string, tuple<double, double>> statisticsRank_;
   multimap<int, WordElement> wordHintSeq_;
-  multimap<int, WordElement> wordSeq_;
   multimap<int, WordElement> wordSeqTopSelected_;
   vector<string> prediWords_;
   int statisticsMinWordSize_;
   int ap_ = 0;
 
-  static map<string, int> gMultiWordSum;
+  static map<string, int> multiWordOfOneArticle_;
   const int gWordLength = 32;
   const int minWordRepeateTimes_ = 9;
 };
