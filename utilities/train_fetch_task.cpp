@@ -67,23 +67,21 @@ void fetchPhoenixTask(const string &lang) {
 }
 
 #include "urlstorage.hpp"
-std::shared_ptr<URLStorage> gCNDoneOstrichStorage;
-std::shared_ptr<URLStorage> gCNTodoOstrichStorage;
-std::shared_ptr<URLStorage> gJADoneOstrichStorage;
-std::shared_ptr<URLStorage> gJATodoOstrichStorage;
-
-std::shared_ptr<URLStorage> gCNDoneParrotStorage;
-std::shared_ptr<URLStorage> gCNTodoParrotStorage;
-std::shared_ptr<URLStorage> gJADoneParrotStorage;
-std::shared_ptr<URLStorage> gJATodoParrotStorage;
-
-
 #include "dictstorage.hpp"
-std::shared_ptr<DictionaryStorage> gCNOstrichDict;
-std::shared_ptr<DictionaryStorage> gJAOstrichDict;
+#define DECLARE_DB(stage) \
+std::shared_ptr<URLStorage> gCNDone##stage##Storage;\
+std::shared_ptr<URLStorage> gCNTodo##stage##Storage;\
+std::shared_ptr<URLStorage> gJADone##stage##Storage;\
+std::shared_ptr<URLStorage> gJATodo##stage##Storage;\
+std::shared_ptr<DictionaryStorage> gCN##stage##Dict;\
+std::shared_ptr<DictionaryStorage> gJA##stage##Dict;\
+ 
 
-std::shared_ptr<DictionaryStorage> gCNParrotDict;
-std::shared_ptr<DictionaryStorage> gJAParrotDict;
+
+DECLARE_DB(Ostrich);
+DECLARE_DB(Parrot);
+
+
 
 
 
@@ -106,21 +104,6 @@ static void findTodo(void) {
   TRY_FIND_TASK(Parrot,JA);
 }
 
-#define DECLARE_DB(stageN,stageP) \
-{\
-  gCNDone##stageN##Storage = std::make_shared<URLStorage>(\
-      "/watorvapor/wai.storage/train/"#stageP"/done/cn");\
-  gCNTodo##stageN##Storage = std::make_shared<URLStorage>(\
-      "/watorvapor/wai.storage/train/"#stageP"/todo/cn");\
-  gJADone##stageN##Storage = std::make_shared<URLStorage>(\
-      "/watorvapor/wai.storage/train/"#stageP"/done/ja");\
-  gJATodo##stageN##Storage = std::make_shared<URLStorage>(\
-      "/watorvapor/wai.storage/train/"#stageP"/todo/ja");\
-  gCN##stageN##Dict = std::make_shared<DictionaryStorage>(\
-      "/watorvapor/wai.storage/train/"#stageP"/dict/cn");\
-  gJA##stageN##Dict = std::make_shared<DictionaryStorage>(\
-      "/watorvapor/wai.storage/train/"#stageP"/dict/ja");\
-}
 
 #define START_DB(stageN,stageP)                \
   {                                \
