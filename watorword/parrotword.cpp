@@ -16,7 +16,6 @@ using namespace std;
 double getDoublePred(const string &word);
 #include "log.hpp"
 
-map<string, int> ParrotWord::gMultiWordSum;
 
 static int iConstWordBatchMax = 1000;
 
