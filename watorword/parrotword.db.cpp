@@ -67,7 +67,7 @@ vector<string> ParrotWord::pickupWordRanking(void) {
     upWords += "{}";
     wordArrays.push_back(upWords);
   }
-  if (localMultiWordRank.empty()) {
+  if (multiWordOfOneArticle_.empty()) {
     upWords += "{}";
     wordArrays.push_back(upWords);
   }
