@@ -122,36 +122,46 @@ static void findTodo(void) {
       "/watorvapor/wai.storage/train/"#stageP"/dict/ja");\
 }
 
-#define START_DB(x)                \
+#define START_DB(stageN,stageP)                \
   {                                \
-    gCNDone##x##Storage->openDB(); \
-    gCNTodo##x##Storage->openDB(); \
-    gJADone##x##Storage->openDB(); \
-    gJATodo##x##Storage->openDB(); \
-    gCN##x##Dict->openDB();        \
-    gJA##x##Dict->openDB();        \
+  gCNDone##stageN##Storage = std::make_shared<URLStorage>(\
+      "/watorvapor/wai.storage/train/"#stageP"/done/cn");\
+  gCNTodo##stageN##Storage = std::make_shared<URLStorage>(\
+      "/watorvapor/wai.storage/train/"#stageP"/todo/cn");\
+  gJADone##stageN##Storage = std::make_shared<URLStorage>(\
+      "/watorvapor/wai.storage/train/"#stageP"/done/ja");\
+  gJATodo##stageN##Storage = std::make_shared<URLStorage>(\
+      "/watorvapor/wai.storage/train/"#stageP"/todo/ja");\
+  gCN##stageN##Dict = std::make_shared<DictionaryStorage>(\
+      "/watorvapor/wai.storage/train/"#stageP"/dict/cn");\
+  gJA##stageN##Dict = std::make_shared<DictionaryStorage>(\
+      "/watorvapor/wai.storage/train/"#stageP"/dict/ja");\
+    gCNDone##stageN##Storage->openDB(); \
+    gCNTodo##stageN##Storage->openDB(); \
+    gJADone##stageN##Storage->openDB(); \
+    gJATodo##stageN##Storage->openDB(); \
+    gCN##stageN##Dict->openDB();        \
+    gJA##stageN##Dict->openDB();        \
   }
-#define END_DB(x)                   \
+#define END_DB(stage)                   \
   {                                 \
-    gCNDone##x##Storage->writeDB(); \
-    gCNTodo##x##Storage->writeDB(); \
-    gJADone##x##Storage->writeDB(); \
-    gJATodo##x##Storage->writeDB(); \
+    gCNDone##stage##Storage->writeDB(); \
+    gCNTodo##stage##Storage->writeDB(); \
+    gJADone##stage##Storage->writeDB(); \
+    gJATodo##stage##Storage->writeDB(); \
                                     \
-    gCNDone##x##Storage->closeDB(); \
-    gCNTodo##x##Storage->closeDB(); \
-    gJADone##x##Storage->closeDB(); \
-    gJATodo##x##Storage->closeDB(); \
-    gCN##x##Dict->closeDB();        \
-    gJA##x##Dict->closeDB();        \
+    gCNDone##stage##Storage->closeDB(); \
+    gCNTodo##stage##Storage->closeDB(); \
+    gJADone##stage##Storage->closeDB(); \
+    gJATodo##stage##Storage->closeDB(); \
+    gCN##stage##Dict->closeDB();        \
+    gJA##stage##Dict->closeDB();        \
   }
 
 void train_collect(void) {
-  DECLARE_DB(Ostrich,ostrich);
-  DECLARE_DB(Parrot,parrot);
-  START_DB(Ostrich);
-  START_DB(Parrot);
-  
+  START_DB(Ostrich,ostrich);
+  START_DB(Parrot,parrot);
+ 
   
   while (true) {
     findTodo();
