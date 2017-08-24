@@ -52,21 +52,7 @@ void ParrotWord::dumpPredWords() {
   }
   std::cout << std::endl;
 }
-void ParrotWord::mergeWordPrediction(void) {
-  for (auto parrot : prediWords_) {
-    auto it = gMultiWordSum.find(parrot);
-    if (it != gMultiWordSum.end()) {
-      it->second++;
-    } else {
-      gMultiWordSum[parrot] = 1;
-    }
-  }
-}
 
-void ParrotWord::commitArticle(void) {
-  gMultiWordSum.clear();
-  ap_ = 0;
-}
 
 void ParrotWord::getRawRank(const vector<string> &Bytes) {
   statisticsRank_.clear();
