@@ -11,6 +11,9 @@ using namespace std;
 static vector<string> gOstrichTodoCN;
 static vector<string> gOstrichTodoJA;
 
+static vector<string> gParrotTodoCN;
+static vector<string> gParrotTodoJA;
+
 static std::mutex gTodoMutex;
 static std::condition_variable gTodoCV;
 static std::mutex gTodoCvMutex;
@@ -69,9 +72,18 @@ std::shared_ptr<URLStorage> gCNTodoOstrichStorage;
 std::shared_ptr<URLStorage> gJADoneOstrichStorage;
 std::shared_ptr<URLStorage> gJATodoOstrichStorage;
 
+std::shared_ptr<URLStorage> gCNDoneParrotStorage;
+std::shared_ptr<URLStorage> gCNTodoParrotStorage;
+std::shared_ptr<URLStorage> gJADoneParrotStorage;
+std::shared_ptr<URLStorage> gJATodoParrotStorage;
+
+
 #include "dictstorage.hpp"
 std::shared_ptr<DictionaryStorage> gCNOstrichDict;
 std::shared_ptr<DictionaryStorage> gJAOstrichDict;
+
+std::shared_ptr<DictionaryStorage> gCNParrotDict;
+std::shared_ptr<DictionaryStorage> gJAParrotDict;
 
 static void findOstrichTodoCN(void) {
   try {
@@ -91,12 +103,49 @@ static void findOstrichTodoJA(void) {
   }
 }
 
+
+static void findParrotTodoCN(void) {
+  try {
+    gCNTodoParrotStorage->gets(iConstPathCacheMax, gParrotTodoCN);
+  } catch (std::exception &e) {
+    DUMP_VAR(e.what());
+  } catch (...) {
+  }
+}
+
+static void findParrotTodoJA(void) {
+  try {
+    gJATodoParrotStorage->gets(iConstPathCacheMax, gParrotTodoJA);
+  } catch (std::exception &e) {
+    DUMP_VAR(e.what());
+  } catch (...) {
+  }
+}
+
+#define TRY_FIND_TASK(stage,lang) \
+{\
+  if (g##stage##Todo##lang##.empty()) {\
+    try {\
+      g##lang##Todo##stage##Storage->gets(iConstPathCacheMax, g##lang##Todo##lang);\
+    } catch (std::exception &e) {\
+      DUMP_VAR(e.what());\
+    } catch (...) {\
+    }\
+  }\
+}
+
 static void findTodo(void) {
   if (gOstrichTodoCN.empty()) {
     findOstrichTodoCN();
   }
   if (gOstrichTodoJA.empty()) {
     findOstrichTodoJA();
+  }
+  if (gParrotTodoCN.empty()) {
+    findParrotTodoCN();
+  }
+  if (gParrotTodoJA.empty()) {
+    findParrotTodoJA();
   }
 }
 
@@ -137,9 +186,25 @@ void train_collect(void) {
       "/watorvapor/wai.storage/train/ostrich/dict/cn");
   gJAOstrichDict = std::make_shared<DictionaryStorage>(
       "/watorvapor/wai.storage/train/ostrich/dict/ja");
-
+  
   START_DB(Ostrich);
 
+  gCNDoneParrotStorage = std::make_shared<URLStorage>(
+      "/watorvapor/wai.storage/train/parrot/done/cn");
+  gCNTodoParrotStorage = std::make_shared<URLStorage>(
+      "/watorvapor/wai.storage/train/parrot/todo/cn");
+  gJADoneParrotStorage = std::make_shared<URLStorage>(
+      "/watorvapor/wai.storage/train/parrot/done/ja");
+  gJATodoParrotStorage = std::make_shared<URLStorage>(
+      "/watorvapor/wai.storage/train/parrot/todo/ja");
+  gCNParrotDict = std::make_shared<DictionaryStorage>(
+      "/watorvapor/wai.storage/train/parrot/dict/cn");
+  gJAParrotDict = std::make_shared<DictionaryStorage>(
+      "/watorvapor/wai.storage/train/parrot/dict/ja");
+  
+  START_DB(Parrot);
+  
+  
   while (true) {
     findTodo();
     DUMP_VAR(gOstrichTodoCN.size());
@@ -148,6 +213,7 @@ void train_collect(void) {
     gTodoCV.wait(lk);
   }
   END_DB(Ostrich);
+  END_DB(Parrot);
 }
 
 void fetchOstrichSummary(void) {
@@ -170,5 +236,24 @@ void fetchOstrichSummary(void) {
   ;
   gFetchTrainServer->send(summary);
 }
-void fetchParrotSummary(void) {}
+void fetchParrotSummary(void) {
+  std::string summary;
+  summary += gCNDoneParrotStorage->summary();
+  summary += "\n";
+  summary += gCNTodoParrotStorage->summary();
+  ;
+  summary += "\n";
+  summary += gJADoneParrotStorage->summary();
+  ;
+  summary += "\n";
+  summary += gJATodoParrotStorage->summary();
+  ;
+  summary += "\n";
+  summary += gCNParrotDict->summary();
+  ;
+  summary += "\n";
+  summary += gJAParrotDict->summary();
+  ;
+  gFetchTrainServer->send(summary);
+}
 void fetchPhoenixSummary(void) {}
