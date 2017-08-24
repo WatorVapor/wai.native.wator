@@ -149,6 +149,22 @@ static void findTodo(void) {
   }
 }
 
+#define DECLARE_DB(stageN,stageP) \
+{\
+  gCNDone##stageN##Storage = std::make_shared<URLStorage>(\
+      "/watorvapor/wai.storage/train/"#stageP"/done/cn");\
+  gCNTodo##stageN##Storage = std::make_shared<URLStorage>(\
+      "/watorvapor/wai.storage/train/"#stageP"/todo/cn");\
+  gJADone##stageN##Storage = std::make_shared<URLStorage>(\
+      "/watorvapor/wai.storage/train/"#stageP"/done/ja");\
+  gJATodo##stageN##Storage = std::make_shared<URLStorage>(\
+      "/watorvapor/wai.storage/train/"#stageP"/todo/ja");\
+  gCN##stageN##Dict = std::make_shared<DictionaryStorage>(\
+      "/watorvapor/wai.storage/train/"#stageP"/dict/cn");\
+  gJA##stageN##Dict = std::make_shared<DictionaryStorage>(\
+      "/watorvapor/wai.storage/train/"#stageP"/dict/ja");\
+}
+
 #define START_DB(x)                \
   {                                \
     gCNDone##x##Storage->openDB(); \
@@ -174,6 +190,7 @@ static void findTodo(void) {
   }
 
 void train_collect(void) {
+  DECLARE_DB(Ostrich,ostrich);
   gCNDoneOstrichStorage = std::make_shared<URLStorage>(
       "/watorvapor/wai.storage/train/ostrich/done/cn");
   gCNTodoOstrichStorage = std::make_shared<URLStorage>(
@@ -188,6 +205,8 @@ void train_collect(void) {
       "/watorvapor/wai.storage/train/ostrich/dict/ja");
   
   START_DB(Ostrich);
+
+  DECLARE_DB(Parrot,parrot);
 
   gCNDoneParrotStorage = std::make_shared<URLStorage>(
       "/watorvapor/wai.storage/train/parrot/done/cn");
