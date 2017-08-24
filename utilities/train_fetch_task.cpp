@@ -85,42 +85,7 @@ std::shared_ptr<DictionaryStorage> gJAOstrichDict;
 std::shared_ptr<DictionaryStorage> gCNParrotDict;
 std::shared_ptr<DictionaryStorage> gJAParrotDict;
 
-static void findOstrichTodoCN(void) {
-  try {
-    gCNTodoOstrichStorage->gets(iConstPathCacheMax, gOstrichTodoCN);
-  } catch (std::exception &e) {
-    DUMP_VAR(e.what());
-  } catch (...) {
-  }
-}
 
-static void findOstrichTodoJA(void) {
-  try {
-    gJATodoOstrichStorage->gets(iConstPathCacheMax, gOstrichTodoJA);
-  } catch (std::exception &e) {
-    DUMP_VAR(e.what());
-  } catch (...) {
-  }
-}
-
-
-static void findParrotTodoCN(void) {
-  try {
-    gCNTodoParrotStorage->gets(iConstPathCacheMax, gParrotTodoCN);
-  } catch (std::exception &e) {
-    DUMP_VAR(e.what());
-  } catch (...) {
-  }
-}
-
-static void findParrotTodoJA(void) {
-  try {
-    gJATodoParrotStorage->gets(iConstPathCacheMax, gParrotTodoJA);
-  } catch (std::exception &e) {
-    DUMP_VAR(e.what());
-  } catch (...) {
-  }
-}
 
 #define TRY_FIND_TASK(stage,lang) \
 {\
@@ -136,18 +101,9 @@ static void findParrotTodoJA(void) {
 
 static void findTodo(void) {
   TRY_FIND_TASK(Ostrich,CN);
-  if (gOstrichTodoCN.empty()) {
-    findOstrichTodoCN();
-  }
-  if (gOstrichTodoJA.empty()) {
-    findOstrichTodoJA();
-  }
-  if (gParrotTodoCN.empty()) {
-    findParrotTodoCN();
-  }
-  if (gParrotTodoJA.empty()) {
-    findParrotTodoJA();
-  }
+  TRY_FIND_TASK(Ostrich,JA);
+  TRY_FIND_TASK(Parrot,CN);
+  TRY_FIND_TASK(Parrot,JA);
 }
 
 #define DECLARE_DB(stageN,stageP) \
@@ -208,8 +164,30 @@ void train_collect(void) {
   END_DB(Parrot);
 }
 
+#define FETCH_SUMMARY(stage) \
+{\
+  summary += gCNDone##stage##Storage->summary();\
+  summary += "\n";\
+  summary += gCNTodo##stage##Storage->summary();\
+  ;\
+  summary += "\n";\
+  summary += gJADone##stage##Storage->summary();\
+  ;\
+  summary += "\n";\
+  summary += gJATodo##stage##Storage->summary();\
+  ;\
+  summary += "\n";\
+  summary += gCN##stage##Dict->summary();\
+  ;\
+  summary += "\n";\
+  summary += gJA##stage##Dict->summary();\
+  ;\
+}
+
+
 void fetchOstrichSummary(void) {
   std::string summary;
+  FETCH_SUMMARY(Ostrich);
   summary += gCNDoneOstrichStorage->summary();
   summary += "\n";
   summary += gCNTodoOstrichStorage->summary();
@@ -230,7 +208,8 @@ void fetchOstrichSummary(void) {
 }
 void fetchParrotSummary(void) {
   std::string summary;
-  summary += gCNDoneParrotStorage->summary();
+  FETCH_SUMMARY(Parrot);
+ summary += gCNDoneParrotStorage->summary();
   summary += "\n";
   summary += gCNTodoParrotStorage->summary();
   ;
