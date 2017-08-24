@@ -29,13 +29,13 @@ void ParrotWord::unloadMaster(void) { unloadMasterFromDB(); }
 
 map<string, int> ParrotWord::multiWordOfOneArticle_;
 
-void ParrotWord::mergeWordPrediction(void) {
-  for (auto parrot : prediWords_) {
-    auto it = multiWordOfOneArticle_.find(parrot);
+void ParrotWord::collectWord(void) {
+  for (auto word : prediWords_) {
+    auto it = multiWordOfOneArticle_.find(word);
     if (it != multiWordOfOneArticle_.end()) {
       it->second++;
     } else {
-      multiWordOfOneArticle_[parrot] = 1;
+      multiWordOfOneArticle_[word] = 1;
     }
   }
 }
