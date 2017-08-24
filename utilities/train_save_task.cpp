@@ -25,17 +25,16 @@ namespace pt = boost::property_tree;
 #include "udp_entry.hpp"
 extern std::shared_ptr<udp_server> gSaveTrainServer;
 
-#define EXTERN_DECLARE_DB(stage) \
-extern std::shared_ptr<URLStorage> gCNDone##stage##Storage;\
-extern std::shared_ptr<URLStorage> gCNTodo##stage##Storage;\
-extern std::shared_ptr<URLStorage> gJADone##stage##Storage;\
-extern std::shared_ptr<URLStorage> gJATodo##stage##Storage;\
-extern std::shared_ptr<DictionaryStorage> gCN##stage##Dict;\
-extern std::shared_ptr<DictionaryStorage> gJA##stage##Dict;\
+#define EXTERN_DECLARE_DB(stage)                              \
+  extern std::shared_ptr<URLStorage> gCNDone##stage##Storage; \
+  extern std::shared_ptr<URLStorage> gCNTodo##stage##Storage; \
+  extern std::shared_ptr<URLStorage> gJADone##stage##Storage; \
+  extern std::shared_ptr<URLStorage> gJATodo##stage##Storage; \
+  extern std::shared_ptr<DictionaryStorage> gCN##stage##Dict; \
+  extern std::shared_ptr<DictionaryStorage> gJA##stage##Dict;
 
-
-#include "urlstorage.hpp"
 #include "dictstorage.hpp"
+#include "urlstorage.hpp"
 EXTERN_DECLARE_DB(Ostrich);
 EXTERN_DECLARE_DB(Parrot);
 
@@ -67,7 +66,6 @@ void eachWord(const string &word, T fn) {
     }
   }
 };
-
 
 static bool markOstrich(const string &url, const string &lang) {
   bool ret = true;

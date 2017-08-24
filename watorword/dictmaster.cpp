@@ -14,7 +14,6 @@ using namespace std;
 #include "dictmaster.hpp"
 #include "log.hpp"
 
-
 static leveldb::DB *gSaveDB = nullptr;
 
 DictionaryMaster::DictionaryMaster(const string &path, const string &prefix) {

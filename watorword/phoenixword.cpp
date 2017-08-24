@@ -12,12 +12,10 @@ using namespace std;
 #include <leveldb/db.h>
 #include <leveldb/write_batch.h>
 
-#include "phoenixword.hpp"
 #include "log.hpp"
+#include "phoenixword.hpp"
 
 double getDoublePred(const string &word);
-
-
 
 map<string, int> PhoenixWord::gMultiWordSum;
 
@@ -25,11 +23,8 @@ static int iConstWordBatchMax = 1000;
 static const int gWeightAdjustBase = 4;
 static const double gWeightAdjustRateMax = 16.0;
 
-PhoenixWord::PhoenixWord(const string &database)
-    : database_(database) {
-}
-PhoenixWord::~PhoenixWord() {
-}
+PhoenixWord::PhoenixWord(const string &database) : database_(database) {}
+PhoenixWord::~PhoenixWord() {}
 void PhoenixWord::learn(const vector<string> &wordBytes, const string &text) {
   if (wordBytes.size() < 2) {
     return;

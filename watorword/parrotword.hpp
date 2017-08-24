@@ -12,7 +12,6 @@ using namespace std;
 #include <boost/property_tree/ptree.hpp>
 namespace pt = boost::property_tree;
 
-
 class ParrotWord {
   typedef std::tuple<std::string, int, int, double, double> WordElement;
 
@@ -28,14 +27,14 @@ class ParrotWord {
  private:
   void getRawRank(const vector<string> &Bytes);
   void adjustRank(void);
-  double adjustWeight(int width,double weight);
+  double adjustWeight(int width, double weight);
   void cutTextByRank(const string &text);
   void calcPrediction(void);
   void getWordPrediction(const string &text);
   vector<string> pickupWordRanking(void);
 
   void collectWord(void);
-  
+
   void dumpDot(void);
 
   void dumpRank();

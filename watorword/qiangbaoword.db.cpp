@@ -11,11 +11,9 @@ using namespace std;
 #include <leveldb/db.h>
 #include <leveldb/write_batch.h>
 
+#include "log.hpp"
 #include "qiangbaoword.hpp"
 #include "word_db_master.hpp"
-#include "log.hpp"
-
-
 
 bool QiangbaoWord::loadMaster(bool castForce) {
   auto master = database_ + "/master/word_phoenix";
@@ -36,9 +34,9 @@ void QiangbaoWord::dumpPredWords() {
 void QiangbaoWord::push2DB(void) {
   for (auto wp : gMultiWordSum) {
     TRACE_VAR(wp.first, wp.second);
-    //dict_.putWord(wp.first, wp.second);
+    // dict_.putWord(wp.first, wp.second);
   }
-  //dict_.writeDB();
+  // dict_.writeDB();
 }
 
 void QiangbaoWord::dumpRank() {

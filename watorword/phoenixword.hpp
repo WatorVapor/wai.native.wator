@@ -58,6 +58,6 @@ class PhoenixWord {
 
   static map<string, int> gMultiWordSum;
   const int gWordLength = 32;
-   const int minWordRepeateTimes_ = 9;
+  const int minWordRepeateTimes_ = 9;
   leveldb::WriteBatch gSaveDBBatch;
 };

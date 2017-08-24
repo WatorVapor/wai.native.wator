@@ -66,73 +66,67 @@ void fetchPhoenixTask(const string &lang) {
   }
 }
 
-#include "urlstorage.hpp"
 #include "dictstorage.hpp"
-#define DECLARE_DB(stage) \
-std::shared_ptr<URLStorage> gCNDone##stage##Storage;\
-std::shared_ptr<URLStorage> gCNTodo##stage##Storage;\
-std::shared_ptr<URLStorage> gJADone##stage##Storage;\
-std::shared_ptr<URLStorage> gJATodo##stage##Storage;\
-std::shared_ptr<DictionaryStorage> gCN##stage##Dict;\
-std::shared_ptr<DictionaryStorage> gJA##stage##Dict;\
- 
-
+#include "urlstorage.hpp"
+#define DECLARE_DB(stage)                              \
+  std::shared_ptr<URLStorage> gCNDone##stage##Storage; \
+  std::shared_ptr<URLStorage> gCNTodo##stage##Storage; \
+  std::shared_ptr<URLStorage> gJADone##stage##Storage; \
+  std::shared_ptr<URLStorage> gJATodo##stage##Storage; \
+  std::shared_ptr<DictionaryStorage> gCN##stage##Dict; \
+  std::shared_ptr<DictionaryStorage> gJA##stage##Dict;
 
 DECLARE_DB(Ostrich);
 DECLARE_DB(Parrot);
 
-
-
-
-
-#define TRY_FIND_TASK(stage,lang) \
-{\
-  if (g##stage##Todo##lang.empty()) {\
-    try {\
-      g##lang##Todo##stage##Storage->gets(iConstPathCacheMax, g##stage##Todo##lang);\
-    } catch (std::exception &e) {\
-      DUMP_VAR(e.what());\
-    } catch (...) {\
-    }\
-  }\
-}
+#define TRY_FIND_TASK(stage, lang)                                 \
+  {                                                                \
+    if (g##stage##Todo##lang.empty()) {                            \
+      try {                                                        \
+        g##lang##Todo##stage##Storage->gets(iConstPathCacheMax,    \
+                                            g##stage##Todo##lang); \
+      } catch (std::exception & e) {                               \
+        DUMP_VAR(e.what());                                        \
+      } catch (...) {                                              \
+      }                                                            \
+    }                                                              \
+  }
 
 static void findTodo(void) {
-  TRY_FIND_TASK(Ostrich,CN);
-  TRY_FIND_TASK(Ostrich,JA);
-  TRY_FIND_TASK(Parrot,CN);
-  TRY_FIND_TASK(Parrot,JA);
+  TRY_FIND_TASK(Ostrich, CN);
+  TRY_FIND_TASK(Ostrich, JA);
+  TRY_FIND_TASK(Parrot, CN);
+  TRY_FIND_TASK(Parrot, JA);
 }
 
-
-#define START_DB(stageN,stageP)                \
-  {                                \
-  gCNDone##stageN##Storage = std::make_shared<URLStorage>(\
-      "/watorvapor/wai.storage/train/"#stageP"/done/cn");\
-  gCNTodo##stageN##Storage = std::make_shared<URLStorage>(\
-      "/watorvapor/wai.storage/train/"#stageP"/todo/cn");\
-  gJADone##stageN##Storage = std::make_shared<URLStorage>(\
-      "/watorvapor/wai.storage/train/"#stageP"/done/ja");\
-  gJATodo##stageN##Storage = std::make_shared<URLStorage>(\
-      "/watorvapor/wai.storage/train/"#stageP"/todo/ja");\
-  gCN##stageN##Dict = std::make_shared<DictionaryStorage>(\
-      "/watorvapor/wai.storage/train/"#stageP"/dict/cn");\
-  gJA##stageN##Dict = std::make_shared<DictionaryStorage>(\
-      "/watorvapor/wai.storage/train/"#stageP"/dict/ja");\
-    gCNDone##stageN##Storage->openDB(); \
-    gCNTodo##stageN##Storage->openDB(); \
-    gJADone##stageN##Storage->openDB(); \
-    gJATodo##stageN##Storage->openDB(); \
-    gCN##stageN##Dict->openDB();        \
-    gJA##stageN##Dict->openDB();        \
+#define START_DB(stageN, stageP)                              \
+  {                                                           \
+    gCNDone##stageN##Storage = std::make_shared<URLStorage>(  \
+        "/watorvapor/wai.storage/train/" #stageP "/done/cn"); \
+    gCNTodo##stageN##Storage = std::make_shared<URLStorage>(  \
+        "/watorvapor/wai.storage/train/" #stageP "/todo/cn"); \
+    gJADone##stageN##Storage = std::make_shared<URLStorage>(  \
+        "/watorvapor/wai.storage/train/" #stageP "/done/ja"); \
+    gJATodo##stageN##Storage = std::make_shared<URLStorage>(  \
+        "/watorvapor/wai.storage/train/" #stageP "/todo/ja"); \
+    gCN##stageN##Dict = std::make_shared<DictionaryStorage>(  \
+        "/watorvapor/wai.storage/train/" #stageP "/dict/cn"); \
+    gJA##stageN##Dict = std::make_shared<DictionaryStorage>(  \
+        "/watorvapor/wai.storage/train/" #stageP "/dict/ja"); \
+    gCNDone##stageN##Storage->openDB();                       \
+    gCNTodo##stageN##Storage->openDB();                       \
+    gJADone##stageN##Storage->openDB();                       \
+    gJATodo##stageN##Storage->openDB();                       \
+    gCN##stageN##Dict->openDB();                              \
+    gJA##stageN##Dict->openDB();                              \
   }
 #define END_DB(stage)                   \
-  {                                 \
+  {                                     \
     gCNDone##stage##Storage->writeDB(); \
     gCNTodo##stage##Storage->writeDB(); \
     gJADone##stage##Storage->writeDB(); \
     gJATodo##stage##Storage->writeDB(); \
-                                    \
+                                        \
     gCNDone##stage##Storage->closeDB(); \
     gCNTodo##stage##Storage->closeDB(); \
     gJADone##stage##Storage->closeDB(); \
@@ -142,10 +136,9 @@ static void findTodo(void) {
   }
 
 void train_collect(void) {
-  START_DB(Ostrich,ostrich);
-  START_DB(Parrot,parrot);
- 
-  
+  START_DB(Ostrich, ostrich);
+  START_DB(Parrot, parrot);
+
   while (true) {
     findTodo();
     DUMP_VAR(gOstrichTodoCN.size());
@@ -157,26 +150,25 @@ void train_collect(void) {
   END_DB(Parrot);
 }
 
-#define FETCH_SUMMARY(stage) \
-{\
-  summary += gCNDone##stage##Storage->summary();\
-  summary += "\n";\
-  summary += gCNTodo##stage##Storage->summary();\
-  ;\
-  summary += "\n";\
-  summary += gJADone##stage##Storage->summary();\
-  ;\
-  summary += "\n";\
-  summary += gJATodo##stage##Storage->summary();\
-  ;\
-  summary += "\n";\
-  summary += gCN##stage##Dict->summary();\
-  ;\
-  summary += "\n";\
-  summary += gJA##stage##Dict->summary();\
-  ;\
-}
-
+#define FETCH_SUMMARY(stage)                       \
+  {                                                \
+    summary += gCNDone##stage##Storage->summary(); \
+    summary += "\n";                               \
+    summary += gCNTodo##stage##Storage->summary(); \
+    ;                                              \
+    summary += "\n";                               \
+    summary += gJADone##stage##Storage->summary(); \
+    ;                                              \
+    summary += "\n";                               \
+    summary += gJATodo##stage##Storage->summary(); \
+    ;                                              \
+    summary += "\n";                               \
+    summary += gCN##stage##Dict->summary();        \
+    ;                                              \
+    summary += "\n";                               \
+    summary += gJA##stage##Dict->summary();        \
+    ;                                              \
+  }
 
 void fetchOstrichSummary(void) {
   std::string summary;
@@ -188,5 +180,4 @@ void fetchParrotSummary(void) {
   FETCH_SUMMARY(Parrot);
   gFetchTrainServer->send(summary);
 }
-void fetchPhoenixSummary(void) {
-}
+void fetchPhoenixSummary(void) {}

@@ -11,9 +11,8 @@ using namespace std;
 #include <leveldb/db.h>
 #include <leveldb/write_batch.h>
 
-#include "phoenixword.hpp"
 #include "log.hpp"
-
+#include "phoenixword.hpp"
 
 bool loadMasterFromDB(const string &path, bool castForce);
 

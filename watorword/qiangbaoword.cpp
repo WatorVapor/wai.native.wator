@@ -12,11 +12,9 @@ using namespace std;
 #include <leveldb/db.h>
 #include <leveldb/write_batch.h>
 
+#include "log.hpp"
 #include "qiangbaoword.hpp"
 #include "word_db_master.hpp"
-#include "log.hpp"
-
-
 
 map<string, int> QiangbaoWord::gMultiWordSum;
 
@@ -24,13 +22,10 @@ static int iConstWordBatchMax = 1000;
 static const int gWeightAdjustBase = 4;
 static const double gWeightAdjustRateMax = 16.0;
 
-QiangbaoWord::QiangbaoWord(const string &database)
-    : database_(database) {
+QiangbaoWord::QiangbaoWord(const string &database) : database_(database) {
   master_ = std::make_shared<MasterDBWord>();
 }
-QiangbaoWord::~QiangbaoWord() {
-  push2DB();
-}
+QiangbaoWord::~QiangbaoWord() { push2DB(); }
 void QiangbaoWord::learn(const vector<string> &wordBytes, const string &text) {
   if (wordBytes.size() < 2) {
     return;
