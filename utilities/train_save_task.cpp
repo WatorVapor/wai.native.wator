@@ -25,15 +25,18 @@ namespace pt = boost::property_tree;
 #include "udp_entry.hpp"
 extern std::shared_ptr<udp_server> gSaveTrainServer;
 
-#include "urlstorage.hpp"
-extern std::shared_ptr<URLStorage> gCNDoneOstrichStorage;
-extern std::shared_ptr<URLStorage> gCNTodoOstrichStorage;
-extern std::shared_ptr<URLStorage> gJADoneOstrichStorage;
-extern std::shared_ptr<URLStorage> gJATodoOstrichStorage;
+#define EXTERN_DECLARE_DB(stage) \
+extern std::shared_ptr<URLStorage> gCNDone##stage##Storage;\
+extern std::shared_ptr<URLStorage> gCNTodo##stage##Storage;\
+extern std::shared_ptr<URLStorage> gJADone##stage##Storage;\
+extern std::shared_ptr<URLStorage> gJATodo##stage##Storage;\
+extern std::shared_ptr<DictionaryStorage> gCN##stage##Dict;\
+extern std::shared_ptr<DictionaryStorage> gJA##stage##Dict;\
 
+
+#include "urlstorage.hpp"
 #include "dictstorage.hpp"
-extern std::shared_ptr<DictionaryStorage> gCNOstrichDict;
-extern std::shared_ptr<DictionaryStorage> gJAOstrichDict;
+EXTERN_DECLARE_DB(Ostrich):
 
 string sha1(const string &data);
 
