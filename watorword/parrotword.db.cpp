@@ -42,48 +42,24 @@ void ParrotWord::collectWord(void) {
 
 vector<string> ParrotWord::pickupWordRanking(void) {
   DUMP_VAR(multiWordOfOneArticle_.size());
-  map<int, vector<string>> localMultiWordRank;
+  vector<string> wordArrays;
+  string upWords;
+  int iCounter = 1;
+
   for (auto wordSum : multiWordOfOneArticle_) {
     TRACE_VAR(wordSum.first, wordSum.second);
     if (wordSum.second >= minWordRepeateTimes_) {
       TRACE_VAR(wordSum.first, wordSum.second);
-      auto it = localMultiWordRank.find(wordSum.second);
-      if (it != localMultiWordRank.end()) {
-        it->second.push_back(wordSum.first);
-      } else {
-        localMultiWordRank[wordSum.second] = {wordSum.first};
-      }
-    }
-  }
-  DUMP_VAR(localMultiWordRank.size());
-  vector<string> wordArrays;
-  string upWords;
-  int iCounter = 1;
-  for (auto &record : localMultiWordRank) {
-    TRACE_VAR(record.first);
-    auto words = record.second;
-    for (auto word : words) {
-      bool isShort = false;
-      for (const auto &word2 : words) {
-        auto found = word2.find(word);
-        if (found != string::npos && word2 != word) {
-          TRACE_VAR(word);
-          TRACE_VAR(word2);
-          isShort = true;
-        }
-      }
-      if (isShort == false) {
-        upWords += "{";
-        upWords += word;
-        upWords += ",";
-        upWords += std::to_string(record.first / minWordRepeateTimes_);
-        upWords += "};";
-        iCounter++;
-        if (iCounter % 256 == 0) {
-          upWords += "{}";
-          wordArrays.push_back(upWords);
-          upWords.clear();
-        }
+      upWords += "{";
+      upWords += word;
+      upWords += ",";
+      upWords += std::to_string(record.first / minWordRepeateTimes_);
+      upWords += "};";
+      iCounter++;
+      if (iCounter % 256 == 0) {
+        upWords += "{}";
+        wordArrays.push_back(upWords);
+        upWords.clear();
       }
     }
   }
@@ -99,7 +75,7 @@ vector<string> ParrotWord::pickupWordRanking(void) {
 }
 
 
-void ParrotWord::commitArticle(void) {
+void ParrotWord::commitArticle(const pt::ptree &task) {
   auto wordArrays = pickupWordRanking();
   multiWordOfOneArticle_.clear();
   ap_ = 0;
@@ -127,7 +103,7 @@ void ParrotWord::commitArticle(void) {
   }
 }
 
-void ParrotWord::commitArticle(const pt::ptree &task) {
+void ParrotWord::commitArticle(void) {
   multiWordOfOneArticle_.clear();
   ap_ = 0;
 }
@@ -144,7 +120,7 @@ void ParrotWord::dumpRank() {
 
 
 void ParrotWord::dumpSeq() {
-  for (auto elem : wordSeq_) {
+  for (auto elem : wordHintSeq_) {
     TRACE_VAR(elem.first);
     auto word = std::get<0>(elem.second);
     auto pos = std::get<1>(elem.second);
