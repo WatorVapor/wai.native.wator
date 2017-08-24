@@ -32,8 +32,9 @@ class ParrotWord {
   void cutTextByRank(const string &text);
   void calcPrediction(void);
   void getWordPrediction(const string &text);
+  vector<string> pickupWordRanking(void);
 
-  void mergeWordPrediction(void);
+  void collectWord(void);
   
   void dumpDot(void);
 
