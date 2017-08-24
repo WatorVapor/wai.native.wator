@@ -124,7 +124,7 @@ static void findParrotTodoJA(void) {
 
 #define TRY_FIND_TASK(stage,lang) \
 {\
-  if (g##stage##Todo##lang##.empty()) {\
+  if (g##stage##Todo##lang.empty()) {\
     try {\
       g##lang##Todo##stage##Storage->gets(iConstPathCacheMax, g##stage##Todo##lang);\
     } catch (std::exception &e) {\
