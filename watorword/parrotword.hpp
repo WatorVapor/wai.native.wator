@@ -16,6 +16,7 @@ class ParrotWord {
   bool loadMaster(bool forceCast = true);
   void unloadMaster(void);
   void commitArticle(void);
+  void commitArticle(const pt::ptree &task);
 
  private:
   void getRawRank(const vector<string> &Bytes);
