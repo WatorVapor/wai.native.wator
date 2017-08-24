@@ -51,9 +51,9 @@ vector<string> ParrotWord::pickupWordRanking(void) {
     if (wordSum.second >= minWordRepeateTimes_) {
       TRACE_VAR(wordSum.first, wordSum.second);
       upWords += "{";
-      upWords += word;
+      upWords += wordSum.first;
       upWords += ",";
-      upWords += std::to_string(record.first / minWordRepeateTimes_);
+      upWords += std::to_string(wordSum.second / minWordRepeateTimes_);
       upWords += "};";
       iCounter++;
       if (iCounter % 256 == 0) {
