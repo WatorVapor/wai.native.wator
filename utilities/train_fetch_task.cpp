@@ -135,6 +135,7 @@ static void findParrotTodoJA(void) {
 }
 
 static void findTodo(void) {
+  TRY_FIND_TASK(Ostrich,CN);
   if (gOstrichTodoCN.empty()) {
     findOstrichTodoCN();
   }
@@ -191,36 +192,8 @@ static void findTodo(void) {
 
 void train_collect(void) {
   DECLARE_DB(Ostrich,ostrich);
-  gCNDoneOstrichStorage = std::make_shared<URLStorage>(
-      "/watorvapor/wai.storage/train/ostrich/done/cn");
-  gCNTodoOstrichStorage = std::make_shared<URLStorage>(
-      "/watorvapor/wai.storage/train/ostrich/todo/cn");
-  gJADoneOstrichStorage = std::make_shared<URLStorage>(
-      "/watorvapor/wai.storage/train/ostrich/done/ja");
-  gJATodoOstrichStorage = std::make_shared<URLStorage>(
-      "/watorvapor/wai.storage/train/ostrich/todo/ja");
-  gCNOstrichDict = std::make_shared<DictionaryStorage>(
-      "/watorvapor/wai.storage/train/ostrich/dict/cn");
-  gJAOstrichDict = std::make_shared<DictionaryStorage>(
-      "/watorvapor/wai.storage/train/ostrich/dict/ja");
-  
-  START_DB(Ostrich);
-
   DECLARE_DB(Parrot,parrot);
-
-  gCNDoneParrotStorage = std::make_shared<URLStorage>(
-      "/watorvapor/wai.storage/train/parrot/done/cn");
-  gCNTodoParrotStorage = std::make_shared<URLStorage>(
-      "/watorvapor/wai.storage/train/parrot/todo/cn");
-  gJADoneParrotStorage = std::make_shared<URLStorage>(
-      "/watorvapor/wai.storage/train/parrot/done/ja");
-  gJATodoParrotStorage = std::make_shared<URLStorage>(
-      "/watorvapor/wai.storage/train/parrot/todo/ja");
-  gCNParrotDict = std::make_shared<DictionaryStorage>(
-      "/watorvapor/wai.storage/train/parrot/dict/cn");
-  gJAParrotDict = std::make_shared<DictionaryStorage>(
-      "/watorvapor/wai.storage/train/parrot/dict/ja");
-  
+  START_DB(Ostrich);
   START_DB(Parrot);
   
   
