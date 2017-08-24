@@ -26,24 +26,109 @@ void unloadMasterFromDB(void);
 void ParrotWord::unloadMaster(void) { unloadMasterFromDB(); }
 
 
+
+map<string, int> ParrotWord::multiWordOfOneArticle_;
+
 void ParrotWord::mergeWordPrediction(void) {
   for (auto parrot : prediWords_) {
-    auto it = gMultiWordSum.find(parrot);
-    if (it != gMultiWordSum.end()) {
+    auto it = multiWordOfOneArticle_.find(parrot);
+    if (it != multiWordOfOneArticle_.end()) {
       it->second++;
     } else {
-      gMultiWordSum[parrot] = 1;
+      multiWordOfOneArticle_[parrot] = 1;
     }
   }
 }
 
+vector<string> ParrotWord::pickupWordRanking(void) {
+  DUMP_VAR(multiWordOfOneArticle_.size());
+  map<int, vector<string>> localMultiWordRank;
+  for (auto wordSum : multiWordOfOneArticle_) {
+    TRACE_VAR(wordSum.first, wordSum.second);
+    if (wordSum.second >= minWordRepeateTimes_) {
+      TRACE_VAR(wordSum.first, wordSum.second);
+      auto it = localMultiWordRank.find(wordSum.second);
+      if (it != localMultiWordRank.end()) {
+        it->second.push_back(wordSum.first);
+      } else {
+        localMultiWordRank[wordSum.second] = {wordSum.first};
+      }
+    }
+  }
+  DUMP_VAR(localMultiWordRank.size());
+  vector<string> wordArrays;
+  string upWords;
+  int iCounter = 1;
+  for (auto &record : localMultiWordRank) {
+    TRACE_VAR(record.first);
+    auto words = record.second;
+    for (auto word : words) {
+      bool isShort = false;
+      for (const auto &word2 : words) {
+        auto found = word2.find(word);
+        if (found != string::npos && word2 != word) {
+          TRACE_VAR(word);
+          TRACE_VAR(word2);
+          isShort = true;
+        }
+      }
+      if (isShort == false) {
+        upWords += "{";
+        upWords += word;
+        upWords += ",";
+        upWords += std::to_string(record.first / minWordRepeateTimes_);
+        upWords += "};";
+        iCounter++;
+        if (iCounter % 256 == 0) {
+          upWords += "{}";
+          wordArrays.push_back(upWords);
+          upWords.clear();
+        }
+      }
+    }
+  }
+  if (upWords.empty() == false) {
+    upWords += "{}";
+    wordArrays.push_back(upWords);
+  }
+  if (localMultiWordRank.empty()) {
+    upWords += "{}";
+    wordArrays.push_back(upWords);
+  }
+  return wordArrays;
+}
+
+
 void ParrotWord::commitArticle(void) {
-  gMultiWordSum.clear();
+  auto wordArrays = pickupWordRanking();
+  multiWordOfOneArticle_.clear();
   ap_ = 0;
+  for (auto word : wordArrays) {
+    DUMP_VAR(word);
+    pt::ptree upTask = task;
+    upTask.put("word", word);
+    string task_word_upPath = "/tmp/wai.native/task_word_up.json";
+    pt::write_json(task_word_upPath, upTask);
+
+    auto tagOpt = task.get_optional<string>("tag");
+    if (tagOpt) {
+      auto tag = tagOpt.get();
+      string wgetTaskUp("curl -6 -F \"");
+      // string wgetTaskUp("curl -F \"");
+      wgetTaskUp += "file=@";
+      wgetTaskUp += task_word_upPath;
+      wgetTaskUp += "\" ";
+      wgetTaskUp += "\"https://www.wator.xyz/wai/text/train/parrot/";
+      wgetTaskUp += tag;
+      wgetTaskUp += "\"";
+      DUMP_VAR(wgetTaskUp);
+      ::system(wgetTaskUp.c_str());
+    }
+  }
 }
 
 void ParrotWord::commitArticle(const pt::ptree &task) {
-  gMultiWordSum.clear();
+  multiWordOfOneArticle_.clear();
   ap_ = 0;
 }
 
