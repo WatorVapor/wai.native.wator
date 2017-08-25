@@ -59,8 +59,10 @@ int main(int ac,char*av[])
 #include <boost/property_tree/xml_parser.hpp>
 namespace pt = boost::property_tree;
 
+
+
+
 int main(int ac, char *av[]) {
-  ::system("mkdir -p /tmp/wai.native");
   OstrichWord ostrich;
   auto learnOstrich = [&](const vector<string> &words) {
     ostrich.learn(words);
