@@ -22,7 +22,7 @@ class OstrichWord {
   OstrichWord();
   ~OstrichWord();
   void learn(const vector<string> &word);
-  void upWordByArticle2Master(const pt::ptree &task);
+  void commitArticle(const pt::ptree &task,const string &ws);
 
  private:
   void pushMultiWord(const string &word);
