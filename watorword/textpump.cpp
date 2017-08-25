@@ -22,7 +22,7 @@ TextPump::TextPump(const string &url, const string &tag)
     : dir_(""), url_(url), tag_(tag) {
     
   auto uuid = boost::uuids::random_generator()();
-  ws_ = "/tmp/wai.native/" + boost::lexical_cast<std::string>(id);
+  ws_ = "/tmp/wai.native/" + boost::lexical_cast<std::string>(uuid);
   string cmd = "mkdir -p ";
         cmd += ws_;
   ::system(cmd.c_str());
