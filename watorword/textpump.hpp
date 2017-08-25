@@ -149,6 +149,7 @@ class TextPump {
   const string url_;
   const string tag_;
   const string prefix_ = "url_crawl";
+  string ws_;
   int iTototl = 0;
   int iProccessed = 0;
 };
