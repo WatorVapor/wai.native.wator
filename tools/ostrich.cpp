@@ -68,13 +68,13 @@ int main(int ac, char *av[]) {
     ostrich.learn(words);
   };
   CtrlClaw claw;
-  auto clawText = [&](const pt::ptree &task, string &content) {
+  auto clawText = [&](const pt::ptree &task, string &content,string &ws) {
     std::stringstream ssTask;
     pt::write_json(ssTask, task);
     TRACE_VAR(ssTask.str());
     claw.claw(content);
     claw.eachMultiByte(learnOstrich);
-    ostrich.upWordByArticle2Master(task);
+    ostrich.commitArticle(task,ws);
   };
   TextPump txtPump("https://www.wator.xyz/wai/text/train/ostrich", "tain.one");
   txtPump.eachTextFromMaster(clawText);
