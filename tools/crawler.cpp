@@ -23,7 +23,7 @@ int main(int ac, char *av[]) {
   ::system("mkdir -p /tmp/wai.native");
 
   WikiCrawler clawler;
-  auto clawText = [&](const pt::ptree &task, string &content) {
+  auto clawText = [&](const pt::ptree &task, string &content,string &ws) {
     std::stringstream ssTask;
     pt::write_json(ssTask, task);
     TRACE_VAR(ssTask.str());
