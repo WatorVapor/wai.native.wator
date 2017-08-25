@@ -100,8 +100,9 @@ class TextPump {
     while (true) {
       pt::ptree task;
       string content;
-      if (fetchMasterTask(task, content)) {
-        fn(task, content);
+      string ws;
+      if (fetchMasterTask(task, content,ws)) {
+        fn(task, content,ws);
       }
     }
   }
@@ -142,7 +143,7 @@ class TextPump {
       DUMP_VAR(ex.what());
     }
   }
-  bool fetchMasterTask(pt::ptree &task, string &content);
+  bool fetchMasterTask(pt::ptree &task, string &content,string &ws);
 
  private:
   const string dir_;
