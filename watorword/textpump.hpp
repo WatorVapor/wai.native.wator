@@ -15,6 +15,11 @@ namespace fs = boost::filesystem;
 namespace pt = boost::property_tree;
 #include "log.hpp"
 
+#include <boost/uuid/uuid.hpp>
+#include <boost/uuid/uuid_io.hpp>
+#include <boost/uuid/uuid_generators.hpp>
+#include <boost/lexical_cast.hpp>
+
 class TextPump {
  public:
   TextPump();
