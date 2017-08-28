@@ -3,11 +3,9 @@ using namespace std;
 #pragma once
 
 #include <leveldb/db.h>
-#include <leveldb/write_batch.h>
 
 class DictionaryMaster {
  public:
-  DictionaryMaster(const string &path, const string &prefix);
   DictionaryMaster(const string &path);
   ~DictionaryMaster();
   void openDB();
@@ -19,7 +17,5 @@ class DictionaryMaster {
 
  private:
  private:
-  string out_db_path_;
-  string iter_db_path_;
-  leveldb::WriteBatch gSaveDBBatch;
+  string master_db_path_;
 };
