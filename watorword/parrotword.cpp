@@ -20,8 +20,10 @@ static int iConstWordBatchMax = 1000;
 
 ParrotWord::ParrotWord(const string &database)
   : database_(database)
-  ,dictInputCN_(database+"/cn")
+  ,dictInputCN_()
   ,dictInputJA_(database+"/ja") {
+    dictInputCN_.loadMasterFromDB(database+"/cn");
+    dictInputJA_.loadMasterFromDB(database+"/ja");
   }
 ParrotWord::~ParrotWord() {}
 
