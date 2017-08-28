@@ -61,9 +61,6 @@ int main(int ac, char *av[]) {
   if (parrot.loadMaster() == false) {
     return 0;
   }
-  auto learnParrot = [&](string wordStr, vector<string> word,const string &lang) {
-    parrot.learn(word, wordStr,lang);
-  };
   auto clawText = [&](const pt::ptree &task, string &content,string &ws) {
     std::stringstream ssTask;
     pt::write_json(ssTask, task);
@@ -73,6 +70,9 @@ int main(int ac, char *av[]) {
     if(langOpt.get();) {
         auto lang = langOpt.get();
         claw.claw(content);
+          auto learnParrot = [&](string wordStr, vector<string> word) {
+            parrot.learn(word, wordStr,lang);
+          };
         claw.eachSentence(lang,learnParrot);
     }
     parrot.commitArticle();
