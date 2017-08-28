@@ -122,3 +122,7 @@ void DictionaryMaster::putWord(const string &word, int counter) {
     gSaveDBBatch.Put(key, value);
   }
 }
+double DictionaryMaster::getDoublePred(const string &word) {
+  return 1.0;
+}
+
