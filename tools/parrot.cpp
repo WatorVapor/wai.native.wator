@@ -73,7 +73,7 @@ int main(int ac, char *av[]) {
           auto learnParrot = [&](string wordStr, vector<string> word) {
             parrot.learn(word, wordStr,lang);
           };
-        claw.eachSentence(lang,learnParrot);
+        claw.eachSentence(learnParrot);
     }
     parrot.commitArticle();
   };
