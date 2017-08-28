@@ -64,8 +64,12 @@ int main(int ac, char *av[]) {
     pt::write_json(ssTask, task);
     DUMP_VAR(ssTask.str());
     // DUMP_VAR(content);
-    claw.claw(content);
-    claw.eachSentence(learnParrot);
+    auto langOpt = taskJson.get_optional<string>("lang");
+    if(langOpt.get();) {
+        auto lang = langOpt.get();
+        claw.claw(content);
+        claw.eachSentence(lang,learnParrot);
+    }
     parrot.commitArticle();
   };
   TextPump txtPump("https://www.wator.xyz/wai/text/train/parrot", "tain.one");
