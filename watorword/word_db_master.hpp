@@ -11,7 +11,7 @@ class MasterDBWord {
  public:
   MasterDBWord();
   ~MasterDBWord();
-  bool loadMasterFromDB(const string &path, bool castForce);
+  bool loadMasterFromDB(const string &path, bool castForce = false);
   void unloadMasterFromDB(void);
   int getPred(const string &word);
   double getDoublePred(const string &word);
