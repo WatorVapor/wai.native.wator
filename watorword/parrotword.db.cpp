@@ -18,6 +18,24 @@ using namespace std;
 
 map<string, int> ParrotWord::multiWordOfOneArticle_;
 
+
+bool ParrotWord::loadMaster(bool forceCast) {
+  if(dictInputCN_.loadMasterFromDB(database+"/cn") == false) {
+    return false;
+  }
+  if(dictInputJA_.loadMasterFromDB(database+"/ja") == false) {
+    return false;
+  }
+  return true;
+}
+
+void ParrotWord::unloadMaster(void) {
+  dictInputCN_.unloadMasterFromDB();
+  dictInputJA_.unloadMasterFromDB();
+}
+
+
+
 void ParrotWord::collectWord(void) {
   for (auto word : prediWords_) {
     auto it = multiWordOfOneArticle_.find(word);
