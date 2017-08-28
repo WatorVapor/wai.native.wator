@@ -13,7 +13,6 @@ using namespace std;
 
 #include "parrotword.hpp"
 
-double getDoublePred(const string &word);
 #include "log.hpp"
 
 static int iConstWordBatchMax = 1000;
@@ -76,7 +75,13 @@ void ParrotWord::getRawRank(const vector<string> &Bytes,const string &lang) {
     while (it != preWords.rend()) {
       jointWord = *it + jointWord;
       TRACE_VAR(jointWord);
-      auto pred = getDoublePred(jointWord);
+      auto pred = -1.0;
+      if(lang =="cn") {
+        dictInputCN_.getDoublePred(jointWord);
+      }
+      if(lang =="ja") {
+        dictInputJA_.getDoublePred(jointWord);
+      }
       wordPos -= it->size();
       if (pred > 0) {
         TRACE_VAR(jointWord, pred);
