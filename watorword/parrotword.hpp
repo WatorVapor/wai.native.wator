@@ -22,8 +22,6 @@ class ParrotWord {
   ParrotWord(const string &database);
   ~ParrotWord();
   void learn(const vector<string> &word, const string &text,const string &lang);
-  bool loadMaster(bool forceCast = true);
-  void unloadMaster(void);
   void commitArticle(void);
   void commitArticle(const pt::ptree &task);
 
