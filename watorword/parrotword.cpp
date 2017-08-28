@@ -35,7 +35,7 @@ void ParrotWord::learn(const vector<string> &wordBytes, const string &text,const
   for (auto mbyte : wordBytes) {
     TRACE_VAR(mbyte);
   }
-  this->getRawRank(wordBytes);
+  this->getRawRank(wordBytes,lang);
   this->dumpDot();
   // this->adjustRank();
   // this->dumpRank();
@@ -56,7 +56,7 @@ void ParrotWord::dumpPredWords() {
   std::cout << std::endl;
 }
 
-void ParrotWord::getRawRank(const vector<string> &Bytes) {
+void ParrotWord::getRawRank(const vector<string> &Bytes,const string &lang) {
   statisticsRank_.clear();
   statisticsMinWordSize_ = 32;
   wordHintSeq_.clear();
