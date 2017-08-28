@@ -28,7 +28,7 @@ class ParrotWord {
   void commitArticle(const pt::ptree &task);
 
  private:
-  void getRawRank(const vector<string> &Bytes);
+  void getRawRank(const vector<string> &Bytes,const string &lang);
   void adjustRank(void);
   double adjustWeight(int width, double weight);
   void cutTextByRank(const string &text);
