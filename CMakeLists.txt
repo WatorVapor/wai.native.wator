@@ -31,7 +31,7 @@ add_library(watorword
   watorword/qiangbaoword.cpp
   watorword/qiangbaoword.db.cpp
   watorword/treeword.cpp
-  watorword/dictmaster.cpp
+  #watorword/dictmaster.cpp
   watorword/ctrlclaw.cpp
   watorword/textpump.cpp
   watorword/wikicrawler.cpp
@@ -40,7 +40,7 @@ add_library(watorword
   watorword/utf8.cpp
   #watorword/word_statistics_master.cpp
   #watorword/word_db_master.cpp
-  #watorword/word_db_master2.cpp
+  watorword/word_db_master2.cpp
   #watorword/word_statistics_parrot.cpp
   watorword/log.cpp
 ) 
