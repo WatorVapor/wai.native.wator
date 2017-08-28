@@ -39,7 +39,7 @@ add_library(watorword
   watorword/api_wai.cpp
   watorword/utf8.cpp
   #watorword/word_statistics_master.cpp
-  #watorword/word_db_master.cpp
+  watorword/word_db_master.cpp
   watorword/word_db_master2.cpp
   #watorword/word_statistics_parrot.cpp
   watorword/log.cpp
