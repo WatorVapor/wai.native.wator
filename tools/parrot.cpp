@@ -52,7 +52,7 @@ int main(int ac, char *av[]) {
 
 int main(int ac, char *av[]) {
   CtrlClaw claw;
-  ParrotWord parrot("./db/parrot");
+  ParrotWord parrot("./db/ostrich");
   if (parrot.loadMaster() == false) {
     return 0;
   }
