@@ -67,7 +67,7 @@ int main(int ac, char *av[]) {
     DUMP_VAR(ssTask.str());
     // DUMP_VAR(content);
     auto langOpt = task.get_optional<string>("lang");
-    if(langOpt.get();) {
+    if(langOpt) {
         auto lang = langOpt.get();
         claw.claw(content);
           auto learnParrot = [&](string wordStr, vector<string> word) {
