@@ -12,6 +12,9 @@ using namespace std;
 #include <boost/property_tree/ptree.hpp>
 namespace pt = boost::property_tree;
 
+#include "dictmaster.hpp"
+
+
 class ParrotWord {
   typedef std::tuple<std::string, int, int, double, double> WordElement;
 
@@ -44,6 +47,8 @@ class ParrotWord {
 
  private:
   string database_;
+  DictionaryMaster dictInputCN_;
+  DictionaryMaster dictInputJA_;
   map<string, tuple<double, double>> statisticsRank_;
   multimap<int, WordElement> wordHintSeq_;
   multimap<int, WordElement> wordSeqTopSelected_;
