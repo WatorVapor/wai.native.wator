@@ -29,8 +29,6 @@ void DictionaryMaster::openDB() {
     options.max_open_files = 512;
     options.paranoid_checks = true;
     options.compression = leveldb::kNoCompression;
-    // auto status = leveldb::DB::Open(options, "./db/baidu.baike/word_ostrich",
-    // &gSaveDB);
     auto status = leveldb::DB::Open(options, out_db_path_, &gSaveDB);
     if (status.ok() == false) {
       DUMP_VAR(status.ToString());
