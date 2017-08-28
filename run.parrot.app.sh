@@ -1,3 +1,3 @@
 #!/bin/bash
 ulimit -c unlimited
-nohup object/wator.crawler.app
+nohup object/wator.parrot.app
