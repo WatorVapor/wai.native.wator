@@ -48,7 +48,12 @@ int main(int ac, char *av[]) {
 }
 */
 
-
+#include <boost/foreach.hpp>
+#include <boost/optional.hpp>
+#include <boost/property_tree/json_parser.hpp>
+#include <boost/property_tree/ptree.hpp>
+#include <boost/property_tree/xml_parser.hpp>
+namespace pt = boost::property_tree;
 
 int main(int ac, char *av[]) {
   CtrlClaw claw;
@@ -64,7 +69,7 @@ int main(int ac, char *av[]) {
     pt::write_json(ssTask, task);
     DUMP_VAR(ssTask.str());
     // DUMP_VAR(content);
-    auto langOpt = taskJson.get_optional<string>("lang");
+    auto langOpt = task.get_optional<string>("lang");
     if(langOpt.get();) {
         auto lang = langOpt.get();
         claw.claw(content);
