@@ -20,10 +20,10 @@ map<string, int> ParrotWord::multiWordOfOneArticle_;
 
 
 bool ParrotWord::loadMaster(bool forceCast) {
-  if(dictInputCN_.loadMasterFromDB(database+"/cn") == false) {
+  if(dictInputCN_.loadMasterFromDB(database_+"/cn") == false) {
     return false;
   }
-  if(dictInputJA_.loadMasterFromDB(database+"/ja") == false) {
+  if(dictInputJA_.loadMasterFromDB(database_+"/ja") == false) {
     return false;
   }
   return true;
