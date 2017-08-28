@@ -12,7 +12,7 @@ using namespace std;
 #include <boost/property_tree/ptree.hpp>
 namespace pt = boost::property_tree;
 
-#include "dictmaster.hpp"
+#include "word_db_master.hpp"
 
 
 class ParrotWord {
