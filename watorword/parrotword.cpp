@@ -18,7 +18,11 @@ double getDoublePred(const string &word);
 
 static int iConstWordBatchMax = 1000;
 
-ParrotWord::ParrotWord(const string &database) : database_(database) {}
+ParrotWord::ParrotWord(const string &database)
+  : database_(database)
+  ,dictInputCN_(database+"/cn")
+  ,dictInputJA_(database+"/ja") {
+  }
 ParrotWord::~ParrotWord() {}
 
 void ParrotWord::learn(const vector<string> &wordBytes, const string &text,const string &lang) {
