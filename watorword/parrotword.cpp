@@ -20,7 +20,8 @@ static int iConstWordBatchMax = 1000;
 
 ParrotWord::ParrotWord(const string &database) : database_(database) {}
 ParrotWord::~ParrotWord() {}
-void ParrotWord::learn(const vector<string> &wordBytes, const string &text) {
+
+void ParrotWord::learn(const vector<string> &wordBytes, const string &text,const string &lang) {
   if (wordBytes.size() < 2) {
     return;
   }
