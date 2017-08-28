@@ -14,16 +14,7 @@ using namespace std;
 #include "log.hpp"
 #include "parrotword.hpp"
 
-bool loadMasterFromDB(const string& path, bool forceCast);
 
-bool ParrotWord::loadMaster(bool forceCast) {
-  auto master = database_;
-  DUMP_VAR(master);
-  return loadMasterFromDB(master, forceCast);
-}
-
-void unloadMasterFromDB(void);
-void ParrotWord::unloadMaster(void) { unloadMasterFromDB(); }
 
 map<string, int> ParrotWord::multiWordOfOneArticle_;
 
