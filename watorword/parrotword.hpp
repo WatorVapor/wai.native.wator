@@ -47,8 +47,8 @@ class ParrotWord {
 
  private:
   string database_;
-  DictionaryMaster dictInputCN_;
-  DictionaryMaster dictInputJA_;
+  MasterDBWord dictInputCN_;
+  MasterDBWord dictInputJA_;
   map<string, tuple<double, double>> statisticsRank_;
   multimap<int, WordElement> wordHintSeq_;
   multimap<int, WordElement> wordSeqTopSelected_;
