@@ -29,6 +29,7 @@ static string shortTxt(
     u8"人造卫星能够成功执行预定任务，单凭卫星本身是不行的，"
     u8"而需要完整的卫星工程系统");
 
+/*
 int main(int ac, char *av[]) {
   ParrotWord parrot("./db/ostrich/cn");
   if (parrot.loadMaster(false) == false) {
@@ -45,27 +46,31 @@ int main(int ac, char *av[]) {
   parrot.unloadMaster();
   return 0;
 }
+*/
 
-/*
+
+
 int main(int ac, char *av[]) {
   CtrlClaw claw;
-  ParrotWord parrot("./db/baidu.baike");
+  ParrotWord parrot("./db/parrot");
   if (parrot.loadMaster() == false) {
     return 0;
   }
   auto learnParrot = [&](string wordStr, vector<string> word) {
     parrot.learn(word, wordStr);
   };
-  auto clawText = [&](string &path, string &content) {
-    DUMP_VAR(path);
+  auto clawText = [&](const pt::ptree &task, string &content,string &ws) {
+    std::stringstream ssTask;
+    pt::write_json(ssTask, task);
+    DUMP_VAR(ssTask.str());
     // DUMP_VAR(content);
     claw.claw(content);
     claw.eachSentence(learnParrot);
     parrot.commitArticle();
   };
-  TextPump txtPump("url_crawl/.baike.baidu.meta/");
-  txtPump.eachNewText("parrot.train.one_1", clawText);
+  TextPump txtPump("https://www.wator.xyz/wai/text/train/parrot", "tain.one");
+  txtPump.eachTextFromMaster(clawText);
   parrot.unloadMaster();
   return 0;
 }
-*/
+
