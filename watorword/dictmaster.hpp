@@ -18,4 +18,6 @@ class DictionaryMaster {
  private:
  private:
   string master_db_path_;
+  leveldb::DB *master_;
+  leveldb::DB *masterCast_;
 };
