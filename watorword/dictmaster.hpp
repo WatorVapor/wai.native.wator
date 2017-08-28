@@ -15,6 +15,7 @@ class DictionaryMaster {
   void writeDB();
   void dumpSnapshotDB();
   void putWord(const string &word, int counter);
+  double getDoublePred(const string &word);
 
  private:
  private:
