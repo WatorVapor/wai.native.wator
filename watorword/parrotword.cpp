@@ -24,7 +24,10 @@ ParrotWord::ParrotWord(const string &database)
     dictInputCN_.loadMasterFromDB(database+"/cn");
     dictInputJA_.loadMasterFromDB(database+"/ja");
   }
-ParrotWord::~ParrotWord() {}
+ParrotWord::~ParrotWord() {
+    dictInputCN_.unloadMasterFromDB();
+    dictInputJA_.unloadMasterFromDB();
+}
 
 void ParrotWord::learn(const vector<string> &wordBytes, const string &text,const string &lang) {
   if (wordBytes.size() < 2) {
