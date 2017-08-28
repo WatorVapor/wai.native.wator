@@ -21,12 +21,8 @@ ParrotWord::ParrotWord(const string &database)
   : database_(database)
   ,dictInputCN_()
   ,dictInputJA_() {
-    dictInputCN_.loadMasterFromDB(database+"/cn");
-    dictInputJA_.loadMasterFromDB(database+"/ja");
   }
 ParrotWord::~ParrotWord() {
-    dictInputCN_.unloadMasterFromDB();
-    dictInputJA_.unloadMasterFromDB();
 }
 
 void ParrotWord::learn(const vector<string> &wordBytes, const string &text,const string &lang) {
