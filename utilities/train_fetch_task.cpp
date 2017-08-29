@@ -105,8 +105,10 @@ DECLARE_DB(Parrot);
   {                                                                \
     if (g##stage##Todo##lang.empty()) {                            \
       try {                                                        \
-        g##lang##Todo##stage##Storage->gets(iConstPathCacheMax,    \
+        if(g##lang##Todo##stage##Storage) {                         \
+          g##lang##Todo##stage##Storage->gets(iConstPathCacheMax,    \
                                             g##stage##Todo##lang); \
+        }                                                           \
       } catch (std::exception & e) {                               \
         DUMP_VAR(e.what());                                        \
       } catch (...) {                                              \
