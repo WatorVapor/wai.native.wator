@@ -25,7 +25,8 @@ class ParrotWord {
   void unloadMaster(void);
   void learn(const vector<string> &word, const string &text,const string &lang);
   void commitArticle(void);
-  void commitArticle(const pt::ptree &task);
+  void commitArticle(const pt::ptree &task,const string &ws);
+  void dumpDot(void);
 
  private:
   void getRawRank(const vector<string> &Bytes,const string &lang);
@@ -38,7 +39,6 @@ class ParrotWord {
 
   void collectWord(void);
 
-  void dumpDot(void);
 
   void dumpRank();
   void dumpSeq();

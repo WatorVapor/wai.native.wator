@@ -12,8 +12,8 @@ using namespace std;
 #include "log.hpp"
 
 DictionaryStorage::DictionaryStorage(const string &path) {
-  out_db_path_ = path;
-  DUMP_VAR(out_db_path_);
+  db_path_ = path;
+  DUMP_VAR(db_path_);
 }
 
 DictionaryStorage::~DictionaryStorage() {}
@@ -25,11 +25,9 @@ void DictionaryStorage::openDB() {
     options.max_open_files = 512;
     options.paranoid_checks = true;
     options.compression = leveldb::kNoCompression;
-    // auto status = leveldb::DB::Open(options, "./db/baidu.baike/word_ostrich",
-    // &gSaveDB);
-    auto status = leveldb::DB::Open(options, out_db_path_, &save_);
+    auto status = leveldb::DB::Open(options, db_path_, &save_);
+    DUMP_VAR2(db_path_,status.ToString());
     if (status.ok() == false) {
-      DUMP_VAR(status.ToString());
       save_ = nullptr;
     }
   }
@@ -70,7 +68,7 @@ void DictionaryStorage::putWord(const string &word, int counter) {
 
 string DictionaryStorage::summary(void) {
   string sum;
-  sum += out_db_path_;
+  sum += db_path_;
   if (save_) {
     leveldb::ReadOptions readOptions;
     std::string value;

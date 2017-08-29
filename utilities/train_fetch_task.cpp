@@ -54,7 +54,29 @@ void fetchOstrichTask(const string &lang) {
 void fetchParrotTask(const string &lang) {
   DUMP_VAR(lang);
   if (lang == "cn") {
+    std::lock_guard<std::mutex> lock(gTodoMutex);
+    if (gParrotTodoCN.empty()) {
+      gTodoCV.notify_all();
+      gFetchTrainServer->send("");
+    } else {
+      auto top = gParrotTodoCN.back();
+      DUMP_VAR(top);
+      gParrotTodoCN.pop_back();
+      DUMP_VAR(gParrotTodoCN.size());
+      gFetchTrainServer->send(top);
+    }
   } else if (lang == "ja") {
+    std::lock_guard<std::mutex> lock(gTodoMutex);
+    if (gParrotTodoJA.empty()) {
+      gTodoCV.notify_all();
+      gFetchTrainServer->send("");
+    } else {
+      auto top = gParrotTodoJA.back();
+      DUMP_VAR(top);
+      gParrotTodoJA.pop_back();
+      DUMP_VAR(gParrotTodoJA.size());
+      gFetchTrainServer->send(top);
+    }
   } else {
   }
 }
@@ -83,8 +105,10 @@ DECLARE_DB(Parrot);
   {                                                                \
     if (g##stage##Todo##lang.empty()) {                            \
       try {                                                        \
-        g##lang##Todo##stage##Storage->gets(iConstPathCacheMax,    \
+        if(g##lang##Todo##stage##Storage) {                         \
+          g##lang##Todo##stage##Storage->gets(iConstPathCacheMax,    \
                                             g##stage##Todo##lang); \
+        }                                                           \
       } catch (std::exception & e) {                               \
         DUMP_VAR(e.what());                                        \
       } catch (...) {                                              \
@@ -93,8 +117,8 @@ DECLARE_DB(Parrot);
   }
 
 static void findTodo(void) {
-  TRY_FIND_TASK(Ostrich, CN);
-  TRY_FIND_TASK(Ostrich, JA);
+  //TRY_FIND_TASK(Ostrich, CN);
+  //TRY_FIND_TASK(Ostrich, JA);
   TRY_FIND_TASK(Parrot, CN);
   TRY_FIND_TASK(Parrot, JA);
 }
@@ -122,11 +146,6 @@ static void findTodo(void) {
   }
 #define END_DB(stage)                   \
   {                                     \
-    gCNDone##stage##Storage->writeDB(); \
-    gCNTodo##stage##Storage->writeDB(); \
-    gJADone##stage##Storage->writeDB(); \
-    gJATodo##stage##Storage->writeDB(); \
-                                        \
     gCNDone##stage##Storage->closeDB(); \
     gCNTodo##stage##Storage->closeDB(); \
     gJADone##stage##Storage->closeDB(); \
@@ -136,37 +155,47 @@ static void findTodo(void) {
   }
 
 void train_collect(void) {
-  START_DB(Ostrich, ostrich);
+  //START_DB(Ostrich, ostrich);
   START_DB(Parrot, parrot);
 
   while (true) {
     findTodo();
-    DUMP_VAR(gOstrichTodoCN.size());
-    DUMP_VAR(gOstrichTodoJA.size());
     std::unique_lock<std::mutex> lk(gTodoCvMutex);
     gTodoCV.wait(lk);
   }
-  END_DB(Ostrich);
+  //END_DB(Ostrich);
   END_DB(Parrot);
 }
 
 #define FETCH_SUMMARY(stage)                       \
   {                                                \
-    summary += gCNDone##stage##Storage->summary(); \
+    if(gCNDone##stage##Storage) {\
+      summary += gCNDone##stage##Storage->summary(); \
+    }\
     summary += "\n";                               \
-    summary += gCNTodo##stage##Storage->summary(); \
+    if(gCNTodo##stage##Storage) {\
+      summary += gCNTodo##stage##Storage->summary(); \
+    }\
     ;                                              \
     summary += "\n";                               \
-    summary += gJADone##stage##Storage->summary(); \
+    if(gJADone##stage##Storage) {\
+      summary += gJADone##stage##Storage->summary(); \
+    }\
     ;                                              \
     summary += "\n";                               \
-    summary += gJATodo##stage##Storage->summary(); \
+    if(gJATodo##stage##Storage) {\
+      summary += gJATodo##stage##Storage->summary(); \
+    }\
     ;                                              \
     summary += "\n";                               \
-    summary += gCN##stage##Dict->summary();        \
+    if(gCN##stage##Dict) {\
+      summary += gCN##stage##Dict->summary();        \
+    }\
     ;                                              \
     summary += "\n";                               \
-    summary += gJA##stage##Dict->summary();        \
+    if(gJA##stage##Dict) {\
+      summary += gJA##stage##Dict->summary();        \
+    }\
     ;                                              \
   }
 

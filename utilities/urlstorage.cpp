@@ -15,10 +15,8 @@ using namespace std;
 #include "urlstorage.hpp"
 
 URLStorage::URLStorage(const string &path) {
-  out_db_path_ = path;
-  DUMP_VAR(out_db_path_);
-  iter_db_path_ = path + "/snapshot/" + "iter.";
-  DUMP_VAR(iter_db_path_);
+  db_path_ = path;
+  DUMP_VAR(db_path_);
 }
 
 URLStorage::~URLStorage() {}
@@ -30,9 +28,9 @@ void URLStorage::openDB() {
     options.max_open_files = 512;
     options.paranoid_checks = true;
     options.compression = leveldb::kNoCompression;
-    auto status = leveldb::DB::Open(options, out_db_path_, &save_);
+    auto status = leveldb::DB::Open(options, db_path_, &save_);
+    DUMP_VAR2(db_path_,status.ToString());
     if (status.ok() == false) {
-      DUMP_VAR(status.ToString());
       save_ = nullptr;
     }
   }
@@ -44,24 +42,13 @@ void URLStorage::closeDB() {
     save_ = nullptr;
   }
 }
-void URLStorage::writeDB() {
-  if (save_ != nullptr) {
-    leveldb::WriteOptions writeOptions;
-    writeOptions.sync = true;
-    auto status = save_->Write(writeOptions, &saveBatch_);
-    DUMP_VAR(status.ToString());
-    if (status.ok()) {
-      saveBatch_.Clear();
-      dumpSnapshotDB();
-    }
-  }
-}
 
 void URLStorage::gets(int max, vector<std::string> &urls) {
   if (save_) {
     leveldb::ReadOptions readOptions;
     readOptions.snapshot = save_->GetSnapshot();
     auto it = save_->NewIterator(readOptions);
+    DUMP_VAR(it->Valid());
     it->SeekToFirst();
     DUMP_VAR(it->Valid());
     int number = 0;
@@ -112,7 +99,7 @@ bool URLStorage::is_has(const std::string &key) {
 }
 string URLStorage::summary(void) {
   string sum;
-  sum += out_db_path_;
+  sum += db_path_;
   if (save_) {
     leveldb::ReadOptions readOptions;
     std::string value;
@@ -161,38 +148,3 @@ void URLStorage::copy(std::shared_ptr<URLStorage> dst) {
   }
 }
 
-static int iConstSnapshotCounter = 100;
-void URLStorage::dumpSnapshotDB() {
-  static int iCounter = 0;
-  if (iCounter++ % iConstSnapshotCounter != iConstSnapshotCounter - 1) {
-    return;
-  }
-  static int iSnapshotNumber = 0;
-  string pathIter = (boost::format("%08d") % iSnapshotNumber++).str();
-  string pathDump = iter_db_path_ + pathIter;
-  leveldb::DB *dumpdb = nullptr;
-  leveldb::Options options;
-  options.create_if_missing = true;
-  options.compression = leveldb::kNoCompression;
-  auto status = leveldb::DB::Open(options, pathDump, &dumpdb);
-  if (status.ok()) {
-    leveldb::WriteBatch batch;
-    if (save_) {
-      leveldb::ReadOptions readOptions;
-      readOptions.snapshot = save_->GetSnapshot();
-      auto it = save_->NewIterator(readOptions);
-      it->SeekToFirst();
-      DUMP_VAR(it->Valid());
-      while (it->Valid()) {
-        batch.Put(it->key(), it->value());
-        it->Next();
-      }
-      delete it;
-      save_->ReleaseSnapshot(readOptions.snapshot);
-    }
-    leveldb::WriteOptions writeOptions;
-    writeOptions.sync = true;
-    auto status = dumpdb->Write(writeOptions, &batch);
-    delete dumpdb;
-  }
-}

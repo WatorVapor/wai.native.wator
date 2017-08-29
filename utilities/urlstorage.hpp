@@ -12,7 +12,6 @@ class URLStorage {
   ~URLStorage();
   void openDB();
   void closeDB();
-  void writeDB();
   void gets(int max, vector<std::string> &urls);
   void dumpSnapshotDB();
   void add(const std::string &key, const std::string &value);
@@ -23,8 +22,6 @@ class URLStorage {
 
  private:
  private:
-  string out_db_path_;
-  string iter_db_path_;
+  string db_path_;
   leveldb::DB *save_;
-  leveldb::WriteBatch saveBatch_;
 };

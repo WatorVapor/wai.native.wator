@@ -34,16 +34,16 @@ void ParrotWord::learn(const vector<string> &wordBytes, const string &text,const
     TRACE_VAR(mbyte);
   }
   this->getRawRank(wordBytes,lang);
-  this->dumpDot();
+  //this->dumpDot();
   // this->adjustRank();
   // this->dumpRank();
   // this->cutTextByRank(text);
   // this->dumpSeq();
   this->calcPrediction();
   this->getWordPrediction(text);
-  DUMP_VAR(text);
+  TRACE_VAR(text);
   // this->dumpPreds();
-  this->dumpPredWords();
+  //this->dumpPredWords();
   this->collectWord();
 }
 void ParrotWord::dumpPredWords() {
@@ -76,10 +76,10 @@ void ParrotWord::getRawRank(const vector<string> &Bytes,const string &lang) {
       TRACE_VAR(jointWord);
       auto pred = -1.0;
       if(lang =="cn") {
-        dictInputCN_.getDoublePred(jointWord);
+        pred = dictInputCN_.getDoublePred(jointWord);
       }
       if(lang =="ja") {
-        dictInputJA_.getDoublePred(jointWord);
+        pred = dictInputJA_.getDoublePred(jointWord);
       }
       wordPos -= it->size();
       if (pred > 0) {
@@ -130,14 +130,14 @@ void ParrotWord::calcPrediction(void) {
     auto weight = std::get<3>(elem.second);
     auto weight2 = std::get<4>(elem.second);
     auto weight_adj = adjustWeight(word.size(), weight);
-    DUMP_VAR5(word, pos, range, weight_adj, weight);
+    TRACE_VAR(word, pos, range, weight_adj, weight);
     auto elemNew = std::make_tuple(word, pos, range, weight_adj, weight2);
     weightElem.insert(std::make_pair(weight_adj, elemNew));
   }
   auto lastPos = wordHintSeq_.rbegin();
   auto firstPos = wordHintSeq_.begin();
   auto place_length = lastPos->first - firstPos->first;
-  DUMP_VAR2(lastPos->first, firstPos->first);
+  TRACE_VAR(lastPos->first, firstPos->first);
 
   place_length += std::get<2>(lastPos->second);
   TRACE_VAR(place_length);
