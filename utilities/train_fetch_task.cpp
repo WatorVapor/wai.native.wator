@@ -136,8 +136,6 @@ void train_collect(void) {
 
   while (true) {
     findTodo();
-    DUMP_VAR(gOstrichTodoCN.size());
-    DUMP_VAR(gOstrichTodoJA.size());
     std::unique_lock<std::mutex> lk(gTodoCvMutex);
     gTodoCV.wait(lk);
   }
