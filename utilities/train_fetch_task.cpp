@@ -169,21 +169,33 @@ void train_collect(void) {
 
 #define FETCH_SUMMARY(stage)                       \
   {                                                \
-    summary += gCNDone##stage##Storage->summary(); \
+    if(gCNDone##stage##Storage) {\
+      summary += gCNDone##stage##Storage->summary(); \
+    }\
     summary += "\n";                               \
-    summary += gCNTodo##stage##Storage->summary(); \
+    if(gCNTodo##stage##Storage) {\
+      summary += gCNTodo##stage##Storage->summary(); \
+    }\
     ;                                              \
     summary += "\n";                               \
-    summary += gJADone##stage##Storage->summary(); \
+    if(gJADone##stage##Storage) {\
+      summary += gJADone##stage##Storage->summary(); \
+    }\
     ;                                              \
     summary += "\n";                               \
-    summary += gJATodo##stage##Storage->summary(); \
+    if(gJATodo##stage##Storage) {\
+      summary += gJATodo##stage##Storage->summary(); \
+    }\
     ;                                              \
     summary += "\n";                               \
-    summary += gCN##stage##Dict->summary();        \
+    if(gCN##stage##Dict) {\
+      summary += gCN##stage##Dict->summary();        \
+    }\
     ;                                              \
     summary += "\n";                               \
-    summary += gJA##stage##Dict->summary();        \
+    if(gJA##stage##Dict) {\
+      summary += gJA##stage##Dict->summary();        \
+    }\
     ;                                              \
   }
 
