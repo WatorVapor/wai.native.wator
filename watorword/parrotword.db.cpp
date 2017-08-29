@@ -89,9 +89,7 @@ void ParrotWord::commitArticle(const pt::ptree& task,const string &ws) {
     DUMP_VAR(word);
     pt::ptree upTask = task;
     upTask.put("word", word);
-    string task_word_upPath = "/tmp/wai.native/" ;
-    task_word_upPath += ws;
-    task_word_upPath += "/task_word_up.json";
+    string task_word_upPath = ws + "/task_word_up.json";
     pt::write_json(task_word_upPath, upTask);
 
     auto tagOpt = task.get_optional<string>("tag");
