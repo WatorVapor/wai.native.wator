@@ -25,7 +25,7 @@ class ParrotWord {
   void unloadMaster(void);
   void learn(const vector<string> &word, const string &text,const string &lang);
   void commitArticle(void);
-  void commitArticle(const pt::ptree &task);
+  void commitArticle(const pt::ptree &task,const string &ws);
   void dumpDot(void);
 
  private:
