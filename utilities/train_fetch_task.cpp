@@ -93,8 +93,8 @@ DECLARE_DB(Parrot);
   }
 
 static void findTodo(void) {
-  TRY_FIND_TASK(Ostrich, CN);
-  TRY_FIND_TASK(Ostrich, JA);
+  //TRY_FIND_TASK(Ostrich, CN);
+  //TRY_FIND_TASK(Ostrich, JA);
   TRY_FIND_TASK(Parrot, CN);
   TRY_FIND_TASK(Parrot, JA);
 }
@@ -131,7 +131,7 @@ static void findTodo(void) {
   }
 
 void train_collect(void) {
-  START_DB(Ostrich, ostrich);
+  //START_DB(Ostrich, ostrich);
   START_DB(Parrot, parrot);
 
   while (true) {
@@ -141,7 +141,7 @@ void train_collect(void) {
     std::unique_lock<std::mutex> lk(gTodoCvMutex);
     gTodoCV.wait(lk);
   }
-  END_DB(Ostrich);
+  //END_DB(Ostrich);
   END_DB(Parrot);
 }
 
