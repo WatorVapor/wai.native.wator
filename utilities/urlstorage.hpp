@@ -24,7 +24,5 @@ class URLStorage {
  private:
  private:
   string out_db_path_;
-  string iter_db_path_;
   leveldb::DB *save_;
-  leveldb::WriteBatch saveBatch_;
 };
