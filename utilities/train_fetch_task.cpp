@@ -122,11 +122,6 @@ static void findTodo(void) {
   }
 #define END_DB(stage)                   \
   {                                     \
-    gCNDone##stage##Storage->writeDB(); \
-    gCNTodo##stage##Storage->writeDB(); \
-    gJADone##stage##Storage->writeDB(); \
-    gJATodo##stage##Storage->writeDB(); \
-                                        \
     gCNDone##stage##Storage->closeDB(); \
     gCNTodo##stage##Storage->closeDB(); \
     gJADone##stage##Storage->closeDB(); \
