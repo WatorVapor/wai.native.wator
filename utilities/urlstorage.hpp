@@ -23,6 +23,6 @@ class URLStorage {
 
  private:
  private:
-  string out_db_path_;
+  string db_path_;
   leveldb::DB *save_;
 };
