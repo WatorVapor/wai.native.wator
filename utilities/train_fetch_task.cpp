@@ -54,7 +54,29 @@ void fetchOstrichTask(const string &lang) {
 void fetchParrotTask(const string &lang) {
   DUMP_VAR(lang);
   if (lang == "cn") {
+    std::lock_guard<std::mutex> lock(gTodoMutex);
+    if (gParrotTodoCN.empty()) {
+      gTodoCV.notify_all();
+      gFetchTrainServer->send("");
+    } else {
+      auto top = gParrotTodoCN.back();
+      DUMP_VAR(top);
+      gParrotTodoCN.pop_back();
+      DUMP_VAR(gParrotTodoCN.size());
+      gFetchTrainServer->send(top);
+    }
   } else if (lang == "ja") {
+    std::lock_guard<std::mutex> lock(gTodoMutex);
+    if (gParrotTodoJA.empty()) {
+      gTodoCV.notify_all();
+      gFetchTrainServer->send("");
+    } else {
+      auto top = gParrotTodoJA.back();
+      DUMP_VAR(top);
+      gParrotTodoJA.pop_back();
+      DUMP_VAR(gParrotTodoJA.size());
+      gFetchTrainServer->send(top);
+    }
   } else {
   }
 }
