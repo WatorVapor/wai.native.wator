@@ -48,6 +48,7 @@ void URLStorage::gets(int max, vector<std::string> &urls) {
     leveldb::ReadOptions readOptions;
     readOptions.snapshot = save_->GetSnapshot();
     auto it = save_->NewIterator(readOptions);
+    DUMP_VAR(it->Valid());
     it->SeekToFirst();
     DUMP_VAR(it->Valid());
     int number = 0;
