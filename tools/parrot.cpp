@@ -75,7 +75,7 @@ int main(int ac, char *av[]) {
           };
         claw.eachSentence(learnParrot);
     }
-    parrot.commitArticle(task);
+    parrot.commitArticle(task,ws);
   };
   TextPump txtPump("https://www.wator.xyz/wai/text/train/parrot", "tain.one");
   txtPump.eachTextFromMaster(clawText);
