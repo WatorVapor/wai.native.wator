@@ -17,8 +17,6 @@ using namespace std;
 URLStorage::URLStorage(const string &path) {
   out_db_path_ = path;
   DUMP_VAR(out_db_path_);
-  iter_db_path_ = path + "/snapshot/" + "iter.";
-  DUMP_VAR(iter_db_path_);
 }
 
 URLStorage::~URLStorage() {}
