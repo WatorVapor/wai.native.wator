@@ -76,10 +76,10 @@ void ParrotWord::getRawRank(const vector<string> &Bytes,const string &lang) {
       TRACE_VAR(jointWord);
       auto pred = -1.0;
       if(lang =="cn") {
-        dictInputCN_.getDoublePred(jointWord);
+        pred = dictInputCN_.getDoublePred(jointWord);
       }
       if(lang =="ja") {
-        dictInputJA_.getDoublePred(jointWord);
+        pred = dictInputJA_.getDoublePred(jointWord);
       }
       wordPos -= it->size();
       if (pred > 0) {
