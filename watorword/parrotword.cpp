@@ -34,7 +34,7 @@ void ParrotWord::learn(const vector<string> &wordBytes, const string &text,const
     TRACE_VAR(mbyte);
   }
   this->getRawRank(wordBytes,lang);
-  this->dumpDot();
+  //this->dumpDot();
   // this->adjustRank();
   // this->dumpRank();
   // this->cutTextByRank(text);
