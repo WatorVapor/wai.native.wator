@@ -15,8 +15,8 @@ using namespace std;
 #include "urlstorage.hpp"
 
 URLStorage::URLStorage(const string &path) {
-  out_db_path_ = path;
-  DUMP_VAR(out_db_path_);
+  db_path_ = path;
+  DUMP_VAR(db_path_);
 }
 
 URLStorage::~URLStorage() {}
@@ -28,7 +28,7 @@ void URLStorage::openDB() {
     options.max_open_files = 512;
     options.paranoid_checks = true;
     options.compression = leveldb::kNoCompression;
-    auto status = leveldb::DB::Open(options, out_db_path_, &save_);
+    auto status = leveldb::DB::Open(options, db_path_, &save_);
     if (status.ok() == false) {
       DUMP_VAR(status.ToString());
       save_ = nullptr;
@@ -40,18 +40,6 @@ void URLStorage::closeDB() {
   if (save_ != nullptr) {
     delete save_;
     save_ = nullptr;
-  }
-}
-void URLStorage::writeDB() {
-  if (save_ != nullptr) {
-    leveldb::WriteOptions writeOptions;
-    writeOptions.sync = true;
-    auto status = save_->Write(writeOptions, &saveBatch_);
-    DUMP_VAR(status.ToString());
-    if (status.ok()) {
-      saveBatch_.Clear();
-      dumpSnapshotDB();
-    }
   }
 }
 
