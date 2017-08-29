@@ -41,9 +41,9 @@ void ParrotWord::learn(const vector<string> &wordBytes, const string &text,const
   // this->dumpSeq();
   this->calcPrediction();
   this->getWordPrediction(text);
-  DUMP_VAR(text);
+  TRACE_VAR(text);
   // this->dumpPreds();
-  this->dumpPredWords();
+  //this->dumpPredWords();
   this->collectWord();
 }
 void ParrotWord::dumpPredWords() {
@@ -130,14 +130,14 @@ void ParrotWord::calcPrediction(void) {
     auto weight = std::get<3>(elem.second);
     auto weight2 = std::get<4>(elem.second);
     auto weight_adj = adjustWeight(word.size(), weight);
-    DUMP_VAR5(word, pos, range, weight_adj, weight);
+    TRACE_VAR(word, pos, range, weight_adj, weight);
     auto elemNew = std::make_tuple(word, pos, range, weight_adj, weight2);
     weightElem.insert(std::make_pair(weight_adj, elemNew));
   }
   auto lastPos = wordHintSeq_.rbegin();
   auto firstPos = wordHintSeq_.begin();
   auto place_length = lastPos->first - firstPos->first;
-  DUMP_VAR2(lastPos->first, firstPos->first);
+  TRACE_VAR(lastPos->first, firstPos->first);
 
   place_length += std::get<2>(lastPos->second);
   TRACE_VAR(place_length);
