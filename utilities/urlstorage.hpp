@@ -12,7 +12,6 @@ class URLStorage {
   ~URLStorage();
   void openDB();
   void closeDB();
-  void writeDB();
   void gets(int max, vector<std::string> &urls);
   void dumpSnapshotDB();
   void add(const std::string &key, const std::string &value);
