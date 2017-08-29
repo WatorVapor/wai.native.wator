@@ -68,7 +68,7 @@ void DictionaryStorage::putWord(const string &word, int counter) {
 
 string DictionaryStorage::summary(void) {
   string sum;
-  sum += out_db_path_;
+  sum += db_path_;
   if (save_) {
     leveldb::ReadOptions readOptions;
     std::string value;
