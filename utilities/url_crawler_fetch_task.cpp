@@ -130,10 +130,6 @@ void url_crawler_collect(void) {
     std::unique_lock<std::mutex> lk(gVectoPathCvMutex);
     gVectoPathCV.wait(lk);
   }
-  gCNMasterStorage->writeDB();
-  gCNTodoStorage->writeDB();
-  gJAMasterStorage->writeDB();
-  gJATodoStorage->writeDB();
   gCNMasterStorage->closeDB();
   gCNTodoStorage->closeDB();
   gJAMasterStorage->closeDB();
