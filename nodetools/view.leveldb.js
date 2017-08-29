@@ -1,5 +1,5 @@
 var levelup = require('levelup')
-var db = levelup('/watorvapor/wai.storage/train/ostrich/cp.dict/cn')
+var db = levelup('/watorvapor/wai.storage/train/parrot/cp.dict/cn')
 db.createReadStream()
   .on('data', function (data) {
     var value = parseInt(data.value);
