@@ -26,8 +26,8 @@ void DictionaryStorage::openDB() {
     options.paranoid_checks = true;
     options.compression = leveldb::kNoCompression;
     auto status = leveldb::DB::Open(options, db_path_, &save_);
+    DUMP_VAR(status.ToString());
     if (status.ok() == false) {
-      DUMP_VAR(status.ToString());
       save_ = nullptr;
     }
   }
