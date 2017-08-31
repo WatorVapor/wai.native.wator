@@ -247,6 +247,7 @@ void PhoenixWord::calcPrediction(void) {
 #include <typeinfo>
 #include "treeword.hpp"
 
+#if 0
 void PhoenixWord::calcPrediction(
     const multimap<int, WordElement> &clearWordSeq) {
   auto predTree = std::make_shared<PredictionTree>();
@@ -275,6 +276,7 @@ void PhoenixWord::calcPrediction(
   }
 }
 
+
 void PhoenixWord::fetchPrediction(shared_ptr<PredictionTree> predTree) {
   // predTree->dumpAllPreds();
   multimap<int, vector<WordElement>> flat;
@@ -302,3 +304,4 @@ void PhoenixWord::fetchPrediction(shared_ptr<PredictionTree> predTree) {
     }
   }
 }
+#endif 
