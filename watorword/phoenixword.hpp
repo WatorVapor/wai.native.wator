@@ -17,7 +17,8 @@ namespace pt = boost::property_tree;
 class PredictionTree;
 
 class PhoenixWord {
-  typedef std::tuple<std::string, int, int, double, double, int> WordElement;
+  //typedef std::tuple<std::string, int, int, double, double, int> WordElement;
+  typedef std::tuple<std::string, int, int, double, double> WordElement;
 
  public:
   PhoenixWord(const string &database);
