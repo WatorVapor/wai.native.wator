@@ -30,7 +30,7 @@ class PhoenixWord {
   void dumpDot(void);
 
  private:
-  void getRawRank(const vector<string> &Bytes);
+  void getRawRank(const vector<string> &Bytes,const string &lang);
   void adjustRank(void);
   void cutTextByRank(const string &text);
 
