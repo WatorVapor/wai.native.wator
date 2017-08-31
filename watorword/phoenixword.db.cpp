@@ -122,6 +122,12 @@ void PhoenixWord::dumpDot(void) {
   Graph g;
   multimap<int, std::tuple<string, Vertex>> vertexs;
   static vector<string> labelVertex;
+  
+  auto vrtxStart = g.add_vertex();
+  auto vrtxPrStart = std::make_tuple("S", vrtxStart);
+  vertexs.insert(std::make_pair(-1, vrtxPrStart));
+  
+  int posLast = 0;
   for (auto elem : wordHintSeq_) {
     auto word = std::get<0>(elem.second);
     auto position = std::get<1>(elem.second);
@@ -129,7 +135,26 @@ void PhoenixWord::dumpDot(void) {
     auto vrtxPr = std::make_tuple(word, vrtx);
     vertexs.insert(std::make_pair(position, vrtxPr));
     labelVertex.push_back(word);
+    posLast = position + word.size();
   }
+  auto vrtxEnd = g.add_vertex();
+  auto vrtxPrvrtxEnd = std::make_tuple("E", vrtxEnd);
+  vertexs.insert(std::make_pair(posLast vrtxPrvrtxEnd));
+ 
+  {
+    auto rangeSelf = vertexs.equal_range(0);
+    for (auto itSelf = rangeSelf.first; itSelf != rangeSelf.second; itSelf++) {
+      auto wordSelf = std::get<0>(itSelf->second);
+      auto vrtxSelf = std::get<1>(itSelf->second);
+      g.add_edge(vrtxStart, vrtxSelf);
+    }
+  }
+
+  
+
+  
+  
+  
   for (auto elem : wordHintSeq_) {
     auto word = std::get<0>(elem.second);
     auto position = std::get<1>(elem.second);
