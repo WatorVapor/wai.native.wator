@@ -43,7 +43,7 @@ void PhoenixWord::learn(const vector<string> &wordBytes, const string &text,cons
   //this->getNoConflictSeq();
   //  this->dumpClearSeq();
 
-  this->calcPrediction();
+  //this->calcPrediction();
 }
 
 void PhoenixWord::mergeWordPrediction(void) {
