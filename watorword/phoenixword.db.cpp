@@ -178,6 +178,17 @@ void PhoenixWord::dumpDot(void) {
         break;
       }
     }
+    if(posLast == position + range) {
+      auto rangeSelf = vertexs.equal_range(position);
+      for (auto itSelf = rangeSelf.first; itSelf != rangeSelf.second; itSelf++) {
+        auto wordSelf = std::get<0>(itSelf->second);
+        auto vrtxSelf = std::get<1>(itSelf->second);
+        if (word == wordSelf) {
+          g.add_edge(vrtxSelf, vrtxPrvrtxEnd);
+          break;
+        }
+      }
+    }
   }
   static int counter = 0;
   struct sample_graph_writer {
