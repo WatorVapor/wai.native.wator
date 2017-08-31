@@ -46,6 +46,8 @@ class PhoenixWord {
 
   void push2DB(void);
   void fetchPrediction(shared_ptr<PredictionTree> predTree);
+  
+  void collectWord(void);
 
   void dumpRank();
   void dumpSeq();
@@ -69,7 +71,9 @@ class PhoenixWord {
   multimap<int, WordElement> wordSeqTopSelected_;
   vector<string> prediWords_;
 
-  static map<string, int> gMultiWordSum;
+  static map<string, int> gMultiWordSum;  
+  static map<string, int> multiWordOfOneArticle_;
+  
   const int gWordLength = 32;
   const int minWordRepeateTimes_ = 9;
 };
