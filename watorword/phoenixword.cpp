@@ -145,6 +145,7 @@ static vector<size_t> find_all_substr(const string &sub, const string &text) {
   return positions;
 }
 
+/*
 void PhoenixWord::cutTextByRank(const string &text) {
   for (auto it = phoenixRank_.begin(); it != phoenixRank_.end(); it++) {
     auto rankRepeat = std::get<0>(it->second);
@@ -162,6 +163,7 @@ void PhoenixWord::cutTextByRank(const string &text) {
     }
   }
 }
+*/
 
 #include <boost/algorithm/string.hpp>
 
