@@ -43,7 +43,7 @@ int main(int ac,char*av[])
     return 0;
   }
   auto learnPhoenix = [&](string wordStr, vector<string> word) {
-    phoenix.learn(word,wordStr);
+    phoenix.learn(word,wordStr,lang);
     phoenix.dumpDot();
   };
 
