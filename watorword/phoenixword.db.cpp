@@ -139,8 +139,9 @@ void PhoenixWord::dumpDot(void) {
   }
   auto vrtxEnd = g.add_vertex();
   auto vrtxPrvrtxEnd = std::make_tuple("E", vrtxEnd);
-  vertexs.insert(std::make_pair(posLast vrtxPrvrtxEnd));
+  vertexs.insert(std::make_pair(posLast,vrtxPrvrtxEnd));
  
+  // add dummy start.
   {
     auto rangeSelf = vertexs.equal_range(0);
     for (auto itSelf = rangeSelf.first; itSelf != rangeSelf.second; itSelf++) {
@@ -149,7 +150,10 @@ void PhoenixWord::dumpDot(void) {
       g.add_edge(vrtxStart, vrtxSelf);
     }
   }
-
+  // add dummy end.
+  {
+  }
+  
   
 
   
