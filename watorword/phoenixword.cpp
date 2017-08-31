@@ -25,7 +25,7 @@ static const double gWeightAdjustRateMax = 16.0;
 
 PhoenixWord::PhoenixWord(const string &database) : database_(database) {}
 PhoenixWord::~PhoenixWord() {}
-void PhoenixWord::learn(const vector<string> &wordBytes, const string &text) {
+void PhoenixWord::learn(const vector<string> &wordBytes, const string &text,const string &lang) {
   if (wordBytes.size() < 2) {
     return;
   }
