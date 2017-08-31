@@ -58,9 +58,10 @@ class PhoenixWord {
 
   map<string, tuple<double, double>> phoenixRank_;
   int rawRankMinWordSize_;
-  int statisticsMinWordSize_;
   int ap_;
 
+  map<string, tuple<double, double>> statisticsRank_;
+  int statisticsMinWordSize_;  
   multimap<int, WordElement> wordHintSeq_;
   multimap<int, WordElement> wordSeq_;
   vector<multimap<int, WordElement>> noConflictWordSeq_;
