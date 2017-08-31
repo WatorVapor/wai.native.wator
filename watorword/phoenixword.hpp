@@ -6,8 +6,7 @@
 using namespace std;
 #pragma once
 
-#include <leveldb/db.h>
-#include <leveldb/write_batch.h>
+#include "word_db_master.hpp"
 
 class PredictionTree;
 
@@ -21,6 +20,8 @@ class PhoenixWord {
   bool loadMaster(bool castForce = true);
   void unloadMaster(void);
   void commitArticle(void);
+  void commitArticle(const pt::ptree &task,const string &ws);
+  void dumpDot(void);
 
  private:
   void getRawRank(const vector<string> &Bytes);
@@ -46,6 +47,8 @@ class PhoenixWord {
 
  private:
   string database_;
+  MasterDBWord dictInputCN_;
+  MasterDBWord dictInputJA_;
 
   map<string, tuple<double, double>> phoenixRank_;
   int rawRankMinWordSize_;
@@ -59,5 +62,4 @@ class PhoenixWord {
   static map<string, int> gMultiWordSum;
   const int gWordLength = 32;
   const int minWordRepeateTimes_ = 9;
-  leveldb::WriteBatch gSaveDBBatch;
 };
