@@ -72,11 +72,35 @@ void PhoenixWord::getRawRank(const vector<string> &Bytes,const string &lang) {
   TRACE_VAR(statisticsMinWordSize_);
   int baseLinePos = 0;
   for (auto &word : Bytes) {
-    /* multi */
     TRACE_VAR(word);
+    int wordPos = baseLinePos;
+    /* single */
+    {
+      auto pred = -1.0;
+      if(lang =="cn") {
+        pred = dictInputCN_.getDoublePred(word);
+      }
+      if(lang =="ja") {
+        pred = dictInputJA_.getDoublePred(word);
+      }
+      wordPos -= it->size();
+      if (pred > 0) {
+        TRACE_VAR(word, pred);
+        TRACE_VAR(word.size());
+        if (statisticsMinWordSize_ > word.size()) {
+          statisticsMinWordSize_ = word.size();
+        }
+        statisticsRank_[word] = std::make_tuple(pred, pred);
+
+        TRACE_VAR(word, wordPos, pred);
+        auto elem =
+            std::make_tuple(word, wordPos, word.size(), pred, pred);
+        wordHintSeq_.insert(std::make_pair(word, elem));
+      }      
+    }
+    /* multi */
     auto it = preWords.rbegin();
     string jointWord(word);
-    int wordPos = baseLinePos;
     while (it != preWords.rend()) {
       jointWord = *it + jointWord;
       TRACE_VAR(jointWord);
