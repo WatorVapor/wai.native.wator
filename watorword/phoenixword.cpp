@@ -225,6 +225,7 @@ void PhoenixWord::getNoConflictSeq(void) {
   }
 }
 
+#if 0
 void PhoenixWord::calcPrediction(void) {
   for (auto clearSeq : noConflictWordSeq_) {
     // std::cout << "%%%%%%%%%%%%%%%%" <<std::endl;
@@ -243,6 +244,7 @@ void PhoenixWord::calcPrediction(void) {
   }
   this->mergeWordPrediction();
 }
+#endif
 
 #include <typeinfo>
 #include "treeword.hpp"
