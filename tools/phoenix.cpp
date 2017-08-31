@@ -38,7 +38,7 @@ static string bugTxt(
 int main(int ac,char*av[])
 {
 
-  PhoenixWord phoenix("./db/baidu.baike");
+  PhoenixWord phoenix("./db/parrot");
   if(phoenix.loadMaster(false)==false) {
     return 0;
   }
@@ -49,7 +49,7 @@ int main(int ac,char*av[])
   CtrlClaw claw;
   claw.claw(longTxt);
   claw.eachSentence(learnPhoenix);
-
+/*
   claw.claw(shortTxt);
   claw.eachSentence(learnPhoenix);
 
@@ -58,7 +58,7 @@ int main(int ac,char*av[])
 
   claw.claw(bugTxt);
   claw.eachSentence(learnPhoenix);
-
+*/
   phoenix.unloadMaster();
   return 0;
 }
