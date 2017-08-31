@@ -126,6 +126,7 @@ void PhoenixWord::dumpDot(void) {
   auto vrtxStart = g.add_vertex();
   auto vrtxPrStart = std::make_tuple("S", vrtxStart);
   vertexs.insert(std::make_pair(-1, vrtxPrStart));
+  labelVertex.push_back("S");
   
   int posLast = 0;
   for (auto elem : wordHintSeq_) {
@@ -140,6 +141,7 @@ void PhoenixWord::dumpDot(void) {
   auto vrtxEnd = g.add_vertex();
   auto vrtxPrvrtxEnd = std::make_tuple("E", vrtxEnd);
   vertexs.insert(std::make_pair(posLast,vrtxPrvrtxEnd));
+  labelVertex.push_back("E");
  
   // add dummy start.
   {
