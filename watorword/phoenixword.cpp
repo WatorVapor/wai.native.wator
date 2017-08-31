@@ -62,7 +62,7 @@ void PhoenixWord::commitArticle(void) {
   gMultiWordSum.clear();
 }
 
-void ParrotWord::getRawRank(const vector<string> &Bytes,const string &lang) {
+void PhoenixWord::getRawRank(const vector<string> &Bytes,const string &lang) {
   statisticsRank_.clear();
   statisticsMinWordSize_ = 32;
   wordHintSeq_.clear();
