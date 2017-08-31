@@ -6,6 +6,12 @@
 using namespace std;
 #pragma once
 
+#include <boost/foreach.hpp>
+#include <boost/optional.hpp>
+#include <boost/property_tree/json_parser.hpp>
+#include <boost/property_tree/ptree.hpp>
+namespace pt = boost::property_tree;
+
 #include "word_db_master.hpp"
 
 class PredictionTree;
