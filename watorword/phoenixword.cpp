@@ -33,14 +33,14 @@ void PhoenixWord::learn(const vector<string> &wordBytes, const string &text) {
   for (auto mbyte : wordBytes) {
     TRACE_VAR(mbyte);
   }
-  this->getRawRank(wordBytes);
-  this->adjustRank();
+  this->getRawRank(wordBytes,lang);
+  //this->adjustRank();
   //  this->dumpRank();
 
-  this->cutTextByRank(text);
+  //this->cutTextByRank(text);
   //  this->dumpSeq();
 
-  this->getNoConflictSeq();
+  //this->getNoConflictSeq();
   //  this->dumpClearSeq();
 
   this->calcPrediction();
@@ -62,51 +62,59 @@ void PhoenixWord::commitArticle(void) {
   gMultiWordSum.clear();
 }
 
-void PhoenixWord::getRawRank(const vector<string> &Bytes) {
-  phoenixRank_.clear();
-  rawRankMinWordSize_ = 32;
-  wordSeq_.clear();
-  noConflictWordSeq_.clear();
+void ParrotWord::getRawRank(const vector<string> &Bytes,const string &lang) {
+  statisticsRank_.clear();
+  statisticsMinWordSize_ = 32;
+  wordHintSeq_.clear();
   wordSeqTopSelected_.clear();
   prediWords_.clear();
+  ap_++;
 
   list<string> preWords;
   TRACE_VAR(statisticsMinWordSize_);
+  int baseLinePos = 0;
   for (auto &word : Bytes) {
     /* multi */
     TRACE_VAR(word);
     auto it = preWords.rbegin();
     string jointWord(word);
+    int wordPos = baseLinePos;
     while (it != preWords.rend()) {
       jointWord = *it + jointWord;
-      it++;
       TRACE_VAR(jointWord);
-      auto pred = getDoublePred(jointWord);
-      if (pred > 0.0) {
+      auto pred = -1.0;
+      if(lang =="cn") {
+        pred = dictInputCN_.getDoublePred(jointWord);
+      }
+      if(lang =="ja") {
+        pred = dictInputJA_.getDoublePred(jointWord);
+      }
+      wordPos -= it->size();
+      if (pred > 0) {
         TRACE_VAR(jointWord, pred);
         TRACE_VAR(jointWord.size());
-        if (rawRankMinWordSize_ > jointWord.size()) {
-          rawRankMinWordSize_ = jointWord.size();
+        if (statisticsMinWordSize_ > jointWord.size()) {
+          statisticsMinWordSize_ = jointWord.size();
         }
-        phoenixRank_[jointWord] = std::make_tuple(pred, pred);
+        statisticsRank_[jointWord] = std::make_tuple(pred, pred);
+
+        TRACE_VAR(jointWord, wordPos, pred);
+        auto elem =
+            std::make_tuple(jointWord, wordPos, jointWord.size(), pred, pred);
+        wordHintSeq_.insert(std::make_pair(wordPos, elem));
       }
+      it++;
     }
-    auto pred2 = getDoublePred(word);
-    if (pred2 > 0.0) {
-      TRACE_VAR(word, pred2);
-      TRACE_VAR(word.size());
-      if (rawRankMinWordSize_ > word.size()) {
-        rawRankMinWordSize_ = word.size();
-      }
-      phoenixRank_[word] = std::make_tuple(pred2, pred2);
-    }
+    baseLinePos += word.size();
     preWords.push_back(word);
     if (preWords.size() > gWordLength - 1) {
       preWords.pop_front();
     }
   }
-  TRACE_VAR(rawRankMinWordSize_);
+  TRACE_VAR(statisticsMinWordSize_);
 }
+
+
 
 void PhoenixWord::adjustRank() {
   for (auto rPair : phoenixRank_) {
