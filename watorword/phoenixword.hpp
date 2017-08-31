@@ -60,6 +60,7 @@ class PhoenixWord {
   int rawRankMinWordSize_;
   int ap_;
 
+  multimap<int, WordElement> wordHintSeq_;
   multimap<int, WordElement> wordSeq_;
   vector<multimap<int, WordElement>> noConflictWordSeq_;
   multimap<int, WordElement> wordSeqTopSelected_;
