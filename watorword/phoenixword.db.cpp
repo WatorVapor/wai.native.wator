@@ -184,7 +184,7 @@ void PhoenixWord::dumpDot(void) {
         auto wordSelf = std::get<0>(itSelf->second);
         auto vrtxSelf = std::get<1>(itSelf->second);
         if (word == wordSelf) {
-          g.add_edge(vrtxSelf, vrtxPrvrtxEnd);
+          g.add_edge(vrtxSelf, vrtxEnd);
           break;
         }
       }
