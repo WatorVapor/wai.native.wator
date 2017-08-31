@@ -63,7 +63,7 @@ void PhoenixWord::commitArticle(void) {
 }
 
 void PhoenixWord::getRawRank(const vector<string> &Bytes,const string &lang) {
-  gWordLength = 32;
+  statisticsMinWordSize_ = 32;
   wordHintSeq_.clear();
   wordSeqTopSelected_.clear();
   prediWords_.clear();
