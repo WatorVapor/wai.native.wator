@@ -58,7 +58,6 @@ void PhoenixWord::mergeWordPrediction(void) {
 }
 
 void PhoenixWord::commitArticle(void) {
-  this->push2DB();
   gMultiWordSum.clear();
 }
 
