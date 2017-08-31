@@ -14,21 +14,33 @@ using namespace std;
 #include "log.hpp"
 #include "phoenixword.hpp"
 
-bool loadMasterFromDB(const string &path, bool castForce);
 
-bool PhoenixWord::loadMaster(bool castForce) {
-  auto master = database_ + "/master/word_parrot";
-  DUMP_VAR(master);
-  return loadMasterFromDB(master, castForce);
+map<string, int> PhoenixWord::multiWordOfOneArticle_;
+
+bool PhoenixWord::loadMaster(bool forceCast) {
+  if(dictInputCN_.loadMasterFromDB(database_+"/cn") == false) {
+    return false;
+  }
+  if(dictInputJA_.loadMasterFromDB(database_+"/ja") == false) {
+    return false;
+  }
+  return true;
 }
 
-void unloadMasterFromDB(void);
-void PhoenixWord::unloadMaster(void) { unloadMasterFromDB(); }
+void PhoenixWord::unloadMaster(void) {
+  dictInputCN_.unloadMasterFromDB();
+  dictInputJA_.unloadMasterFromDB();
+}
 
-void PhoenixWord::push2DB(void) {
-  for (auto wp : gMultiWordSum) {
-    TRACE_VAR(wp.first, wp.second);
-    if (wp.second > minWordRepeateTimes_) {
+
+
+void PhoenixWord::collectWord(void) {
+  for (auto word : prediWords_) {
+    auto it = multiWordOfOneArticle_.find(word);
+    if (it != multiWordOfOneArticle_.end()) {
+      it->second++;
+    } else {
+      multiWordOfOneArticle_[word] = 1;
     }
   }
 }
