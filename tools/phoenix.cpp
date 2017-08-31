@@ -34,7 +34,7 @@ static string bugTxt(
     u8"，影片讲述了江湖三大高手之一的笑三少遭人陷害亡命天涯并"
     u8"追查事情真相的故事。");
 
-/*
+
 int main(int ac,char*av[])
 {
 
@@ -62,7 +62,8 @@ int main(int ac,char*av[])
   phoenix.unloadMaster();
   return 0;
 }
-*/
+
+/*
 
 int main(int ac, char *av[]) {
   PhoenixWord phoenix("./db/baidu.baike");
@@ -88,3 +89,4 @@ int main(int ac, char *av[]) {
   DUMP_VAR(txtPump.statistics());
   return 0;
 }
+*/
