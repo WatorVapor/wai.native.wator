@@ -341,7 +341,7 @@ struct my_visitor : boost::default_bfs_visitor{
   
   static int counter = 0;
   struct sample_graph_writer {
-    void operator()(std::ostream& out, int i) const {
+    void operator()(std::ostream& out, void*) const {
       auto word = labelVertex.at(counter);
       out << " [ label = \"";
       out << word;
