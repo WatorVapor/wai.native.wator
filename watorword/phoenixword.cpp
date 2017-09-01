@@ -497,7 +497,7 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
   DUMP_VAR(dotStr);
   // dot -v -T svg 1.dot -o 1.svg
 
-  counter = 0;
+  //counter = 0;
   labelVertex.clear();
 }
 
