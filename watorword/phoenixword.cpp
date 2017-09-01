@@ -231,6 +231,7 @@ void PhoenixWord::calcPrediction(void) {
 #include <boost/graph/directed_graph.hpp>
 #include <boost/graph/graph_utility.hpp>
 #include <boost/graph/graphviz.hpp>
+#include <boost/graph/dijkstra_shortest_paths.hpp>
 #include <sstream>
 #include <string>
 #include <utility>
@@ -243,6 +244,7 @@ typedef boost::directed_graph<> Graph;
 
 typedef std::pair<string, string> Edge;
 typedef boost::graph_traits<Graph>::vertex_descriptor Vertex;
+
 
 
 void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
@@ -303,11 +305,7 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
         break;
       }
     }
-
-  // add dummy end.
-  {
-  }
-  
+    // add dummy end.
     if(posLast == position + range) {
       auto rangeSelf = vertexs.equal_range(position);
       for (auto itSelf = rangeSelf.first; itSelf != rangeSelf.second; itSelf++) {
@@ -320,6 +318,14 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
       }
     }
   }
+  
+  std::vector<Vertex> parents(boost::num_vertices(g));
+  boost::dijkstra_shortest_paths(g, vrtxStart,
+                boost::predecessor_map(&parents[0]));
+  if (parents[vrtxEnd] == vrtxEnd) {
+    std::cout << "no path" << std::endl;
+ }
+  
   static int counter = 0;
   struct sample_graph_writer {
     void operator()(std::ostream& out, void* data) const {
