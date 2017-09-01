@@ -53,6 +53,7 @@ void PhoenixWord::getRawRank(const vector<string> &Bytes,const string &lang) {
   wordHintSeq_.clear();
   statisticsRank_.clear();
   noConflictWordSeq_.clear();
+  wordSeqTopSelected_.clear();
   ap_++;
 
   list<string> preWords;
