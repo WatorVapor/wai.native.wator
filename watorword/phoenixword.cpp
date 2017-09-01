@@ -143,38 +143,11 @@ void PhoenixWord::adjustRank() {
   }
 }
 
-static vector<size_t> find_all_substr(const string &sub, const string &text) {
-  vector<size_t> positions;
-  auto pos = text.find(sub, 0);
-  while (pos != string::npos) {
-    positions.push_back(pos);
-    pos = text.find(sub, pos + 1);
-  }
-  return positions;
-}
 
-/*
-void PhoenixWord::cutTextByRank(const string &text) {
-  for (auto it = phoenixRank_.begin(); it != phoenixRank_.end(); it++) {
-    auto rankRepeat = std::get<0>(it->second);
-    auto rankorig = std::get<1>(it->second);
-    TRACE_VAR(rankRepeat);
-    auto word = it->first;
-    TRACE_VAR(word);
-    auto posAll = find_all_substr(word, text);
-    for (auto pos : posAll) {
-      auto range = word.size();
-      TRACE_VAR(word, pos, range, rankRepeat, rankorig);
-      auto elem =
-          std::make_tuple(word, pos, word.size(), rankRepeat, rankorig, 0);
-      wordSeq_.insert(std::make_pair(pos, elem));
-    }
-  }
-}
-*/
 
 #include <boost/algorithm/string.hpp>
 
+#if 0
 void PhoenixWord::getWordPrediction(const string &text) {
   string textRemain(text);
   for (auto elem : wordSeqTopSelected_) {
@@ -198,11 +171,12 @@ void PhoenixWord::getWordPrediction(const string &text) {
     }
   }
 }
+#endif
 
 void PhoenixWord::getNoConflictSeq(void) {
   multimap<int, WordElement> nocfWordSeq;
   int maxPreCover = 0;
-  for (auto it = wordSeq_.begin(); it != wordSeq_.end(); it++) {
+  for (auto it = wordHintSeq_.begin(); it != wordHintSeq_.end(); it++) {
     if (wordSeq_.begin() == it) {
       nocfWordSeq.insert(std::make_pair(it->first, it->second));
       continue;
