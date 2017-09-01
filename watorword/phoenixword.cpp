@@ -233,7 +233,8 @@ void PhoenixWord::calcPrediction(void) {
 #include <boost/graph/breadth_first_search.hpp>
 #include <boost/graph/graph_utility.hpp>
 #include <boost/graph/graphviz.hpp>
-
+#include <boost/pending/indirect_cmp.hpp>
+#include <boost/range/irange.hpp>
 #include <iostream>
 
 typedef boost::adjacency_list<> Graph;
