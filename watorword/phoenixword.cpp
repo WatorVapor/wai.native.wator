@@ -407,7 +407,7 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
   DUMP_VAR(dotStr);
   // dot -v -T svg 1.dot -o 1.svg
 
-#if 0  
+#if 1  
   std::vector < Size > dtime(num_vertices(g));
   dtime_pm_type dtime_pm(dtime.begin(), get(vertex_index, g));
   Size time = 0;
@@ -416,7 +416,8 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
   boost::breadth_first_search(g, boost::vertex(vrtxStart, g), boost::visitor(vis));
   
   std::vector<graph_traits<graph_t>::vertices_size_type > discover_order(vrtxEnd);
-
+  integer_range < int >range(0, vrtxEnd);
+  std::copy(range.begin(), range.end(), discover_order.begin());
   std::sort(discover_order.begin(), discover_order.end(),
             indirect_cmp < dtime_pm_type, std::less < Size > >(dtime_pm));
 
@@ -427,13 +428,14 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
   }
   std::cout << std::endl;
 #endif
-  
+#if 0  
   std::vector<Vertex> parents(boost::num_vertices(g));
   boost::dijkstra_shortest_paths(g, vrtxStart,
                 boost::predecessor_map(&parents[0]));
   
   for (Vertex v = vrtxStart; v != vrtxEnd; v = parents[v]) {
   }
+#endif
   
   labelVertex.clear();
 }
