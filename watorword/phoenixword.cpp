@@ -45,7 +45,7 @@ void PhoenixWord::learn(const vector<string> &wordBytes, const string &text,cons
 
 
 void PhoenixWord::commitArticle(void) {
-  gMultiWordSum.clear();
+  multiWordOfOneArticle_.clear();
 }
 
 void PhoenixWord::getRawRank(const vector<string> &Bytes,const string &lang) {
@@ -129,7 +129,7 @@ void PhoenixWord::adjustRank() {
     auto word = rPair.first;
     auto weight = std::get<0>(rPair.second);
     TRACE_VAR(word, weight, word.size());
-    double rate = (double)word.size() / (double)rawRankMinWordSize_ - 1.0;
+    double rate = (double)word.size() / (double)statisticsMinWordSize_ - 1.0;
     double rate2 = ::pow(gWeightAdjustBase, rate);
     if (rate > gWeightAdjustRateMax) {
       DUMP_VAR4(word, word.size(), rawRankMinWordSize_, rate);
