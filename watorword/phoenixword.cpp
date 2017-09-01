@@ -478,7 +478,7 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
   
   static int counter = 0;
   struct sample_graph_writer {
-    void operator()(std::ostream& out, void*) const {
+    void operator()(std::ostream& out, int i) const {
       auto word = labelVertex.at(counter);
       out << " [ label = \"";
       out << word;
