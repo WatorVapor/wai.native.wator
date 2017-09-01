@@ -384,6 +384,17 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
   boost::breadth_first_search(g, boost::vertex(vrtxStart, g), boost::visitor(vis));
   
   std::vector<graph_traits<graph_t>::vertices_size_type > discover_order(vrtxEnd);
+
+  std::sort(discover_order.begin(), discover_order.end(),
+            indirect_cmp < dtime_pm_type, std::less < Size > >(dtime_pm));
+
+  std::cout << "order of discovery: ";
+  for (int i = 0; i < labelVertex.size(); ++i) {
+    //DUMP_VAR2(dotStr);
+    std::cout << "i:"<< discover_order[i] << ":" << labelVertex.at(discover_order[i]) << " ";
+  }
+  std::cout << std::endl;
+  
   
   /*
   std::vector<Vertex> parents(boost::num_vertices(g));
