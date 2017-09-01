@@ -221,10 +221,13 @@ void PhoenixWord::calcPrediction(void) {
          DUMP_VAR5(word,pos,range,weight,weight_orig);
         }
     */
+    this->calcPrediction(clearSeq);
     // std::cout << "%%%%%%%%%%%%%%%%" <<std::endl;
   }
 }
 
+void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
+}
 #include <typeinfo>
 #include "treeword.hpp"
 
