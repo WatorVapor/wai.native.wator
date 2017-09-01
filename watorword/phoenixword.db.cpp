@@ -45,17 +45,6 @@ void PhoenixWord::collectWord(void) {
   }
 }
 
-void PhoenixWord::dumpSeq() {
-  for (auto elem : wordSeq_) {
-    TRACE_VAR(elem.first);
-    auto word = std::get<0>(elem.second);
-    auto pos = std::get<1>(elem.second);
-    auto range = std::get<2>(elem.second);
-    auto weight = std::get<3>(elem.second);
-    auto weight_orig = std::get<4>(elem.second);
-    DUMP_VAR5(word, pos, range, weight, weight_orig);
-  }
-}
 
 void PhoenixWord::dumpPreds() {
   for (auto elem : wordSeqTopSelected_) {
@@ -83,15 +72,8 @@ void PhoenixWord::dumpClearSeq() {
   }
 }
 
-void PhoenixWord::dumpRank() {
-  for (auto rPair : phoenixRank_) {
-    auto word = rPair.first;
-    auto weight = std::get<0>(rPair.second);
-    auto weight_orig = std::get<1>(rPair.second);
-    DUMP_VAR4(word, word.size(), weight, weight_orig);
-  }
-}
 
+/*
 void PhoenixWord::dumpPredWords() {
   for (auto phoenix : prediWords_) {
   std:
@@ -99,6 +81,7 @@ void PhoenixWord::dumpPredWords() {
   }
   std::cout << std::endl;
 }
+*/
 
 
 
