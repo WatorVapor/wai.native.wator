@@ -58,5 +58,5 @@ class ParrotWord {
 
   static map<string, int> multiWordOfOneArticle_;
   const int gWordLength = 32;
-  const int minWordRepeateTimes_ = 9;
+  const int minWordRepeateTimes_ = 5;
 };
