@@ -35,6 +35,7 @@ void PhoenixWord::unloadMaster(void) {
 
 
 void PhoenixWord::collectWord(void) {
+  /*
   for (auto word : prediWords_) {
     auto it = multiWordOfOneArticle_.find(word);
     if (it != multiWordOfOneArticle_.end()) {
@@ -43,6 +44,7 @@ void PhoenixWord::collectWord(void) {
       multiWordOfOneArticle_[word] = 1;
     }
   }
+  */
 }
 
 
