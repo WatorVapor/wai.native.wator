@@ -38,9 +38,9 @@ void PhoenixWord::learn(const vector<string> &wordBytes, const string &text,cons
   //  this->dumpSeq();
 
   this->getNoConflictSeq();
-  //  this->dumpClearSeq();
+  this->dumpClearSeq();
 
-  //this->calcPrediction();
+  this->calcPrediction();
 }
 
 
@@ -208,7 +208,6 @@ void PhoenixWord::getNoConflictSeq(void) {
   }
 }
 
-#if 0
 void PhoenixWord::calcPrediction(void) {
   for (auto clearSeq : noConflictWordSeq_) {
     // std::cout << "%%%%%%%%%%%%%%%%" <<std::endl;
@@ -222,12 +221,9 @@ void PhoenixWord::calcPrediction(void) {
          DUMP_VAR5(word,pos,range,weight,weight_orig);
         }
     */
-    this->calcPrediction(clearSeq);
     // std::cout << "%%%%%%%%%%%%%%%%" <<std::endl;
   }
-  this->mergeWordPrediction();
 }
-#endif
 
 #include <typeinfo>
 #include "treeword.hpp"
