@@ -460,7 +460,7 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
         auto wordSelf = std::get<0>(itSelf->second);
         auto vrtxSelf = std::get<1>(itSelf->second);
         if (word == wordSelf) {
-          add_edge(vrtxSelf vrtxEnd,g);
+          add_edge(vrtxSelf,vrtxEnd,g);
           break;
         }
       }
