@@ -237,10 +237,13 @@ void PhoenixWord::calcPrediction(void) {
 #include <iostream>
 
 typedef boost::adjacency_list<> Graph;
+typedef Graph Graph graph_t;
 typedef Graph::vertex_descriptor Vertex;
 
 
 using namespace boost;
+
+#if 0
 template < typename TimeMap > class bfs_time_visitor:public default_bfs_visitor {
   typedef typename property_traits < TimeMap >::value_type T;
 public:
@@ -253,6 +256,41 @@ public:
   TimeMap m_timemap;
   T & m_time;
 };
+
+#endif
+
+
+struct my_bfs_visitor : boost::default_bfs_visitor{
+
+    void initialize_vertex(const graph_t::vertex_descriptor &s, const graph_t &g) const {
+      std::cout << "Initialize: " << g[s] << std::endl;
+    }
+    void discover_vertex(const graph_t::vertex_descriptor &s, const graph_t &g) const {
+      std::cout << "Discover: " << g[s] << std::endl;
+    }
+    void examine_vertex(const graph_t::vertex_descriptor &s, const graph_t &g) const {
+      std::cout << "Examine vertex: " << g[s] << std::endl;
+    }
+    void examine_edge(const graph_t::edge_descriptor &e, const graph_t &g) const {
+      std::cout << "Examine edge: " << g[e] << std::endl;
+    }
+    void tree_edge(const graph_t::edge_descriptor &e, const graph_t &g) const {
+      std::cout << "Tree edge: " << g[e] << std::endl;
+    }
+    void non_tree_edge(const graph_t::edge_descriptor &e, const graph_t &g) const {
+      std::cout << "Non-Tree edge: " << g[e] << std::endl;
+    }
+    void gray_target(const graph_t::edge_descriptor &e, const graph_t &g) const {
+      std::cout << "Gray target: " << g[e] << std::endl;
+    }
+    void black_target(const graph_t::edge_descriptor &e, const graph_t &g) const {
+      std::cout << "Black target: " << g[e] << std::endl;
+    }
+    void finish_vertex(const graph_t::vertex_descriptor &s, const graph_t &g) const {
+      std::cout << "Finish vertex: " << g[s] << std::endl;
+    }
+  };
+
 
 
 
@@ -328,6 +366,7 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
     }
   }
 
+  my_bfs_visitor vis;
   
   boost::breadth_first_search(g, vrtxStart, boost::visitor(vis).vertex_index_map(get(boost::vertex_bundle,g)));
 
