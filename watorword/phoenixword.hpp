@@ -33,8 +33,6 @@ class PhoenixWord {
  private:
   void getRawRank(const vector<string> &Bytes,const string &lang);
   void adjustRank(void);
-  void cutTextByRank(const string &text);
-
   void getNoConflictSeq(void);
   void dumpClearSeq(void);
 
@@ -44,8 +42,6 @@ class PhoenixWord {
 
   void mergeWordPrediction(void);
 
-  void push2DB(void);
-  void fetchPrediction(shared_ptr<PredictionTree> predTree);
   
   void collectWord(void);
 
@@ -66,12 +62,8 @@ class PhoenixWord {
   map<string, tuple<double, double>> statisticsRank_;
   int statisticsMinWordSize_;  
   multimap<int, WordElement> wordHintSeq_;
-  multimap<int, WordElement> wordSeq_;
   vector<multimap<int, WordElement>> noConflictWordSeq_;
-  multimap<int, WordElement> wordSeqTopSelected_;
-  vector<string> prediWords_;
 
-  static map<string, int> gMultiWordSum;  
   static map<string, int> multiWordOfOneArticle_;
   
   const int gWordLength = 32;
