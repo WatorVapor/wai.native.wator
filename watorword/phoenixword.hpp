@@ -37,14 +37,11 @@ class PhoenixWord {
   void dumpClearSeq(void);
 
   void calcPrediction(void);
-  void calcPrediction(const multimap<int, WordElement> &clearWordSeq);
-  void getWordPrediction(const string &text);
 
-  void mergeWordPrediction(void);
-
-  
+ 
   void collectWord(void);
 
+  
   void dumpRank();
   void dumpSeq();
   void dumpPreds();
