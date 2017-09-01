@@ -55,12 +55,9 @@ class PhoenixWord {
   MasterDBWord dictInputCN_;
   MasterDBWord dictInputJA_;
 
-  map<string, tuple<double, double>> phoenixRank_;
-  int rawRankMinWordSize_;
-  int ap_;
-
   map<string, tuple<double, double>> statisticsRank_;
   int statisticsMinWordSize_;  
+  int ap_;
   multimap<int, WordElement> wordHintSeq_;
   vector<multimap<int, WordElement>> noConflictWordSeq_;
 
