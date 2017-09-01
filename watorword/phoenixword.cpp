@@ -177,7 +177,7 @@ void PhoenixWord::getNoConflictSeq(void) {
   multimap<int, WordElement> nocfWordSeq;
   int maxPreCover = 0;
   for (auto it = wordHintSeq_.begin(); it != wordHintSeq_.end(); it++) {
-    if (wordSeq_.begin() == it) {
+    if (wordHintSeq_.begin() == it) {
       nocfWordSeq.insert(std::make_pair(it->first, it->second));
       continue;
     }
