@@ -243,7 +243,7 @@ typedef Graph::vertex_descriptor Vertex;
 
 using namespace boost;
 
-#if 0
+#if 1
 template < typename TimeMap > class bfs_time_visitor:public default_bfs_visitor {
   typedef typename property_traits < TimeMap >::value_type T;
 public:
@@ -257,9 +257,17 @@ public:
   T & m_time;
 };
 
+
+typedef
+  iterator_property_map<std::vector<Size>::iterator,
+                        property_map<graph_t, vertex_index_t>::const_type>
+    dtime_pm_type;
+typedef graph_traits < graph_t >::vertices_size_type Size;
+
 #endif
 
 
+#if 0
 struct my_bfs_visitor : boost::default_bfs_visitor{
 
     void initialize_vertex(const graph_t::vertex_descriptor &s, const graph_t &g) const {
@@ -290,7 +298,7 @@ struct my_bfs_visitor : boost::default_bfs_visitor{
       std::cout << "Finish vertex: " << g[s] << std::endl;
     }
   };
-
+#endif
 
 
 
@@ -366,9 +374,12 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
     }
   }
 
-  my_bfs_visitor vis;
-  
-  boost::breadth_first_search(g, vrtxStart, boost::visitor(vis).vertex_index_map(get(boost::vertex_bundle,g)));
+  std::vector < Size > dtime(num_vertices(g));
+  dtime_pm_type dtime_pm(dtime.begin(), get(vertex_index, g));
+  Size time = 0;
+  bfs_time_visitor < dtime_pm_type >vis(dtime_pm, time);
+
+  boost::breadth_first_search(g, boost::vertex(vrtxStart, g), boost::visitor(vis));
 
   /*
   std::vector<Vertex> parents(boost::num_vertices(g));
