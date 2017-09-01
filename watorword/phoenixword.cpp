@@ -377,24 +377,6 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
     }
   }
 
-  std::vector < Size > dtime(num_vertices(g));
-  dtime_pm_type dtime_pm(dtime.begin(), get(vertex_index, g));
-  Size time = 0;
-  bfs_time_visitor < dtime_pm_type >vis(dtime_pm, time);
-
-  boost::breadth_first_search(g, boost::vertex(vrtxStart, g), boost::visitor(vis));
-  
-  std::vector<graph_traits<graph_t>::vertices_size_type > discover_order(vrtxEnd);
-
-  std::sort(discover_order.begin(), discover_order.end(),
-            indirect_cmp < dtime_pm_type, std::less < Size > >(dtime_pm));
-
-  std::cout << "order of discovery: ";
-  for (int i = 0; i < labelVertex.size(); ++i) {
-    //DUMP_VAR2(dotStr);
-    std::cout << i << ":"<< discover_order[i] << ":" << labelVertex.at(discover_order[i]) << " ";
-  }
-  std::cout << std::endl;
   
   
   /*
@@ -422,6 +404,27 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
   DUMP_VAR(dotStr);
   // dot -v -T svg 1.dot -o 1.svg
 
+  
+    std::vector < Size > dtime(num_vertices(g));
+  dtime_pm_type dtime_pm(dtime.begin(), get(vertex_index, g));
+  Size time = 0;
+  bfs_time_visitor < dtime_pm_type >vis(dtime_pm, time);
+
+  boost::breadth_first_search(g, boost::vertex(vrtxStart, g), boost::visitor(vis));
+  
+  std::vector<graph_traits<graph_t>::vertices_size_type > discover_order(vrtxEnd);
+
+  std::sort(discover_order.begin(), discover_order.end(),
+            indirect_cmp < dtime_pm_type, std::less < Size > >(dtime_pm));
+
+  std::cout << "order of discovery: ";
+  for (int i = 0; i < labelVertex.size(); ++i) {
+    //DUMP_VAR2(dotStr);
+    std::cout << i << ":"<< discover_order[i] << ":" << labelVertex.at(discover_order[i]) << " ";
+  }
+  std::cout << std::endl;
+
+  
   labelVertex.clear();
 }
 
