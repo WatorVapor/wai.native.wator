@@ -326,12 +326,13 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
   }
 
   
-struct my_visitor : boost::default_bfs_visitor{
+  struct my_visitor : boost::default_bfs_visitor{
     void discover_vertex(const graph_t::vertex_descriptor &s, const graph_t &g) const {
       //std::cout << "Discover: " << g[s] << std::endl;
     }
   };
-  my_visitor vis;
+  //my_visitor vis;
+  boost::default_bfs_visitor vis;
   boost::breadth_first_search(g, vrtxStart, boost::visitor(vis).vertex_index_map(get(boost::vertex_bundle,g)));
 
   /*
