@@ -343,8 +343,10 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
   counter = 0;
   labelVertex.clear();
 }
-#include <typeinfo>
-#include "treeword.hpp"
+
+
+//#include <typeinfo>
+//#include "treeword.hpp"
 
 #if 0
 void PhoenixWord::calcPrediction(
