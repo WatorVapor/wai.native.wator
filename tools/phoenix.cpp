@@ -44,7 +44,7 @@ int main(int ac,char*av[])
   }
   auto learnPhoenix = [&](string wordStr, vector<string> word) {
     phoenix.learn(word,wordStr,"cn");
-    phoenix.dumpDot();
+    //phoenix.dumpDot();
   };
 
   CtrlClaw claw;
