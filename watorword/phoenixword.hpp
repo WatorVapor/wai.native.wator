@@ -14,7 +14,7 @@ namespace pt = boost::property_tree;
 
 #include "word_db_master.hpp"
 
-class PredictionTree;
+//class PredictionTree;
 
 class PhoenixWord {
   //typedef std::tuple<std::string, int, int, double, double, int> WordElement;
