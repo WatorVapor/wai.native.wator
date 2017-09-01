@@ -237,7 +237,7 @@ void PhoenixWord::calcPrediction(void) {
 #include <iostream>
 
 typedef boost::adjacency_list<> Graph;
-typedef Graph Graph graph_t;
+typedef Graph graph_t;
 typedef Graph::vertex_descriptor Vertex;
 
 
