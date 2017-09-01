@@ -15,11 +15,8 @@ using namespace std;
 #include "log.hpp"
 #include "phoenixword.hpp"
 
-double getDoublePred(const string &word);
 
-map<string, int> PhoenixWord::gMultiWordSum;
 
-static int iConstWordBatchMax = 1000;
 static const int gWeightAdjustBase = 4;
 static const double gWeightAdjustRateMax = 16.0;
 
@@ -46,16 +43,6 @@ void PhoenixWord::learn(const vector<string> &wordBytes, const string &text,cons
   //this->calcPrediction();
 }
 
-void PhoenixWord::mergeWordPrediction(void) {
-  for (auto phoenix : prediWords_) {
-    auto it = gMultiWordSum.find(phoenix);
-    if (it != gMultiWordSum.end()) {
-      it->second++;
-    } else {
-      gMultiWordSum[phoenix] = 1;
-    }
-  }
-}
 
 void PhoenixWord::commitArticle(void) {
   gMultiWordSum.clear();
