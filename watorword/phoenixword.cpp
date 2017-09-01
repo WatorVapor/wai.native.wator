@@ -227,6 +227,7 @@ void PhoenixWord::calcPrediction(void) {
   }
 }
 
+#if 1
 
 #include <boost/graph/directed_graph.hpp>
 #include <boost/graph/breadth_first_search.hpp>
@@ -363,66 +364,140 @@ struct my_visitor : boost::default_bfs_visitor{
   counter = 0;
   labelVertex.clear();
 }
-
-
-//#include <typeinfo>
-//#include "treeword.hpp"
+#endif
 
 #if 0
-void PhoenixWord::calcPrediction(
-    const multimap<int, WordElement> &clearWordSeq) {
-  auto predTree = std::make_shared<PredictionTree>();
-  // DUMP_VAR(typeid(predTree).name());
-  bool seqResult = predTree->setWordSeq(clearWordSeq);
-  if (seqResult) {
-    fetchPrediction(predTree);
-  } else {
-    vector<multimap<int, WordElement>> splitedSeq;
-    predTree->splitComplexWordSeq(clearWordSeq, splitedSeq);
-    if (splitedSeq.size() > 1) {
-      int i = 0;
-      for (auto seq : splitedSeq) {
-        DUMP_VAR2(i++, splitedSeq.size());
-        for (auto elem : seq) {
-          auto word = std::get<0>(elem.second);
-          auto pos = std::get<1>(elem.second);
-          auto range = std::get<2>(elem.second);
-          auto weight = std::get<3>(elem.second);
-          auto weight_orig = std::get<4>(elem.second);
-          DUMP_VAR5(word, pos, range, weight, weight_orig);
+#include <boost/graph/adjacency_list.hpp>
+#include <boost/graph/breadth_first_search.hpp>
+#include <boost/graph/graph_utility.hpp>
+#include <boost/graph/graphviz.hpp>
+
+#include <iostream>
+
+typedef boost::adjacency_list<boost::vecS, boost::hash_setS, boost::undirectedS, uint32_t, uint32_t, boost::no_property> graph_t;
+
+
+using namespace boost;
+template < typename TimeMap > class bfs_time_visitor:public default_bfs_visitor {
+  typedef typename property_traits < TimeMap >::value_type T;
+public:
+  bfs_time_visitor(TimeMap tmap, T & t):m_timemap(tmap), m_time(t) { }
+  template < typename Vertex, typename Graph >
+    void discover_vertex(Vertex u, const Graph & g) const
+  {
+    put(m_timemap, u, m_time++);
+  }
+  TimeMap m_timemap;
+  T & m_time;
+};
+
+
+
+void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
+  Graph g;
+  multimap<int, std::tuple<string, Vertex>> vertexs;
+  static vector<string> labelVertex;
+  
+  auto vrtxStart = g.add_vertex();
+  auto vrtxPrStart = std::make_tuple("S", vrtxStart);
+  vertexs.insert(std::make_pair(-1, vrtxPrStart));
+  labelVertex.push_back("S");
+  
+  int posLast = 0;
+  for (auto elem : confuse) {
+    auto word = std::get<0>(elem.second);
+    auto position = std::get<1>(elem.second);
+    auto vrtx = g.add_vertex();
+    auto vrtxPr = std::make_tuple(word, vrtx);
+    vertexs.insert(std::make_pair(position, vrtxPr));
+    labelVertex.push_back(word);
+    posLast = position + word.size();
+  }
+  auto vrtxEnd = g.add_vertex();
+  auto vrtxPrvrtxEnd = std::make_tuple("E", vrtxEnd);
+  vertexs.insert(std::make_pair(posLast,vrtxPrvrtxEnd));
+  labelVertex.push_back("E");
+ 
+  // add dummy start.
+  {
+    auto rangeSelf = vertexs.equal_range(0);
+    for (auto itSelf = rangeSelf.first; itSelf != rangeSelf.second; itSelf++) {
+      auto wordSelf = std::get<0>(itSelf->second);
+      auto vrtxSelf = std::get<1>(itSelf->second);
+      g.add_edge(vrtxStart, vrtxSelf);
+    }
+  }
+  
+
+  
+  
+  
+  for (auto elem : wordHintSeq_) {
+    auto word = std::get<0>(elem.second);
+    auto position = std::get<1>(elem.second);
+    auto range = std::get<2>(elem.second);
+    auto next = position + range;
+    auto rangeSelf = vertexs.equal_range(position);
+    for (auto itSelf = rangeSelf.first; itSelf != rangeSelf.second; itSelf++) {
+      auto wordSelf = std::get<0>(itSelf->second);
+      auto vrtxSelf = std::get<1>(itSelf->second);
+      if (word == wordSelf) {
+        auto rangeNext = vertexs.equal_range(next);
+        for (auto itNext = rangeNext.first; itNext != rangeNext.second;
+             itNext++) {
+          auto vrtxNext = std::get<1>(itNext->second);
+          g.add_edge(vrtxSelf, vrtxNext);
         }
-        calcPrediction(seq);
+        break;
+      }
+    }
+    // add dummy end.
+    if(posLast == position + range) {
+      auto rangeSelf = vertexs.equal_range(position);
+      for (auto itSelf = rangeSelf.first; itSelf != rangeSelf.second; itSelf++) {
+        auto wordSelf = std::get<0>(itSelf->second);
+        auto vrtxSelf = std::get<1>(itSelf->second);
+        if (word == wordSelf) {
+          g.add_edge(vrtxSelf, vrtxEnd);
+          break;
+        }
       }
     }
   }
+
+  
+  my_visitor vis;
+  boost::breadth_first_search(g, vrtxStart, boost::visitor(vis).vertex_index_map(get(boost::vertex_bundle,g)));
+
+  /*
+  std::vector<Vertex> parents(boost::num_vertices(g));
+  boost::dijkstra_shortest_paths(g, vrtxStart,
+                boost::predecessor_map(&parents[0]));
+  */
+  
+  static int counter = 0;
+  struct sample_graph_writer {
+    void operator()(std::ostream& out, void*) const {
+      auto word = labelVertex.at(counter);
+      out << " [ label = \"";
+      out << word;
+      out << "\" ]";
+      counter++;
+    }
+  };
+  sample_graph_writer gw;
+
+  std::stringstream ss;
+  boost::write_graphviz(ss, g, gw);
+  auto dotStr = ss.str();
+  boost::algorithm::replace_all(
+      dotStr, "digraph G {",
+      "digraph G { \n rankdir=LR;\n graph [charset=\"UTF-8\"];\n");
+  DUMP_VAR(dotStr);
+  // dot -v -T svg 1.dot -o 1.svg
+
+  counter = 0;
+  labelVertex.clear();
 }
 
-
-void PhoenixWord::fetchPrediction(shared_ptr<PredictionTree> predTree) {
-  // predTree->dumpAllPreds();
-  multimap<int, vector<WordElement>> flat;
-  double weightSum = 0.0;
-  predTree->flatPredSeq(flat, weightSum);
-
-  TRACE_VAR(weightSum);
-  auto top = flat.rbegin();
-  int maxTop = 1;
-  for (; top != flat.rend(); top++) {
-    std::cout << "-------------" << std::endl;
-    auto fredFloat = (double)(top->first) / (double)(weightSum);
-    DUMP_VAR2(weightSum, fredFloat);
-    if (--maxTop < 0) {
-      break;
-    }
-    for (auto elem : top->second) {
-      auto word = std::get<0>(elem);
-      auto pos = std::get<1>(elem);
-      auto range = std::get<2>(elem);
-      auto weight = std::get<3>(elem);
-      auto weight_orig = std::get<4>(elem);
-      DUMP_VAR5(word, pos, range, weight, weight_orig);
-      prediWords_.push_back(word);
-    }
-  }
-}
-#endif 
+#endif
