@@ -235,6 +235,9 @@ void PhoenixWord::calcPrediction(void) {
 #include <boost/graph/graphviz.hpp>
 #include <boost/pending/indirect_cmp.hpp>
 #include <boost/range/irange.hpp>
+
+#include <boost/graph/dijkstra_shortest_paths.hpp>
+
 #include <iostream>
 
 typedef boost::adjacency_list<> Graph;
@@ -404,8 +407,8 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
   DUMP_VAR(dotStr);
   // dot -v -T svg 1.dot -o 1.svg
 
-  
-    std::vector < Size > dtime(num_vertices(g));
+#if 0  
+  std::vector < Size > dtime(num_vertices(g));
   dtime_pm_type dtime_pm(dtime.begin(), get(vertex_index, g));
   Size time = 0;
   bfs_time_visitor < dtime_pm_type >vis(dtime_pm, time);
@@ -423,7 +426,14 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
     std::cout << i << ":"<< discover_order[i] << ":" << labelVertex.at(discover_order[i]) << " ";
   }
   std::cout << std::endl;
-
+#endif
+  
+  std::vector<Vertex> parents(boost::num_vertices(g));
+  boost::dijkstra_shortest_paths(g, vrtxStart,
+                boost::predecessor_map(&parents[0]));
+  
+  for (Vertex v = vrtxStart; v != vrtxEnd; v = parents[v]) {
+  }
   
   labelVertex.clear();
 }
