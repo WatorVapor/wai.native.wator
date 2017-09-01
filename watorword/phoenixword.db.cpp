@@ -137,9 +137,6 @@ void PhoenixWord::dumpDot(void) {
       g.add_edge(vrtxStart, vrtxSelf);
     }
   }
-  // add dummy end.
-  {
-  }
   
   
 
@@ -165,6 +162,7 @@ void PhoenixWord::dumpDot(void) {
         break;
       }
     }
+  // add dummy end.
     if(posLast == position + range) {
       auto rangeSelf = vertexs.equal_range(position);
       for (auto itSelf = rangeSelf.first; itSelf != rangeSelf.second; itSelf++) {
