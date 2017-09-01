@@ -421,9 +421,9 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
   std::sort(discover_order.begin(), discover_order.end(),
             indirect_cmp < dtime_pm_type, std::less < Size > >(dtime_pm));
 
+  DUMP_VAR(labelVertex.size());
   std::cout << "order of discovery: ";
   for (int i = 0; i < labelVertex.size(); ++i) {
-    //DUMP_VAR2(dotStr);
     std::cout << i << ":"<< discover_order[i] << ":" << labelVertex.at(discover_order[i]) << " ";
   }
   std::cout << std::endl;
