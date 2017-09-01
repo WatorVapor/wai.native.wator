@@ -326,31 +326,31 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
 struct my_visitor : boost::default_bfs_visitor{
 
     void initialize_vertex(const graph_t::vertex_descriptor &s, const graph_t &g) const {
-      std::cout << "Initialize: " << g[s] << std::endl;
+      //std::cout << "Initialize: " << g[s] << std::endl;
     }
     void discover_vertex(const graph_t::vertex_descriptor &s, const graph_t &g) const {
-      std::cout << "Discover: " << g[s] << std::endl;
+      //std::cout << "Discover: " << g[s] << std::endl;
     }
     void examine_vertex(const graph_t::vertex_descriptor &s, const graph_t &g) const {
-      std::cout << "Examine vertex: " << g[s] << std::endl;
+      //std::cout << "Examine vertex: " << g[s] << std::endl;
     }
     void examine_edge(const graph_t::edge_descriptor &e, const graph_t &g) const {
-      std::cout << "Examine edge: " << g[e] << std::endl;
+      //std::cout << "Examine edge: " << g[e] << std::endl;
     }
     void tree_edge(const graph_t::edge_descriptor &e, const graph_t &g) const {
-      std::cout << "Tree edge: " << g[e] << std::endl;
+      //std::cout << "Tree edge: " << g[e] << std::endl;
     }
     void non_tree_edge(const graph_t::edge_descriptor &e, const graph_t &g) const {
-      std::cout << "Non-Tree edge: " << g[e] << std::endl;
+      //std::cout << "Non-Tree edge: " << g[e] << std::endl;
     }
     void gray_target(const graph_t::edge_descriptor &e, const graph_t &g) const {
-      std::cout << "Gray target: " << g[e] << std::endl;
+      //std::cout << "Gray target: " << g[e] << std::endl;
     }
     void black_target(const graph_t::edge_descriptor &e, const graph_t &g) const {
-      std::cout << "Black target: " << g[e] << std::endl;
+      //std::cout << "Black target: " << g[e] << std::endl;
     }
     void finish_vertex(const graph_t::vertex_descriptor &s, const graph_t &g) const {
-      std::cout << "Finish vertex: " << g[s] << std::endl;
+      //std::cout << "Finish vertex: " << g[s] << std::endl;
     }
   };
   my_visitor vis;
