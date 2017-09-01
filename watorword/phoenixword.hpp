@@ -60,6 +60,7 @@ class PhoenixWord {
   int ap_;
   multimap<int, WordElement> wordHintSeq_;
   vector<multimap<int, WordElement>> noConflictWordSeq_;
+  multimap<int, WordElement> wordSeqTopSelected_;
 
   static map<string, int> multiWordOfOneArticle_;
   
