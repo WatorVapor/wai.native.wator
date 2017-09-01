@@ -241,6 +241,8 @@ using namespace boost::graph_detail;
 #include <boost/algorithm/string.hpp>
 
 typedef boost::directed_graph<> Graph;
+typedef boost::directed_graph<> graph_t;
+
 
 typedef std::pair<string, string> Edge;
 typedef boost::graph_traits<Graph>::vertex_descriptor Vertex;
