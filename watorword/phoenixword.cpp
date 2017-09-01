@@ -322,9 +322,6 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
   std::vector<Vertex> parents(boost::num_vertices(g));
   boost::dijkstra_shortest_paths(g, vrtxStart,
                 boost::predecessor_map(&parents[0]));
-  if (parents[vrtxEnd] == vrtxEnd) {
-    std::cout << "no path" << std::endl;
- }
   
   static int counter = 0;
   struct sample_graph_writer {
