@@ -37,7 +37,7 @@ void PhoenixWord::learn(const vector<string> &wordBytes, const string &text,cons
   //this->cutTextByRank(text);
   //  this->dumpSeq();
 
-  //this->getNoConflictSeq();
+  this->getNoConflictSeq();
   //  this->dumpClearSeq();
 
   //this->calcPrediction();
@@ -51,8 +51,8 @@ void PhoenixWord::commitArticle(void) {
 void PhoenixWord::getRawRank(const vector<string> &Bytes,const string &lang) {
   statisticsMinWordSize_ = 32;
   wordHintSeq_.clear();
-  wordSeqTopSelected_.clear();
-  prediWords_.clear();
+  statisticsRank_.clear();
+  noConflictWordSeq_.clear();
   ap_++;
 
   list<string> preWords;
@@ -124,7 +124,7 @@ void PhoenixWord::getRawRank(const vector<string> &Bytes,const string &lang) {
 
 
 void PhoenixWord::adjustRank() {
-  for (auto rPair : phoenixRank_) {
+  for (auto rPair : statisticsRank_) {
     TRACE_VAR(rPair.first, rPair.second);
     auto word = rPair.first;
     auto weight = std::get<0>(rPair.second);
@@ -138,7 +138,7 @@ void PhoenixWord::adjustRank() {
     TRACE_VAR(rate, rate2);
     auto weight_adj = weight * (int)rate2;
     TRACE_VAR(word, word.size(), weight, weight_adj);
-    phoenixRank_[word] = std::make_tuple(weight_adj, weight);
+    statisticsRank_[word] = std::make_tuple(weight_adj, weight);
     ;
   }
 }
