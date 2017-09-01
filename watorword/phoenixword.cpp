@@ -243,6 +243,14 @@ typedef Graph::vertex_descriptor Vertex;
 
 using namespace boost;
 
+typedef graph_traits < graph_t >::vertices_size_type Size;
+
+typedef  iterator_property_map<std::vector<Size>::iterator,
+                        property_map<graph_t, vertex_index_t>::const_type>
+    dtime_pm_type;
+
+
+
 #if 1
 template < typename TimeMap > class bfs_time_visitor:public default_bfs_visitor {
   typedef typename property_traits < TimeMap >::value_type T;
@@ -257,12 +265,6 @@ public:
   T & m_time;
 };
 
-
-typedef
-  iterator_property_map<std::vector<Size>::iterator,
-                        property_map<graph_t, vertex_index_t>::const_type>
-    dtime_pm_type;
-typedef graph_traits < graph_t >::vertices_size_type Size;
 
 #endif
 
