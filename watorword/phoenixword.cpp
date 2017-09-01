@@ -132,7 +132,7 @@ void PhoenixWord::adjustRank() {
     double rate = (double)word.size() / (double)statisticsMinWordSize_ - 1.0;
     double rate2 = ::pow(gWeightAdjustBase, rate);
     if (rate > gWeightAdjustRateMax) {
-      DUMP_VAR4(word, word.size(), rawRankMinWordSize_, rate);
+      DUMP_VAR4(word, word.size(), statisticsMinWordSize_, rate);
       rate2 = 1.0;
     }
     TRACE_VAR(rate, rate2);
