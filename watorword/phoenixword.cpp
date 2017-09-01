@@ -476,14 +476,14 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
                 boost::predecessor_map(&parents[0]));
   */
   
-  static int counter = 0;
+  //static int counter = 0;
   struct sample_graph_writer {
     void operator()(std::ostream& out, int i) const {
-      auto word = labelVertex.at(counter);
+      auto word = labelVertex.at(i);
       out << " [ label = \"";
       out << word;
       out << "\" ]";
-      counter++;
+      //counter++;
     }
   };
   sample_graph_writer gw;
