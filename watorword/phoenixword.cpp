@@ -227,7 +227,7 @@ void PhoenixWord::calcPrediction(void) {
   }
 }
 
-#if 1
+#if 0
 
 #include <boost/graph/directed_graph.hpp>
 #include <boost/graph/breadth_first_search.hpp>
@@ -367,7 +367,7 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
 }
 #endif
 
-#if 0
+#if 1
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/graph/breadth_first_search.hpp>
 #include <boost/graph/graph_utility.hpp>
@@ -375,7 +375,8 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
 
 #include <iostream>
 
-typedef boost::adjacency_list<boost::vecS, boost::hash_setS, boost::undirectedS, uint32_t, uint32_t, boost::no_property> graph_t;
+typedef boost::adjacency_list<> Graph;
+typedef Graph::vertex_descriptor Vertex;
 
 
 using namespace boost;
@@ -399,7 +400,7 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
   multimap<int, std::tuple<string, Vertex>> vertexs;
   static vector<string> labelVertex;
   
-  auto vrtxStart = g.add_vertex();
+  auto vrtxStart = add_vertex(g);
   auto vrtxPrStart = std::make_tuple("S", vrtxStart);
   vertexs.insert(std::make_pair(-1, vrtxPrStart));
   labelVertex.push_back("S");
@@ -408,13 +409,13 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
   for (auto elem : confuse) {
     auto word = std::get<0>(elem.second);
     auto position = std::get<1>(elem.second);
-    auto vrtx = g.add_vertex();
+    auto vrtx = add_vertex(g);
     auto vrtxPr = std::make_tuple(word, vrtx);
     vertexs.insert(std::make_pair(position, vrtxPr));
     labelVertex.push_back(word);
     posLast = position + word.size();
   }
-  auto vrtxEnd = g.add_vertex();
+  auto vrtxEnd = add_vertex(g);
   auto vrtxPrvrtxEnd = std::make_tuple("E", vrtxEnd);
   vertexs.insert(std::make_pair(posLast,vrtxPrvrtxEnd));
   labelVertex.push_back("E");
@@ -425,7 +426,7 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
     for (auto itSelf = rangeSelf.first; itSelf != rangeSelf.second; itSelf++) {
       auto wordSelf = std::get<0>(itSelf->second);
       auto vrtxSelf = std::get<1>(itSelf->second);
-      g.add_edge(vrtxStart, vrtxSelf);
+      add_edge(vrtxStart, vrtxSelf,g);
     }
   }
   
@@ -447,7 +448,7 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
         for (auto itNext = rangeNext.first; itNext != rangeNext.second;
              itNext++) {
           auto vrtxNext = std::get<1>(itNext->second);
-          g.add_edge(vrtxSelf, vrtxNext);
+          add_edge(vrtxSelf, vrtxNext,g);
         }
         break;
       }
@@ -459,7 +460,7 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
         auto wordSelf = std::get<0>(itSelf->second);
         auto vrtxSelf = std::get<1>(itSelf->second);
         if (word == wordSelf) {
-          g.add_edge(vrtxSelf, vrtxEnd);
+          add_edge(vrtxSelf vrtxEnd,g);
           break;
         }
       }
@@ -467,8 +468,7 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
   }
 
   
-  my_visitor vis;
-  boost::breadth_first_search(g, vrtxStart, boost::visitor(vis).vertex_index_map(get(boost::vertex_bundle,g)));
+  //boost::breadth_first_search(g, vrtxStart, boost::visitor(vis).vertex_index_map(get(boost::vertex_bundle,g)));
 
   /*
   std::vector<Vertex> parents(boost::num_vertices(g));
