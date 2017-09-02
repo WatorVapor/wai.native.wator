@@ -252,8 +252,7 @@ struct sample_graph_writer {
     out << word;
     out << "\" ]";
   }
-  sample_graph_writer(vector<string> &labelVertex) {
-    labelVertex_ = labelVertex;
+  sample_graph_writer(vector<string> &labelVertex):labelVertex_(labelVertex) {
   }
   vector<string> &labelVertex_;
 };
