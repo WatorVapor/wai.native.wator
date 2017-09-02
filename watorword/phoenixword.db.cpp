@@ -35,8 +35,9 @@ void PhoenixWord::unloadMaster(void) {
 
 
 void PhoenixWord::collectWord(void) {
-  /*
-  for (auto word : prediWords_) {
+  for(auto wordPair:wordSeqTopSelected_) {
+    auto word = std::get<0>(wordPair.second);
+    DUMP_VAR(word);
     auto it = multiWordOfOneArticle_.find(word);
     if (it != multiWordOfOneArticle_.end()) {
       it->second++;
@@ -44,7 +45,6 @@ void PhoenixWord::collectWord(void) {
       multiWordOfOneArticle_[word] = 1;
     }
   }
-  */
 }
 
 
