@@ -39,7 +39,7 @@ struct sample_graph_writer {
 void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
   Graph g;
   multimap<int, std::tuple<string, Vertex,double,double>> vertexWator;
-  vector<string> labelVertex;
+  vector<std::tuple<string,double,double>> labelVertex;
   
   auto vrtxStart = boost::add_vertex(g);
   auto vrtxPrStart = std::make_tuple("S", vrtxStart,1.0,1.0);
