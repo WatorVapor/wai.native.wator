@@ -55,7 +55,7 @@ public:
 #endif
 
 
-#if 1
+#if 0
 struct my_bfs_visitor : boost::default_bfs_visitor{
 
     void initialize_vertex(const graph_t::vertex_descriptor &s, const graph_t &g) const {
