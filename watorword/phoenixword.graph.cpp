@@ -18,7 +18,7 @@ using namespace std;
 
 
 typedef boost::adjacency_list<boost::listS, boost::vecS, boost::directedS,
-    boost::no_property, boost::property<boost::edge_weight_t, int> > Graph;
+    boost::no_property, boost::property<boost::edge_weight_t, float> > Graph;
 typedef std::pair<int, int>                             Edge;
 typedef boost::graph_traits<Graph>::vertex_descriptor   Vertex;
 
@@ -69,9 +69,9 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
       auto wordSelf = std::get<0>(itSelf->second);
       auto vrtxSelf = std::get<1>(itSelf->second);
       auto ed = boost::add_edge(vrtxStart, vrtxSelf,g);
-      int weight = boost::get(boost::edge_weight_t(), g, ed.first);
-      boost::put(boost::edge_weight_t(), g, ed.first, 1);
-      int weight2 = boost::get(boost::edge_weight_t(), g, ed.first);
+      auto weight = boost::get(boost::edge_weight_t(), g, ed.first);
+      boost::put(boost::edge_weight_t(), g, ed.first, 0.0);
+      auto weight2 = boost::get(boost::edge_weight_t(), g, ed.first);
       DUMP_VAR2(weight,weight2);
     }
   }
@@ -95,9 +95,9 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
              itNext++) {
           auto vrtxNext = std::get<1>(itNext->second);
           auto ed = boost::add_edge(vrtxSelf, vrtxNext,g);
-          int weight = boost::get(boost::edge_weight_t(), g, ed.first);
-          boost::put(boost::edge_weight_t(), g, ed.first, 1);
-          int weight2 = boost::get(boost::edge_weight_t(), g, ed.first);
+          auto weight = boost::get(boost::edge_weight_t(), g, ed.first);
+          boost::put(boost::edge_weight_t(), g, ed.first, 1.0);
+          auto weight2 = boost::get(boost::edge_weight_t(), g, ed.first);
           DUMP_VAR2(weight,weight2);
         }
         break;
@@ -111,9 +111,9 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
         auto vrtxSelf = std::get<1>(itSelf->second);
         if (word == wordSelf) {
           auto ed = boost::add_edge(vrtxSelf,vrtxEnd,g);
-          int weight = boost::get(boost::edge_weight_t(), g, ed.first);
-          boost::put(boost::edge_weight_t(), g, ed.first, 1);
-          int weight2 = boost::get(boost::edge_weight_t(), g, ed.first);
+          auto weight = boost::get(boost::edge_weight_t(), g, ed.first);
+          boost::put(boost::edge_weight_t(), g, ed.first, 0.0);
+          auto weight2 = boost::get(boost::edge_weight_t(), g, ed.first);
           DUMP_VAR2(weight,weight2);
           break;
         }
