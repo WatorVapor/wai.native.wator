@@ -74,7 +74,7 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
       auto weightRO = std::get<3>(itSelf->second);
       auto ed = boost::add_edge(vrtxStart, vrtxSelf,g);
       auto weightOld = boost::get(boost::edge_weight_t(), g, ed.first);
-      boost::put(boost::edge_weight_t(), g, ed.first, 1.0/weight);
+      boost::put(boost::edge_weight_t(), g, ed.first, 1.0/weightR);
       auto weightNew = boost::get(boost::edge_weight_t(), g, ed.first);
       DUMP_VAR4(weightR,weightRO,weightOld,weightNew);
     }
