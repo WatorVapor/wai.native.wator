@@ -13,6 +13,7 @@ using namespace std;
 #include "phoenixword.hpp"
 
 
+#if 0
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/graph/breadth_first_search.hpp>
 #include <boost/graph/graph_utility.hpp>
@@ -23,6 +24,7 @@ using namespace std;
 #include <boost/graph/dijkstra_shortest_paths.hpp>
 
 #include <iostream>
+#endif
 
 //typedef boost::adjacency_list<> Graph;
 //typedef boost::adjacency_list<boost::vecS, boost::hash_setS, boost::undirectedS, uint32_t, uint32_t, boost::no_property> Graph;
