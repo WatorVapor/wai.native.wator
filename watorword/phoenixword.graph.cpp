@@ -247,32 +247,33 @@ typedef boost::graph_traits<Graph>::vertex_descriptor   Vertex;
 
 void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
   Graph g;
-  multimap<int, std::tuple<string, Vertex>> vertexs;
+  multimap<int, std::tuple<string, Vertex>> vertexWator;
   static vector<string> labelVertex;
   
   auto vrtxStart = add_vertex(g);
   auto vrtxPrStart = std::make_tuple("S", vrtxStart);
-  vertexs.insert(std::make_pair(-1, vrtxPrStart));
+  vertexWator.insert(std::make_pair(-1, vrtxPrStart));
   labelVertex.push_back("S");
   
   int posLast = 0;
   for (auto elem : confuse) {
     auto word = std::get<0>(elem.second);
     auto position = std::get<1>(elem.second);
-    auto vrtx = add_vertex(g);
+    auto vrtx = boost::add_vertex(g);
     auto vrtxPr = std::make_tuple(word, vrtx);
-    vertexs.insert(std::make_pair(position, vrtxPr));
+    vertexWator.insert(std::make_pair(position, vrtxPr));
     labelVertex.push_back(word);
     posLast = position + word.size();
   }
   auto vrtxEnd = add_vertex(g);
   auto vrtxPrvrtxEnd = std::make_tuple("E", vrtxEnd);
-  vertexs.insert(std::make_pair(posLast,vrtxPrvrtxEnd));
+  vertexWator.insert(std::make_pair(posLast,vrtxPrvrtxEnd));
   labelVertex.push_back("E");
  
   // add dummy start.
   {
-    auto rangeSelf = vertexs.equal_range(0);
+    auto startPos = confuse.begin().first;
+    auto rangeSelf = vertexWator.equal_range(startPos);
     for (auto itSelf = rangeSelf.first; itSelf != rangeSelf.second; itSelf++) {
       auto wordSelf = std::get<0>(itSelf->second);
       auto vrtxSelf = std::get<1>(itSelf->second);
@@ -293,12 +294,12 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
     auto position = std::get<1>(elem.second);
     auto range = std::get<2>(elem.second);
     auto next = position + range;
-    auto rangeSelf = vertexs.equal_range(position);
+    auto rangeSelf = vertexWator.equal_range(position);
     for (auto itSelf = rangeSelf.first; itSelf != rangeSelf.second; itSelf++) {
       auto wordSelf = std::get<0>(itSelf->second);
       auto vrtxSelf = std::get<1>(itSelf->second);
       if (word == wordSelf) {
-        auto rangeNext = vertexs.equal_range(next);
+        auto rangeNext = vertexWator.equal_range(next);
         for (auto itNext = rangeNext.first; itNext != rangeNext.second;
              itNext++) {
           auto vrtxNext = std::get<1>(itNext->second);
@@ -313,7 +314,7 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
     }
     // add dummy end.
     if(posLast == position + range) {
-      auto rangeSelf = vertexs.equal_range(position);
+      auto rangeSelf = vertexWator.equal_range(position);
       for (auto itSelf = rangeSelf.first; itSelf != rangeSelf.second; itSelf++) {
         auto wordSelf = std::get<0>(itSelf->second);
         auto vrtxSelf = std::get<1>(itSelf->second);
