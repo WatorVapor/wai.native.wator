@@ -252,6 +252,9 @@ struct sample_graph_writer {
     out << word;
     out << "\" ]";
   }
+  sample_graph_writer(vector<string> &labelVertex) {
+    labelVertex_ = labelVertex;
+  }
   vector<string> &labelVertex_;
 };
 
@@ -341,8 +344,7 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
     }
   }
   
-  sample_graph_writer gw;
-  gw.labelVertex_ = labelVertex;
+  sample_graph_writer gw(labelVertex);
 
   std::stringstream ss;
   boost::write_graphviz(ss, g, gw);
