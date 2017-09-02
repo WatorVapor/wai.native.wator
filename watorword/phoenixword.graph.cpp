@@ -272,7 +272,7 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
  
   // add dummy start.
   {
-    auto startPos = confuse.begin().first;
+    auto startPos = confuse.begin()->first;
     auto rangeSelf = vertexWator.equal_range(startPos);
     for (auto itSelf = rangeSelf.first; itSelf != rangeSelf.second; itSelf++) {
       auto wordSelf = std::get<0>(itSelf->second);
