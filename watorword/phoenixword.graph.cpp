@@ -38,10 +38,10 @@ struct sample_graph_writer {
 
 void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
   Graph g;
-  multimap<int, std::tuple<string, Vertex>> vertexWator;
+  multimap<int, std::tuple<string, Vertex,double>> vertexWator;
   vector<string> labelVertex;
   
-  auto vrtxStart = add_vertex(g);
+  auto vrtxStart = boost::add_vertex(g);
   auto vrtxPrStart = std::make_tuple("S", vrtxStart);
   vertexWator.insert(std::make_pair(-1, vrtxPrStart));
   labelVertex.push_back("S");
@@ -50,9 +50,10 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
   for (auto elem : confuse) {
     auto word = std::get<0>(elem.second);
     auto position = std::get<1>(elem.second);
+    auto weight = std::get<3>(elem.second);
     auto vrtx = boost::add_vertex(g);
     auto vrtxPr = std::make_tuple(word, vrtx);
-    vertexWator.insert(std::make_pair(position, vrtxPr));
+    vertexWator.insert(std::make_pair(position, vrtxPr,weight));
     labelVertex.push_back(word);
     posLast = position + word.size();
   }
@@ -68,11 +69,12 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
     for (auto itSelf = rangeSelf.first; itSelf != rangeSelf.second; itSelf++) {
       auto wordSelf = std::get<0>(itSelf->second);
       auto vrtxSelf = std::get<1>(itSelf->second);
+      auto weight = std::get<2>(itSelf->second);
       auto ed = boost::add_edge(vrtxStart, vrtxSelf,g);
-      auto weight = boost::get(boost::edge_weight_t(), g, ed.first);
-      boost::put(boost::edge_weight_t(), g, ed.first, 0.0);
-      auto weight2 = boost::get(boost::edge_weight_t(), g, ed.first);
-      DUMP_VAR2(weight,weight2);
+      auto weightOld = boost::get(boost::edge_weight_t(), g, ed.first);
+      boost::put(boost::edge_weight_t(), g, ed.first, 1.0/weight);
+      auto weightNew = boost::get(boost::edge_weight_t(), g, ed.first);
+      DUMP_VAR2(weightOld,weightNew);
     }
   }
   
@@ -89,16 +91,17 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
     for (auto itSelf = rangeSelf.first; itSelf != rangeSelf.second; itSelf++) {
       auto wordSelf = std::get<0>(itSelf->second);
       auto vrtxSelf = std::get<1>(itSelf->second);
+      auto weight = std::get<2>(itSelf->second);
       if (word == wordSelf) {
         auto rangeNext = vertexWator.equal_range(next);
         for (auto itNext = rangeNext.first; itNext != rangeNext.second;
              itNext++) {
           auto vrtxNext = std::get<1>(itNext->second);
           auto ed = boost::add_edge(vrtxSelf, vrtxNext,g);
-          auto weight = boost::get(boost::edge_weight_t(), g, ed.first);
-          boost::put(boost::edge_weight_t(), g, ed.first, 1.0);
-          auto weight2 = boost::get(boost::edge_weight_t(), g, ed.first);
-          DUMP_VAR2(weight,weight2);
+          auto weightOld = boost::get(boost::edge_weight_t(), g, ed.first);
+          boost::put(boost::edge_weight_t(), g, ed.first, 1.0/weight);
+          auto weightNew = boost::get(boost::edge_weight_t(), g, ed.first);
+          DUMP_VAR2(weightOld,weightNew);
         }
         break;
       }
