@@ -32,11 +32,9 @@ void PhoenixWord::learn(const vector<string> &wordBytes, const string &text,cons
   }
   this->getRawRank(wordBytes,lang);
   this->dumpDot();
-  //this->adjustRank();
+  this->adjustRank();
   //  this->dumpRank();
 
-  //this->cutTextByRank(text);
-  //  this->dumpSeq();
 
   this->getNoConflictSeq();
   this->dumpClearSeq();
@@ -135,7 +133,6 @@ double PhoenixWord::adjustWeight(int width, double weight) {
 
 
 void PhoenixWord::adjustRank() {
-  multimap<double, WordElement> weightElem;
   for (auto elem : wordHintSeq_) {
     TRACE_VAR(elem.first);
     auto word = std::get<0>(elem.second);
@@ -146,45 +143,17 @@ void PhoenixWord::adjustRank() {
     auto weight_adj = adjustWeight(word.size(), weight);
     TRACE_VAR(word, pos, range, weight_adj, weight);
     auto elemNew = std::make_tuple(word, pos, range, weight_adj, weight2);
-    weightElem.insert(std::make_pair(weight_adj, elemNew));
-  }
-  wordHintSeq_ = weightElem;
-}
-
-
-
-#include <boost/algorithm/string.hpp>
-
-#if 0
-void PhoenixWord::getWordPrediction(const string &text) {
-  string textRemain(text);
-  for (auto elem : wordSeqTopSelected_) {
-    auto word = std::get<0>(elem.second);
-    auto pos = std::get<1>(elem.second);
-    auto range = std::get<2>(elem.second);
-    auto weight = std::get<3>(elem.second);
-    DUMP_VAR4(word, pos, range, weight);
-    boost::algorithm::replace_all(textRemain, word, " ");
-    prediWords_.push_back(word);
-  }
-  DUMP_VAR(textRemain);
-  list<string> list_textRemain;
-  boost::split(list_textRemain, textRemain, boost::is_space(),
-               boost::algorithm::token_compress_on);
-  for (auto remain : list_textRemain) {
-    TRACE_VAR(remain);
-    TRACE_VAR(remain.size());
-    if (remain.size() > 1 && remain.size() < 4) {
-      prediWords_.push_back(remain);
-    }
+    wordAdjustedSeq_.insert(std::make_pair(weight_adj, elemNew));
   }
 }
-#endif
+
+
+
 
 void PhoenixWord::getNoConflictSeq(void) {
   multimap<int, WordElement> nocfWordSeq;
   int maxPreCover = 0;
-  for (auto it = wordHintSeq_.begin(); it != wordHintSeq_.end(); it++) {
+  for (auto it = wordAdjustedSeq_.begin(); it != wordAdjustedSeq_.end(); it++) {
     if (wordHintSeq_.begin() == it) {
       nocfWordSeq.insert(std::make_pair(it->first, it->second));
       continue;
