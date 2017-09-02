@@ -172,7 +172,7 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
   boost::dijkstra_shortest_paths(g, vrtxStart,
                 boost::predecessor_map(&parents[0]));
   */
-  
+#if 0  
   struct sample_graph_writer {
     void operator()(std::ostream& out, int i) const {
       auto word = labelVertex.at(i);
@@ -191,7 +191,8 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
       "digraph G { \n rankdir=LR;\n graph [charset=\"UTF-8\"];\n");
   DUMP_VAR(dotStr);
   // dot -v -T svg 1.dot -o 1.svg
-
+#endif
+  
 #if 0 
   std::vector < Size > dtime(num_vertices(g));
   dtime_pm_type dtime_pm(dtime.begin(), get(vertex_index, g));
