@@ -164,7 +164,7 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
   for(auto v = vrtxEnd; v != vrtxStart; v = parents[v]) {
     path.push_back(v);
   }
-  for(auto it = path.rbegin();it != path.end();it++) {
+  for(auto it = path.rbegin();it != path.rend();it++) {
       auto word = labelVertex_.at(*it);
       DUMP_VAR2(*it,word);
   }
