@@ -330,6 +330,27 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
     }
   }
   
+  struct sample_graph_writer {
+    void operator()(std::ostream& out, int i) const {
+      auto word = labelVertex.at(i);
+      out << " [ label = \"";
+      out << word;
+      out << "\" ]";
+    }
+  };
+  sample_graph_writer gw;
+
+  std::stringstream ss;
+  boost::write_graphviz(ss, g, gw);
+  auto dotStr = ss.str();
+  boost::algorithm::replace_all(
+      dotStr, "digraph G {",
+      "digraph G { \n rankdir=LR;\n graph [charset=\"UTF-8\"];\n");
+  DUMP_VAR(dotStr);
+  // dot -v -T svg 1.dot -o 1.svg
+  
+  
+  
   std::vector<Vertex> parents(boost::num_vertices(g));
   std::vector<std::size_t> distance(boost::num_vertices(g));
   boost::dijkstra_shortest_paths(g, vrtxStart,
@@ -338,15 +359,16 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
     std::cout << "no path" << std::endl;
     return ;
   }
-  /*
+  
   for(auto v:parents) {
     DUMP_VAR(v);
   }
-  */
   
+  /*
   for(auto v = vrtxStart; v != vrtxEnd; v = parents[v]) {
     DUMP_VAR(v);
   }
+  */
   
 }
 
