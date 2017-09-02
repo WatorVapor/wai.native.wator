@@ -144,7 +144,7 @@ void PhoenixWord::adjustRank() {
     auto weight_adj = adjustWeight(word.size(), weight);
     TRACE_VAR(word, pos, range, weight_adj, weight);
     auto elemNew = std::make_tuple(word, pos, range, weight_adj, weight2);
-    wordAdjustedSeq_.insert(std::make_pair(weight_adj, elemNew));
+    wordAdjustedSeq_.insert(std::make_pair(pos, elemNew));
   }
 }
 
