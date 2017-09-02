@@ -153,7 +153,7 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
   boost::dijkstra_shortest_paths(g,vrtxStart,predmap);
   
   
-  
+  #if 0
   boost::graph_traits < Graph >::vertex_iterator vi, vend;
   for (boost::tie(vi, vend) = vertices(g); vi != vend; ++vi) {
     auto labelSelf = std::get<0>(labelVertex.at(*vi));
@@ -161,7 +161,7 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
     std::cout << "distance(" << labelSelf << ") = " << distance[*vi] << ", ";
     std::cout << "parent(" << labelSelf << ") = " << labelParent << std::endl;
   }
-  
+  #endif
   
   TRACE_VAR(distance.at(vrtxEnd));
 
