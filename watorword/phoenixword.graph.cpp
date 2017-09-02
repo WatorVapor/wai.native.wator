@@ -151,13 +151,15 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
   boost::dijkstra_shortest_paths(g,vrtxStart,predmap);
   
   
-  /*
+  
   boost::graph_traits < Graph >::vertex_iterator vi, vend;
   for (boost::tie(vi, vend) = vertices(g); vi != vend; ++vi) {
-    std::cout << "distance(" << labelVertex.at(*vi) << ") = " << distance[*vi] << ", ";
-    std::cout << "parent(" << labelVertex.at(*vi) << ") = " << labelVertex.at(parents[*vi]) << std::endl;
+    auto labelSelf = std::get<0>(labelVertex.at(*vi));
+    auto labelParent = std::get<0>(labelVertex.at(parents[*vi]));
+    std::cout << "distance(" << labelSelf << ") = " << distance[*vi] << ", ";
+    std::cout << "parent(" << labelSelf << ") = " << labelParent << std::endl;
   }
-  */
+  
   
   DUMP_VAR(distance.at(vrtxEnd));
 
