@@ -122,7 +122,7 @@ void PhoenixWord::getRawRank(const vector<string> &Bytes,const string &lang) {
   TRACE_VAR(statisticsMinWordSize_);
 }
 
-static const double gWeigthAdjustBase = 1024.0;
+static const double gWeigthAdjustBase = 256.0;
 
 double PhoenixWord::adjustWeight(int width, double weight) {
   double rate = (double)width / (double)statisticsMinWordSize_ - 1.0;
