@@ -93,7 +93,8 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
     for (auto itSelf = rangeSelf.first; itSelf != rangeSelf.second; itSelf++) {
       auto wordSelf = std::get<0>(itSelf->second);
       auto vrtxSelf = std::get<1>(itSelf->second);
-      auto weight = std::get<2>(itSelf->second);
+      auto weightR = std::get<2>(itSelf->second);
+      auto weightRO = std::get<3>(itSelf->second);
       if (word == wordSelf) {
         auto rangeNext = vertexWator.equal_range(next);
         for (auto itNext = rangeNext.first; itNext != rangeNext.second;
@@ -101,9 +102,9 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
           auto vrtxNext = std::get<1>(itNext->second);
           auto ed = boost::add_edge(vrtxSelf, vrtxNext,g);
           auto weightOld = boost::get(boost::edge_weight_t(), g, ed.first);
-          boost::put(boost::edge_weight_t(), g, ed.first, 1.0/weight);
+          boost::put(boost::edge_weight_t(), g, ed.first, 1.0/weightR);
           auto weightNew = boost::get(boost::edge_weight_t(), g, ed.first);
-          DUMP_VAR2(weightOld,weightNew);
+          DUMP_VAR2(weightR,weightRO,weightOld,weightNew);
         }
         break;
       }
