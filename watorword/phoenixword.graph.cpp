@@ -245,10 +245,21 @@ typedef std::pair<int, int>                             Edge;
 typedef boost::graph_traits<Graph>::vertex_descriptor   Vertex;
 
 
+struct sample_graph_writer {
+  void operator()(std::ostream& out, int i) const {
+    auto word = labelVertex_.at(i);
+    out << " [ label = \"";
+    out << word;
+    out << "\" ]";
+  }
+  vector<string> &labelVertex_;
+};
+
+
 void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
   Graph g;
   multimap<int, std::tuple<string, Vertex>> vertexWator;
-  static vector<string> labelVertex;
+  vector<string> labelVertex;
   
   auto vrtxStart = add_vertex(g);
   auto vrtxPrStart = std::make_tuple("S", vrtxStart);
@@ -330,15 +341,8 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
     }
   }
   
-  struct sample_graph_writer {
-    void operator()(std::ostream& out, int i) const {
-      auto word = labelVertex.at(i);
-      out << " [ label = \"";
-      out << word;
-      out << "\" ]";
-    }
-  };
   sample_graph_writer gw;
+  gw.labelVertex_ = labelVertex;
 
   std::stringstream ss;
   boost::write_graphviz(ss, g, gw);
@@ -365,10 +369,7 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
     std::cout << "distance(" << labelVertex.at(*vi) << ") = " << distance[*vi] << ", ";
     std::cout << "parent(" << labelVertex.at(*vi) << ") = " << labelVertex.at(parents[*vi]) << std::endl;
   }
-  
-  labelVertex.clear();
 
-  
   if (parents[vrtxEnd] == vrtxEnd) {
     std::cout << "no path" << std::endl;
     return ;
