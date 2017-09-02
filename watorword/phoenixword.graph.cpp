@@ -166,7 +166,7 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
   }
   for(auto it = path.rbegin();it != path.end();it++) {
       auto word = labelVertex_.at(*it);
-      DUMP_VAR(*it,word);
+      DUMP_VAR2(*it,word);
   }
 }
 
