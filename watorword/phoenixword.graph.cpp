@@ -77,7 +77,7 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
       auto weightOld = boost::get(boost::edge_weight_t(), g, ed.first);
       boost::put(boost::edge_weight_t(), g, ed.first, 1.0/weightR);
       auto weightNew = boost::get(boost::edge_weight_t(), g, ed.first);
-      DUMP_VAR4(weightR,weightRO,weightOld,weightNew);
+      TRACE_VAR(weightR,weightRO,weightOld,weightNew);
     }
   }
   
@@ -105,7 +105,7 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
           auto weightOld = boost::get(boost::edge_weight_t(), g, ed.first);
           boost::put(boost::edge_weight_t(), g, ed.first, 1.0/weightR);
           auto weightNew = boost::get(boost::edge_weight_t(), g, ed.first);
-          DUMP_VAR4(weightR,weightRO,weightOld,weightNew);
+          TRACE_VAR(weightR,weightRO,weightOld,weightNew);
         }
         break;
       }
@@ -121,13 +121,14 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
           auto weight = boost::get(boost::edge_weight_t(), g, ed.first);
           boost::put(boost::edge_weight_t(), g, ed.first, 0.0);
           auto weight2 = boost::get(boost::edge_weight_t(), g, ed.first);
-          DUMP_VAR2(weight,weight2);
+          TRACE_VAR(weight,weight2);
           break;
         }
       }
     }
   }
   
+    
   sample_graph_writer gw(labelVertex);
 
   std::stringstream ss;
@@ -141,7 +142,7 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
   
   
   
-  DUMP_VAR3(boost::num_vertices(g),vrtxStart,vrtxEnd);
+  TRACE_VAR(boost::num_vertices(g),vrtxStart,vrtxEnd);
   
   std::vector<Vertex> parents(boost::num_vertices(g));
   std::vector<float> distance(boost::num_vertices(g));
@@ -162,14 +163,11 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
   }
   
   
-  DUMP_VAR(distance.at(vrtxEnd));
+  TRACE_VAR(distance.at(vrtxEnd));
 
   if (parents[vrtxEnd] == vrtxEnd) {
     std::cout << "no path" << std::endl;
     return ;
-  }
-  for(auto v:parents) {
-    DUMP_VAR(v);
   }
   std::vector<int> path;
   for(auto v = vrtxEnd; v != vrtxStart; v = parents[v]) {
