@@ -30,7 +30,7 @@ struct sample_graph_writer {
     out << std::get<0>(wordPair) << " " << std::get<1>(wordPair) << " " << std::get<2>(wordPair);
     out << "\" ]";
   }
-  sample_graph_writer(vector<string> &labelVertex):labelVertex_(labelVertex) {
+  sample_graph_writer(vector<std::tuple<string,double,double>> &labelVertex):labelVertex_(labelVertex) {
   }
   vector<std::tuple<string,double,double>> &labelVertex_;
 };
