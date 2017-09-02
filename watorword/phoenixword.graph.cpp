@@ -38,11 +38,11 @@ struct sample_graph_writer {
 
 void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
   Graph g;
-  multimap<int, std::tuple<string, Vertex,double>> vertexWator;
+  multimap<int, std::tuple<string, Vertex,double,double>> vertexWator;
   vector<string> labelVertex;
   
   auto vrtxStart = boost::add_vertex(g);
-  auto vrtxPrStart = std::make_tuple("S", vrtxStart,1.0);
+  auto vrtxPrStart = std::make_tuple("S", vrtxStart,1.0,1.0);
   vertexWator.insert(std::make_pair(-1, vrtxPrStart));
   labelVertex.push_back("S");
   
@@ -51,14 +51,15 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
     auto word = std::get<0>(elem.second);
     auto position = std::get<1>(elem.second);
     auto weight = std::get<3>(elem.second);
+    auto weightO = std::get<4>(elem.second);
     auto vrtx = boost::add_vertex(g);
-    auto vrtxPr = std::make_tuple(word, vrtx,weight);
+    auto vrtxPr = std::make_tuple(word, vrtx,weight,weightO);
     vertexWator.insert(std::make_pair(position, vrtxPr));
     labelVertex.push_back(word);
     posLast = position + word.size();
   }
   auto vrtxEnd = add_vertex(g);
-  auto vrtxPrvrtxEnd = std::make_tuple("E", vrtxEnd,1.0);
+  auto vrtxPrvrtxEnd = std::make_tuple("E", vrtxEnd,1.0,1.0);
   vertexWator.insert(std::make_pair(posLast,vrtxPrvrtxEnd));
   labelVertex.push_back("E");
  
@@ -69,12 +70,13 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
     for (auto itSelf = rangeSelf.first; itSelf != rangeSelf.second; itSelf++) {
       auto wordSelf = std::get<0>(itSelf->second);
       auto vrtxSelf = std::get<1>(itSelf->second);
-      auto weight = std::get<2>(itSelf->second);
+      auto weightR = std::get<2>(itSelf->second);
+      auto weightRO = std::get<3>(itSelf->second);
       auto ed = boost::add_edge(vrtxStart, vrtxSelf,g);
       auto weightOld = boost::get(boost::edge_weight_t(), g, ed.first);
       boost::put(boost::edge_weight_t(), g, ed.first, 1.0/weight);
       auto weightNew = boost::get(boost::edge_weight_t(), g, ed.first);
-      DUMP_VAR2(weightOld,weightNew);
+      DUMP_VAR4(weightR,weightRO,weightOld,weightNew);
     }
   }
   
