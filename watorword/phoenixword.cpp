@@ -9,16 +9,11 @@
 #include <vector>
 using namespace std;
 
-#include <leveldb/db.h>
-#include <leveldb/write_batch.h>
 
 #include "log.hpp"
 #include "phoenixword.hpp"
 
 
-
-static const int gWeightAdjustBase = 4;
-static const double gWeightAdjustRateMax = 16.0;
 
 PhoenixWord::PhoenixWord(const string &database) : database_(database) {}
 PhoenixWord::~PhoenixWord() {}
