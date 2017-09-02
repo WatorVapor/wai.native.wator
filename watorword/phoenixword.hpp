@@ -58,6 +58,7 @@ class PhoenixWord {
   int statisticsMinWordSize_;  
   int ap_;
   multimap<int, WordElement> wordHintSeq_;
+  multimap<int, WordElement> wordAdjustedSeq_;
   vector<multimap<int, WordElement>> noConflictWordSeq_;
   multimap<int, WordElement> wordSeqTopSelected_;
 
