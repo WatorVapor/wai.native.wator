@@ -25,14 +25,14 @@ typedef boost::graph_traits<Graph>::vertex_descriptor   Vertex;
 
 struct sample_graph_writer {
   void operator()(std::ostream& out, int i) const {
-    auto word = labelVertex_.at(i);
+    auto wordPair = labelVertex_.at(i);
     out << " [ label = \"";
-    out << word;
+    out << std::get<0>(wordPair) << " " << std::get<1>(wordPair) << " " << std::get<2>(wordPair);
     out << "\" ]";
   }
   sample_graph_writer(vector<string> &labelVertex):labelVertex_(labelVertex) {
   }
-  vector<string> &labelVertex_;
+  vector<std::tuple<string,double,double>> &labelVertex_;
 };
 
 
@@ -44,7 +44,7 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
   auto vrtxStart = boost::add_vertex(g);
   auto vrtxPrStart = std::make_tuple("S", vrtxStart,1.0,1.0);
   vertexWator.insert(std::make_pair(-1, vrtxPrStart));
-  labelVertex.push_back("S");
+  labelVertex.push_back(std::make_tuple("S",1.0,1.0));
   
   int posLast = 0;
   for (auto elem : confuse) {
@@ -55,13 +55,13 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
     auto vrtx = boost::add_vertex(g);
     auto vrtxPr = std::make_tuple(word, vrtx,weight,weightO);
     vertexWator.insert(std::make_pair(position, vrtxPr));
-    labelVertex.push_back(word);
+    labelVertex.push_back(std::make_tuple(word,weight,weightO));
     posLast = position + word.size();
   }
   auto vrtxEnd = add_vertex(g);
   auto vrtxPrvrtxEnd = std::make_tuple("E", vrtxEnd,1.0,1.0);
   vertexWator.insert(std::make_pair(posLast,vrtxPrvrtxEnd));
-  labelVertex.push_back("E");
+  labelVertex.push_back(std::make_tuple("E",1.0,1.0));
  
   // add dummy start.
   {
@@ -151,11 +151,13 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
   boost::dijkstra_shortest_paths(g,vrtxStart,predmap);
   
   
+  /*
   boost::graph_traits < Graph >::vertex_iterator vi, vend;
   for (boost::tie(vi, vend) = vertices(g); vi != vend; ++vi) {
     std::cout << "distance(" << labelVertex.at(*vi) << ") = " << distance[*vi] << ", ";
     std::cout << "parent(" << labelVertex.at(*vi) << ") = " << labelVertex.at(parents[*vi]) << std::endl;
   }
+  */
   
   DUMP_VAR(distance.at(vrtxEnd));
 
@@ -171,8 +173,8 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
     path.push_back(v);
   }
   for(auto it = path.rbegin();it != path.rend();it++) {
-      auto word = labelVertex.at(*it);
-      DUMP_VAR2(*it,word);
+      auto wordPair = labelVertex.at(*it);
+      DUMP_VAR2(*it,std::get<0>(wordPair));
   }
 }
 
