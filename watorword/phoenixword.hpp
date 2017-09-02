@@ -33,6 +33,7 @@ class PhoenixWord {
  private:
   void getRawRank(const vector<string> &Bytes,const string &lang);
   void adjustRank(void);
+  double adjustWeight(int width, double weight)
   void getNoConflictSeq(void);
   void dumpClearSeq(void);
 
