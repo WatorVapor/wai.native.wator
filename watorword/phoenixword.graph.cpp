@@ -137,7 +137,7 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
   DUMP_VAR3(boost::num_vertices(g),vrtxStart,vrtxEnd);
   
   std::vector<Vertex> parents(boost::num_vertices(g));
-  std::vector<int> distance(num_vertices(g));
+  std::vector<int> distance(boost::num_vertices(g));
   
   auto predmap = boost::predecessor_map(boost::make_iterator_property_map(parents.begin(), boost::get(boost::vertex_index, g))).
                           distance_map(boost::make_iterator_property_map(distance.begin(), boost::get(boost::vertex_index, g)));
@@ -157,14 +157,16 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
     std::cout << "no path" << std::endl;
     return ;
   }
-  
   for(auto v:parents) {
     DUMP_VAR(v);
   }
-  
-  
+  std::vector<int> path;
   for(auto v = vrtxEnd; v != vrtxStart; v = parents[v]) {
-    DUMP_VAR(v);
+    path.push_back(v);
+  }
+  for(auto it = path.rbegin();it != path.end();it++) {
+      auto word = labelVertex_.at(*it);
+      DUMP_VAR(*it,word);
   }
 }
 
