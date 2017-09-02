@@ -50,6 +50,7 @@ void PhoenixWord::commitArticle(void) {
 void PhoenixWord::getRawRank(const vector<string> &Bytes,const string &lang) {
   statisticsMinWordSize_ = 32;
   wordHintSeq_.clear();
+  wordAdjustedSeq_.clear();
   statisticsRank_.clear();
   noConflictWordSeq_.clear();
   wordSeqTopSelected_.clear();
@@ -154,7 +155,7 @@ void PhoenixWord::getNoConflictSeq(void) {
   multimap<int, WordElement> nocfWordSeq;
   int maxPreCover = 0;
   for (auto it = wordAdjustedSeq_.begin(); it != wordAdjustedSeq_.end(); it++) {
-    if (wordHintSeq_.begin() == it) {
+    if (wordAdjustedSeq_.begin() == it) {
       nocfWordSeq.insert(std::make_pair(it->first, it->second));
       continue;
     }
