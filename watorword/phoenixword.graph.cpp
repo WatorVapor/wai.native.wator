@@ -39,7 +39,7 @@ typedef  iterator_property_map<std::vector<Size>::iterator,
 
 
 
-#if 1
+#if 0
 template < typename TimeMap > class bfs_time_visitor:public default_bfs_visitor {
   typedef typename property_traits < TimeMap >::value_type T;
 public:
@@ -57,7 +57,7 @@ public:
 #endif
 
 
-#if 0
+#if 1
 struct my_bfs_visitor : boost::default_bfs_visitor{
 
     void initialize_vertex(const graph_t::vertex_descriptor &s, const graph_t &g) const {
@@ -191,7 +191,7 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
   DUMP_VAR(dotStr);
   // dot -v -T svg 1.dot -o 1.svg
 
-#if 1  
+#if 0 
   std::vector < Size > dtime(num_vertices(g));
   dtime_pm_type dtime_pm(dtime.begin(), get(vertex_index, g));
   Size time = 0;
@@ -212,6 +212,8 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
   }
   std::cout << std::endl;
 #endif
+ my_bfs_visitor vis;
+ boost::breadth_first_search(g, vrtxStart, boost::visitor(vis).vertex_index_map(get(boost::vertex_bundle,graph)));
 #if 0  
   std::vector<Vertex> parents(boost::num_vertices(g));
   boost::dijkstra_shortest_paths(g, vrtxStart,
