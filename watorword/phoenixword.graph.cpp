@@ -27,8 +27,8 @@ struct sample_graph_writer {
   void operator()(std::ostream& out, int i) const {
     auto wordPair = labelVertex_.at(i);
     out << " [ label = <";
-    out << "<FONT POINT-COLOR=\"blue\" POINT-SIZE=\"20\">" << std::get<0>(wordPair) << "</FONT>";
-    out << "<FONT POINT-SIZE=\"10\">" << " " << std::get<1>(wordPair) << " " << std::get<2>(wordPair) << "</FONT>";
+    out << "<FONT COLOR=\"green\" POINT-SIZE=\"20\">" << std::get<0>(wordPair) << "</FONT>";
+    out << "<FONT COLOR=\"red\" POINT-SIZE=\"10\">" << " " << std::get<1>(wordPair) << " " << std::get<2>(wordPair) << "</FONT>";
     out << ">]";
   }
   sample_graph_writer(vector<std::tuple<string,double,double>> &labelVertex):labelVertex_(labelVertex) {
