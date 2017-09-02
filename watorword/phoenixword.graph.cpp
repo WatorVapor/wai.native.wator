@@ -52,8 +52,8 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
     auto position = std::get<1>(elem.second);
     auto weight = std::get<3>(elem.second);
     auto vrtx = boost::add_vertex(g);
-    auto vrtxPr = std::make_tuple(word, vrtx);
-    vertexWator.insert(std::make_pair(position, vrtxPr,weight));
+    auto vrtxPr = std::make_tuple(word, vrtx,weight);
+    vertexWator.insert(std::make_pair(position, vrtxPr));
     labelVertex.push_back(word);
     posLast = position + word.size();
   }
