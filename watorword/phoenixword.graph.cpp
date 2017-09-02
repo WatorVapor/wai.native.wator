@@ -348,6 +348,7 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
       "digraph G { \n rankdir=LR;\n graph [charset=\"UTF-8\"];\n");
   DUMP_VAR(dotStr);
   // dot -v -T svg 1.dot -o 1.svg
+  labelVertex.clear();
   
   
   
