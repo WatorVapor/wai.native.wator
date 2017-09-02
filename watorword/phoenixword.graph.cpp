@@ -338,13 +338,15 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
     std::cout << "no path" << std::endl;
     return ;
   }
+  /*
   for(auto v:parents) {
     DUMP_VAR(v);
   }
-  /*
+  */
+  
   for(auto v = vrtxStart; v != vrtxEnd; v = parents[v]) {
     DUMP_VAR(v);
   }
-  */
+  
 }
 
