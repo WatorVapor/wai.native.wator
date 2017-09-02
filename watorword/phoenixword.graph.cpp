@@ -124,7 +124,7 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
     for (auto itSelf = rangeSelf.first; itSelf != rangeSelf.second; itSelf++) {
       auto wordSelf = std::get<0>(itSelf->second);
       auto vrtxSelf = std::get<1>(itSelf->second);
-      add_edge(vrtxStart, vrtxSelf,g);
+      auto ed = boost::add_edge(vrtxStart, vrtxSelf,g);
     }
   }
   
@@ -274,7 +274,10 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
     for (auto itSelf = rangeSelf.first; itSelf != rangeSelf.second; itSelf++) {
       auto wordSelf = std::get<0>(itSelf->second);
       auto vrtxSelf = std::get<1>(itSelf->second);
-      add_edge(vrtxStart, vrtxSelf,g);
+      auto ed = add_edge(vrtxStart, vrtxSelf,g);
+      int weight = boost::get(boost::edge_weight_t(), g, ed.first);
+      DUMP_VAR(weight);
+      boost::put(boost::edge_weight_t(), g, ed.first, weight+weightToAdd);
     }
   }
   
@@ -319,8 +322,8 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
   std::vector<std::size_t> distance(boost::num_vertices(g));
   boost::dijkstra_shortest_paths(g, vrtxStart,
               boost::predecessor_map(&parents[0]).distance_map(&distance[0]));
-  for(auto v = vrtxStart; v != vrtxEnd; v = parents[v]) {
-    DUMP_VAR(v);
-  }
+  //for(auto v = vrtxStart; v != vrtxEnd; v = parents[v]) {
+  //  DUMP_VAR(v);
+  //}
 }
 
