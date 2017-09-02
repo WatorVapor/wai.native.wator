@@ -25,9 +25,9 @@ using namespace std;
 #include <iostream>
 
 //typedef boost::adjacency_list<> Graph;
-typedef boost::adjacency_list<boost::vecS, boost::hash_setS, boost::undirectedS, uint32_t, uint32_t, boost::no_property> Graph;
-typedef Graph graph_t;
-typedef Graph::vertex_descriptor Vertex;
+//typedef boost::adjacency_list<boost::vecS, boost::hash_setS, boost::undirectedS, uint32_t, uint32_t, boost::no_property> Graph;
+//typedef Graph graph_t;
+//typedef Graph::vertex_descriptor Vertex;
 
 
 using namespace boost;
@@ -89,6 +89,7 @@ struct my_bfs_visitor : boost::default_bfs_visitor{
 #endif
 
 
+#if 0
 
 void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
   Graph g;
@@ -223,5 +224,93 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
 #endif
   
   labelVertex.clear();
+}
+#endif
+
+
+#include <iostream>
+#include <vector>
+#include <deque>
+#include <string>
+#include <boost/graph/adjacency_list.hpp>
+#include <boost/graph/dijkstra_shortest_paths.hpp>
+
+typedef boost::adjacency_list<boost::listS, boost::vecS, boost::directedS,
+    boost::no_property, boost::property<boost::edge_weight_t, int> > Graph;
+typedef std::pair<int, int>                             Edge;
+typedef boost::graph_traits<Graph>::vertex_descriptor   Vertex;
+
+
+void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
+  Graph g;
+  multimap<int, std::tuple<string, Vertex>> vertexs;
+  static vector<string> labelVertex;
+  
+  auto vrtxStart = add_vertex(g);
+  auto vrtxPrStart = std::make_tuple("S", vrtxStart);
+  vertexs.insert(std::make_pair(-1, vrtxPrStart));
+  labelVertex.push_back("S");
+  
+  int posLast = 0;
+  for (auto elem : confuse) {
+    auto word = std::get<0>(elem.second);
+    auto position = std::get<1>(elem.second);
+    auto vrtx = add_vertex(g);
+    auto vrtxPr = std::make_tuple(word, vrtx);
+    vertexs.insert(std::make_pair(position, vrtxPr));
+    labelVertex.push_back(word);
+    posLast = position + word.size();
+  }
+  auto vrtxEnd = add_vertex(g);
+  auto vrtxPrvrtxEnd = std::make_tuple("E", vrtxEnd);
+  vertexs.insert(std::make_pair(posLast,vrtxPrvrtxEnd));
+  labelVertex.push_back("E");
+ 
+  // add dummy start.
+  {
+    auto rangeSelf = vertexs.equal_range(0);
+    for (auto itSelf = rangeSelf.first; itSelf != rangeSelf.second; itSelf++) {
+      auto wordSelf = std::get<0>(itSelf->second);
+      auto vrtxSelf = std::get<1>(itSelf->second);
+      add_edge(vrtxStart, vrtxSelf,g);
+    }
+  }
+  
+
+  
+  
+  
+  for (auto elem : wordHintSeq_) {
+    auto word = std::get<0>(elem.second);
+    auto position = std::get<1>(elem.second);
+    auto range = std::get<2>(elem.second);
+    auto next = position + range;
+    auto rangeSelf = vertexs.equal_range(position);
+    for (auto itSelf = rangeSelf.first; itSelf != rangeSelf.second; itSelf++) {
+      auto wordSelf = std::get<0>(itSelf->second);
+      auto vrtxSelf = std::get<1>(itSelf->second);
+      if (word == wordSelf) {
+        auto rangeNext = vertexs.equal_range(next);
+        for (auto itNext = rangeNext.first; itNext != rangeNext.second;
+             itNext++) {
+          auto vrtxNext = std::get<1>(itNext->second);
+          add_edge(vrtxSelf, vrtxNext,g);
+        }
+        break;
+      }
+    }
+    // add dummy end.
+    if(posLast == position + range) {
+      auto rangeSelf = vertexs.equal_range(position);
+      for (auto itSelf = rangeSelf.first; itSelf != rangeSelf.second; itSelf++) {
+        auto wordSelf = std::get<0>(itSelf->second);
+        auto vrtxSelf = std::get<1>(itSelf->second);
+        if (word == wordSelf) {
+          add_edge(vrtxSelf,vrtxEnd,g);
+          break;
+        }
+      }
+    }
+  }
 }
 
