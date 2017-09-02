@@ -213,7 +213,7 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
   std::cout << std::endl;
 #endif
  my_bfs_visitor vis;
- boost::breadth_first_search(g, vrtxStart, boost::visitor(vis).vertex_index_map(get(boost::vertex_bundle,graph)));
+ boost::breadth_first_search(g, vrtxStart, boost::visitor(vis).vertex_index_map(get(boost::vertex_bundle,g)));
 #if 0  
   std::vector<Vertex> parents(boost::num_vertices(g));
   boost::dijkstra_shortest_paths(g, vrtxStart,
