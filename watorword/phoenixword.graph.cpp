@@ -162,11 +162,9 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
     DUMP_VAR(v);
   }
   
-  /*
-  for(auto v = vrtxStart; v != vrtxEnd; v = parents[v]) {
+  
+  for(auto v = vrtxEnd; v != vrtxStart; v = parents[v]) {
     DUMP_VAR(v);
   }
-  */
-  
 }
 
