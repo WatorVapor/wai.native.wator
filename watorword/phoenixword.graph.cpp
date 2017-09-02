@@ -348,7 +348,6 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
       "digraph G { \n rankdir=LR;\n graph [charset=\"UTF-8\"];\n");
   DUMP_VAR(dotStr);
   // dot -v -T svg 1.dot -o 1.svg
-  labelVertex.clear();
   
   
   
@@ -366,6 +365,10 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
     std::cout << "distance(" << labelVertex.at(*vi) << ") = " << distance[*vi] << ", ";
     std::cout << "parent(" << labelVertex.at(*vi) << ") = " << labelVertex.at(parents[*vi]) << std::endl;
   }
+  
+  labelVertex.clear();
+
+  
   if (parents[vrtxEnd] == vrtxEnd) {
     std::cout << "no path" << std::endl;
     return ;
