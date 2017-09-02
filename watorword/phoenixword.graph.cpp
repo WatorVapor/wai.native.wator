@@ -42,7 +42,7 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
   vector<string> labelVertex;
   
   auto vrtxStart = boost::add_vertex(g);
-  auto vrtxPrStart = std::make_tuple("S", vrtxStart);
+  auto vrtxPrStart = std::make_tuple("S", vrtxStart,1.0);
   vertexWator.insert(std::make_pair(-1, vrtxPrStart));
   labelVertex.push_back("S");
   
@@ -58,7 +58,7 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
     posLast = position + word.size();
   }
   auto vrtxEnd = add_vertex(g);
-  auto vrtxPrvrtxEnd = std::make_tuple("E", vrtxEnd);
+  auto vrtxPrvrtxEnd = std::make_tuple("E", vrtxEnd,1.0);
   vertexWator.insert(std::make_pair(posLast,vrtxPrvrtxEnd));
   labelVertex.push_back("E");
  
