@@ -137,7 +137,7 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
   DUMP_VAR3(boost::num_vertices(g),vrtxStart,vrtxEnd);
   
   std::vector<Vertex> parents(boost::num_vertices(g));
-  std::vector<int> distance(boost::num_vertices(g));
+  std::vector<float> distance(boost::num_vertices(g));
   
   auto predmap = boost::predecessor_map(boost::make_iterator_property_map(parents.begin(), boost::get(boost::vertex_index, g))).
                           distance_map(boost::make_iterator_property_map(distance.begin(), boost::get(boost::vertex_index, g)));
