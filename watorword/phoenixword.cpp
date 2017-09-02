@@ -26,13 +26,13 @@ void PhoenixWord::learn(const vector<string> &wordBytes, const string &text,cons
     TRACE_VAR(mbyte);
   }
   this->getRawRank(wordBytes,lang);
-  this->dumpDot();
+  //this->dumpDot();
   this->adjustRank();
   //  this->dumpRank();
 
 
   this->getNoConflictSeq();
-  this->dumpClearSeq();
+  //this->dumpClearSeq();
 
   this->calcPrediction();
 }
