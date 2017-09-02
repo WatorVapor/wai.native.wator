@@ -236,6 +236,8 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
 #include <string>
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/graph/dijkstra_shortest_paths.hpp>
+#include <boost/graph/graphviz.hpp>
+
 
 typedef boost::adjacency_list<boost::listS, boost::vecS, boost::directedS,
     boost::no_property, boost::property<boost::edge_weight_t, int> > Graph;
