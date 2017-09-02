@@ -413,7 +413,7 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
   Size time = 0;
   bfs_time_visitor < dtime_pm_type >vis(dtime_pm, time);
 
-  boost::breadth_first_search(g, boost::vertex(vrtxStart, g), boost::visitor(vis));
+  boost::breadth_first_search(g,vrtxStart,boost::visitor(vis));
   
   std::vector<graph_traits<graph_t>::vertices_size_type > discover_order(vrtxEnd);
   integer_range < int >range(0, vrtxEnd);
