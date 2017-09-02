@@ -312,5 +312,11 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
       }
     }
   }
+  
+  std::vector<Vertex> parents(boost::num_vertices(g));
+  std::vector<std::size_t> distance(boost::num_vertices(g));
+  boost::dijkstra_shortest_paths(g, vrtxStart,
+              boost::predecessor_map(&parents[0]).distance_map(&distance[0]));
+  
 }
 
