@@ -172,13 +172,13 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
   }
   std::vector<int> path;
   for(auto v = vrtxEnd; v != vrtxStart; v = parents[v]) {
-    path.push_back(v);
+    if(v != vrtxEnd) {
+      path.push_back(v);
+    }
   }
   for(auto it = path.rbegin();it != path.rend();it++) {
-    if(it != path.rbegin()) {
       auto wordPair = labelVertex.at(*it);
       DUMP_VAR2(*it,std::get<0>(wordPair));
-    }
   }
 }
 
