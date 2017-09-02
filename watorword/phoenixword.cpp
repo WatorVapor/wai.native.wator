@@ -123,26 +123,32 @@ void PhoenixWord::getRawRank(const vector<string> &Bytes,const string &lang) {
   TRACE_VAR(statisticsMinWordSize_);
 }
 
+static const int gWeigthAdjustBase = 1024*1024;
+
+double PhoenixWord::adjustWeight(int width, double weight) {
+  double rate = (double)width / (double)statisticsMinWordSize_ - 1.0;
+  double rate2 = ::pow(gWeigthAdjustBase, rate);
+  TRACE_VAR(rate, rate2);
+  auto weight_adj = weight * rate2;
+  return weight_adj;
+}
 
 
 void PhoenixWord::adjustRank() {
-  for (auto rPair : statisticsRank_) {
-    TRACE_VAR(rPair.first, rPair.second);
-    auto word = rPair.first;
-    auto weight = std::get<0>(rPair.second);
-    TRACE_VAR(word, weight, word.size());
-    double rate = (double)word.size() / (double)statisticsMinWordSize_ - 1.0;
-    double rate2 = ::pow(gWeightAdjustBase, rate);
-    if (rate > gWeightAdjustRateMax) {
-      DUMP_VAR4(word, word.size(), statisticsMinWordSize_, rate);
-      rate2 = 1.0;
-    }
-    TRACE_VAR(rate, rate2);
-    auto weight_adj = weight * (int)rate2;
-    TRACE_VAR(word, word.size(), weight, weight_adj);
-    statisticsRank_[word] = std::make_tuple(weight_adj, weight);
-    ;
+  multimap<double, WordElement> weightElem;
+  for (auto elem : wordHintSeq_) {
+    TRACE_VAR(elem.first);
+    auto word = std::get<0>(elem.second);
+    auto pos = std::get<1>(elem.second);
+    auto range = std::get<2>(elem.second);
+    auto weight = std::get<3>(elem.second);
+    auto weight2 = std::get<4>(elem.second);
+    auto weight_adj = adjustWeight(word.size(), weight);
+    TRACE_VAR(word, pos, range, weight_adj, weight);
+    auto elemNew = std::make_tuple(word, pos, range, weight_adj, weight2);
+    weightElem.insert(std::make_pair(weight_adj, elemNew));
   }
+  wordHintSeq_ = weightElem;
 }
 
 
