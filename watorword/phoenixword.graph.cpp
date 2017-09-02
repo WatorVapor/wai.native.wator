@@ -29,7 +29,7 @@ struct sample_graph_writer {
     out << " [ label = <";
     out << "<FONT POINT-SIZE=\"20\">" << std::get<0>(wordPair) << "</FONT>";
     out << "<FONT POINT-SIZE=\"10\">" << " " << std::get<1>(wordPair) << " " << std::get<2>(wordPair) << "</FONT>";
-    out << ">";
+    out << ">,";
     out << " fillcolor = \"#CC9999\" ";
     out << "]";
   }
