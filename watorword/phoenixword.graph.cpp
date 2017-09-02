@@ -364,7 +364,7 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
   graph_traits < Graph >::vertex_iterator vi, vend;
   for (boost::tie(vi, vend) = vertices(g); vi != vend; ++vi) {
     std::cout << "distance(" << labelVertex.at(*vi) << ") = " << distance[*vi] << ", ";
-    std::cout << "parent(" << labelVertex.at(*vi) << ") = " << labelVertex.at(parents[*vi]) << std::
+    std::cout << "parent(" << labelVertex.at(*vi) << ") = " << labelVertex.at(parents[*vi]) << std::endl;
   }
   if (parents[vrtxEnd] == vrtxEnd) {
     std::cout << "no path" << std::endl;
