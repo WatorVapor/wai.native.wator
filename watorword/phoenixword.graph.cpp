@@ -24,7 +24,8 @@ using namespace std;
 
 #include <iostream>
 
-typedef boost::adjacency_list<> Graph;
+//typedef boost::adjacency_list<> Graph;
+typedef boost::adjacency_list<boost::vecS, boost::hash_setS, boost::undirectedS, uint32_t, uint32_t, boost::no_property> Graph;
 typedef Graph graph_t;
 typedef Graph::vertex_descriptor Vertex;
 
