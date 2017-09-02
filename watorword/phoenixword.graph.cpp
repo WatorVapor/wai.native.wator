@@ -274,7 +274,7 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
     for (auto itSelf = rangeSelf.first; itSelf != rangeSelf.second; itSelf++) {
       auto wordSelf = std::get<0>(itSelf->second);
       auto vrtxSelf = std::get<1>(itSelf->second);
-      auto ed = add_edge(vrtxStart, vrtxSelf,g);
+      auto ed = boost::add_edge(vrtxStart, vrtxSelf,g);
       int weight = boost::get(boost::edge_weight_t(), g, ed.first);
       boost::put(boost::edge_weight_t(), g, ed.first, 1);
       int weight2 = boost::get(boost::edge_weight_t(), g, ed.first);
@@ -300,7 +300,11 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
         for (auto itNext = rangeNext.first; itNext != rangeNext.second;
              itNext++) {
           auto vrtxNext = std::get<1>(itNext->second);
-          add_edge(vrtxSelf, vrtxNext,g);
+          auto ed = boost::add_edge(vrtxSelf, vrtxNext,g);
+          int weight = boost::get(boost::edge_weight_t(), g, ed.first);
+          boost::put(boost::edge_weight_t(), g, ed.first, 1);
+          int weight2 = boost::get(boost::edge_weight_t(), g, ed.first);
+          DUMP_VAR2(weight,weight2);
         }
         break;
       }
@@ -312,7 +316,11 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
         auto wordSelf = std::get<0>(itSelf->second);
         auto vrtxSelf = std::get<1>(itSelf->second);
         if (word == wordSelf) {
-          add_edge(vrtxSelf,vrtxEnd,g);
+          auto ed = boost::add_edge(vrtxSelf,vrtxEnd,g);
+          int weight = boost::get(boost::edge_weight_t(), g, ed.first);
+          boost::put(boost::edge_weight_t(), g, ed.first, 1);
+          int weight2 = boost::get(boost::edge_weight_t(), g, ed.first);
+          DUMP_VAR2(weight,weight2);
           break;
         }
       }
