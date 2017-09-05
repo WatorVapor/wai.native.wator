@@ -20,6 +20,7 @@ static int iConstPathCacheMax = 32;
 
 extern std::shared_ptr<udp_server> gFetchTrainServer;
 
+/*
 void fetchOstrichTask(const string &lang) {
   DUMP_VAR(lang);
   if (lang == "cn") {
@@ -34,6 +35,8 @@ void fetchParrotTask(const string &lang) {
   } else {
   }
 }
+*/
+
 void fetchPhoenixTask(const string &lang) {
   DUMP_VAR(lang);
   if (lang == "cn") {
