@@ -119,7 +119,7 @@ add_library(utilitieswator
 
 
 add_executable(wator.webservice.urlcrawler.app
-  tools/urlcrawler.cpp
+  tools/service.url.crawler.cpp
 )
 target_link_libraries(wator.webservice.urlcrawler.app
   utilitieswator
