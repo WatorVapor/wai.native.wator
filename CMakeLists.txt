@@ -102,9 +102,9 @@ target_link_libraries(wator.webservice.wai.app
 
 
 add_library(utilitieswator
-  utilities/train_entry.cpp
-  utilities/train_fetch_task.cpp
-  utilities/train_save_task.cpp
+  utilities/service_ostrich_entry.cpp
+  utilities/service_ostrich_fetch_task.cpp
+  utilities/service_ostrich_save_task.cpp
 #  utilities/url_pool_entry.cpp
 #  utilities/url_merge_entry.cpp
   utilities/url_crawler_entry.cpp
@@ -126,10 +126,10 @@ target_link_libraries(wator.webservice.urlcrawler.app
   ${LIBS}
 )
 
-add_executable(wator.webservice.train.app
-  tools/train.cpp
+add_executable(wator.webservice.ostrich.app
+  tools/service_ostrich.cpp
 )
-target_link_libraries(wator.webservice.train.app
+target_link_libraries(wator.webservice.ostrich.app
   utilitieswator
   ${LIBS}
 )
