@@ -155,16 +155,16 @@ static void findTodo(void) {
   }
 
 void train_ostrich_collect(void) {
-  //START_DB(Ostrich, ostrich);
-  START_DB(Parrot, parrot);
+  START_DB(Ostrich, ostrich);
+  //START_DB(Parrot, parrot);
 
   while (true) {
     findTodo();
     std::unique_lock<std::mutex> lk(gTodoCvMutex);
     gTodoCV.wait(lk);
   }
-  //END_DB(Ostrich);
-  END_DB(Parrot);
+  END_DB(Ostrich);
+  //END_DB(Parrot);
 }
 
 #define FETCH_SUMMARY(stage)                       \
