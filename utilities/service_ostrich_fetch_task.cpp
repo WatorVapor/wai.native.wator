@@ -77,7 +77,6 @@ void fetchPhoenixTask(const string &lang) {
   std::shared_ptr<DictionaryStorage> gJA##stage##Dict;
 
 DECLARE_DB(Ostrich);
-DECLARE_DB(Parrot);
 
 #define TRY_FIND_TASK(stage, lang)                                 \
   {                                                                \
@@ -97,8 +96,6 @@ DECLARE_DB(Parrot);
 static void findTodo(void) {
   TRY_FIND_TASK(Ostrich, CN);
   TRY_FIND_TASK(Ostrich, JA);
-  //TRY_FIND_TASK(Parrot, CN);
-  //TRY_FIND_TASK(Parrot, JA);
 }
 
 #define START_DB(stageN, stageP)                              \
