@@ -182,6 +182,8 @@ void fetchOstrichSummary(void) {
   FETCH_SUMMARY(Ostrich);
   gFetchTrainServer->send(summary);
 }
+/*
 void fetchParrotSummary(void) {
 }
 void fetchPhoenixSummary(void) {}
+*/
