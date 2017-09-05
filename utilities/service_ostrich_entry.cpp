@@ -22,15 +22,15 @@ namespace pt = boost::property_tree;
 #include "log.hpp"
 #include "udp_entry.hpp"
 
-static const uint16_t iConstOstrichFetchAPIPortRangeMin = 41284;
-static const uint16_t iConstOstrichFetchAPIPortRangeMax = 41294;
+static const uint16_t iConstFetchAPIPortRangeMin = 41224;
+static const uint16_t iConstFetchAPIPortRangeMax = 41234;
 static void processText(const std::string &text);
 std::shared_ptr<udp_server> gFetchTrainServer;
 
 void train_ostrich_fetch_upd_main(void) {
   auto io_service = std::make_shared<boost::asio::io_service>();
-  for (uint16_t port = iConstOstrichFetchAPIPortRangeMin;
-       port < iConstOstrichFetchAPIPortRangeMax; port++) {
+  for (uint16_t port = iConstFetchAPIPortRangeMin;
+       port < iConstFetchAPIPortRangeMax; port++) {
     try {
       auto ep =
           std::make_shared<udp::endpoint>(address::from_string("::1"), port);
