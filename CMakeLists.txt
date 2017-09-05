@@ -105,6 +105,12 @@ add_library(utilitieswator
   utilities/service_ostrich_entry.cpp
   utilities/service_ostrich_fetch_task.cpp
   utilities/service_ostrich_save_task.cpp
+  utilities/service_parrot_entry.cpp
+  utilities/service_parrot_fetch_task.cpp
+  utilities/service_parrot_save_task.cpp
+  utilities/service_phoenix_entry.cpp
+  utilities/service_phoenix_fetch_task.cpp
+  utilities/service_phoenix_save_task.cpp
 #  utilities/url_pool_entry.cpp
 #  utilities/url_merge_entry.cpp
   utilities/url_crawler_entry.cpp
@@ -130,6 +136,14 @@ add_executable(wator.webservice.ostrich.app
   tools/service_ostrich.cpp
 )
 target_link_libraries(wator.webservice.ostrich.app
+  utilitieswator
+  ${LIBS}
+)
+
+add_executable(wator.webservice.parrot.app
+  tools/service_parrot.cpp
+)
+target_link_libraries(wator.webservice.parrot.app
   utilitieswator
   ${LIBS}
 )
