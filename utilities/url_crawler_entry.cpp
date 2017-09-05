@@ -22,8 +22,8 @@ namespace pt = boost::property_tree;
 #include "log.hpp"
 #include "udp_entry.hpp"
 
-static const uint16_t iConstFetchAPIPortRangeMin = 41264;
-static const uint16_t iConstFetchAPIPortRangeMax = 41274;
+static const uint16_t iConstFetchAPIPortRangeMin = 41214;
+static const uint16_t iConstFetchAPIPortRangeMax = 41224;
 
 std::shared_ptr<udp_server> gFetchServer;
 
