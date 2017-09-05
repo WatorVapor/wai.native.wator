@@ -11,9 +11,6 @@ using namespace std;
 static vector<string> gOstrichTodoCN;
 static vector<string> gOstrichTodoJA;
 
-static vector<string> gParrotTodoCN;
-static vector<string> gParrotTodoJA;
-
 static std::mutex gTodoMutex;
 static std::condition_variable gTodoCV;
 static std::mutex gTodoCvMutex;
@@ -54,29 +51,7 @@ void fetchOstrichTask(const string &lang) {
 void fetchParrotTask(const string &lang) {
   DUMP_VAR(lang);
   if (lang == "cn") {
-    std::lock_guard<std::mutex> lock(gTodoMutex);
-    if (gParrotTodoCN.empty()) {
-      gTodoCV.notify_all();
-      gFetchTrainServer->send("");
-    } else {
-      auto top = gParrotTodoCN.back();
-      DUMP_VAR(top);
-      gParrotTodoCN.pop_back();
-      DUMP_VAR(gParrotTodoCN.size());
-      gFetchTrainServer->send(top);
-    }
   } else if (lang == "ja") {
-    std::lock_guard<std::mutex> lock(gTodoMutex);
-    if (gParrotTodoJA.empty()) {
-      gTodoCV.notify_all();
-      gFetchTrainServer->send("");
-    } else {
-      auto top = gParrotTodoJA.back();
-      DUMP_VAR(top);
-      gParrotTodoJA.pop_back();
-      DUMP_VAR(gParrotTodoJA.size());
-      gFetchTrainServer->send(top);
-    }
   } else {
   }
 }
@@ -117,10 +92,10 @@ DECLARE_DB(Parrot);
   }
 
 static void findTodo(void) {
-  //TRY_FIND_TASK(Ostrich, CN);
-  //TRY_FIND_TASK(Ostrich, JA);
-  TRY_FIND_TASK(Parrot, CN);
-  TRY_FIND_TASK(Parrot, JA);
+  TRY_FIND_TASK(Ostrich, CN);
+  TRY_FIND_TASK(Ostrich, JA);
+  //TRY_FIND_TASK(Parrot, CN);
+  //TRY_FIND_TASK(Parrot, JA);
 }
 
 #define START_DB(stageN, stageP)                              \
@@ -205,8 +180,5 @@ void fetchOstrichSummary(void) {
   gFetchTrainServer->send(summary);
 }
 void fetchParrotSummary(void) {
-  std::string summary;
-  FETCH_SUMMARY(Parrot);
-  gFetchTrainServer->send(summary);
 }
 void fetchPhoenixSummary(void) {}
