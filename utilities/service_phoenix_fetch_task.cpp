@@ -173,10 +173,13 @@ void train_phoenix_collect(void) {
     ;                                              \
   }
 
+/*
 void fetchOstrichSummary(void) {
 }
 void fetchParrotSummary(void) {
 }
+*/
+
 void fetchPhoenixSummary(void) {
   std::string summary;
   FETCH_SUMMARY(Phoenix);
