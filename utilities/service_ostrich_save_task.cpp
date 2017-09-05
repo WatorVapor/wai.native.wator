@@ -156,4 +156,3 @@ void savePhoenixTask(const string &lang, const string &url,
   gSaveTrainServer->send("success");
 }
 
-void train_ostrich_word_write(void) {}
