@@ -148,6 +148,14 @@ target_link_libraries(wator.webservice.parrot.app
   ${LIBS}
 )
 
+add_executable(wator.webservice.phoenix.app
+  tools/service_phoenix.cpp
+)
+target_link_libraries(wator.webservice.phoenix.app
+  utilitieswator
+  ${LIBS}
+)
+
 
 add_executable(wator.collect.app
   tools/collect.cpp
