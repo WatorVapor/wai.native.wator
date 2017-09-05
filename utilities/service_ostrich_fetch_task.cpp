@@ -154,7 +154,7 @@ static void findTodo(void) {
     gJA##stage##Dict->closeDB();        \
   }
 
-void train_collect(void) {
+void train_ostrich_collect(void) {
   //START_DB(Ostrich, ostrich);
   START_DB(Parrot, parrot);
 
