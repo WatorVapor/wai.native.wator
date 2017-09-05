@@ -176,11 +176,15 @@ void train_parrot_collect(void) {
     ;                                              \
   }
 
+/*
 void fetchOstrichSummary(void) {
 }
+*/
 void fetchParrotSummary(void) {
   std::string summary;
   FETCH_SUMMARY(Parrot);
   gFetchTrainServer->send(summary);
 }
+/*
 void fetchPhoenixSummary(void) {}
+*/
