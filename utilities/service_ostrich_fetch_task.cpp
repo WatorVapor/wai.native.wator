@@ -48,6 +48,8 @@ void fetchOstrichTask(const string &lang) {
   } else {
   }
 }
+
+/*
 void fetchParrotTask(const string &lang) {
   DUMP_VAR(lang);
   if (lang == "cn") {
@@ -62,6 +64,7 @@ void fetchPhoenixTask(const string &lang) {
   } else {
   }
 }
+*/
 
 #include "dictstorage.hpp"
 #include "urlstorage.hpp"
