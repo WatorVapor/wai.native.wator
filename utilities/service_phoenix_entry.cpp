@@ -22,12 +22,12 @@ namespace pt = boost::property_tree;
 #include "log.hpp"
 #include "udp_entry.hpp"
 
-static const uint16_t iConstFetchAPIPortRangeMin = 41224;
-static const uint16_t iConstFetchAPIPortRangeMax = 41234;
+static const uint16_t iConstFetchAPIPortRangeMin = 41244;
+static const uint16_t iConstFetchAPIPortRangeMax = 41254;
 static void processText(const std::string &text);
 std::shared_ptr<udp_server> gFetchTrainServer;
 
-void train_ostrich_fetch_upd_main(void) {
+void train_phoenix_fetch_upd_main(void) {
   auto io_service = std::make_shared<boost::asio::io_service>();
   for (uint16_t port = iConstFetchAPIPortRangeMin;
        port < iConstFetchAPIPortRangeMax; port++) {
@@ -36,7 +36,7 @@ void train_ostrich_fetch_upd_main(void) {
           std::make_shared<udp::endpoint>(address::from_string("::1"), port);
       auto sock = std::make_shared<udp::socket>(*io_service, *ep);
       DUMP_VAR(port);
-      savePort(port, "/watorvapor/wai.storage/conf/train.ostrich.fetch.api.json");
+      savePort(port, "/watorvapor/wai.storage/conf/train.phoenix.fetch.api.json");
       gFetchTrainServer = std::make_shared<udp_server>(sock);
       gFetchTrainServer->start_receive(processText);
       DUMP_VAR(gFetchTrainServer.get());
@@ -108,7 +108,7 @@ static const uint16_t iConstSaveAPIPortRangeMax = 41314;
 static void processText2(const std::string &text);
 std::shared_ptr<udp_server> gSaveTrainServer;
 
-void train_ostrich_save_upd_main(void) {
+void train_phoenix_save_upd_main(void) {
   // DUMP_VAR("train_save_upd_main");
   auto io_service = std::make_shared<boost::asio::io_service>();
   // DUMP_VAR("train_save_upd_main");
