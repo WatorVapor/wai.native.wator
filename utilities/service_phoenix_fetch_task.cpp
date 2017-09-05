@@ -38,26 +38,26 @@ void fetchPhoenixTask(const string &lang) {
   DUMP_VAR(lang);
   if (lang == "cn") {
     std::lock_guard<std::mutex> lock(gTodoMutex);
-    if (gParrotTodoCN.empty()) {
+    if (gPhoenixTodoCN.empty()) {
       gTodoCV.notify_all();
       gFetchTrainServer->send("");
     } else {
-      auto top = gParrotTodoCN.back();
+      auto top = gPhoenixTodoCN.back();
       DUMP_VAR(top);
-      gParrotTodoCN.pop_back();
-      DUMP_VAR(gParrotTodoCN.size());
+      gPhoenixTodoCN.pop_back();
+      DUMP_VAR(gPhoenixTodoCN.size());
       gFetchTrainServer->send(top);
     }
   } else if (lang == "ja") {
     std::lock_guard<std::mutex> lock(gTodoMutex);
-    if (gParrotTodoJA.empty()) {
+    if (gPhoenixTodoJA.empty()) {
       gTodoCV.notify_all();
       gFetchTrainServer->send("");
     } else {
-      auto top = gParrotTodoJA.back();
+      auto top = gPhoenixTodoJA.back();
       DUMP_VAR(top);
-      gParrotTodoJA.pop_back();
-      DUMP_VAR(gParrotTodoJA.size());
+      gPhoenixTodoJA.pop_back();
+      DUMP_VAR(gPhoenixTodoJA.size());
       gFetchTrainServer->send(top);
     }
   } else {
