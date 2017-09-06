@@ -22,8 +22,8 @@ namespace pt = boost::property_tree;
 #include "log.hpp"
 #include "udp_entry.hpp"
 
-static const uint16_t iConstFetchAPIPortRangeMin = 41224;
-static const uint16_t iConstFetchAPIPortRangeMax = 41234;
+static const uint16_t iConstFetchAPIPortRangeMin = 41221;
+static const uint16_t iConstFetchAPIPortRangeMax = 41225;
 static void processText(const std::string &text);
 std::shared_ptr<udp_server> gFetchTrainServer;
 
@@ -103,8 +103,8 @@ void processText(const std::string &text) {
   }
 }
 
-static const uint16_t iConstSaveAPIPortRangeMin = 41304;
-static const uint16_t iConstSaveAPIPortRangeMax = 41314;
+static const uint16_t iConstSaveAPIPortRangeMin = 41226;
+static const uint16_t iConstSaveAPIPortRangeMax = 41230;
 static void processText2(const std::string &text);
 std::shared_ptr<udp_server> gSaveTrainServer;
 
