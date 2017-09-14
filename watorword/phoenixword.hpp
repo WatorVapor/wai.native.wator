@@ -24,6 +24,7 @@ class PhoenixWord {
   PhoenixWord(const string &database);
   ~PhoenixWord();
   void learn(const vector<string> &word, const string &text,const string &lang);
+  void cut(const vector<string> &word, const string &text,const string &lang);
   bool loadMaster(bool castForce = true);
   void unloadMaster(void);
   void commitArticle(void);
