@@ -31,7 +31,7 @@ void unloadMasterDB(void) {
 namespace pt = boost::property_tree;
 #include <sstream>
 
-string processText(const string &text,const string &lang);
+string processWord(const string &text,const string &lang);
 
 static bool gJapanese = false;
 string processText(const string &text) {
