@@ -39,6 +39,34 @@ void PhoenixWord::learn(const vector<string> &wordBytes, const string &text,cons
   this->collectWord();
 }
 
+pt::ptree PhoenixWord::cut(const vector<string> &wordBytes, const string &text,
+                            ,const string &lang) {
+  pt::ptree result;
+  if (wordBytes.size() < 2) {
+    return result;
+  }
+  TRACE_VAR(text);
+  for (auto mbyte : wordBytes) {
+    TRACE_VAR(mbyte);
+  }
+  this->getRawRank(wordBytes,lang);
+  //this->dumpDot();
+  this->adjustRank();
+  //  this->dumpRank();
+
+
+  this->getNoConflictSeq();
+  //this->dumpClearSeq();
+
+  this->calcPrediction();
+  
+
+  //result.put(u8"sentence", clearResult_);
+  //result.add_child(u8"detail", result_);
+  return result;
+}
+
+
 
 void PhoenixWord::commitArticle(void) {
   multiWordOfOneArticle_.clear();
