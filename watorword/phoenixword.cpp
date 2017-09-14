@@ -40,7 +40,7 @@ void PhoenixWord::learn(const vector<string> &wordBytes, const string &text,cons
 }
 
 pt::ptree PhoenixWord::cut(const vector<string> &wordBytes, const string &text,
-                            ,const string &lang) {
+                            const string &lang) {
   pt::ptree result;
   if (wordBytes.size() < 2) {
     return result;
