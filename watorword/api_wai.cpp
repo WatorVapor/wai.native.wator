@@ -57,7 +57,6 @@ string processWord(const string &text,const string &lang) {
   auto learnPhoenix = [&](string wordStr, vector<string> word) {
     DUMP_VAR(gPhoenix);
     auto result = gPhoenix->cut(word, wordStr, lang);
-    DUMP_VAR(predCN);
     resultTotal.push_back(std::make_pair("", result));
   };
   CtrlClaw claw;
