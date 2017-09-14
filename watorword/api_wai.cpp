@@ -12,24 +12,17 @@ using namespace std;
 #include "phoenixword.hpp"
 #include "textpump.hpp"
 
-static std::shared_ptr<PhoenixWord> gPhoenixChinese;
-static std::shared_ptr<PhoenixWord> gPhoenixJapanese;
+static std::shared_ptr<PhoenixWord> gPhoenix;
 bool loadMasterDB(void) {
-  gPhoenixChinese = std::make_shared<PhoenixWord>("./db/parrot");
-  gPhoenixJapanese = std::make_shared<PhoenixWord>("./db/parrot");
-  if (gPhoenixChinese->loadMaster(false) == false) {
-    return false;
-  }
-  if (gPhoenixJapanese->loadMaster(false) == false) {
+  gPhoenix = std::make_shared<PhoenixWord>("./db/parrot");
+  if (gPhoenix->loadMaster(false) == false) {
     return false;
   }
   return true;
 }
 void unloadMasterDB(void) {
-  gPhoenixChinese->unloadMaster();
-  gPhoenixChinese.reset();
-  gPhoenixJapanese->unloadMaster();
-  gPhoenixJapanese.reset();
+  gPhoenix->unloadMaster();
+  gPhoenix.reset();
 }
 
 #include <boost/exception/all.hpp>
@@ -38,8 +31,7 @@ void unloadMasterDB(void) {
 namespace pt = boost::property_tree;
 #include <sstream>
 
-string processTextCN(const string &text);
-string processTextJA(const string &text);
+string processText(const string &text,const string &lang);
 
 static bool gJapanese = false;
 string processText(const string &text) {
@@ -51,62 +43,26 @@ string processText(const string &text) {
     auto langOpt = configJson.get_optional<string>("lang");
     if (langOpt) {
       auto lang = langOpt.get();
-      if (lang == "jp") {
-        gJapanese = true;
-      } else {
-        gJapanese = false;
-      }
-    } else {
-      gJapanese = false;
-    }
-
+      return processWord(text,lang);
   } catch (boost::exception &e) {
     DUMP_VAR(boost::diagnostic_information(e));
-  }
-  if (gJapanese) {
-    return processTextJA(text);
-  } else {
-    return processTextCN(text);
+    return processWord(text,"ja");
   }
   return "";
 }
 
-string processTextCN(const string &text) {
+string processWord(const string &text,const string &lang) {
   pt::ptree resultTotal;
-  auto learnPhoenixCh = [&](string wordStr, vector<string> word) {
-    DUMP_VAR(gPhoenixChinese);
+  auto learnPhoenix = [&](string wordStr, vector<string> word) {
+    DUMP_VAR(gPhoenix);
     double predCN = 0.0;
-    auto result = gPhoenixChinese->cut(word, wordStr, predCN);
+    gPhoenix->cut(word, wordStr, lang);
     DUMP_VAR(predCN);
-    /*
-        string clearTotalStr;
-        pt::ptree resultArray;
-        for(auto clearSeq:result) {
-          pt::ptree clearPt;
-          DUMP_VAR(clearSeq.first);
-          clearPt.put(u8"clear",clearSeq.first);
-          pt::ptree ambiguityPt;
-          DUMP_VAR(clearSeq.second.size());
-          int rank =1;
-          string clearStr;
-          for(auto ambig:clearSeq.second){
-            DUMP_VAR(ambig);
-            ambiguityPt.put(std::to_string(rank++),ambig);
-          }
-          clearTotalStr += clearSeq.first;
-          clearPt.add_child(u8"ambiguity", ambiguityPt);
-          resultArray.push_back(std::make_pair("",clearPt));
-        }
-        pt::ptree sentencePt;
-        sentencePt.put(u8"clear",clearStr);
-        sentencePt.add_child(u8"details",resultArray);
-        resultCN.push_back(std::make_pair("",sentencePt));
-     */
     resultTotal.push_back(std::make_pair("", result));
   };
   CtrlClaw claw;
   claw.claw(text);
-  claw.eachSentence(learnPhoenixCh);
+  claw.eachSentence(learnPhoenix);
   try {
     pt::ptree result;
     result.add_child(u8"wai", resultTotal);
@@ -119,50 +75,3 @@ string processTextCN(const string &text) {
   return "";
 }
 
-string processTextJA(const string &text) {
-  pt::ptree resultTotal;
-  auto learnPhoenixJa = [&](string wordStr, vector<string> word) {
-    DUMP_VAR(gPhoenixJapanese.get());
-    double predJA = 0.0;
-    auto result = gPhoenixJapanese->cut(word, wordStr, predJA);
-    DUMP_VAR(predJA);
-    /*
-        int pos = 1;
-        string clearStr;
-        pt::ptree resultArray;
-        for(auto clearSeq:result) {
-          pt::ptree clearPt;
-          DUMP_VAR(clearSeq.first);
-          clearPt.put(u8"clear",clearSeq.first);
-          clearStr += clearSeq.first;
-          pt::ptree ambiguityPt;
-          DUMP_VAR(clearSeq.second.size());
-          int rank =1;
-          for(auto ambig:clearSeq.second){
-            DUMP_VAR(ambig);
-            ambiguityPt.put(std::to_string(rank++),ambig);
-          }
-          clearPt.add_child(u8"ambiguity", ambiguityPt);
-          resultArray.push_back(std::make_pair("",clearPt));
-        }
-        pt::ptree sentencePt;
-        sentencePt.put(u8"clear",clearStr);
-        sentencePt.add_child(u8"details",resultArray);
-        resultJA.push_back(std::make_pair("",sentencePt));
-     */
-    resultTotal.push_back(std::make_pair("", result));
-  };
-  CtrlClaw claw;
-  claw.claw(text);
-  claw.eachSentence(learnPhoenixJa);
-  try {
-    pt::ptree result;
-    result.add_child(u8"wai", resultTotal);
-    std::stringstream ss;
-    pt::write_json(ss, result);
-    return ss.str();
-  } catch (boost::exception &e) {
-    DUMP_VAR(boost::diagnostic_information(e));
-  }
-  return "";
-}
