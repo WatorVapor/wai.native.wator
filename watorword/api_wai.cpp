@@ -62,11 +62,11 @@ string processText(const string &text) {
 
   } catch (boost::exception &e) {
     DUMP_VAR(boost::diagnostic_information(e));
-    if (gJapanese) {
-      return processTextJA(text);
-    } else {
-      return processTextCN(text);
-    }
+  }
+  if (gJapanese) {
+    return processTextJA(text);
+  } else {
+    return processTextCN(text);
   }
   return "";
 }
