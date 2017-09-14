@@ -9,27 +9,27 @@ using namespace std;
 
 #include "ctrlclaw.hpp"
 #include "log.hpp"
-#include "qiangbaoword.hpp"
+#include "phoenixword.hpp"
 #include "textpump.hpp"
 
-static std::shared_ptr<QiangbaoWord> gQiangbaoChinese;
-static std::shared_ptr<QiangbaoWord> gQiangbaoJapanese;
+static std::shared_ptr<PhoenixWord> gPhoenixChinese;
+static std::shared_ptr<PhoenixWord> gPhoenixJapanese;
 bool loadMasterDB(void) {
-  gQiangbaoChinese = std::make_shared<QiangbaoWord>("./db/baidu.baike");
-  gQiangbaoJapanese = std::make_shared<QiangbaoWord>("./db/wiki.ja");
-  if (gQiangbaoChinese->loadMaster(false) == false) {
+  gPhoenixChinese = std::make_shared<PhoenixWord>("./db/parrot");
+  gPhoenixJapanese = std::make_shared<PhoenixWord>("./db/parrot");
+  if (gPhoenixChinese->loadMaster(false) == false) {
     return false;
   }
-  if (gQiangbaoJapanese->loadMaster(false) == false) {
+  if (gPhoenixJapanese->loadMaster(false) == false) {
     return false;
   }
   return true;
 }
 void unloadMasterDB(void) {
-  gQiangbaoChinese->unloadMaster();
-  gQiangbaoChinese.reset();
-  gQiangbaoJapanese->unloadMaster();
-  gQiangbaoJapanese.reset();
+  gPhoenixChinese->unloadMaster();
+  gPhoenixChinese.reset();
+  gPhoenixJapanese->unloadMaster();
+  gPhoenixJapanese.reset();
 }
 
 #include <boost/exception/all.hpp>
@@ -73,10 +73,10 @@ string processText(const string &text) {
 
 string processTextCN(const string &text) {
   pt::ptree resultTotal;
-  auto learnQiangbaoCh = [&](string wordStr, vector<string> word) {
-    DUMP_VAR(gQiangbaoChinese);
+  auto learnPhoenixCh = [&](string wordStr, vector<string> word) {
+    DUMP_VAR(gPhoenixChinese);
     double predCN = 0.0;
-    auto result = gQiangbaoChinese->cut(word, wordStr, predCN);
+    auto result = gPhoenixChinese->cut(word, wordStr, predCN);
     DUMP_VAR(predCN);
     /*
         string clearTotalStr;
@@ -106,7 +106,7 @@ string processTextCN(const string &text) {
   };
   CtrlClaw claw;
   claw.claw(text);
-  claw.eachSentence(learnQiangbaoCh);
+  claw.eachSentence(learnPhoenixCh);
   try {
     pt::ptree result;
     result.add_child(u8"wai", resultTotal);
@@ -121,10 +121,10 @@ string processTextCN(const string &text) {
 
 string processTextJA(const string &text) {
   pt::ptree resultTotal;
-  auto learnQiangbaoJa = [&](string wordStr, vector<string> word) {
-    DUMP_VAR(gQiangbaoJapanese.get());
+  auto learnPhoenixJa = [&](string wordStr, vector<string> word) {
+    DUMP_VAR(gPhoenixJapanese.get());
     double predJA = 0.0;
-    auto result = gQiangbaoJapanese->cut(word, wordStr, predJA);
+    auto result = gPhoenixJapanese->cut(word, wordStr, predJA);
     DUMP_VAR(predJA);
     /*
         int pos = 1;
@@ -154,7 +154,7 @@ string processTextJA(const string &text) {
   };
   CtrlClaw claw;
   claw.claw(text);
-  claw.eachSentence(learnQiangbaoJa);
+  claw.eachSentence(learnPhoenixJa);
   try {
     pt::ptree result;
     result.add_child(u8"wai", resultTotal);
