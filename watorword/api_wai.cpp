@@ -44,6 +44,7 @@ string processText(const string &text) {
     if (langOpt) {
       auto lang = langOpt.get();
       return processWord(text,lang);
+    }
   } catch (boost::exception &e) {
     DUMP_VAR(boost::diagnostic_information(e));
     return processWord(text,"ja");
@@ -55,8 +56,7 @@ string processWord(const string &text,const string &lang) {
   pt::ptree resultTotal;
   auto learnPhoenix = [&](string wordStr, vector<string> word) {
     DUMP_VAR(gPhoenix);
-    double predCN = 0.0;
-    gPhoenix->cut(word, wordStr, lang);
+    auto result = gPhoenix->cut(word, wordStr, lang);
     DUMP_VAR(predCN);
     resultTotal.push_back(std::make_pair("", result));
   };
