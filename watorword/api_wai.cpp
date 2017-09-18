@@ -34,7 +34,7 @@ namespace pt = boost::property_tree;
 string processWord(const string &text,const string &lang);
 
 static bool gJapanese = false;
-static string gLang = "";
+static string gLang = "ja";
 string processText(const string &text) {
   try {
     pt::ptree configJson;
