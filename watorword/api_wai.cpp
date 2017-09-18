@@ -34,6 +34,7 @@ namespace pt = boost::property_tree;
 string processWord(const string &text,const string &lang);
 
 static bool gJapanese = false;
+static string gLang = "";
 string processText(const string &text) {
   try {
     pt::ptree configJson;
@@ -42,12 +43,12 @@ string processText(const string &text) {
     pt::read_json(ss, configJson);
     auto langOpt = configJson.get_optional<string>("lang");
     if (langOpt) {
-      auto lang = langOpt.get();
-      return processWord(text,lang);
+      gLang = langOpt.get();
+      return "";
     }
   } catch (boost::exception &e) {
     DUMP_VAR(boost::diagnostic_information(e));
-    return processWord(text,"ja");
+    return processWord(text,gLang);
   }
   return "";
 }
