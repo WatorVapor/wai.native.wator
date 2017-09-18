@@ -77,7 +77,7 @@ static void savePort(uint16_t port) {
   try {
     pt::ptree portConf;
     portConf.put("port", port);
-    pt::write_json("/opt/watorvapor/wai.wator/wai.conf.api.json", portConf);
+    pt::write_json("/watorvapor/wai.storage/conf/wai.conf.api.json", portConf);
   } catch (boost::exception &e) {
     DUMP_VAR(boost::diagnostic_information(e));
   }
