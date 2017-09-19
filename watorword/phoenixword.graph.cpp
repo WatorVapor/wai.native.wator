@@ -263,7 +263,7 @@ string PhoenixWord::createGraph(void) {
   string dotCmd = "dot -v -T svg ";
   dotCmd += pathDot;
   dotCmd += " -o ";
-  dotCmd += "/tmp/wator/wai/graph/" + fileName +".svg";
+  dotCmd += "/watorvapor/autogen/wator/wai/graph/" + fileName +".svg";
   ::system(dotCmd.c_str());
   // dot -v -T svg 1.dot -o 1.svg
     
