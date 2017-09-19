@@ -40,6 +40,7 @@ class PhoenixWord {
 
   void calcPrediction(void);
   void calcPrediction(const multimap<int, WordElement> &confuse);
+  pt::ptree summaryCut(void);
 
  
   void collectWord(void);
