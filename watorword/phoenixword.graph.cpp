@@ -193,10 +193,6 @@ string PhoenixWord::createGraph(void) {
   multimap<int, std::tuple<string, Vertex,double,double>> vertexWator;
   vector<std::tuple<string,double,double>> labelVertex;
   
-  auto vrtxStart = boost::add_vertex(g);
-  auto vrtxPrStart = std::make_tuple("S", vrtxStart,1.0,1.0);
-  vertexWator.insert(std::make_pair(-1, vrtxPrStart));
-  labelVertex.push_back(std::make_tuple("S",1.0,1.0));
   
   int posLast = 0;
   for (auto elem : wordAdjustedSeq_) {
@@ -210,33 +206,8 @@ string PhoenixWord::createGraph(void) {
     labelVertex.push_back(std::make_tuple(word,weight,weightO));
     posLast = position + word.size();
   }
-  auto vrtxEnd = add_vertex(g);
-  auto vrtxPrvrtxEnd = std::make_tuple("E", vrtxEnd,1.0,1.0);
-  vertexWator.insert(std::make_pair(posLast,vrtxPrvrtxEnd));
-  labelVertex.push_back(std::make_tuple("E",1.0,1.0));
  
-  // add dummy start.
-  {
-    auto startPos = wordAdjustedSeq_.begin()->first;
-    auto rangeSelf = vertexWator.equal_range(startPos);
-    for (auto itSelf = rangeSelf.first; itSelf != rangeSelf.second; itSelf++) {
-      auto wordSelf = std::get<0>(itSelf->second);
-      auto vrtxSelf = std::get<1>(itSelf->second);
-      auto weightR = std::get<2>(itSelf->second);
-      auto weightRO = std::get<3>(itSelf->second);
-      auto ed = boost::add_edge(vrtxStart, vrtxSelf,g);
-      auto weightOld = boost::get(boost::edge_weight_t(), g, ed.first);
-      boost::put(boost::edge_weight_t(), g, ed.first, 1.0/weightR);
-      auto weightNew = boost::get(boost::edge_weight_t(), g, ed.first);
-      TRACE_VAR(weightR,weightRO,weightOld,weightNew);
-    }
-  }
-  
-
-  
-  
-  
-  for (auto elem : wordHintSeq_) {
+  for (auto elem : wordAdjustedSeq_) {
     auto word = std::get<0>(elem.second);
     auto position = std::get<1>(elem.second);
     auto range = std::get<2>(elem.second);
@@ -259,22 +230,6 @@ string PhoenixWord::createGraph(void) {
           TRACE_VAR(weightR,weightRO,weightOld,weightNew);
         }
         break;
-      }
-    }
-    // add dummy end.
-    if(posLast == position + range) {
-      auto rangeSelf = vertexWator.equal_range(position);
-      for (auto itSelf = rangeSelf.first; itSelf != rangeSelf.second; itSelf++) {
-        auto wordSelf = std::get<0>(itSelf->second);
-        auto vrtxSelf = std::get<1>(itSelf->second);
-        if (word == wordSelf) {
-          auto ed = boost::add_edge(vrtxSelf,vrtxEnd,g);
-          auto weight = boost::get(boost::edge_weight_t(), g, ed.first);
-          boost::put(boost::edge_weight_t(), g, ed.first, 0.0);
-          auto weight2 = boost::get(boost::edge_weight_t(), g, ed.first);
-          TRACE_VAR(weight,weight2);
-          break;
-        }
       }
     }
   }
