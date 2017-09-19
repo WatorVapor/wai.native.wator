@@ -70,7 +70,7 @@ pt::ptree PhoenixWord::summaryCut(void) {
     sentence += word + " ";
   }
   result.put(u8"sentence", sentence);
-  //result.add_child(u8"detail", result_);
+  result.put(u8"graph", "/.svg");
   return result;
 }
 
