@@ -70,7 +70,8 @@ pt::ptree PhoenixWord::summaryCut(void) {
     sentence += word + " ";
   }
   result.put(u8"sentence", sentence);
-  result.put(u8"graph", "/.svg");
+  auto graph = this->createGraph();
+  result.put(u8"graph", graph);
   return result;
 }
 
