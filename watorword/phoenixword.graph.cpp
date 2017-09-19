@@ -188,3 +188,7 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
   }
 }
 
+string PhoenixWord::createGraph(const multimap<int, WordElement> &confuse) {
+    string url("/");
+    return url;
+}
