@@ -188,6 +188,13 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
   }
 }
 
+
+#include <boost/uuid/uuid.hpp>
+#include <boost/uuid/uuid_io.hpp>
+#include <boost/uuid/uuid_generators.hpp>
+#include <boost/lexical_cast.hpp>
+#include <fstream>
+
 string PhoenixWord::createGraph(void) {
   Graph g;
   multimap<int, std::tuple<string, Vertex,double,double>> vertexWator;
@@ -244,6 +251,19 @@ string PhoenixWord::createGraph(void) {
       dotStr, "digraph G {",
       "digraph G { \n rankdir=LR;\n graph [charset=\"UTF-8\"];\n");
   DUMP_VAR(dotStr);
+  auto id = boost::uuids::random_generator()();
+  auto fileName = boost::lexical_cast<std::string>(id);
+  string pathDot = "/tmp/wator." + fileName +".dot";
+  std::ofstream outfile(pathDot,std::ofstream::binary);
+  if(outfile.good()) {
+    outfile << dotStr;
+    outfile.close();
+  }
+  string dotCmd = "dot -v -T svg ";
+  dotCmd += pathDot;
+  dotCmd += " -o ";
+  dotCmd += "/tmp/wator." + fileName +".svg";
+  ::system(dotCmd.c_str());
   // dot -v -T svg 1.dot -o 1.svg
     
     string url("/");
