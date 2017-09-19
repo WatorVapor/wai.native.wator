@@ -56,13 +56,12 @@ pt::ptree PhoenixWord::cut(const vector<string> &wordBytes, const string &text,
 
 
   this->getNoConflictSeq();
-  //this->dumpClearSeq();
 
   this->calcPrediction();
   
 
-  //result.put(u8"sentence", clearResult_);
-  //result.add_child(u8"detail", result_);
+  result.put(u8"sentence", clearResult_);
+  result.add_child(u8"detail", result_);
   return result;
 }
 
