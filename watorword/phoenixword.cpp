@@ -63,11 +63,13 @@ pt::ptree PhoenixWord::cut(const vector<string> &wordBytes, const string &text,
 
 pt::ptree PhoenixWord::summaryCut(void) {
   pt::ptree result;
+  string sentence = "";
   for(auto wordSed:wordSeqTopSelected_) {
     auto word = std::get<0>(wordSed.second);
     DUMP_VAR(word);
+    sentence += word + " ";
   }
-  //result.put(u8"sentence", clearResult_);
+  result.put(u8"sentence", sentence);
   //result.add_child(u8"detail", result_);
   return result;
 }
