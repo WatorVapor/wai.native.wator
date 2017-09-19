@@ -266,6 +266,7 @@ string PhoenixWord::createGraph(void) {
   ::system(dotCmd.c_str());
   // dot -v -T svg 1.dot -o 1.svg
     
-    string url("/");
+    string url("/autogen/wai/");
+    url += fileName +".svg";
     return url;
 }
