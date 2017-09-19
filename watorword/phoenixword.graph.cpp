@@ -253,7 +253,8 @@ string PhoenixWord::createGraph(void) {
   DUMP_VAR(dotStr);
   auto id = boost::uuids::random_generator()();
   auto fileName = boost::lexical_cast<std::string>(id);
-  string pathDot = "/tmp/wator." + fileName +".dot";
+  ::system("mkdir -p /tmp/wator/wai/graph/");
+  string pathDot = "/tmp/wator/wai/graph/" + fileName +".dot";
   std::ofstream outfile(pathDot,std::ofstream::binary);
   if(outfile.good()) {
     outfile << dotStr;
@@ -262,11 +263,11 @@ string PhoenixWord::createGraph(void) {
   string dotCmd = "dot -v -T svg ";
   dotCmd += pathDot;
   dotCmd += " -o ";
-  dotCmd += "/tmp/wator." + fileName +".svg";
+  dotCmd += "/tmp/wator/wai/graph/" + fileName +".svg";
   ::system(dotCmd.c_str());
   // dot -v -T svg 1.dot -o 1.svg
     
-    string url("/autogen/wai/");
+    string url("/autogen/wai/graph/");
     url += fileName +".svg";
     return url;
 }
