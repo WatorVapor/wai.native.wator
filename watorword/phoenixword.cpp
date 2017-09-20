@@ -67,8 +67,9 @@ pt::ptree PhoenixWord::summaryCut(void) {
   for(auto wordSed:wordSeqTopSelected_) {
     auto word = std::get<0>(wordSed.second);
     DUMP_VAR(word);
-    sentence += word + " ";
+    sentence += word + "%";
   }
+  sentence.pop_back();
   result.put(u8"sentence", sentence);
   auto graph = this->createGraph();
   result.put(u8"graph", graph);
