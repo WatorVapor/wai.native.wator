@@ -27,12 +27,31 @@ struct sample_graph_writer {
   void operator()(std::ostream& out, int i) const {
     auto wordPair = labelVertex_.at(i);
     out << " [ label = <";
+    out << "<TABLE BORDER=\"0\" CELLBORDER=\"1\" CELLSPACING=\"0\" CELLPADDING=\"4\">";
+    out << "<TR>";
+    out << "<TD>";
+    out << 1.0/(std::get<0>(wordPair));
+    out << "</TD>";
+    out << "</TR>";
+    out << "<TR>";
+    out << "<TD>";
+    out << std::get<1>(wordPair);
+    out << "</TD>";
+    out << "</TR>";
+    out << "<TR>";
+    out << "<TD>";
+    out << std::get<2>(wordPair);
+    out << "</TD>";
+    out << "</TR>";
+    out << "</TABLE>";
+/*
     out << "<FONT COLOR=\"green\" POINT-SIZE=\"20\">" << std::get<0>(wordPair) << "</FONT>";
     out << "<HR/>";      
     out << "<FONT COLOR=\"red\" POINT-SIZE=\"10\">" << " " ;
     out << 1.0/(std::get<1>(wordPair)) << "<HR/>"; 
     out << std::get<1>(wordPair) << "<HR/>" ;
     out << std::get<2>(wordPair) << "</FONT>";
+*/
     out << ">]";
   }
   sample_graph_writer(vector<std::tuple<string,double,double>> &labelVertex):labelVertex_(labelVertex) {
