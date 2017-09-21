@@ -29,16 +29,16 @@ struct sample_graph_writer {
     out << " [ label = <";
     out << "<TABLE BORDER=\"0\" CELLBORDER=\"1\" CELLSPACING=\"0\" CELLPADDING=\"4\">";
     out << "<TR><TD>";
-    out << "<FONT COLOR=\"green\" POINT-SIZE=\"10\">" << std::get<0>(wordPair) << "</FONT>";
+    out << "<FONT COLOR=\"green\" POINT-SIZE=\"18\">" << std::get<0>(wordPair) << "</FONT>";
     out << "</TD></TR>";
     out << "<TR><TD>";
-    out << "<FONT COLOR=\"red\" POINT-SIZE=\"5\">" << 1.0/std::get<1>(wordPair) << "</FONT>";
+    out << "<FONT COLOR=\"red\" POINT-SIZE=\"9\">" << 1.0/std::get<1>(wordPair) << "</FONT>";
     out << "</TD></TR>";
     out << "<TR><TD>";
-    out << "<FONT COLOR=\"blue\" POINT-SIZE=\"5\">" << std::get<1>(wordPair) << "</FONT>";
+    out << "<FONT COLOR=\"blue\" POINT-SIZE=\"9\">" << std::get<1>(wordPair) << "</FONT>";
     out << "</TD></TR>";
     out << "<TR><TD>";
-    out << "<FONT COLOR=\"blue\" POINT-SIZE=\"5\">" << std::get<2>(wordPair) << "</FONT>";
+    out << "<FONT COLOR=\"blue\" POINT-SIZE=\"9\">" << std::get<2>(wordPair) << "</FONT>";
     out << "</TD></TR>";
     out << "</TABLE>";
 /*
