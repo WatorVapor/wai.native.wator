@@ -30,7 +30,12 @@ struct sample_graph_writer {
     out << "<TABLE BORDER=\"0\" CELLBORDER=\"1\" CELLSPACING=\"0\" CELLPADDING=\"4\">";
     out << "<TR>";
     out << "<TD>";
-    out << (1.0/std::get<0>(wordPair));
+    out << std::get<0>(wordPair);
+    out << "</TD>";
+    out << "</TR>";
+    out << "<TR>";
+    out << "<TD>";
+    out << 1.0/std::get<1>(wordPair);
     out << "</TD>";
     out << "</TR>";
     out << "<TR>";
