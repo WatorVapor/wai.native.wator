@@ -26,14 +26,14 @@ typedef boost::graph_traits<Graph>::vertex_descriptor   Vertex;
 struct sample_graph_writer {
   void operator()(std::ostream& out, int i) const {
     auto wordPair = labelVertex_.at(i);
-    out << " [ label = ";
+    out << " [ label = <";
     out << "<FONT COLOR=\"green\" POINT-SIZE=\"20\">" << std::get<0>(wordPair) << "</FONT>";
     out << "<HR/>";      
     out << "<FONT COLOR=\"red\" POINT-SIZE=\"10\">" << " " ;
     out << 1.0/(std::get<1>(wordPair)) << "<HR/>"; 
     out << std::get<1>(wordPair) << "<HR/>" ;
     out << std::get<2>(wordPair) << "</FONT>";
-    out << "]";
+    out << ">]";
   }
   sample_graph_writer(vector<std::tuple<string,double,double>> &labelVertex):labelVertex_(labelVertex) {
   }
