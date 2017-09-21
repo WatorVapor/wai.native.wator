@@ -28,6 +28,7 @@ struct sample_graph_writer {
     auto wordPair = labelVertex_.at(i);
     out << " [ label = <";
     out << "<FONT COLOR=\"green\" POINT-SIZE=\"20\">" << std::get<0>(wordPair) << "</FONT>";
+    out << "\\n";      
     out << "<FONT COLOR=\"red\" POINT-SIZE=\"10\">" << " " << std::get<1>(wordPair) << " " << 1.0/(std::get<1>(wordPair)) << " " << std::get<2>(wordPair) << "</FONT>";
     out << ">]";
   }
