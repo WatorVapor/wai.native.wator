@@ -321,8 +321,8 @@ string PhoenixWord::createGraph(void) {
   for (auto elem : wordAdjustedSeq_) {
       auto position = std::get<1>(elem.second);
       if(position == prePost) {
-          oneSame += to_string(elemPost);
           oneSame += ";";
+          oneSame += to_string(elemPost);
       } else {
           if(oneSame.empty()==false) {
               oneSame += "}\n";
@@ -330,7 +330,6 @@ string PhoenixWord::createGraph(void) {
           }
           oneSame = "{rank = same;";
           oneSame += to_string(elemPost);
-          oneSame += ";";
       }
       prePost = position;
       elemPost++;
