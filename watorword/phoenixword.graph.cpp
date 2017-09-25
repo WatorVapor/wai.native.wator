@@ -243,7 +243,7 @@ string PhoenixWord::createGraph(const string &text) {
   labelVertex.push_back(std::make_tuple("E",1.0,1.0));
 
   auto vrtxTitle = add_vertex(g);
-  auto title = "message = <" + text + ">";
+  auto title = u8"message=【" + text + u8"】";
   auto vrtxPrvrtxTitle = std::make_tuple(title, vrtxTitle,0.0,0.0);
   vertexWator.insert(std::make_pair(posLast + 10,vrtxPrvrtxTitle));
   labelVertex.push_back(std::make_tuple(title,0.0,0.0));
