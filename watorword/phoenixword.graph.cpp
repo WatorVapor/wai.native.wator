@@ -329,6 +329,8 @@ string PhoenixWord::createGraph(void) {
               allSame += oneSame;
           }
           oneSame = "{rank = same;";
+          oneSame += to_string(elemPost);
+          oneSame += ";";
       }
       prePost = position;
       elemPost++;
