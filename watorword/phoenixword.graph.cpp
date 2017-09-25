@@ -313,6 +313,30 @@ string PhoenixWord::createGraph(void) {
       dotStr, "digraph G {",
       "digraph G { \n rankdir=LR;\n graph [charset=\"UTF-8\"];\n");
   DUMP_VAR(dotStr);
+  
+  int prePost = -2;
+  string oneSame;
+  string allSame;
+  int elemPost = 1;
+  for (auto elem : wordAdjustedSeq_) {
+      auto position = std::get<1>(elem.second);
+      if(position == prePost) {
+          oneSame += to_string(elemPost);
+          oneSame += ";";
+      } else {
+          if(oneSame.empty()==false) {
+              oneSame += "}\n";
+              allSame += oneSame;
+          }
+          oneSame = "{rank = same;";
+      }
+      prePost = position;
+      elemPost++;
+  }
+  DUMP_VAR(allSame);
+
+  /*{rank = same; A; X;}*/
+  
   auto id = boost::uuids::random_generator()();
   auto fileName = boost::lexical_cast<std::string>(id);
   ::system("mkdir -p /tmp/wator/wai/graph/");
