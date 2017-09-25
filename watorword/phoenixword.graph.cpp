@@ -215,7 +215,7 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
 #include <boost/lexical_cast.hpp>
 #include <fstream>
 
-string PhoenixWord::createGraph(void) {
+string PhoenixWord::createGraph(const string &text) {
   Graph g;
   multimap<int, std::tuple<string, Vertex,double,double>> vertexWator;
   vector<std::tuple<string,double,double>> labelVertex;
@@ -241,6 +241,11 @@ string PhoenixWord::createGraph(void) {
   auto vrtxPrvrtxEnd = std::make_tuple("E", vrtxEnd,1.0,1.0);
   vertexWator.insert(std::make_pair(posLast,vrtxPrvrtxEnd));
   labelVertex.push_back(std::make_tuple("E",1.0,1.0));
+
+  auto vrtxTitle = add_vertex(g);
+  auto vrtxPrvrtxTitle = std::make_tuple(text, vrtxTitle,1.0,1.0);
+  vertexWator.insert(std::make_pair(posLast + 10,vrtxTitle));
+  labelVertex.push_back(std::make_tuple(text,1.0,1.0));
 
     
   // add dummy start.
