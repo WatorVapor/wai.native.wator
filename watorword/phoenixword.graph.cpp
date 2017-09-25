@@ -335,6 +335,10 @@ string PhoenixWord::createGraph(void) {
       elemPost++;
   }
   DUMP_VAR(allSame);
+  boost::algorithm::replace_all(
+      dotStr, "}",
+      allSame +"}");
+  DUMP_VAR(dotStr);
 
   /*{rank = same; A; X;}*/
   
