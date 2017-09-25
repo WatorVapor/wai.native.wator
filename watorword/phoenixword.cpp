@@ -58,10 +58,10 @@ pt::ptree PhoenixWord::cut(const vector<string> &wordBytes, const string &text,
   this->getNoConflictSeq();
 
   this->calcPrediction();
-  return this->summaryCut();
+  return this->summaryCut(text);
 }
 
-pt::ptree PhoenixWord::summaryCut(void) {
+pt::ptree PhoenixWord::summaryCut(const string &text) {
   pt::ptree result;
   string sentence = "";
   for(auto wordSed:wordSeqTopSelected_) {
@@ -71,7 +71,7 @@ pt::ptree PhoenixWord::summaryCut(void) {
   }
   sentence.pop_back();
   result.put(u8"sentence", sentence);
-  auto graph = this->createGraph();
+  auto graph = this->createGraph(text);
   result.put(u8"graph", graph);
   return result;
 }
