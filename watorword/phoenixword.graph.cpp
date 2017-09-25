@@ -244,7 +244,7 @@ string PhoenixWord::createGraph(const string &text) {
 
   auto vrtxTitle = add_vertex(g);
   auto vrtxPrvrtxTitle = std::make_tuple(text, vrtxTitle,1.0,1.0);
-  vertexWator.insert(std::make_pair(posLast + 10,vrtxTitle));
+  vertexWator.insert(std::make_pair(posLast + 10,vrtxPrvrtxTitle));
   labelVertex.push_back(std::make_tuple(text,1.0,1.0));
 
     
