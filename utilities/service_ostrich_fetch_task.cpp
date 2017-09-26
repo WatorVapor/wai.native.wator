@@ -19,6 +19,21 @@ static int iConstPathCacheMax = 32;
 
 extern std::shared_ptr<udp_server> gFetchTrainServer;
 
+#include "dictstorage.hpp"
+#include "urlstorage.hpp"
+#define DECLARE_DB(stage)                              \
+  std::shared_ptr<URLStorage> gCNDone##stage##Storage; \
+  std::shared_ptr<URLStorage> gCNTodo##stage##Storage; \
+  std::shared_ptr<URLStorage> gJADone##stage##Storage; \
+  std::shared_ptr<URLStorage> gJATodo##stage##Storage; \
+  std::shared_ptr<DictionaryStorage> gCN##stage##Dict; \
+  std::shared_ptr<DictionaryStorage> gJA##stage##Dict;
+
+DECLARE_DB(Ostrich);
+
+
+
+
 void fetchOstrichTask(const string &lang) {
   DUMP_VAR(lang);
   if (lang == "cn") {
@@ -66,17 +81,8 @@ void fetchPhoenixTask(const string &lang) {
 }
 */
 
-#include "dictstorage.hpp"
-#include "urlstorage.hpp"
-#define DECLARE_DB(stage)                              \
-  std::shared_ptr<URLStorage> gCNDone##stage##Storage; \
-  std::shared_ptr<URLStorage> gCNTodo##stage##Storage; \
-  std::shared_ptr<URLStorage> gJADone##stage##Storage; \
-  std::shared_ptr<URLStorage> gJATodo##stage##Storage; \
-  std::shared_ptr<DictionaryStorage> gCN##stage##Dict; \
-  std::shared_ptr<DictionaryStorage> gJA##stage##Dict;
+string sha1(const string &data);
 
-DECLARE_DB(Ostrich);
 
 #define TRY_FIND_TASK(stage, lang)                                 \
   {                                                                \
@@ -85,6 +91,12 @@ DECLARE_DB(Ostrich);
         if(g##lang##Todo##stage##Storage) {                         \
           g##lang##Todo##stage##Storage->gets(iConstPathCacheMax,    \
                                             g##stage##Todo##lang); \
+          for(auto url:g##stage##Todo##lang) { \
+            auto doneName = sha1(url); \
+            if (g##lang##Done##stage##Storage->is_has(doneName)) { \
+              g##lang##Todo##stage##Storage->remove(doneName);\
+            }\
+          }\
         }                                                           \
       } catch (std::exception & e) {                               \
         DUMP_VAR(e.what());                                        \
