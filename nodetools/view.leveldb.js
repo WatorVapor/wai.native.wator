@@ -10,6 +10,7 @@ db.createReadStream()
   .on('data', function (data) {
     var value = parseInt(data.value);
     if(value > 2) {
+    //if(true) {
       console.log(data.key, '=', data.value)
     }
   })
