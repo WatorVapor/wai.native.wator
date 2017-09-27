@@ -91,10 +91,14 @@ string sha1(const string &data);
         if(g##lang##Todo##stage##Storage) {                         \
           g##lang##Todo##stage##Storage->gets(iConstPathCacheMax,    \
                                             g##stage##Todo##lang); \
-          for(auto url:g##stage##Todo##lang) { \
-            auto doneName = sha1(url); \
+          auto it = g##stage##Todo##lang.begin();\
+          while(it != g##stage##Todo##lang.end()) { \
+            auto doneName = sha1(*it); \
             if (g##lang##Done##stage##Storage->is_has(doneName)) { \
               g##lang##Todo##stage##Storage->remove(doneName);\
+              it = g##stage##Todo##lang.erase(it);\
+            } else { \
+              it++;\
             }\
           }\
         }                                                           \
