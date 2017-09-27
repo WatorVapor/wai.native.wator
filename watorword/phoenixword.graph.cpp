@@ -53,19 +53,19 @@ struct sample_graph_writer {
   }
   sample_graph_writer(vector<std::tuple<string,double,double>> &labelVertex):labelVertex_(labelVertex) {
   }
-  vector<std::tuple<string,double,double>> &labelVertex_;
+  vector<std::tuple<string,double,double,string,string,string>> &labelVertex_;
 };
 
 
 void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
   Graph g;
   multimap<int, std::tuple<string, Vertex,double,double>> vertexWator;
-  vector<std::tuple<string,double,double>> labelVertex;
+  vector<std::tuple<string,double,double,string,string,string>> labelVertex;
   
   auto vrtxStart = boost::add_vertex(g);
   auto vrtxPrStart = std::make_tuple("S", vrtxStart,1.0,1.0);
   vertexWator.insert(std::make_pair(-1, vrtxPrStart));
-  labelVertex.push_back(std::make_tuple("S",1.0,1.0));
+  labelVertex.push_back(std::make_tuple("S",1.0,1.0,"","",""));
   
   int posLast = 0;
   for (auto elem : confuse) {
@@ -76,13 +76,13 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
     auto vrtx = boost::add_vertex(g);
     auto vrtxPr = std::make_tuple(word, vrtx,weight,weightO);
     vertexWator.insert(std::make_pair(position, vrtxPr));
-    labelVertex.push_back(std::make_tuple(word,weight,weightO));
+    labelVertex.push_back(std::make_tuple(word,weight,weightO,"","",""));
     posLast = position + word.size();
   }
   auto vrtxEnd = add_vertex(g);
   auto vrtxPrvrtxEnd = std::make_tuple("E", vrtxEnd,1.0,1.0);
   vertexWator.insert(std::make_pair(posLast,vrtxPrvrtxEnd));
-  labelVertex.push_back(std::make_tuple("E",1.0,1.0));
+  labelVertex.push_back(std::make_tuple("E",1.0,1.0,"","",""));
  
   // add dummy start.
   {
@@ -218,12 +218,12 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
 string PhoenixWord::createGraph(const string &text) {
   Graph g;
   multimap<int, std::tuple<string, Vertex,double,double>> vertexWator;
-  vector<std::tuple<string,double,double>> labelVertex;
+  vector<std::tuple<string,double,double,string,string,string>> labelVertex;
   
   auto vrtxStart = boost::add_vertex(g);
   auto vrtxPrStart = std::make_tuple("S", vrtxStart,1.0,1.0);
   vertexWator.insert(std::make_pair(-1, vrtxPrStart));
-  labelVertex.push_back(std::make_tuple("S",1.0,1.0));
+  labelVertex.push_back(std::make_tuple("S",1.0,1.0,"","",""));
  
   int posLast = 0;
   for (auto elem : wordAdjustedSeq_) {
@@ -234,19 +234,19 @@ string PhoenixWord::createGraph(const string &text) {
     auto vrtx = boost::add_vertex(g);
     auto vrtxPr = std::make_tuple(word, vrtx,weight,weightO);
     vertexWator.insert(std::make_pair(position, vrtxPr));
-    labelVertex.push_back(std::make_tuple(word,weight,weightO));
+    labelVertex.push_back(std::make_tuple(word,weight,weightO,"","",""));
     posLast = position + word.size();
   }
   auto vrtxEnd = add_vertex(g);
   auto vrtxPrvrtxEnd = std::make_tuple("E", vrtxEnd,1.0,1.0);
   vertexWator.insert(std::make_pair(posLast,vrtxPrvrtxEnd));
-  labelVertex.push_back(std::make_tuple("E",1.0,1.0));
+  labelVertex.push_back(std::make_tuple("E",1.0,1.0,"","",""));
 
   auto vrtxTitle = add_vertex(g);
   auto title = u8"message=【" + text + u8"】";
   auto vrtxPrvrtxTitle = std::make_tuple(title, vrtxTitle,0.0,0.0);
   vertexWator.insert(std::make_pair(posLast + 10,vrtxPrvrtxTitle));
-  labelVertex.push_back(std::make_tuple(title,1.0,1.0));
+  labelVertex.push_back(std::make_tuple(title,1.0,1.0,"","",""));
 
     
   // add dummy start.
