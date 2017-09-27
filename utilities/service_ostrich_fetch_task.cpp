@@ -107,6 +107,7 @@ string sha1(const string &data);
       } catch (...) {                                              \
       }                                                            \
     }                                                              \
+    DUMP_VAR(g##stage##Todo##lang.size());\
   }
 
 static void findTodo(void) {
