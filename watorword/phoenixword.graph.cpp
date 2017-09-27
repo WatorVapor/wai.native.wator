@@ -32,13 +32,19 @@ struct sample_graph_writer {
     out << "<FONT COLOR=\"green\" POINT-SIZE=\"12\">" << std::get<0>(wordPair) << "</FONT>";
     out << "</TD></TR>";
     out << "<TR><TD>";
-    out << "<FONT COLOR=\"red\" POINT-SIZE=\"6\">" << 1.0/std::get<1>(wordPair) << "</FONT>";
+    out << "<FONT COLOR=\"red\" POINT-SIZE=\"6\">" << 1.0/std::get<1>(wordPair);
+    out << " " << std::get<3>(wordPair);
+    out << "</FONT>";
     out << "</TD></TR>";
     out << "<TR><TD>";
-    out << "<FONT COLOR=\"blue\" POINT-SIZE=\"6\">" << std::get<1>(wordPair) << "</FONT>";
+    out << "<FONT COLOR=\"blue\" POINT-SIZE=\"6\">" << std::get<1>(wordPair);
+    out << " " << std::get<4>(wordPair);
+    out  << "</FONT>";
     out << "</TD></TR>";
     out << "<TR><TD>";
-    out << "<FONT COLOR=\"blue\" POINT-SIZE=\"6\">" << std::get<2>(wordPair) << "</FONT>";
+    out << "<FONT COLOR=\"blue\" POINT-SIZE=\"6\">" << std::get<2>(wordPair)
+    out << " " << std::get<5>(wordPair);
+    out << "</FONT>";
     out << "</TD></TR>";
     out << "</TABLE>";
 /*
@@ -246,7 +252,9 @@ string PhoenixWord::createGraph(const string &text) {
   auto title = u8"message=【" + text + u8"】";
   auto vrtxPrvrtxTitle = std::make_tuple(title, vrtxTitle,0.0,0.0);
   vertexWator.insert(std::make_pair(posLast + 10,vrtxPrvrtxTitle));
-  labelVertex.push_back(std::make_tuple(title,1.0,1.0,"","",""));
+  labelVertex.push_back(std::make_tuple(title,1.0,1.0,"distance : 1.0 / adjusted duplicate rate"
+                                        ," adjusted duplicate rate:  duplicate rate* power(CONST, word length)"
+                                        ,"duplicate rate : this word duplicate couter / max duplicate couter"));
 
     
   // add dummy start.
