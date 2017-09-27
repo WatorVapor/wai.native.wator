@@ -1,5 +1,11 @@
-var levelup = require('levelup')
-var db = levelup('/watorvapor/wai.storage/train/parrot/cp.dict/cn')
+var levelup = require('levelup');
+var argv = require('argv');
+var args = argv.run();
+var pathDB = args.targets[0];
+console.log('pathDB =<',pathDB,'>');
+
+
+var db = levelup(pathDB);
 db.createReadStream()
   .on('data', function (data) {
     var value = parseInt(data.value);
