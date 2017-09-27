@@ -42,7 +42,7 @@ struct sample_graph_writer {
     out  << "</FONT>";
     out << "</TD></TR>";
     out << "<TR><TD>";
-    out << "<FONT COLOR=\"blue\" POINT-SIZE=\"6\">" << std::get<2>(wordPair)
+    out << "<FONT COLOR=\"blue\" POINT-SIZE=\"6\">" << std::get<2>(wordPair);
     out << " " << std::get<5>(wordPair);
     out << "</FONT>";
     out << "</TD></TR>";
