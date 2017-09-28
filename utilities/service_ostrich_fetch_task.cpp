@@ -86,6 +86,7 @@ string sha1(const string &data);
 
 #define TRY_FIND_TASK(stage, lang)                                 \
   {                                                                \
+    std::lock_guard<std::mutex> lock(gTodoMutex);\
     if (g##stage##Todo##lang.empty()) {                            \
       try {                                                        \
         if(g##lang##Todo##stage##Storage) {                         \
