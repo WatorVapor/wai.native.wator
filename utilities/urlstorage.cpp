@@ -148,3 +148,26 @@ void URLStorage::copy(std::shared_ptr<URLStorage> dst) {
   }
 }
 
+#include <sstream>
+#include  <iomanip>
+#include <string>
+using namespace std;
+#include <openssl/sha.h>
+
+string sha256(const string &msg)
+{
+  unsigned char hash[SHA256_DIGEST_LENGTH];
+  SHA256_CTX sha256;
+  SHA256_Init(&sha256);
+
+  SHA256_Update(&sha256, msg.c_str(), msg.size());
+  SHA256_Final(hash, &sha256);
+	stringstream ss;
+  for(auto dgt:hash)
+  {
+    ss << setfill('0') << setw(2) << hex << (int)dgt;
+  }
+	VAR_DUMP(ss.str());
+  return ss.str();
+}
+
