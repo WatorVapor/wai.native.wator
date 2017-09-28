@@ -167,7 +167,7 @@ string sha256(const string &msg)
   {
     ss << setfill('0') << setw(2) << hex << (int)dgt;
   }
-	VAR_DUMP(ss.str());
+DUMP_VAR(ss.str());
   return ss.str();
 }
 
