@@ -71,7 +71,7 @@ pt::ptree PhoenixWord::summaryCut(const string &text) {
   }
   sentence.pop_back();
   result.put(u8"sentence", sentence);
-  auto graph = this->createGraph(text);
+  auto graph = this->createGraph(text,sentence);
   result.put(u8"graph", graph);
   return result;
 }
