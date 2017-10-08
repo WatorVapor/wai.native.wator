@@ -366,14 +366,14 @@ string PhoenixWord::createGraph(const string &text) {
     outfile.close();
   }
   ::system("mkdir -p /watorvapor/autogen/wator/wai/graph/");
-  string dotCmd = "dot -v -T svg ";
+  string dotCmd = "dot -v -T png ";
   dotCmd += pathDot;
   dotCmd += " -o ";
-  dotCmd += "/watorvapor/autogen/wator/wai/graph/" + fileName +".svg";
+  dotCmd += "/watorvapor/autogen/wator/wai/graph/" + fileName +".png";
   ::system(dotCmd.c_str());
   // dot -v -T svg 1.dot -o 1.svg
     
     string url("/autogen/wai/graph/");
-    url += fileName +".svg";
+    url += fileName +".png";
     return url;
 }
