@@ -376,14 +376,25 @@ string PhoenixWord::createGraph(const string &text,const string &sentence) {
     outfile.close();
   }
   ::system("mkdir -p /watorvapor/autogen/wator/wai/graph/");
-  string dotCmd = "dot -v -T png ";
-  dotCmd += pathDot;
-  dotCmd += " -o ";
-  dotCmd += "/watorvapor/autogen/wator/wai/graph/" + fileName +".png";
-  ::system(dotCmd.c_str());
-  // dot -v -T svg 1.dot -o 1.svg
+  {
+      string dotCmd = "dot -v -T png ";
+      dotCmd += pathDot;
+      dotCmd += " -o ";
+      dotCmd += "/watorvapor/autogen/wator/wai/graph/" + fileName +".png";
+      ::system(dotCmd.c_str());
+      // dot -v -T png 1.dot -o 1.png
+  }
+  {
+      string dotCmd = "dot -v -T svg ";
+      dotCmd += pathDot;
+      dotCmd += " -o ";
+      dotCmd += "/watorvapor/autogen/wator/wai/graph/" + fileName +".svg";
+      ::system(dotCmd.c_str());
+      // dot -v -T svg 1.dot -o 1.svg
+  }
+
     
     string url("/autogen/wai/graph/");
-    url += fileName +".png";
+    url += fileName +"";
     return url;
 }
