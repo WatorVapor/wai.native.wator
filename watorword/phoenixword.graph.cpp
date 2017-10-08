@@ -249,7 +249,7 @@ string PhoenixWord::createGraph(const string &text,const string &sentence) {
   labelVertex.push_back(std::make_tuple("E",1.0,1.0,"","",""));
 
   auto vrtxTitle = add_vertex(g);
-  auto title = u8"message=【" + text + u8"】";
+  auto title = u8"input=【" + text + u8"】";
   auto vrtxPrvrtxTitle = std::make_tuple(title, vrtxTitle,0.0,0.0);
   vertexWator.insert(std::make_pair(posLast + 10,vrtxPrvrtxTitle));
   labelVertex.push_back(std::make_tuple(title,1.0,1.0,"distance : 1.0 / adjusted duplicate rate"
@@ -257,7 +257,7 @@ string PhoenixWord::createGraph(const string &text,const string &sentence) {
                                         ,"duplicate rate : this word duplicate couter / max duplicate couter"));
 
   auto vrtxSentence = add_vertex(g);
-  auto titleSentence = u8"message=【" + sentence + u8"】";
+  auto titleSentence = u8"output=【" + sentence + u8"】";
   auto vrtxPrvrtxvrtxSentence = std::make_tuple(titleSentence, vrtxSentence,0.0,0.0);
   vertexWator.insert(std::make_pair(posLast + 11,vrtxPrvrtxvrtxSentence));
   labelVertex.push_back(std::make_tuple(titleSentence,1.0,1.0,"---"
