@@ -221,7 +221,7 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
 #include <boost/lexical_cast.hpp>
 #include <fstream>
 
-string PhoenixWord::createGraph(const string &text) {
+string PhoenixWord::createGraph(const string &text,const string &sentence) {
   Graph g;
   multimap<int, std::tuple<string, Vertex,double,double>> vertexWator;
   vector<std::tuple<string,double,double,string,string,string>> labelVertex;
@@ -255,6 +255,16 @@ string PhoenixWord::createGraph(const string &text) {
   labelVertex.push_back(std::make_tuple(title,1.0,1.0,"distance : 1.0 / adjusted duplicate rate"
                                         ," adjusted duplicate rate:  duplicate rate* power(CONST, word length)"
                                         ,"duplicate rate : this word duplicate couter / max duplicate couter"));
+
+  auto vrtxSentence = add_vertex(g);
+  auto titleSentence = u8"message=【" + sentence + u8"】";
+  auto vrtxPrvrtxvrtxSentence = std::make_tuple(titleSentence, vrtxSentence,0.0,0.0);
+  vertexWator.insert(std::make_pair(posLast + 11,vrtxPrvrtxvrtxSentence));
+  labelVertex.push_back(std::make_tuple(titleSentence,1.0,1.0,"---"
+                                        ,"---"
+                                        ,"---"));
+    
+  auto ed = boost::add_edge(vrtxTitle,vrtxSentence,g);
 
     
   // add dummy start.
