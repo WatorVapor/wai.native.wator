@@ -73,6 +73,7 @@ pt::ptree PhoenixWord::summaryCut(const string &text) {
   result.put(u8"sentence", sentence);
   auto graph = this->createGraph(text,sentence);
   result.put(u8"graph", graph);
+  result.put(u8"input", text);
   return result;
 }
 
