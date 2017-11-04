@@ -173,3 +173,11 @@ target_link_libraries(wator.joint.app
   ${LIBS}
 )
 
+add_executable(wator.castdb.app 
+  tools/castdb.cpp
+)
+target_link_libraries(wator.castdb.app
+  watorword
+  ${LIBS}
+)
+
