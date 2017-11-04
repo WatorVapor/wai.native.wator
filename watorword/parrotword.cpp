@@ -40,7 +40,8 @@ void ParrotWord::learn(const vector<string> &wordBytes, const string &text,const
   // this->cutTextByRank(text);
   // this->dumpSeq();
   this->calcPrediction();
-  this->getWordPrediction(text);
+  //this->getWordPrediction(text);
+  this->getWordPredictionOfOne(text);
   TRACE_VAR(text);
   // this->dumpPreds();
   //this->dumpPredWords();
