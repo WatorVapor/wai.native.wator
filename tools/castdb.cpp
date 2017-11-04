@@ -11,6 +11,10 @@ using namespace std;
 #include "parrotword.hpp"
 
 int main(int ac, char *av[]) {
-  ParrotWord parrot("./db/ostrich");
+  if(ac < 2) {
+    return 0;
+  }
+  ParrotWord parrot(av[1]);
   parrot.loadMaster();
+  return 0;
 }
