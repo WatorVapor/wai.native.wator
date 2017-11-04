@@ -204,3 +204,28 @@ void ParrotWord::getWordPrediction(const string &text) {
     }
   }
 }
+
+void ParrotWord::getWordPredictionOfOne(const string &text) {
+  string textRemain(text);
+  for (auto elem : wordSeqTopSelected_) {
+    auto word = std::get<0>(elem.second);
+    auto pos = std::get<1>(elem.second);
+    auto range = std::get<2>(elem.second);
+    auto weight = std::get<3>(elem.second);
+    TRACE_VAR(word, pos, range, weight);
+    boost::algorithm::replace_all(textRemain, word, " ");
+  }
+  TRACE_VAR(textRemain);
+  list<string> list_textRemain;
+  boost::split(list_textRemain, textRemain, boost::is_space(),
+               boost::algorithm::token_compress_on);
+  for (auto remain : list_textRemain) {
+    TRACE_VAR(remain);
+    TRACE_VAR(remain.size());
+    if (remain.size() > 1 && remain.size() < 4) {
+      prediWords_.push_back(remain);
+    }
+  }
+}
+
+
