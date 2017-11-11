@@ -21,6 +21,16 @@ class CtrlClaw {
       fn(strWord, word);
     }
   }
+  // loop
+  template <typename T>
+  void eachSentenceMix(T fn) {
+    for (auto pair : sentence_words_) {
+      auto strWord = std::get<0>(pair);
+      auto word = std::get<1>(pair);
+      auto multi = std::get<2>(pair);
+      fn(strWord, word,multi);
+    }
+  }
   // loop multi bytes
   template <typename T>
   void eachMultiByte(T fn) {
@@ -39,7 +49,7 @@ class CtrlClaw {
  private:
   string article_;
   vector<string> sentences_;
-  vector<tuple<string, vector<string>>> sentence_words_;
+  vector<tuple<string, vector<string>>,bool> sentence_words_;
   vector<string> words_;
   vector<int> positions_;
   const map<string, bool> gCtrlMultiByteWord = {{u8"“", true},
