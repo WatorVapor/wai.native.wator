@@ -7,16 +7,7 @@
 using namespace std;
 
 #include "ctrlclaw.hpp"
-#define DUMP_VAR(x)                                                          \
-  std::cout << __func__ << ":" << __LINE__ << "::" << #x << "=<" << x << ">" \
-            << std::endl;
-#define DUMP_VAR2(x, y)                                                       \
-  std::cout << __func__ << ":" << __LINE__ << "::" << #x << "," << #y << "=<" \
-            << x << "," << y << ">" << std::endl;
-#define DUMP_VAR3(x, y, z)                                                   \
-  std::cout << __func__ << ":" << __LINE__ << "::" << #x << "," << #y << "," \
-            << #z << "=<" << x << "," << y << "," << z << ">" << std::endl;
-#define TRACE_VAR(...)
+#include "log.hpp"
 
 CtrlClaw::CtrlClaw() {}
 CtrlClaw::~CtrlClaw() {}
