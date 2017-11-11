@@ -49,7 +49,7 @@ class CtrlClaw {
  private:
   string article_;
   vector<string> sentences_;
-  vector<tuple<string, vector<string>>,bool> sentence_words_;
+  vector<tuple<string, vector<string>,bool>> sentence_words_;
   vector<string> words_;
   vector<int> positions_;
   const map<string, bool> gCtrlMultiByteWord = {{u8"“", true},
