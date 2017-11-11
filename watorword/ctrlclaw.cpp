@@ -76,7 +76,7 @@ void CtrlClaw::claw(const string &article) {
         TRACE_VAR(*nowIt);
         vector<string> subwords(startIt, nowIt);
         TRACE_VAR(std::distance(startIt, nowIt));
-        auto sword = std::make_tuple(sub, subwords);
+        auto sword = std::make_tuple(sub, subwords,true);
         sentence_words_.push_back(sword);
         TRACE_VAR(sentence_words_.size());
       }
@@ -100,7 +100,7 @@ void CtrlClaw::claw(const string &article) {
     }
     TRACE_VAR(sub);
     sentences_.push_back(sub);
-    auto sword = std::make_tuple(sub, subwords);
+    auto sword = std::make_tuple(sub, subwords,true);
     sentence_words_.push_back(sword);
   }
 }
