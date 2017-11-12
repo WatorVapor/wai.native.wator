@@ -250,6 +250,11 @@ pt::ptree PhoenixWord::cutSpace(const vector<string> &wordBytes, const string &t
   for (auto mbyte : wordBytes) {
     DUMP_VAR(mbyte);
   }
+  string sentence = "";
+  sentence.pop_back();
+  result.put(u8"sentence", sentence);
+  result.put(u8"graph", "");
+  result.put(u8"input", text);
   return result;
 }
 
