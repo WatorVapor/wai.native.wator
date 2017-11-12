@@ -61,6 +61,9 @@ pt::ptree PhoenixWord::cut(const vector<string> &wordBytes, const string &text,
   return this->summaryCut(text);
 }
 
+
+
+
 pt::ptree PhoenixWord::summaryCut(const string &text) {
   pt::ptree result;
   string sentence = "";
@@ -239,5 +242,15 @@ void PhoenixWord::calcPrediction(void) {
   }
 }
 
+
+pt::ptree PhoenixWord::cutSpace(const vector<string> &wordBytes, const string &text,
+                            const string &lang) {
+  pt::ptree result;
+  DUMP_VAR(text);
+  for (auto mbyte : wordBytes) {
+    DUMP_VAR(mbyte);
+  }
+  return result;
+}
 
 
