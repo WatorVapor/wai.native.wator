@@ -51,10 +51,9 @@ void CtrlClaw::claw(const string &article) {
   int startPos = 0;
   auto startIt = words_.begin();
   auto nowIt = startIt;
-
-  int startPosOthers = 0;
-  auto startItOthers = words_.begin();
-  auto nowItOthers = startItOthers;
+  bool otherFlag = false;
+  string otherWord;
+  vector<string> otherWordVect;
   for (int i = 0; i < words_.size() && i < positions_.size(); i++) {
     auto mbyte = words_[i];
     TRACE_VAR(mbyte);
@@ -78,8 +77,18 @@ void CtrlClaw::claw(const string &article) {
       startPos = positions_[i] + mbyte.size();
       nowIt++;
       startIt = nowIt;
+      otherFlag = false;
     } else {
       nowIt++;
+      otherWord += mbyte;
+      otherWordVect.push_back(mbyte);
+      if(otherFlag == false) {
+        auto sword = std::make_tuple(otherWord, otherWordVect,false);
+        sentence_words_.push_back(sword);
+        otherWord.clear();
+        otherWordVect.clear();
+      }
+      otherFlag = true;
     }
   }
   if (startPos < article.size()) {
@@ -96,6 +105,10 @@ void CtrlClaw::claw(const string &article) {
     TRACE_VAR(sub);
     sentences_.push_back(sub);
     auto sword = std::make_tuple(sub, subwords,true);
+    sentence_words_.push_back(sword);
+  }
+  if(!otherWord.empty() && !otherWordVect.empty()) {
+    auto sword = std::make_tuple(otherWord, otherWordVect,false);
     sentence_words_.push_back(sword);
   }
 }
