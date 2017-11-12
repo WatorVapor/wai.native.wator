@@ -242,16 +242,13 @@ void PhoenixWord::calcPrediction(void) {
   }
 }
 
+#include <boost/algorithm/string.hpp>
 
 pt::ptree PhoenixWord::cutSpace(const vector<string> &wordBytes, const string &text,
                             const string &lang) {
   pt::ptree result;
   DUMP_VAR(text);
-  for (auto mbyte : wordBytes) {
-    DUMP_VAR(mbyte);
-  }
-  string sentence = "";
-  sentence.pop_back();
+  string sentence = boost::algorithm::replace_all_copy(text, " ", "%");
   result.put(u8"sentence", sentence);
   result.put(u8"graph", "");
   result.put(u8"input", text);
