@@ -248,7 +248,16 @@ pt::ptree PhoenixWord::cutSpace(const vector<string> &wordBytes, const string &t
                             const string &lang) {
   pt::ptree result;
   DUMP_VAR(text);
-  string sentence = boost::algorithm::replace_all_copy(text, " ", "%");
+  string sentence = "";
+  for(auto mbyte:wordBytes) {
+    if(mbyte.size() == 1) {
+      if(::isalpha(mbyte.at(0))) {
+        sentence += mbyte;
+      } else {
+        sentence += "%";
+      }
+    }
+  }
   result.put(u8"sentence", sentence);
   result.put(u8"graph", "");
   result.put(u8"input", text);
