@@ -63,6 +63,8 @@ string processWord(const string &text,const string &lang) {
       auto result = gPhoenix->cut(word, wordStr, lang);
       resultTotal.push_back(std::make_pair("", result));
     } else {
+      auto result = gPhoenix->cutSpace(word, wordStr, lang);
+      resultTotal.push_back(std::make_pair("", result));
     }
   };
   CtrlClaw claw;
