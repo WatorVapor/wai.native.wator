@@ -79,6 +79,7 @@ void CtrlClaw::claw(const string &article) {
       startIt = nowIt;
       otherFlag = false;
     } else {
+      DUMP_VAR(mbyte);
       nowIt++;
       otherWord += mbyte;
       otherWordVect.push_back(mbyte);
