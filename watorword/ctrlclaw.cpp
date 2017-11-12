@@ -51,6 +51,10 @@ void CtrlClaw::claw(const string &article) {
   int startPos = 0;
   auto startIt = words_.begin();
   auto nowIt = startIt;
+
+  int startPosOthers = 0;
+  auto startItOthers = words_.begin();
+  auto nowItOthers = startItOthers;
   for (int i = 0; i < words_.size() && i < positions_.size(); i++) {
     auto mbyte = words_[i];
     TRACE_VAR(mbyte);
