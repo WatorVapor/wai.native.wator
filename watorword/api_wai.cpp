@@ -62,7 +62,7 @@ string processWord(const string &text,const string &lang) {
   };
   CtrlClaw claw;
   claw.claw(text);
-  claw.eachSentence(learnPhoenix);
+  claw.eachSentenceMix(learnPhoenix);
   try {
     pt::ptree result;
     result.add_child(u8"wai", resultTotal);
