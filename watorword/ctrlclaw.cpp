@@ -77,19 +77,18 @@ void CtrlClaw::claw(const string &article) {
       startPos = positions_[i] + mbyte.size();
       nowIt++;
       startIt = nowIt;
-      otherFlag = false;
-    } else {
-      DUMP_VAR(mbyte);
-      nowIt++;
+      otherFlag = true;
       otherWord += mbyte;
       otherWordVect.push_back(mbyte);
-      if(otherFlag == false) {
+    } else {
+      nowIt++;
+      if(otherFlag) {
         auto sword = std::make_tuple(otherWord, otherWordVect,false);
         sentence_words_.push_back(sword);
         otherWord.clear();
         otherWordVect.clear();
       }
-      otherFlag = true;
+      otherFlag = false;
     }
   }
   if (startPos < article.size()) {
