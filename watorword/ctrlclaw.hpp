@@ -18,7 +18,10 @@ class CtrlClaw {
     for (auto pair : sentence_words_) {
       auto strWord = std::get<0>(pair);
       auto word = std::get<1>(pair);
-      fn(strWord, word);
+      auto multi = std::get<2>(pair);
+      if(multi) {
+        fn(strWord, word);
+      }
     }
   }
   // loop
