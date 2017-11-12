@@ -253,9 +253,10 @@ pt::ptree PhoenixWord::cutSpace(const vector<string> &wordBytes, const string &t
   string sentence = "";
   for(auto mbyte:wordBytes) {
     if(mbyte.size() == 1) {
-      if(::isalpha(mbyte.at(0))) {
+      if(::isalnum (mbyte.at(0))) {
         sentence += mbyte;
       } else {
+        sentence += mbyte;
         sentence += "%";
       }
     }
