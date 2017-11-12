@@ -55,8 +55,10 @@ string processText(const string &text) {
 
 string processWord(const string &text,const string &lang) {
   pt::ptree resultTotal;
-  auto learnPhoenix = [&](string wordStr, vector<string> word) {
+  auto learnPhoenix = [&](string wordStr, vector<string> word,bool multi) {
     DUMP_VAR(gPhoenix);
+    DUMP_VAR(wordStr);
+    DUMP_VAR(multi);
     auto result = gPhoenix->cut(word, wordStr, lang);
     resultTotal.push_back(std::make_pair("", result));
   };
