@@ -25,6 +25,7 @@ class PhoenixWord {
   ~PhoenixWord();
   void learn(const vector<string> &word, const string &text,const string &lang);
   pt::ptree cut(const vector<string> &word, const string &text,const string &lang);
+  pt::ptree cutSpace(const vector<string> &word, const string &text,const string &lang);
   bool loadMaster(bool castForce = true);
   void unloadMaster(void);
   void commitArticle(void);
