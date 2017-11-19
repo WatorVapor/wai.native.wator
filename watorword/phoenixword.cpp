@@ -164,7 +164,11 @@ void PhoenixWord::getRawRank(const vector<string> &Bytes,const string &lang) {
   }
   TRACE_VAR(statisticsMinWordSize_);
 }
+
+double dConstMissMatchPred = 0.00000001;
+
 void PhoenixWord::getOutRank(const string &text) {
+  multimap<int, WordElement> wordMissSeq;
   for (auto it = wordHintSeq_.begin();it != wordHintSeq_.end();it++) {
     TRACE_VAR(it->first);
     auto word = std::get<0>(it->second);
@@ -178,9 +182,13 @@ void PhoenixWord::getOutRank(const string &text) {
         auto size = itNext->first - coverNext;
         auto wordOut = text.substr(coverNext,size);
         DUMP_VAR3(coverNext,itNext->first,wordOut);
+        auto elem =
+            std::make_tuple(wordOut, coverNext, wordOut.size(), dConstMissMatchPred, dConstMissMatchPred);
+        wordMissSeq_.insert(std::make_pair(coverNext, elem));
       }
     }
   }
+  DUMP_VAR3(wordMissSeq.size());
 }
 
 static const double gWeigthAdjustBase = 4096.0;
