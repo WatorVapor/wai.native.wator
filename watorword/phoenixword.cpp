@@ -166,9 +166,9 @@ void PhoenixWord::getRawRank(const vector<string> &Bytes,const string &lang) {
 }
 void PhoenixWord::getOutRank(const string &text) {
   for (auto it = wordHintSeq_.begin();it != wordHintSeq_.end();it++) {
-    DUPM_VAR(it->first);
+    DUMP_VAR(it->first);
     auto word = std::get<0>(it->second);
-    DUPM_VAR3(it->first,word,word.size());
+    DUMP_VAR3(it->first,word,word.size());
   }
 }
 
