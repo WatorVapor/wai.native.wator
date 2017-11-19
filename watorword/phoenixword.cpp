@@ -175,7 +175,9 @@ void PhoenixWord::getOutRank(const string &text) {
       auto coverNext = it->first + word.size();
       TRACE_VAR(coverNext,itNext->first);
       if(coverNext < itNext->first) {
-        DUMP_VAR2(coverNext,itNext->first);
+        auto size = itNext->first - coverNext;
+        auto wordOut = text.substr(coverNext,size);
+        DUMP_VAR3(coverNext,itNext->first,wordOut);
       }
     }
   }
