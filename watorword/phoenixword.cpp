@@ -26,6 +26,7 @@ void PhoenixWord::learn(const vector<string> &wordBytes, const string &text,cons
     TRACE_VAR(mbyte);
   }
   this->getRawRank(wordBytes,lang);
+  this->getOutRank(text);
   //this->dumpDot();
   this->adjustRank();
   //  this->dumpRank();
@@ -52,6 +53,7 @@ pt::ptree PhoenixWord::cut(const vector<string> &wordBytes, const string &text,
     TRACE_VAR(mbyte);
   }
   this->getRawRank(wordBytes,lang);
+  this->getOutRank(text);
   //this->dumpDot();
   this->adjustRank();
   //  this->dumpRank();
@@ -161,6 +163,8 @@ void PhoenixWord::getRawRank(const vector<string> &Bytes,const string &lang) {
     }
   }
   TRACE_VAR(statisticsMinWordSize_);
+}
+void PhoenixWord::getOutRank(const string &text) {
 }
 
 static const double gWeigthAdjustBase = 4096.0;
