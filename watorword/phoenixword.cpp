@@ -165,6 +165,11 @@ void PhoenixWord::getRawRank(const vector<string> &Bytes,const string &lang) {
   TRACE_VAR(statisticsMinWordSize_);
 }
 void PhoenixWord::getOutRank(const string &text) {
+  for (auto it = wordHintSeq_.begin();it != wordHintSeq_.end();it++) {
+    DUPM_VAR(it->first);
+    auto word = std::get<0>(it->second);
+    DUPM_VAR3(it->first,word,word.size());
+  }
 }
 
 static const double gWeigthAdjustBase = 4096.0;
