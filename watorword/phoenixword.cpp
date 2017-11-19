@@ -169,7 +169,7 @@ void PhoenixWord::getOutRank(const string &text) {
     DUMP_VAR(it->first);
     auto word = std::get<0>(it->second);
     DUMP_VAR3(it->first,word,word.size());
-    itNext = it++;
+    auto itNext = it++;
     if(itNext != wordHintSeq_.end()) {
       auto coverNext = it->first + word.size();
       DUMP_VAR2(coverNext,itNext->first);
