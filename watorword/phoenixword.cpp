@@ -184,11 +184,16 @@ void PhoenixWord::getOutRank(const string &text) {
         DUMP_VAR3(coverNext,itNext->first,wordOut);
         auto elem =
             std::make_tuple(wordOut, coverNext, wordOut.size(), dConstMissMatchPred, dConstMissMatchPred);
-        wordMissSeq_.insert(std::make_pair(coverNext, elem));
+        wordMissSeq.insert(std::make_pair(coverNext, elem));
       }
     }
   }
-  DUMP_VAR3(wordMissSeq.size());
+  DUMP_VAR(wordMissSeq.size());
+  DUMP_VAR(wordHintSeq_.size());
+  for(auto miss:wordMissSeq) {
+    wordHintSeq_.insert(miss);
+  }
+  DUMP_VAR(wordHintSeq_.size());
 }
 
 static const double gWeigthAdjustBase = 4096.0;
