@@ -9,6 +9,7 @@ console.log('distDB =<',distDB,'>');
 
 var dist = levelup(distDB);
 
+/*
 var oldNumber = 0;
 
 dist.createReadStream()
@@ -27,7 +28,7 @@ dist.createReadStream()
   .on('end', function () {
     console.log('Stream ended');
   })
-
+*/
 
 
 var mergeNumber = 0;
@@ -36,7 +37,7 @@ src.createReadStream()
   .on('data', function (data) {
     var value = parseInt(data.value);
     //console.log(data.key, '=', data.value);
-    //dist.put(data.key,data.value);
+    dist.put(data.key,data.value);
     mergeNumber += 1;
   })
   .on('error', function (err) {
@@ -50,6 +51,7 @@ src.createReadStream()
     console.log('Stream ended');
   })
 
+/*
 var allNumber = 0;
 
 dist.createReadStream()
@@ -69,5 +71,5 @@ dist.createReadStream()
   .on('end', function () {
     console.log('Stream ended');
   })
-
+*/
 
