@@ -9,6 +9,27 @@ console.log('distDB =<',distDB,'>');
 
 var dist = levelup(distDB);
 
+var oldNumber = 0;
+
+dist.createReadStream()
+  .on('data', function (data) {
+    var value = parseInt(data.value);
+    //console.log(data.key, '=', data.value);
+    oldNumber += 1;
+  })
+  .on('error', function (err) {
+    console.log('Oh my!', err);
+  })
+  .on('close', function () {
+    console.log('Stream closed');
+    console.log('oldNumber =<',oldNumber,'>');
+  })
+  .on('end', function () {
+    console.log('Stream ended');
+  })
+
+
+
 var mergeNumber = 0;
 var src = levelup(srcDB);
 src.createReadStream()
