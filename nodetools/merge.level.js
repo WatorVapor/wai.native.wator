@@ -46,12 +46,13 @@ src.createReadStream()
   .on('close', function () {
     console.log('Stream closed');
     console.log('mergeNumber =<',mergeNumber,'>');
+    setTimeout(DisplayNew,10);
   })
   .on('end', function () {
     console.log('Stream ended');
   })
 
-/*
+function DisplayNew() {
 var allNumber = 0;
 
 dist.createReadStream()
@@ -71,5 +72,5 @@ dist.createReadStream()
   .on('end', function () {
     console.log('Stream ended');
   })
-*/
+}
 
