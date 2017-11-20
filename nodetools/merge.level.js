@@ -9,21 +9,23 @@ console.log('distDB =<',distDB,'>');
 
 var dist = levelup(distDB);
 
+var mergeNumber = 0;
 var src = levelup(srcDB);
 src.createReadStream()
   .on('data', function (data) {
     var value = parseInt(data.value);
-    if(value > 2) {
-    //if(true) {
-      console.log(data.key, '=', data.value)
-    }
+    //console.log(data.key, '=', data.value);
+    //dist.put(data.key,data.value);
+    mergeNumber += 1;
   })
   .on('error', function (err) {
-    console.log('Oh my!', err)
+    console.log('Oh my!', err);
   })
   .on('close', function () {
-    console.log('Stream closed')
+    console.log('Stream closed');
+    console.log('mergeNumber =<',mergeNumber,'>');
   })
   .on('end', function () {
-    console.log('Stream ended')
+    console.log('Stream ended');
   })
+
