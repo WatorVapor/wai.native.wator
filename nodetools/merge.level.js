@@ -1,12 +1,16 @@
 var levelup = require('levelup');
 var argv = require('argv');
 var args = argv.run();
-var pathDB = args.targets[0];
-console.log('pathDB =<',pathDB,'>');
+var srcDB = args.targets[0];
+console.log('srcDB =<',srcDB,'>');
+var distDB = args.targets[1];
+console.log('distDB =<',distDB,'>');
 
 
-var db = levelup(pathDB);
-db.createReadStream()
+var dist = levelup(distDB);
+
+var src = levelup(srcDB);
+src.createReadStream()
   .on('data', function (data) {
     var value = parseInt(data.value);
     if(value > 2) {
