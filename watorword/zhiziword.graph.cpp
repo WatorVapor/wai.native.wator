@@ -10,7 +10,7 @@
 using namespace std;
 
 #include "log.hpp"
-#include "phoenixword.hpp"
+#include "zhiziword.hpp"
 
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/graph/dijkstra_shortest_paths.hpp>
@@ -63,7 +63,7 @@ struct sample_graph_writer {
 };
 
 
-void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
+void ZhiZiWord::calcPrediction(const multimap<int, WordElement> &confuse) {
   Graph g;
   multimap<int, std::tuple<string, Vertex,double,double>> vertexWator;
   vector<std::tuple<string,double,double,string,string,string>> labelVertex;
@@ -221,7 +221,7 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
 #include <boost/lexical_cast.hpp>
 #include <fstream>
 
-string PhoenixWord::createGraph(const string &text,const string &sentence) {
+string ZhiZiWord::createGraph(const string &text,const string &sentence) {
   Graph g;
   multimap<int, std::tuple<string, Vertex,double,double>> vertexWator;
   vector<std::tuple<string,double,double,string,string,string>> labelVertex;
