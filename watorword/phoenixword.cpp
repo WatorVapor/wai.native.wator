@@ -29,7 +29,7 @@ void PhoenixWord::learn(const vector<string> &wordBytes, const string &text,cons
   //this->getOutRank(text);
   //this->dumpDot();
   //this->adjustRank();
-  this->dumpRank();
+  //this->dumpRank();
 
 
  // this->getNoConflictSeq();
