@@ -39,7 +39,10 @@ class CtrlClaw {
   void eachMultiByte(T fn) {
     for (auto pair : sentence_words_) {
       auto word = std::get<1>(pair);
-      fn(word);
+      auto multi = std::get<2>(pair);
+      if(multi) {
+        fn(word);
+      }
     }
   }
 
