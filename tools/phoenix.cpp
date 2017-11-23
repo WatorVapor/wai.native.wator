@@ -65,6 +65,7 @@ namespace pt = boost::property_tree;
 
 
 int main(int ac, char *av[]) {
+  CtrlClaw claw;
   PhoenixWord phoenix("./db/phoenix");
   if (phoenix.loadMaster(false) == false) {
     return 0;
