@@ -196,24 +196,16 @@ void PhoenixWord::getOutRank(const string &text) {
   DUMP_VAR(wordHintSeq_.size());
 }
 void PhoenixWord::calcPair(void) {
-  multimap<int, WordElement> wordMissSeq;
   for (auto it = wordHintSeq_.begin();it != wordHintSeq_.end();it++) {
     DUMP_VAR(it->first);
     auto word = std::get<0>(it->second);
     DUMP_VAR3(it->first,word,word.size());
-    auto itNext = it;
-    itNext++;
-    if(itNext != wordHintSeq_.end()) {
-      auto coverNext = it->first + word.size();
-      DUMP_VAR2(coverNext,itNext->first);
-      if(coverNext < itNext->first) {
-        auto size = itNext->first - coverNext;
-        auto wordOut = text.substr(coverNext,size);
-        DUMP_VAR3(coverNext,itNext->first,wordOut);
-        auto elem =
-            std::make_tuple(wordOut, coverNext, wordOut.size(), dConstMissMatchPred, dConstMissMatchPred);
-        wordMissSeq.insert(std::make_pair(coverNext, elem));
-      }
+    auto coverNext = it->first + word.size();
+    auto nextRange = wordHintSeq_.equal_range(coverNext);
+    for(auto itNext:nextRange) {
+      DUMP_VAR2(coverNext,itNext.first);
+      auto wordNext = std::get<0>(itNext.second);
+      DUMP_VAR2(word,wordNext);
     }
   }
 }
