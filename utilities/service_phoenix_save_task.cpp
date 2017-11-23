@@ -57,10 +57,13 @@ void eachWord(const string &word, T fn) {
       if (list_words.size() == 2) {
         auto key = list_words.front();
         auto val = list_words.back();
-        TRACE_VAR(key, val);
-        auto counter = std::stoi(val);
-        if (counter > 0) {
-          fn(key, counter);
+        try {
+          auto counter = std::stoi(val);
+          if (counter > 0) {
+            fn(key, counter);
+          }
+        } catch(const std::exception & e) {
+          DUMP_VAR(e.what());
         }
       }
     }
