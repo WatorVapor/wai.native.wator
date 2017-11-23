@@ -202,9 +202,9 @@ void PhoenixWord::calcPair(void) {
     DUMP_VAR3(it->first,word,word.size());
     auto coverNext = it->first + word.size();
     auto nextRange = wordHintSeq_.equal_range(coverNext);
-    for(auto itNext:nextRange) {
-      DUMP_VAR2(coverNext,itNext.first);
-      auto wordNext = std::get<0>(itNext.second);
+    for(auto itNext = nextRange.first;itNext != nextRange.second;itNext++) {
+      DUMP_VAR2(coverNext,itNext->first);
+      auto wordNext = std::get<0>(itNext->second);
       DUMP_VAR2(word,wordNext);
     }
   }
