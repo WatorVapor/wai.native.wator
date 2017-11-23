@@ -29,6 +29,9 @@ add_library(watorword
   watorword/phoenixword.cpp
   watorword/phoenixword.db.cpp
   watorword/phoenixword.graph.cpp
+  watorword/zhiziword.cpp
+  watorword/zhiziword.db.cpp
+  watorword/zhiziword.graph.cpp
   watorword/qiangbaoword.cpp
   watorword/qiangbaoword.db.cpp
   watorword/treeword.cpp
