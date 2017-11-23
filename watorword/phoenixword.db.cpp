@@ -44,7 +44,20 @@ void PhoenixWord::pushMultiWord(const string &word) {
 void PhoenixWord::collectWord(void) {
 }
 
+void PhoenixWord::dumpPick() {
+  multimap<int, string> multiRank;
+  for (auto wordSum : multiWordOfOneArticle_) {
+    multiRank.insert(std::make_pair(wordSum.second, wordSum.first));
+  }
+  for (auto wordRank : multiRank) {
+    if(wordRank.first >3) {
+      DUMP_VAR2(wordRank.first, wordRank.second);
+    }
+  }
+}
+
 vector<string> PhoenixWord::pickupWordRanking(void) {
+  this->dumpPick();
   DUMP_VAR(multiWordOfOneArticle_.size());
   vector<string> wordArrays;
   string upWords;
