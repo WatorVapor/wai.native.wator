@@ -12,12 +12,12 @@ using namespace std;
 #include <leveldb/write_batch.h>
 
 #include "log.hpp"
-#include "phoenixword.hpp"
+#include "zhiziword.hpp"
 
 
 map<string, int> PhoenixWord::multiWordOfOneArticle_;
 
-bool PhoenixWord::loadMaster(bool forceCast) {
+bool ZhiZiWord::loadMaster(bool forceCast) {
   if(dictInputCN_.loadMasterFromDB(database_+"/cn") == false) {
     return false;
   }
@@ -27,14 +27,14 @@ bool PhoenixWord::loadMaster(bool forceCast) {
   return true;
 }
 
-void PhoenixWord::unloadMaster(void) {
+void ZhiZiWord::unloadMaster(void) {
   dictInputCN_.unloadMasterFromDB();
   dictInputJA_.unloadMasterFromDB();
 }
 
 
 
-void PhoenixWord::collectWord(void) {
+void ZhiZiWord::collectWord(void) {
   for(auto wordPair:wordSeqTopSelected_) {
     auto word = std::get<0>(wordPair.second);
     DUMP_VAR(word);
@@ -48,7 +48,7 @@ void PhoenixWord::collectWord(void) {
 }
 
 
-void PhoenixWord::dumpPreds() {
+void ZhiZiWord::dumpPreds() {
   for (auto elem : wordSeqTopSelected_) {
     TRACE_VAR(elem.first);
     auto word = std::get<0>(elem.second);
@@ -59,7 +59,7 @@ void PhoenixWord::dumpPreds() {
   }
 }
 
-void PhoenixWord::dumpClearSeq() {
+void ZhiZiWord::dumpClearSeq() {
   for (auto clearSeq : noConflictWordSeq_) {
     std::cout << "%%%%%%%%%%%%%%%%" << std::endl;
     for (auto elem : clearSeq) {
@@ -76,7 +76,7 @@ void PhoenixWord::dumpClearSeq() {
 
 
 /*
-void PhoenixWord::dumpPredWords() {
+void ZhiZiWord::dumpPredWords() {
   for (auto phoenix : prediWords_) {
   std:
     cout << "'" << phoenix << "',";
@@ -103,7 +103,7 @@ typedef boost::directed_graph<> Graph;
 typedef std::pair<string, string> Edge;
 typedef boost::graph_traits<Graph>::vertex_descriptor Vertex;
 
-void PhoenixWord::dumpDot(void) {
+void ZhiZiWord::dumpDot(void) {
   Graph g;
   multimap<int, std::tuple<string, Vertex>> vertexs;
   static vector<string> labelVertex;
