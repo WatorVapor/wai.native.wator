@@ -9,20 +9,20 @@ using namespace std;
 
 #include "ctrlclaw.hpp"
 #include "log.hpp"
-#include "phoenixword.hpp"
+#include "zhiziword.hpp"
 #include "textpump.hpp"
 
-static std::shared_ptr<PhoenixWord> gPhoenix;
+static std::shared_ptr<ZhiZiWord> gZhiZi;
 bool loadMasterDB(void) {
-  gPhoenix = std::make_shared<PhoenixWord>("./db/parrot");
-  if (gPhoenix->loadMaster(false) == false) {
+  gZhiZi = std::make_shared<ZhiZiWord>("./db/zhizi");
+  if (gZhiZi->loadMaster(false) == false) {
     return false;
   }
   return true;
 }
 void unloadMasterDB(void) {
-  gPhoenix->unloadMaster();
-  gPhoenix.reset();
+  gZhiZi->unloadMaster();
+  gZhiZi.reset();
 }
 
 #include <boost/exception/all.hpp>
@@ -55,21 +55,21 @@ string processText(const string &text) {
 
 string processWord(const string &text,const string &lang) {
   pt::ptree resultTotal;
-  auto learnPhoenix = [&](string wordStr, vector<string> word,bool multi) {
-    //DUMP_VAR(gPhoenix);
+  auto learnZhiZi = [&](string wordStr, vector<string> word,bool multi) {
+    //DUMP_VAR(gZhiZi);
     DUMP_VAR(wordStr);
     DUMP_VAR(multi);
     if(multi) {
-      auto result = gPhoenix->cut(word, wordStr, lang);
+      auto result = gZhiZi->cut(word, wordStr, lang);
       resultTotal.push_back(std::make_pair("", result));
     } else {
-      auto result = gPhoenix->cutSpace(word, wordStr, lang);
+      auto result = gZhiZi->cutSpace(word, wordStr, lang);
       resultTotal.push_back(std::make_pair("", result));
     }
   };
   CtrlClaw claw;
   claw.claw(text);
-  claw.eachSentenceMix(learnPhoenix);
+  claw.eachSentenceMix(learnZhiZi);
   try {
     pt::ptree result;
     result.add_child(u8"wai", resultTotal);
