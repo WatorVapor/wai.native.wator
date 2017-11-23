@@ -212,7 +212,7 @@ void PhoenixWord::calcPair(const string &lang) {
       }
       TRACE_VAR(word,wordNext,pairWord,pairWordKey,pred);
       if(pred < 0.0f) {
-        DUMP_VAR2(pairWord,pairWordKey);
+        TRACE_VAR(pairWord,pairWordKey);
         this->pushMultiWord(pairWord);
       }
     }
