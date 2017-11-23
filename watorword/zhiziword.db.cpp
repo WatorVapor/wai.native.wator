@@ -15,7 +15,7 @@ using namespace std;
 #include "zhiziword.hpp"
 
 
-map<string, int> PhoenixWord::multiWordOfOneArticle_;
+map<string, int> ZhiZiWord::multiWordOfOneArticle_;
 
 bool ZhiZiWord::loadMaster(bool forceCast) {
   if(dictInputCN_.loadMasterFromDB(database_+"/cn") == false) {
