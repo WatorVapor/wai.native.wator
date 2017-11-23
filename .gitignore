@@ -36,5 +36,11 @@ db/*/cn.cast
 db/*/ja
 db/*/ja.cast
 db/*/bk.*
+db/zhizi/
+db/phoenix/
+db/old.*
+
 *.fmt
+*.app.log
+
 
