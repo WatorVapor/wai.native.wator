@@ -115,7 +115,7 @@ void PhoenixWord::commitArticle(const pt::ptree& task,const string &ws) {
       wgetTaskUp += tag;
       wgetTaskUp += "\"";
       DUMP_VAR(wgetTaskUp);
-      //::system(wgetTaskUp.c_str());
+      ::system(wgetTaskUp.c_str());
     }
   }
 }
