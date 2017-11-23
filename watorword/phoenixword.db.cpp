@@ -50,7 +50,7 @@ void PhoenixWord::dumpPick() {
     multiRank.insert(std::make_pair(wordSum.second, wordSum.first));
   }
   for (auto wordRank : multiRank) {
-    if(wordRank.first >3) {
+    if(wordRank.first >0) {
       DUMP_VAR2(wordRank.first, wordRank.second);
     }
   }
