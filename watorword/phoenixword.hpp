@@ -58,6 +58,7 @@ class PhoenixWord {
   void dumpSeq();
   void dumpPreds();
   void dumpPredWords();
+  void dumpPick();
 
  private:
   string database_;
