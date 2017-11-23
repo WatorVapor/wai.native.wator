@@ -38,7 +38,7 @@ static string bugTxt(
 int main(int ac,char*av[])
 {
 
-  PhoenixWord phoenix("./db/parrot");
+  PhoenixWord phoenix("./db/phoenix");
   if(phoenix.loadMaster(false)==false) {
     return 0;
   }
