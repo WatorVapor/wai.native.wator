@@ -30,7 +30,7 @@ void PhoenixWord::learn(const vector<string> &wordBytes, const string &text,cons
   //this->dumpDot();
   //this->adjustRank();
   //this->dumpRank();
-  this->calcPair();
+  this->calcPair(lang);
 
  // this->getNoConflictSeq();
   //this->dumpClearSeq();
@@ -195,7 +195,7 @@ void PhoenixWord::getOutRank(const string &text) {
   }
   DUMP_VAR(wordHintSeq_.size());
 }
-void PhoenixWord::calcPair(void) {
+void PhoenixWord::calcPair(const string &lang) {
   for (auto it = wordHintSeq_.begin();it != wordHintSeq_.end();it++) {
     TRACE_VAR(it->first);
     auto word = std::get<0>(it->second);
@@ -207,8 +207,19 @@ void PhoenixWord::calcPair(void) {
       auto wordNext = std::get<0>(itNext->second);
       TRACE_VAR(word,wordNext);
       auto pairWord = word + "-" + wordNext;
-      DUMP_VAR3(word,wordNext,pairWord);
-      this->pushMultiWord(pairWord);
+      auto pairWordKey = word + wordNext;
+      auto pred = -1.0;
+      if(lang =="cn") {
+        pred = dictInputCN_.getDoublePred(pairWordKey);
+      }
+      if(lang =="ja") {
+        pred = dictInputJA_.getDoublePred(pairWordKey);
+      }
+      DUMP_VAR5(word,wordNext,pairWord,pairWordKey,pred);
+      if(pred < 0.0f) {
+        DUMP_VAR2(pairWord,pairWordKey);
+        this->pushMultiWord(pairWord);
+      }
     }
   }
 }
