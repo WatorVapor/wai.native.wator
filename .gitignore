@@ -35,3 +35,6 @@ db/*/cn
 db/*/cn.cast
 db/*/ja
 db/*/ja.cast
+db/*/bk.*
+.fmt
+
