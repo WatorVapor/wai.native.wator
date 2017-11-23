@@ -28,14 +28,14 @@ void PhoenixWord::learn(const vector<string> &wordBytes, const string &text,cons
   this->getRawRank(wordBytes,lang);
   this->getOutRank(text);
   //this->dumpDot();
-  this->adjustRank();
+  //this->adjustRank();
   //  this->dumpRank();
 
 
-  this->getNoConflictSeq();
+ // this->getNoConflictSeq();
   //this->dumpClearSeq();
 
-  this->calcPrediction();
+  //this->calcPrediction();
   
   this->collectWord();
 }
