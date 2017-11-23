@@ -55,7 +55,14 @@ int main(int ac,char*av[])
   return 0;
 }
 */
- 
+
+#include <boost/foreach.hpp>
+#include <boost/optional.hpp>
+#include <boost/property_tree/json_parser.hpp>
+#include <boost/property_tree/ptree.hpp>
+#include <boost/property_tree/xml_parser.hpp>
+namespace pt = boost::property_tree;
+
 
 int main(int ac, char *av[]) {
   PhoenixWord phoenix("./db/phoenix");
@@ -80,7 +87,7 @@ int main(int ac, char *av[]) {
   };
   TextPump txtPump("https://www.wator.xyz/wai/text/train/phoenix", "tain.one");
   txtPump.eachTextFromMaster(clawText);
-  parrot.unloadMaster();
+  phoenix.unloadMaster();
   return 0;
 }
 
