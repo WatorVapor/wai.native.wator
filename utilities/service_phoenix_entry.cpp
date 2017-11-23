@@ -120,7 +120,7 @@ void train_phoenix_save_upd_main(void) {
           std::make_shared<udp::endpoint>(address::from_string("::1"), port);
       auto sock = std::make_shared<udp::socket>(*io_service, *ep);
       DUMP_VAR(port);
-      savePort(port, "/watorvapor/wai.storage/conf/train.save.api.json");
+      savePort(port, "/watorvapor/wai.storage/conf/train.phoenix.save.api.json");
       gSaveTrainServer = std::make_shared<udp_server>(sock);
       gSaveTrainServer->start_receive(processText2);
       DUMP_VAR(gSaveTrainServer.get());
