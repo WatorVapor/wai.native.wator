@@ -44,6 +44,41 @@ void PhoenixWord::pushMultiWord(const string &word) {
 void PhoenixWord::collectWord(void) {
 }
 
+vector<string> PhoenixWord::pickupWordRanking(void) {
+  DUMP_VAR(multiWordOfOneArticle_.size());
+  vector<string> wordArrays;
+  string upWords;
+  int iCounter = 1;
+
+  for (auto wordSum : multiWordOfOneArticle_) {
+    TRACE_VAR(wordSum.first, wordSum.second);
+    if (wordSum.second >= minWordRepeateTimes_) {
+      TRACE_VAR(wordSum.first, wordSum.second);
+      upWords += "{";
+      upWords += wordSum.first;
+      upWords += ",";
+      upWords += std::to_string(wordSum.second / minWordRepeateTimes_);
+      upWords += "};";
+      iCounter++;
+      if (iCounter % 256 == 0) {
+        upWords += "{}";
+        wordArrays.push_back(upWords);
+        upWords.clear();
+      }
+    }
+  }
+  if (upWords.empty() == false) {
+    upWords += "{}";
+    wordArrays.push_back(upWords);
+  }
+  if (multiWordOfOneArticle_.empty()) {
+    upWords += "{}";
+    wordArrays.push_back(upWords);
+  }
+  return wordArrays;
+}
+
+
 void PhoenixWord::commitArticle(const pt::ptree& task,const string &ws) {
   auto wordArrays = pickupWordRanking();
   multiWordOfOneArticle_.clear();
@@ -67,7 +102,7 @@ void PhoenixWord::commitArticle(const pt::ptree& task,const string &ws) {
       wgetTaskUp += tag;
       wgetTaskUp += "\"";
       DUMP_VAR(wgetTaskUp);
-      ::system(wgetTaskUp.c_str());
+      //::system(wgetTaskUp.c_str());
     }
   }
 }
