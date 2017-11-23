@@ -11,13 +11,13 @@ using namespace std;
 
 
 #include "log.hpp"
-#include "phoenixword.hpp"
+#include "zhiziword.hpp"
 
 
 
-PhoenixWord::PhoenixWord(const string &database) : database_(database) {}
-PhoenixWord::~PhoenixWord() {}
-void PhoenixWord::learn(const vector<string> &wordBytes, const string &text,const string &lang) {
+ZhiZiWord::ZhiZiWord(const string &database) : database_(database) {}
+ZhiZiWord::~ZhiZiWord() {}
+void ZhiZiWord::learn(const vector<string> &wordBytes, const string &text,const string &lang) {
   if (wordBytes.size() < 2) {
     return;
   }
@@ -40,7 +40,7 @@ void PhoenixWord::learn(const vector<string> &wordBytes, const string &text,cons
   this->collectWord();
 }
 
-pt::ptree PhoenixWord::cut(const vector<string> &wordBytes, const string &text,
+pt::ptree ZhiZiWord::cut(const vector<string> &wordBytes, const string &text,
                             const string &lang) {
   pt::ptree result;
 /*  
@@ -68,7 +68,7 @@ pt::ptree PhoenixWord::cut(const vector<string> &wordBytes, const string &text,
 
 
 
-pt::ptree PhoenixWord::summaryCut(const string &text) {
+pt::ptree ZhiZiWord::summaryCut(const string &text) {
   pt::ptree result;
   string sentence = "";
   for(auto wordSed:wordSeqTopSelected_) {
@@ -86,11 +86,11 @@ pt::ptree PhoenixWord::summaryCut(const string &text) {
 
 
 
-void PhoenixWord::commitArticle(void) {
+void ZhiZiWord::commitArticle(void) {
   multiWordOfOneArticle_.clear();
 }
 
-void PhoenixWord::getRawRank(const vector<string> &Bytes,const string &lang) {
+void ZhiZiWord::getRawRank(const vector<string> &Bytes,const string &lang) {
   statisticsMinWordSize_ = 32;
   wordHintSeq_.clear();
   wordAdjustedSeq_.clear();
@@ -167,7 +167,7 @@ void PhoenixWord::getRawRank(const vector<string> &Bytes,const string &lang) {
 
 double dConstMissMatchPred = 0.00000001;
 
-void PhoenixWord::getOutRank(const string &text) {
+void ZhiZiWord::getOutRank(const string &text) {
   multimap<int, WordElement> wordMissSeq;
   for (auto it = wordHintSeq_.begin();it != wordHintSeq_.end();it++) {
     TRACE_VAR(it->first);
@@ -198,7 +198,7 @@ void PhoenixWord::getOutRank(const string &text) {
 
 static const double gWeigthAdjustBase = 4096.0;
 
-double PhoenixWord::adjustWeight(int width, double weight) {
+double ZhiZiWord::adjustWeight(int width, double weight) {
   double rate = (double)width / (double)statisticsMinWordSize_ - 1.0;
   double rate2 = ::pow(gWeigthAdjustBase, rate);
   TRACE_VAR(rate, rate2);
@@ -207,7 +207,7 @@ double PhoenixWord::adjustWeight(int width, double weight) {
 }
 
 
-void PhoenixWord::adjustRank() {
+void ZhiZiWord::adjustRank() {
   for (auto elem : wordHintSeq_) {
     TRACE_VAR(elem.first);
     auto word = std::get<0>(elem.second);
@@ -225,7 +225,7 @@ void PhoenixWord::adjustRank() {
 
 
 
-void PhoenixWord::getNoConflictSeq(void) {
+void ZhiZiWord::getNoConflictSeq(void) {
   multimap<int, WordElement> nocfWordSeq;
   int maxPreCover = 0;
   for (auto it = wordAdjustedSeq_.begin(); it != wordAdjustedSeq_.end(); it++) {
@@ -259,7 +259,7 @@ void PhoenixWord::getNoConflictSeq(void) {
   }
 }
 
-void PhoenixWord::calcPrediction(void) {
+void ZhiZiWord::calcPrediction(void) {
   for (auto clearSeq : noConflictWordSeq_) {
     // std::cout << "%%%%%%%%%%%%%%%%" <<std::endl;
     /*
@@ -279,7 +279,7 @@ void PhoenixWord::calcPrediction(void) {
 
 #include <boost/algorithm/string.hpp>
 
-pt::ptree PhoenixWord::cutSpace(const vector<string> &wordBytes, const string &text,
+pt::ptree ZhiZiWord::cutSpace(const vector<string> &wordBytes, const string &text,
                             const string &lang) {
   pt::ptree result;
   DUMP_VAR(text);
