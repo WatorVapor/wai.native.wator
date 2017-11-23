@@ -197,15 +197,18 @@ void PhoenixWord::getOutRank(const string &text) {
 }
 void PhoenixWord::calcPair(void) {
   for (auto it = wordHintSeq_.begin();it != wordHintSeq_.end();it++) {
-    DUMP_VAR(it->first);
+    TRACE_VAR(it->first);
     auto word = std::get<0>(it->second);
-    DUMP_VAR3(it->first,word,word.size());
+    TRACE_VAR(it->first,word,word.size());
     auto coverNext = it->first + word.size();
     auto nextRange = wordHintSeq_.equal_range(coverNext);
     for(auto itNext = nextRange.first;itNext != nextRange.second;itNext++) {
-      DUMP_VAR2(coverNext,itNext->first);
+      TRACE_VAR(coverNext,itNext->first);
       auto wordNext = std::get<0>(itNext->second);
-      DUMP_VAR2(word,wordNext);
+      TRACE_VAR(word,wordNext);
+      auto pairWord = word + "-" + wordNext;
+      DUMP_VAR3(word,wordNext,pairWord);
+      this->pushMultiWord(pairWord);
     }
   }
 }
