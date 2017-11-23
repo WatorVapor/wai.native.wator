@@ -85,11 +85,6 @@ pt::ptree PhoenixWord::summaryCut(const string &text) {
 }
 
 
-
-void PhoenixWord::commitArticle(void) {
-  multiWordOfOneArticle_.clear();
-}
-
 void PhoenixWord::getRawRank(const vector<string> &Bytes,const string &lang) {
   statisticsMinWordSize_ = 32;
   wordHintSeq_.clear();
