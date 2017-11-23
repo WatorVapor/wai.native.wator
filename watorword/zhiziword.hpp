@@ -14,15 +14,14 @@ namespace pt = boost::property_tree;
 
 #include "word_db_master.hpp"
 
-//class PredictionTree;
 
-class PhoenixWord {
+class ZhiZiWord {
   //typedef std::tuple<std::string, int, int, double, double, int> WordElement;
   typedef std::tuple<std::string, int, int, double, double> WordElement;
 
  public:
-  PhoenixWord(const string &database);
-  ~PhoenixWord();
+  ZhiZiWord(const string &database);
+  ~ZhiZiWord();
   void learn(const vector<string> &word, const string &text,const string &lang);
   pt::ptree cut(const vector<string> &word, const string &text,const string &lang);
   pt::ptree cutSpace(const vector<string> &word, const string &text,const string &lang);
