@@ -44,7 +44,7 @@ void PhoenixWord::pushMultiWord(const string &word) {
 void PhoenixWord::collectWord(void) {
 }
 
-void ParrotWord::commitArticle(const pt::ptree& task,const string &ws) {
+void PhoenixWord::commitArticle(const pt::ptree& task,const string &ws) {
   auto wordArrays = pickupWordRanking();
   multiWordOfOneArticle_.clear();
   ap_ = 0;
@@ -72,7 +72,7 @@ void ParrotWord::commitArticle(const pt::ptree& task,const string &ws) {
   }
 }
 
-void ParrotWord::commitArticle(void) {
+void PhoenixWord::commitArticle(void) {
   multiWordOfOneArticle_.clear();
   ap_ = 0;
 }
