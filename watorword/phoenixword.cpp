@@ -211,7 +211,8 @@ void PhoenixWord::calcPair(const string &lang) {
         pred = dictInputJA_.getDoublePred(pairWordKey);
       }
       TRACE_VAR(word,wordNext,pairWord,pairWordKey,pred);
-      if(pred < 0.0f) {
+      //if(pred < 0.0f)
+      {
         TRACE_VAR(pairWord,pairWordKey);
         this->pushMultiWord(pairWord);
       }
