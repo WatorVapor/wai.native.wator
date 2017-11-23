@@ -32,19 +32,16 @@ void PhoenixWord::unloadMaster(void) {
   dictInputJA_.unloadMasterFromDB();
 }
 
-
+void PhoenixWord::pushMultiWord(const string &word) {
+  auto it = multiWordOfOneArticle_.find(word);
+  if (it != multiWordOfOneArticle_.end()) {
+    it->second++;
+  } else {
+    multiWordOfOneArticle_[word] = 1;
+  }
+}
 
 void PhoenixWord::collectWord(void) {
-  for(auto wordPair:wordSeqTopSelected_) {
-    auto word = std::get<0>(wordPair.second);
-    DUMP_VAR(word);
-    auto it = multiWordOfOneArticle_.find(word);
-    if (it != multiWordOfOneArticle_.end()) {
-      it->second++;
-    } else {
-      multiWordOfOneArticle_[word] = 1;
-    }
-  }
 }
 
 
