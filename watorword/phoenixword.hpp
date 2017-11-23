@@ -75,5 +75,5 @@ class PhoenixWord {
   static map<string, int> multiWordOfOneArticle_;
   
   const int gWordLength = 32;
-  const int minWordRepeateTimes_ = 5;
+  const int minWordRepeateTimes_ = 3;
 };
