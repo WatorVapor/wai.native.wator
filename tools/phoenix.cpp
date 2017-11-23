@@ -35,6 +35,7 @@ static string bugTxt(
     u8"追查事情真相的故事。");
 
 
+/*
 int main(int ac,char*av[])
 {
 
@@ -50,44 +51,36 @@ int main(int ac,char*av[])
   CtrlClaw claw;
   claw.claw(longTxt);
   claw.eachSentence(learnPhoenix);
-/*
-  claw.claw(shortTxt);
-  claw.eachSentence(learnPhoenix);
-
-  claw.claw(oneTxt);
-  claw.eachSentence(learnPhoenix);
-
-  claw.claw(bugTxt);
-  claw.eachSentence(learnPhoenix);
-*/
   phoenix.unloadMaster();
   return 0;
 }
-
-/*
+*/
+ 
 
 int main(int ac, char *av[]) {
-  PhoenixWord phoenix("./db/baidu.baike");
+  PhoenixWord phoenix("./db/phoenix");
   if (phoenix.loadMaster(false) == false) {
     return 0;
   }
-  auto learnPhoenix = [&](string wordStr, vector<string> word) {
-    phoenix.learn(word, wordStr);
-  };
-
-  CtrlClaw claw;
-  auto clawText = [&](string &path, string &content) {
-    DUMP_VAR(path);
+  auto clawText = [&](const pt::ptree &task, string &content,string &ws) {
+    std::stringstream ssTask;
+    pt::write_json(ssTask, task);
+    DUMP_VAR(ssTask.str());
     // DUMP_VAR(content);
-    claw.claw(content);
-    claw.eachSentence(learnPhoenix);
-    phoenix.commitArticle();
+    auto langOpt = task.get_optional<string>("lang");
+    if(langOpt) {
+        auto lang = langOpt.get();
+        claw.claw(content);
+          auto learnPhoenix = [&](string wordStr, vector<string> word) {
+            phoenix.learn(word, wordStr,lang);
+          };
+        claw.eachSentence(learnPhoenix);
+    }
+    phoenix.commitArticle(task,ws);
   };
-  TextPump txtPump("url_crawl/.baike.baidu.meta/");
-  txtPump.eachNewText("phoenix.train.one_1", clawText);
-
-  phoenix.unloadMaster();
-  DUMP_VAR(txtPump.statistics());
+  TextPump txtPump("https://www.wator.xyz/wai/text/train/phoenix", "tain.one");
+  txtPump.eachTextFromMaster(clawText);
+  parrot.unloadMaster();
   return 0;
 }
-*/
+
