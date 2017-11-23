@@ -49,6 +49,7 @@ class PhoenixWord {
 
  
   void collectWord(void);
+  void pushMultiWord(const string &word);
 
   
   void dumpRank();
