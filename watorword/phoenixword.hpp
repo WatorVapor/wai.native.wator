@@ -50,6 +50,8 @@ class PhoenixWord {
  
   void collectWord(void);
   void pushMultiWord(const string &word);
+  void jointPair(void);
+
   
   vector<string> pickupWordRanking(void);
 
