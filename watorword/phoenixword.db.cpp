@@ -21,7 +21,7 @@ void PhoenixWord::jointPair(void) {
   for(auto it=  wordSeqTopSelected_.begin();it != wordSeqTopSelected_.end();it++) {
     auto word = std::get<0>(it->second);
     auto nextIt = it;
-    nextIt++
+    nextIt++;
     if(nextIt != wordSeqTopSelected_.end()) {
       auto nextWord = std::get<0>(nextIt->second);
       auto joint = word + "-" + nextWord;
