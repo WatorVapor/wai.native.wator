@@ -36,6 +36,7 @@ void PhoenixWord::learn(const vector<string> &wordBytes, const string &text,cons
   //this->dumpClearSeq();
 
   this->calcPrediction();
+  this->jointPair();
   
   this->collectWord();
 }
