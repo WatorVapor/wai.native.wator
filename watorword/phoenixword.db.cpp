@@ -18,9 +18,9 @@ using namespace std;
 map<string, int> PhoenixWord::multiWordOfOneArticle_;
 
 void PhoenixWord::jointPair(void) {
-  for(auto it-> =  wordSeqTopSelected_.begin();it != wordSeqTopSelected_.end();it++) {
-    auto word = std::get<0>it->
-    DUMP_VAR2(pairWord.first, pairWord.second);
+  for(auto it=  wordSeqTopSelected_.begin();it != wordSeqTopSelected_.end();it++) {
+    auto word = std::get<0>(it->second);
+    DUMP_VAR2(pairWord.first, word);
   }
 }
 
