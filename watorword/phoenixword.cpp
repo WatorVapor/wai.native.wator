@@ -177,19 +177,19 @@ void PhoenixWord::getOutRank(const string &text) {
       if(coverNext < itNext->first) {
         auto size = itNext->first - coverNext;
         auto wordOut = text.substr(coverNext,size);
-        DUMP_VAR3(coverNext,itNext->first,wordOut);
+        TRACE_VAR(coverNext,itNext->first,wordOut);
         auto elem =
             std::make_tuple(wordOut, coverNext, wordOut.size(), dConstMissMatchPred, dConstMissMatchPred);
         wordMissSeq.insert(std::make_pair(coverNext, elem));
       }
     }
   }
-  DUMP_VAR(wordMissSeq.size());
-  DUMP_VAR(wordHintSeq_.size());
+  TRACE_VAR(wordMissSeq.size());
+  TRACE_VAR(wordHintSeq_.size());
   for(auto miss:wordMissSeq) {
     wordHintSeq_.insert(miss);
   }
-  DUMP_VAR(wordHintSeq_.size());
+  TRACE_VAR(wordHintSeq_.size());
 }
 void PhoenixWord::calcPair(const string &lang) {
   for (auto it = wordHintSeq_.begin();it != wordHintSeq_.end();it++) {
