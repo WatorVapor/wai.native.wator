@@ -27,7 +27,7 @@ void PhoenixWord::learn(const vector<string> &wordBytes, const string &text,cons
   }
   this->getRawRank(wordBytes,lang);
   this->getOutRank(text);
-  this->dumpDot();
+ // this->dumpDot();
   this->adjustRank();
   //this->dumpRank();
   //this->calcPair(lang);
