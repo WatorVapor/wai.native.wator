@@ -163,7 +163,7 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
   boost::algorithm::replace_all(
       dotStr, "digraph G {",
       "digraph G { \n rankdir=LR;\n graph [charset=\"UTF-8\"];\n");
-  DUMP_VAR(dotStr);
+  TRACE_VAR(dotStr);
   // dot -v -T svg 1.dot -o 1.svg
   
   
@@ -203,7 +203,7 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
   }
   for(auto it = path.rbegin();it != path.rend();it++) {
       auto wordSelected = std::get<0>(labelVertex.at(*it));
-      DUMP_VAR2(*it,wordSelected);
+      TRACE_VAR(*it,wordSelected);
       for (auto elem : confuse) {
         auto word = std::get<0>(elem.second);
         if(word ==wordSelected) {
@@ -336,7 +336,7 @@ string PhoenixWord::createGraph(const string &text,const string &sentence) {
   boost::algorithm::replace_all(
       dotStr, "digraph G {",
       "digraph G { \n rankdir=LR;\n graph [charset=\"UTF-8\"];\n");
-  DUMP_VAR(dotStr);
+  TRACE_VAR(dotStr);
   
   int prePost = -2;
   string oneSame;
@@ -358,11 +358,11 @@ string PhoenixWord::createGraph(const string &text,const string &sentence) {
       prePost = position;
       elemPost++;
   }
-  DUMP_VAR(allSame);
+  TRACE_VAR(allSame);
   boost::algorithm::replace_all(
       dotStr, "}",
       allSame +"}");
-  DUMP_VAR(dotStr);
+  TRACE_VAR(dotStr);
 
   /*{rank = same; A; X;}*/
   
