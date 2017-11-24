@@ -154,8 +154,48 @@ void saveParrotTask(const string &lang, const string &url, const string &word) {
   eachWord(word, save);
   gSaveTrainServer->send("success");
 }
+
+
+static bool markPhoenix(const string &url, const string &lang) {
+  bool ret = true;
+  auto start = std::chrono::system_clock::now();
+  auto doneName = sha1(url);
+  DUMP_VAR2(doneName, url);
+  if (lang == "cn") {
+    if (gCNDonePhoenixStorage->is_has(doneName)) {
+      ret = false;
+    } else {
+      gCNDonePhoenixStorage->add(doneName, url);
+    }
+    gCNTodoPhoenixStorage->remove(doneName);
+  } else if (lang == "ja") {
+    if (gJADonePhoenixStorage->is_has(doneName)) {
+      ret = false;
+    } else {
+      gJADonePhoenixStorage->add(doneName, url);
+    }
+    gJATodoPhoenixStorage->remove(doneName);
+  } else {
+  }
+  auto end = std::chrono::system_clock::now();
+  std::chrono::duration<double, std::milli> markPhoenix_ms = end - start;
+  DUMP_VAR(markPhoenix_ms.count());
+  return ret;
+}
+
 void savePhoenixTask(const string &lang, const string &url,
                      const string &word) {
+  TRACE_VAR(lang, url, word);
+  markPhoenix(url, lang);
+  auto save = [&](const string &key, int counter) {
+    if (lang == "cn") {
+      gCNPhoenixDict->putWord(key, counter);
+    } else if (lang == "ja") {
+      gJAPhoenixDict->putWord(key, counter);
+    } else {
+    }
+  };
+  eachWord(word, save);
   gSaveTrainServer->send("success");
 }
 
