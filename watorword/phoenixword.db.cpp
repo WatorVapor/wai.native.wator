@@ -17,6 +17,9 @@ using namespace std;
 
 map<string, int> PhoenixWord::multiWordOfOneArticle_;
 
+void PhoenixWord::jointPair(void) {
+}
+
 bool PhoenixWord::loadMaster(bool forceCast) {
   if(dictInputCN_.loadMasterFromDB(database_+"/cn") == false) {
     return false;
