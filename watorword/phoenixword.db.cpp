@@ -71,7 +71,7 @@ void PhoenixWord::dumpPick() {
 }
 
 vector<string> PhoenixWord::pickupWordRanking(void) {
-  this->dumpPick();
+  //this->dumpPick();
   DUMP_VAR(multiWordOfOneArticle_.size());
   vector<string> wordArrays;
   string upWords;
