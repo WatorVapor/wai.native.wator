@@ -25,7 +25,7 @@ void PhoenixWord::jointPair(void) {
     if(nextIt != wordSeqTopSelected_.end()) {
       auto nextWord = std::get<0>(nextIt->second);
       auto joint = word + "-" + nextWord;
-      DUMP_VAR5(joint,it->first,word,nextIt->first,nextWord);
+      TRACE_VAR(joint,it->first,word,nextIt->first,nextWord);
       this->pushMultiWord(joint);
     }
   }
@@ -71,7 +71,7 @@ void PhoenixWord::dumpPick() {
 }
 
 vector<string> PhoenixWord::pickupWordRanking(void) {
-  //this->dumpPick();
+  this->dumpPick();
   DUMP_VAR(multiWordOfOneArticle_.size());
   vector<string> wordArrays;
   string upWords;
