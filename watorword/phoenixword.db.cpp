@@ -18,6 +18,9 @@ using namespace std;
 map<string, int> PhoenixWord::multiWordOfOneArticle_;
 
 void PhoenixWord::jointPair(void) {
+  for(auto pairWord :wordSeqTopSelected_) {
+    DUMP_VAR2(pairWord.first, pairWord.second);
+  }
 }
 
 bool PhoenixWord::loadMaster(bool forceCast) {
