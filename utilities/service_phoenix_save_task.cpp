@@ -37,6 +37,7 @@ extern std::shared_ptr<udp_server> gSaveTrainServer;
 #include "urlstorage.hpp"
 EXTERN_DECLARE_DB(Ostrich);
 EXTERN_DECLARE_DB(Parrot);
+EXTERN_DECLARE_DB(Phoenix);
 
 string sha1(const string &data);
 
