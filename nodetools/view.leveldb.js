@@ -11,7 +11,7 @@ var db = levelup(pathDB);
 db.createReadStream()
   .on('data', function (data) {
     var value = parseInt(data.value);
-    if(value > thred) {
+    if(value > parseInt(thred)) {
     //if(true) {
       console.log(data.key, '=', data.value)
     }
