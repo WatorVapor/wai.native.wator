@@ -20,7 +20,7 @@ class ZhiZiWord {
   typedef std::tuple<std::string, int, int, double, double> WordElement;
 
  public:
-  ZhiZiWord(const string &database);
+  ZhiZiWord(const string &word_db,const string &phrase_db);
   ~ZhiZiWord();
   void learn(const vector<string> &word, const string &text,const string &lang);
   pt::ptree cut(const vector<string> &word, const string &text,const string &lang);
