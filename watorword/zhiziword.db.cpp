@@ -18,10 +18,10 @@ using namespace std;
 map<string, int> ZhiZiWord::multiWordOfOneArticle_;
 
 bool ZhiZiWord::loadMaster(bool forceCast) {
-  if(dictInputCN_.loadMasterFromDB(database_+"/cn") == false) {
+  if(dictInputCN_.loadMasterFromDB(database_word_+"/cn") == false) {
     return false;
   }
-  if(dictInputJA_.loadMasterFromDB(database_+"/ja") == false) {
+  if(dictInputJA_.loadMasterFromDB(database_word_+"/ja") == false) {
     return false;
   }
   return true;
