@@ -54,7 +54,8 @@ class ZhiZiWord {
   void dumpPredWords();
 
  private:
-  string database_;
+  string database_word_;
+  string database_phrase_;
   MasterDBWord dictInputCN_;
   MasterDBWord dictInputJA_;
 
