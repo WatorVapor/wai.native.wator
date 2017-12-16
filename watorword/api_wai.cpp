@@ -14,7 +14,7 @@ using namespace std;
 
 static std::shared_ptr<ZhiZiWord> gZhiZi;
 bool loadMasterDB(void) {
-  gZhiZi = std::make_shared<ZhiZiWord>("./db/zhizi");
+  gZhiZi = std::make_shared<ZhiZiWord>("./db/zhizi/word","./db/zhizi/phrase");
   if (gZhiZi->loadMaster(false) == false) {
     return false;
   }
