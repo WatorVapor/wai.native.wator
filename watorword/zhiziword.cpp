@@ -15,7 +15,7 @@ using namespace std;
 
 
 
-ZhiZiWord::ZhiZiWord(const string &database) : database_(database) {}
+ZhiZiWord::ZhiZiWord(const string &word_db,const string &phrase_db) : database_word_(word_db),database_phrase_(phrase_db) {}
 ZhiZiWord::~ZhiZiWord() {}
 void ZhiZiWord::learn(const vector<string> &wordBytes, const string &text,const string &lang) {
   if (wordBytes.size() < 2) {
