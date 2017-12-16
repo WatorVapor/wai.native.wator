@@ -24,12 +24,20 @@ bool ZhiZiWord::loadMaster(bool forceCast) {
   if(dictInputJA_.loadMasterFromDB(database_word_+"/ja") == false) {
     return false;
   }
+  if(phraseInputCN_.loadMasterFromDB(database_phrase_+"/cn") == false) {
+    return false;
+  }
+  if(phraseInputJA_.loadMasterFromDB(database_phrase_+"/ja") == false) {
+    return false;
+  }
   return true;
 }
 
 void ZhiZiWord::unloadMaster(void) {
   dictInputCN_.unloadMasterFromDB();
   dictInputJA_.unloadMasterFromDB();
+  phraseInputCN_.unloadMasterFromDB();
+  phraseInputJA_.unloadMasterFromDB();
 }
 
 
