@@ -58,6 +58,8 @@ class ZhiZiWord {
   string database_phrase_;
   MasterDBWord dictInputCN_;
   MasterDBWord dictInputJA_;
+  MasterDBWord phraseInputCN_;
+  MasterDBWord phraseInputJA_;
 
   map<string, tuple<double, double>> statisticsRank_;
   int statisticsMinWordSize_;  
