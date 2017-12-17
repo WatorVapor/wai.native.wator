@@ -25,7 +25,7 @@ typedef boost::graph_traits<Graph>::edge_descriptor Edge;
 
 
 //static const double dConstWeightNotFound = DBL_MAX/10000000.0 ;
-static const double dConstWeightNotFound = 10000000.0 ;
+//static const double dConstWeightNotFound = 10000000.0 ;
 
 struct sample_graph_writer {
   void operator()(std::ostream& out, int i) const {
@@ -134,7 +134,10 @@ void ZhiZiWord::calcPredictionPhrase(const multimap<int, WordElement> &confuse,c
           auto vrtxNext = std::get<1>(itNext->second);
           auto wordNext = std::get<0>(itNext->second);
           string phrase = word + "-" + wordNext;
-          auto phraseWeight = dConstWeightNotFound;
+          auto phraseWeight = 2.0 * phraseInputCN_.getRangeMax();
+          if(lang =="ja") {
+              phraseWeight = 2.0 * phraseInputJA_.getRangeMax();
+          }
           auto pred = -1.0;
           if(lang =="cn") {
             pred = phraseInputCN_.getDoublePred(phrase);
@@ -143,7 +146,9 @@ void ZhiZiWord::calcPredictionPhrase(const multimap<int, WordElement> &confuse,c
             pred = phraseInputJA_.getDoublePred(phrase);
           }
           if (pred > 0.0) {
-              phraseWeight = 1.0 / pred;
+            phraseWeight = 1.0 / pred;
+          } else {
+            phraseWeight = 1.0 / phraseWeight;
           }
           auto ed = boost::add_edge(vrtxSelf, vrtxNext,g);
           boost::put(boost::edge_weight_t(), g, ed.first, phraseWeight);
@@ -314,7 +319,10 @@ string ZhiZiWord::createGraphPhrase(const string &text,const string &sentence,co
           auto ed = boost::add_edge(vrtxSelf, vrtxNext,g);
           auto wordNext = std::get<0>(itNext->second);
           string phrase = word + "-" + wordNext;
-          auto phraseWeight = dConstWeightNotFound;
+          auto phraseWeight =  2.0*phraseInputCN_.getRangeMax();
+          if(lang =="ja") {
+              phraseWeight = 2.0*phraseInputJA_.getRangeMax();
+          }
           auto pred = -1.0;
           if(lang =="cn") {
             pred = phraseInputCN_.getDoublePred(phrase);
@@ -324,6 +332,8 @@ string ZhiZiWord::createGraphPhrase(const string &text,const string &sentence,co
           }
           if (pred > 0.0) {
               phraseWeight = 1.0 / pred;
+          } else {
+              phraseWeight = 1.0 / phraseWeight;
           }
           DUMP_VAR3(phrase,pred,phraseWeight);
           boost::put(boost::edge_weight_t(), g, ed.first, phraseWeight);
