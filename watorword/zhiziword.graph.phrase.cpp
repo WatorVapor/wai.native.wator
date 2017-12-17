@@ -134,9 +134,9 @@ void ZhiZiWord::calcPredictionPhrase(const multimap<int, WordElement> &confuse,c
           auto vrtxNext = std::get<1>(itNext->second);
           auto wordNext = std::get<0>(itNext->second);
           string phrase = word + "-" + wordNext;
-          auto phraseWeight = 2.0 * phraseInputCN_.getRangeMax();
+          auto phraseWeight = phraseInputCN_.getRangeMin()/2.0;
           if(lang =="ja") {
-              phraseWeight = 2.0 * phraseInputJA_.getRangeMax();
+              phraseWeight = phraseInputJA_.getRangeMin()/2.0;
           }
           auto pred = -1.0;
           if(lang =="cn") {
@@ -319,9 +319,9 @@ string ZhiZiWord::createGraphPhrase(const string &text,const string &sentence,co
           auto ed = boost::add_edge(vrtxSelf, vrtxNext,g);
           auto wordNext = std::get<0>(itNext->second);
           string phrase = word + "-" + wordNext;
-          auto phraseWeight =  2.0*phraseInputCN_.getRangeMax();
+          auto phraseWeight =  phraseInputCN_.getRangeMin()/2.0;
           if(lang =="ja") {
-              phraseWeight = 2.0*phraseInputJA_.getRangeMax();
+              phraseWeight = phraseInputJA_.getRangeMin()/2.0;
           }
           auto pred = -1.0;
           if(lang =="cn") {
