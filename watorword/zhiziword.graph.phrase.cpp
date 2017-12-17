@@ -416,6 +416,7 @@ string ZhiZiWord::createGraphPhrase(const string &text,const string &sentence,co
       dotCmd += pathDot;
       dotCmd += " -o ";
       dotCmd += "/watorvapor/autogen/wator/wai/graph/" + fileName +".png";
+      dotCmd += " >/dev/null 2>&1";
       ::system(dotCmd.c_str());
       // dot -v -T png 1.dot -o 1.png
   }
@@ -424,6 +425,7 @@ string ZhiZiWord::createGraphPhrase(const string &text,const string &sentence,co
       dotCmd += pathDot;
       dotCmd += " -o ";
       dotCmd += "/watorvapor/autogen/wator/wai/graph/" + fileName +".svg";
+      dotCmd += " >/dev/null 2>&1";
       ::system(dotCmd.c_str());
       // dot -v -T svg 1.dot -o 1.svg
   }
