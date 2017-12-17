@@ -63,7 +63,7 @@ struct sample_graph_writer {
 };
 
 
-void ZhiZiWord::calcPrediction(const multimap<int, WordElement> &confuse) {
+void ZhiZiWord::calcPredictionPhrase(const multimap<int, WordElement> &confuse) {
   Graph g;
   multimap<int, std::tuple<string, Vertex,double,double>> vertexWator;
   vector<std::tuple<string,double,double,string,string,string>> labelVertex;
