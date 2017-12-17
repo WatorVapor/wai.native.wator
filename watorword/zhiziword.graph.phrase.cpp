@@ -137,7 +137,7 @@ void ZhiZiWord::calcPredictionPhrase(const multimap<int, WordElement> &confuse,c
             pred = phraseInputCN_.getDoublePred(phrase);
           }
           if(lang =="ja") {
-            pred = phraseInputCN_.getDoublePred(phrase);
+            pred = phraseInputJA_.getDoublePred(phrase);
           }
           if (pred > 0.0) {
               phraseWeight = 1.0 / pred;
@@ -288,10 +288,7 @@ string ZhiZiWord::createGraphPhrase(const string &text,const string &sentence,co
       auto weightR = std::get<2>(itSelf->second);
       auto weightRO = std::get<3>(itSelf->second);
       auto ed = boost::add_edge(vrtxStart, vrtxSelf,g);
-      auto weightOld = boost::get(boost::edge_weight_t(), g, ed.first);
-      boost::put(boost::edge_weight_t(), g, ed.first, 1.0/weightR);
-      auto weightNew = boost::get(boost::edge_weight_t(), g, ed.first);
-      TRACE_VAR(weightR,weightRO,weightOld,weightNew);
+      boost::put(boost::edge_weight_t(), g, ed.first, 0.0);
     }
   }    
     
@@ -312,10 +309,20 @@ string ZhiZiWord::createGraphPhrase(const string &text,const string &sentence,co
              itNext++) {
           auto vrtxNext = std::get<1>(itNext->second);
           auto ed = boost::add_edge(vrtxSelf, vrtxNext,g);
-          auto weightOld = boost::get(boost::edge_weight_t(), g, ed.first);
-          boost::put(boost::edge_weight_t(), g, ed.first, 1.0/weightR);
-          auto weightNew = boost::get(boost::edge_weight_t(), g, ed.first);
-          TRACE_VAR(weightR,weightRO,weightOld,weightNew);
+          auto wordNext = std::get<0>(itNext->second);
+          string phrase = word + "-" + wordNext;
+          auto phraseWeight = 1000000000.0;
+          auto pred = -1.0;
+          if(lang =="cn") {
+            pred = phraseInputCN_.getDoublePred(phrase);
+          }
+          if(lang =="ja") {
+            pred = phraseInputJA_.getDoublePred(phrase);
+          }
+          if (pred > 0.0) {
+              phraseWeight = 1.0 / pred;
+          }
+          boost::put(boost::edge_weight_t(), g, ed.first, phraseWeight);
         }
         break;
       }
@@ -328,10 +335,7 @@ string ZhiZiWord::createGraphPhrase(const string &text,const string &sentence,co
         auto vrtxSelf = std::get<1>(itSelf->second);
         if (word == wordSelf) {
           auto ed = boost::add_edge(vrtxSelf,vrtxEnd,g);
-          auto weight = boost::get(boost::edge_weight_t(), g, ed.first);
           boost::put(boost::edge_weight_t(), g, ed.first, 0.0);
-          auto weight2 = boost::get(boost::edge_weight_t(), g, ed.first);
-          TRACE_VAR(weight,weight2);
           break;
         }
       }
