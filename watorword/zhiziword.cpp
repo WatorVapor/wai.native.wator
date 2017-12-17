@@ -62,8 +62,8 @@ pt::ptree ZhiZiWord::cut(const vector<string> &wordBytes, const string &text,
   this->getNoConflictSeq();
 
   if(lang =="cn") {
-    this->calcPredictionPhrase();
-    return this->summaryCutPhrase(text);
+    this->calcPredictionPhrase(lang);
+    return this->summaryCutPhrase(text,lang);
   } else {
     this->calcPrediction();
     return this->summaryCut(text);
@@ -89,7 +89,7 @@ pt::ptree ZhiZiWord::summaryCut(const string &text) {
   return result;
 }
 
-pt::ptree ZhiZiWord::summaryCutPhrase(const string &text) {
+pt::ptree ZhiZiWord::summaryCutPhrase(const string &text,const string &lang) {
   pt::ptree result;
   string sentence = "";
   for(auto wordSed:wordSeqTopSelected_) {
@@ -99,7 +99,7 @@ pt::ptree ZhiZiWord::summaryCutPhrase(const string &text) {
   }
   sentence.pop_back();
   result.put(u8"sentence", sentence);
-  auto graph = this->createGraphPhrase(text,sentence);
+  auto graph = this->createGraphPhrase(text,sentence,lang);
   result.put(u8"graph", graph);
   result.put(u8"input", text);
   return result;
@@ -299,7 +299,7 @@ void ZhiZiWord::calcPrediction(void) {
   }
 }
 
-void ZhiZiWord::calcPredictionPhrase(void) {
+void ZhiZiWord::calcPredictionPhrase(const string &lang) {
   for (auto clearSeq : noConflictWordSeq_) {
     // std::cout << "%%%%%%%%%%%%%%%%" <<std::endl;
     /*
@@ -312,7 +312,7 @@ void ZhiZiWord::calcPredictionPhrase(void) {
          DUMP_VAR5(word,pos,range,weight,weight_orig);
         }
     */
-    this->calcPrediction(clearSeq);
+    this->calcPredictionPhrase(clearSeq,lang);
     // std::cout << "%%%%%%%%%%%%%%%%" <<std::endl;
   }
 }
