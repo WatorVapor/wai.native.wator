@@ -65,36 +65,9 @@ struct sample_graph_writer {
 
 struct sample_graph_weight_writer {
   void operator()(std::ostream& out, int i) const {
-    auto wordPair = labelEdge_.at(i);
+    auto weight = labelEdge_.at(i);
     out << " [ label = <";
-    out << "<TABLE BORDER=\"0\" CELLBORDER=\"1\" CELLSPACING=\"0\" CELLPADDING=\"4\">";
-    out << "<TR><TD>";
-    out << "<FONT COLOR=\"green\" POINT-SIZE=\"12\">" << std::get<0>(wordPair) << "</FONT>";
-    out << "</TD></TR>";
-    out << "<TR><TD>";
-    out << "<FONT COLOR=\"red\" POINT-SIZE=\"6\">" << 1.0/std::get<1>(wordPair);
-    out << " " << std::get<3>(wordPair);
-    out << "</FONT>";
-    out << "</TD></TR>";
-    out << "<TR><TD>";
-    out << "<FONT COLOR=\"blue\" POINT-SIZE=\"6\">" << std::get<1>(wordPair);
-    out << " " << std::get<4>(wordPair);
-    out  << "</FONT>";
-    out << "</TD></TR>";
-    out << "<TR><TD>";
-    out << "<FONT COLOR=\"blue\" POINT-SIZE=\"6\">" << std::get<2>(wordPair);
-    out << " " << std::get<5>(wordPair);
-    out << "</FONT>";
-    out << "</TD></TR>";
-    out << "</TABLE>";
-/*
-    out << "<FONT COLOR=\"green\" POINT-SIZE=\"20\">" << std::get<0>(wordPair) << "</FONT>";
-    out << "<HR/>";      
-    out << "<FONT COLOR=\"red\" POINT-SIZE=\"10\">" << " " ;
-    out << 1.0/(std::get<1>(wordPair)) << "<HR/>"; 
-    out << std::get<1>(wordPair) << "<HR/>" ;
-    out << std::get<2>(wordPair) << "</FONT>";
-*/
+    out << weight;
     out << ">]";
   }
   sample_graph_weight_writer(vector<double> &labelEdge):labelEdge_(labelEdge) {
