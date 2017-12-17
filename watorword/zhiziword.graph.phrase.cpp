@@ -69,7 +69,7 @@ struct sample_graph_weight_writer {
     out << " [ label = <";
     out << ">]";
   }
-  sample_graph_weight_writer(const Graph &g):g_(g) {
+  sample_graph_weight_writer(Graph &g):g_(g) {
   }
   Graph &g_;
 };
