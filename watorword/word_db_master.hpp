@@ -15,7 +15,10 @@ class MasterDBWord {
   void unloadMasterFromDB(void);
   int getPred(const string &word);
   double getDoublePred(const string &word);
+  double getRangeMax(void);
+  double getRangeMin(void);
 
+ 
  private:
   bool castMasterDB(const string &path, bool cast = true);
   bool isExistsCastDB(const string &path);
@@ -26,4 +29,6 @@ class MasterDBWord {
  private:
   leveldb::DB *gMasterdb = nullptr;
   leveldb::DB *gMasterDBCast = nullptr;
+  double dmax_;
+  double dmin_;
 };
