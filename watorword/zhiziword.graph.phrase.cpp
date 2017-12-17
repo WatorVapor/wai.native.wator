@@ -131,7 +131,7 @@ void ZhiZiWord::calcPredictionPhrase(const multimap<int, WordElement> &confuse,c
           auto vrtxNext = std::get<1>(itNext->second);
           auto wordNext = std::get<0>(itNext->second);
           string phrase = word + "-" + wordNext;
-          auto phraseWeight = 1000000000.0;
+          auto phraseWeight = 1000.0;
           auto pred = -1.0;
           if(lang =="cn") {
             pred = phraseInputCN_.getDoublePred(phrase);
@@ -214,7 +214,7 @@ void ZhiZiWord::calcPredictionPhrase(const multimap<int, WordElement> &confuse,c
   }
   for(auto it = path.rbegin();it != path.rend();it++) {
       auto wordSelected = std::get<0>(labelVertex.at(*it));
-      DUMP_VAR2(*it,wordSelected);
+      //DUMP_VAR2(*it,wordSelected);
       for (auto elem : confuse) {
         auto word = std::get<0>(elem.second);
         if(word ==wordSelected) {
@@ -322,6 +322,7 @@ string ZhiZiWord::createGraphPhrase(const string &text,const string &sentence,co
           if (pred > 0.0) {
               phraseWeight = 1.0 / pred;
           }
+          DUMP_VAR3(phrase,pred,phraseWeight);
           boost::put(boost::edge_weight_t(), g, ed.first, phraseWeight);
         }
         break;
@@ -352,7 +353,7 @@ string ZhiZiWord::createGraphPhrase(const string &text,const string &sentence,co
   boost::algorithm::replace_all(
       dotStr, "digraph G {",
       "digraph G { \n rankdir=LR;\n graph [charset=\"UTF-8\"];\n");
-  DUMP_VAR(dotStr);
+  //DUMP_VAR(dotStr);
   
   int prePost = -2;
   string oneSame;
