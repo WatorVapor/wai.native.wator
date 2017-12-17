@@ -24,7 +24,7 @@ typedef boost::graph_traits<Graph>::vertex_descriptor   Vertex;
 typedef boost::graph_traits<Graph>::edge_descriptor Edge;
 
 
-static const double dConstNotFound = 3000000.0;
+static const double dConstNotFound = DBL_MAX ;
 
 struct sample_graph_writer {
   void operator()(std::ostream& out, int i) const {
