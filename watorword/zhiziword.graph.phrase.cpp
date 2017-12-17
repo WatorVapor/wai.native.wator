@@ -132,6 +132,9 @@ void ZhiZiWord::calcPredictionPhrase(const multimap<int, WordElement> &confuse,c
              itNext++) {
           auto vrtxNext = std::get<1>(itNext->second);
           auto wordNext = std::get<0>(itNext->second);
+          if(wordNext == "E") {
+              continue;
+          }
           string phrase = word + "-" + wordNext;
           auto phraseWeight = phraseInputCN_.getRangeMin()/dConstWeightNotFoundFator;
           if(lang =="ja") {
@@ -317,6 +320,9 @@ string ZhiZiWord::createGraphPhrase(const string &text,const string &sentence,co
           auto vrtxNext = std::get<1>(itNext->second);
           auto ed = boost::add_edge(vrtxSelf, vrtxNext,g);
           auto wordNext = std::get<0>(itNext->second);
+          if(wordNext == "E") {
+              continue;
+          }
           string phrase = word + "-" + wordNext;
           auto phraseWeight =  phraseInputCN_.getRangeMin()/dConstWeightNotFoundFator;
           if(lang =="ja") {
