@@ -21,15 +21,19 @@ bool ZhiZiWord::loadMaster(bool forceCast) {
   if(dictInputCN_.loadMasterFromDB(database_word_+"/cn") == false) {
     return false;
   }
+  dictInputCN_.getRangeMax();
   if(dictInputJA_.loadMasterFromDB(database_word_+"/ja") == false) {
     return false;
   }
+  dictInputJA_.getRangeMax();
   if(phraseInputCN_.loadMasterFromDB(database_phrase_+"/cn") == false) {
     return false;
   }
+  phraseInputCN_.getRangeMax();
   if(phraseInputJA_.loadMasterFromDB(database_phrase_+"/ja") == false) {
     return false;
   }
+  phraseInputJA_.getRangeMax();
   return true;
 }
 
