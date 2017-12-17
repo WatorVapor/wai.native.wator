@@ -228,12 +228,16 @@ double MasterDBWord::getRangeMax(void) {
   if(dmax_ > DBL_MIN) {
     return dmax_;
   }
+  this->findRange();
+  return dmax_;
 }
 
 double MasterDBWord::getRangeMin(void) {
   if(dmin_ < DBL_MAX) {
     return dmin_;
   }
+  this->findRange();
+  return dmin_;
 }
 void MasterDBWord::findRange(void) {
   if (gMasterDBCast == nullptr) {
