@@ -24,6 +24,8 @@ typedef boost::graph_traits<Graph>::vertex_descriptor   Vertex;
 typedef boost::graph_traits<Graph>::edge_descriptor Edge;
 
 
+static const double dConstNotFound = 3000000.0;
+
 struct sample_graph_writer {
   void operator()(std::ostream& out, int i) const {
     auto wordPair = labelVertex_.at(i);
@@ -131,7 +133,7 @@ void ZhiZiWord::calcPredictionPhrase(const multimap<int, WordElement> &confuse,c
           auto vrtxNext = std::get<1>(itNext->second);
           auto wordNext = std::get<0>(itNext->second);
           string phrase = word + "-" + wordNext;
-          auto phraseWeight = 1000.0;
+          auto phraseWeight = dConstNotFound;
           auto pred = -1.0;
           if(lang =="cn") {
             pred = phraseInputCN_.getDoublePred(phrase);
@@ -311,7 +313,7 @@ string ZhiZiWord::createGraphPhrase(const string &text,const string &sentence,co
           auto ed = boost::add_edge(vrtxSelf, vrtxNext,g);
           auto wordNext = std::get<0>(itNext->second);
           string phrase = word + "-" + wordNext;
-          auto phraseWeight = 1000000000.0;
+          auto phraseWeight = dConstNotFound;
           auto pred = -1.0;
           if(lang =="cn") {
             pred = phraseInputCN_.getDoublePred(phrase);
