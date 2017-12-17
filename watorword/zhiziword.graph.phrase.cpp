@@ -63,10 +63,52 @@ struct sample_graph_writer {
 };
 
 
+struct sample_graph_weight_writer {
+  void operator()(std::ostream& out, int i) const {
+    auto wordPair = labelEdge_.at(i);
+    out << " [ label = <";
+    out << "<TABLE BORDER=\"0\" CELLBORDER=\"1\" CELLSPACING=\"0\" CELLPADDING=\"4\">";
+    out << "<TR><TD>";
+    out << "<FONT COLOR=\"green\" POINT-SIZE=\"12\">" << std::get<0>(wordPair) << "</FONT>";
+    out << "</TD></TR>";
+    out << "<TR><TD>";
+    out << "<FONT COLOR=\"red\" POINT-SIZE=\"6\">" << 1.0/std::get<1>(wordPair);
+    out << " " << std::get<3>(wordPair);
+    out << "</FONT>";
+    out << "</TD></TR>";
+    out << "<TR><TD>";
+    out << "<FONT COLOR=\"blue\" POINT-SIZE=\"6\">" << std::get<1>(wordPair);
+    out << " " << std::get<4>(wordPair);
+    out  << "</FONT>";
+    out << "</TD></TR>";
+    out << "<TR><TD>";
+    out << "<FONT COLOR=\"blue\" POINT-SIZE=\"6\">" << std::get<2>(wordPair);
+    out << " " << std::get<5>(wordPair);
+    out << "</FONT>";
+    out << "</TD></TR>";
+    out << "</TABLE>";
+/*
+    out << "<FONT COLOR=\"green\" POINT-SIZE=\"20\">" << std::get<0>(wordPair) << "</FONT>";
+    out << "<HR/>";      
+    out << "<FONT COLOR=\"red\" POINT-SIZE=\"10\">" << " " ;
+    out << 1.0/(std::get<1>(wordPair)) << "<HR/>"; 
+    out << std::get<1>(wordPair) << "<HR/>" ;
+    out << std::get<2>(wordPair) << "</FONT>";
+*/
+    out << ">]";
+  }
+  sample_graph_weight_writer(vector<double> &labelEdge):labelEdge_(labelEdge) {
+  }
+  vector<double> &labelEdge_;
+};
+
+
 void ZhiZiWord::calcPredictionPhrase(const multimap<int, WordElement> &confuse,const string &lang) {
   Graph g;
   multimap<int, std::tuple<string, Vertex,double,double>> vertexWator;
   vector<std::tuple<string,double,double,string,string,string>> labelVertex;
+
+  vector<double> labelEdge;
   
   auto vrtxStart = boost::add_vertex(g);
   auto vrtxPrStart = std::make_tuple("S", vrtxStart,1.0,1.0);
@@ -156,9 +198,10 @@ void ZhiZiWord::calcPredictionPhrase(const multimap<int, WordElement> &confuse,c
   
     
   sample_graph_writer gw(labelVertex);
+  sample_graph_weight_writer gew(labelEdge);
 
   std::stringstream ss;
-  boost::write_graphviz(ss, g, gw);
+  boost::write_graphviz(ss, g, gw,gew);
   auto dotStr = ss.str();
   boost::algorithm::replace_all(
       dotStr, "digraph G {",
