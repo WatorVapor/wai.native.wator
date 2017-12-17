@@ -149,6 +149,7 @@ bool MasterDBWord::castMasterDB(const string &path, bool cast) {
     gMasterDBCast = nullptr;
     return false;
   } else {
+    DUMP_VAR(status.ToString());
     DUMP_VAR(cast);
     if (cast) {
       castMaster();
