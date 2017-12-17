@@ -61,7 +61,11 @@ pt::ptree ZhiZiWord::cut(const vector<string> &wordBytes, const string &text,
 
   this->getNoConflictSeq();
 
-  this->calcPrediction();
+  if(lang =="cn") {
+    this->calcPredictionPhrase();
+  } else {
+    this->calcPrediction();
+  }
   return this->summaryCut(text);
 }
 
