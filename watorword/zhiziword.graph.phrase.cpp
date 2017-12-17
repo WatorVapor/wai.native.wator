@@ -64,13 +64,12 @@ struct sample_graph_writer {
 
 
 struct sample_graph_weight_writer {
-  void operator()(std::ostream& out,const auto& e) const {
+  void operator()(std::ostream& out,const auto& edge) const {
     out << " [ label = <";
     out << ">]";
   }
-  sample_graph_weight_writer(vector<double> &labelEdge):labelEdge_(labelEdge) {
+  sample_graph_weight_writer() {
   }
-  vector<double> &labelEdge_;
 };
 
 
@@ -169,7 +168,7 @@ void ZhiZiWord::calcPredictionPhrase(const multimap<int, WordElement> &confuse,c
   
     
   sample_graph_writer gw(labelVertex);
-  sample_graph_weight_writer gew(labelEdge);
+  sample_graph_weight_writer gew;
 
   std::stringstream ss;
   boost::write_graphviz(ss, g, gw,gew);
@@ -343,9 +342,10 @@ string ZhiZiWord::createGraphPhrase(const string &text,const string &sentence,co
   
     
   sample_graph_writer gw(labelVertex);
+  sample_graph_weight_writer gew;
 
   std::stringstream ss;
-  boost::write_graphviz(ss, g, gw);
+  boost::write_graphviz(ss, g, gw,gew);
   auto dotStr = ss.str();
   boost::algorithm::replace_all(
       dotStr, "digraph G {",
