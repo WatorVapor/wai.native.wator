@@ -44,6 +44,8 @@ class ZhiZiWord {
   pt::ptree summaryCut(const string &text);
   string createGraph(const string &text,const string &sentence);
 
+  void calcPredictionPhrase(void);
+  void calcPredictionPhrase(const multimap<int, WordElement> &confuse);
  
   void collectWord(void);
 
