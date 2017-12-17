@@ -267,9 +267,11 @@ void MasterDBWord::findRange(void) {
         // TRACE_VAR(valueStr);
       }
    } catch(std::exception &e ) {
-    }
+      DUMP_VAR(e.what());
+   }
     it->Next();
   }
+  
   DUMP_VAR(dmax_);
   DUMP_VAR(dmin_);
 }
