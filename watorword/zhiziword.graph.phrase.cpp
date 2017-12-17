@@ -63,7 +63,7 @@ struct sample_graph_writer {
 };
 
 
-void ZhiZiWord::calcPredictionPhrase(const multimap<int, WordElement> &confuse) {
+void ZhiZiWord::calcPredictionPhrase(const multimap<int, WordElement> &confuse,const string &lang) {
   Graph g;
   multimap<int, std::tuple<string, Vertex,double,double>> vertexWator;
   vector<std::tuple<string,double,double,string,string,string>> labelVertex;
@@ -221,7 +221,7 @@ void ZhiZiWord::calcPredictionPhrase(const multimap<int, WordElement> &confuse) 
 #include <boost/lexical_cast.hpp>
 #include <fstream>
 
-string ZhiZiWord::createGraphPhrase(const string &text,const string &sentence) {
+string ZhiZiWord::createGraphPhrase(const string &text,const string &sentence,const string &lang) {
   Graph g;
   multimap<int, std::tuple<string, Vertex,double,double>> vertexWator;
   vector<std::tuple<string,double,double,string,string,string>> labelVertex;
