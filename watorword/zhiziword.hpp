@@ -44,10 +44,10 @@ class ZhiZiWord {
   pt::ptree summaryCut(const string &text);
   string createGraph(const string &text,const string &sentence);
 
-  void calcPredictionPhrase(void);
-  void calcPredictionPhrase(const multimap<int, WordElement> &confuse);
-  pt::ptree summaryCutPhrase(const string &text);
-  string createGraphPhrase(const string &text,const string &sentence);
+  void calcPredictionPhrase(const string &lang);
+  void calcPredictionPhrase(const multimap<int, WordElement> &confuse,const string &lang);
+  pt::ptree summaryCutPhrase(const string &text,const string &lang);
+  string createGraphPhrase(const string &text,const string &sentence,const string &lang);
  
   void collectWord(void);
 
