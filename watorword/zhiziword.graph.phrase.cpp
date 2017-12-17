@@ -377,11 +377,11 @@ string ZhiZiWord::createGraphPhrase(const string &text,const string &sentence,co
       prePost = position;
       elemPost++;
   }
-  DUMP_VAR(allSame);
+  TRACE_VAR(allSame);
   boost::algorithm::replace_all(
       dotStr, "}",
       allSame +"}");
-  DUMP_VAR(dotStr);
+  TRACE_VAR(dotStr);
 
   /*{rank = same; A; X;}*/
   
