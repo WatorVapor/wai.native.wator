@@ -71,6 +71,7 @@ struct sample_graph_weight_writer {
   }
   sample_graph_weight_writer() {
   }
+  Graph &g_;
 };
 
 
