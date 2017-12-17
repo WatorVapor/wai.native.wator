@@ -63,10 +63,11 @@ pt::ptree ZhiZiWord::cut(const vector<string> &wordBytes, const string &text,
 
   if(lang =="cn") {
     this->calcPredictionPhrase();
+    return this->summaryCutPhrase(text);
   } else {
     this->calcPrediction();
+    return this->summaryCut(text);
   }
-  return this->summaryCut(text);
 }
 
 
@@ -87,6 +88,23 @@ pt::ptree ZhiZiWord::summaryCut(const string &text) {
   result.put(u8"input", text);
   return result;
 }
+
+pt::ptree ZhiZiWord::summaryCutPhrase(const string &text) {
+  pt::ptree result;
+  string sentence = "";
+  for(auto wordSed:wordSeqTopSelected_) {
+    auto word = std::get<0>(wordSed.second);
+    DUMP_VAR(word);
+    sentence += word + "%";
+  }
+  sentence.pop_back();
+  result.put(u8"sentence", sentence);
+  auto graph = this->createGraphPhrase(text,sentence);
+  result.put(u8"graph", graph);
+  result.put(u8"input", text);
+  return result;
+}
+
 
 
 
