@@ -281,6 +281,24 @@ void ZhiZiWord::calcPrediction(void) {
   }
 }
 
+void ZhiZiWord::calcPredictionPhrase(void) {
+  for (auto clearSeq : noConflictWordSeq_) {
+    // std::cout << "%%%%%%%%%%%%%%%%" <<std::endl;
+    /*
+        for(auto elem :clearSeq){
+         auto word = std::get<0>(elem.second);
+         auto pos = std::get<1>(elem.second);
+         auto range = std::get<2>(elem.second);
+         auto weight = std::get<3>(elem.second);
+         auto weight_orig = std::get<4>(elem.second);
+         DUMP_VAR5(word,pos,range,weight,weight_orig);
+        }
+    */
+    this->calcPrediction(clearSeq);
+    // std::cout << "%%%%%%%%%%%%%%%%" <<std::endl;
+  }
+}
+
 #include <boost/algorithm/string.hpp>
 
 pt::ptree ZhiZiWord::cutSpace(const vector<string> &wordBytes, const string &text,
