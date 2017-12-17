@@ -184,7 +184,7 @@ void ZhiZiWord::calcPredictionPhrase(const multimap<int, WordElement> &confuse,c
   boost::algorithm::replace_all(
       dotStr, "digraph G {",
       "digraph G { \n rankdir=LR;\n graph [charset=\"UTF-8\"];\n");
-  DUMP_VAR(dotStr);
+  TRACE_VAR(dotStr);
   // dot -v -T svg 1.dot -o 1.svg
   
   
@@ -340,7 +340,7 @@ string ZhiZiWord::createGraphPhrase(const string &text,const string &sentence,co
           } else {
               phraseWeight = 1.0 / phraseWeight;
           }
-          DUMP_VAR3(phrase,pred,phraseWeight);
+          TRACE_VAR(phrase,pred,phraseWeight);
           boost::put(boost::edge_weight_t(), g, ed.first, phraseWeight);
         }
         break;
