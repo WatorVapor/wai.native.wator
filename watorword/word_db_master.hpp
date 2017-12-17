@@ -24,6 +24,7 @@ class MasterDBWord {
   bool isExistsCastDB(const string &path);
   void castMaster(void);
   void dumpMaster(void);
+  void findRange(void);
 
  public:
  private:
