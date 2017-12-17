@@ -5,6 +5,7 @@
 #include <string>
 #include <thread>
 #include <vector>
+#include <cfloat>
 using namespace std;
 
 #include <leveldb/db.h>
@@ -15,7 +16,10 @@ using namespace std;
 
 void dumpMaster();
 
-MasterDBWord::MasterDBWord() {}
+MasterDBWord::MasterDBWord() {
+  dmax_ = DBL_MIN ;
+  dmin_ = DBL_MAX;
+}
 MasterDBWord::~MasterDBWord() {}
 
 bool MasterDBWord::loadMasterFromDB(const string &path, bool forceCast) {
@@ -74,7 +78,7 @@ int MasterDBWord::getPred(const string &word) {
 }
 
 double MasterDBWord::getDoublePred(const string &word) {
-  if (gMasterdb) {
+  if (gMasterDBCast) {
     leveldb::ReadOptions readOptions;
     readOptions.verify_checksums = true;
     leveldb::Slice key(word);
@@ -218,4 +222,50 @@ void MasterDBWord::castMaster(void) {
   }
   delete it;
   gMasterdb->ReleaseSnapshot(readOptions.snapshot);
+}
+
+double MasterDBWord::getRangeMax(void) {
+  if(dmax_ > DBL_MIN) {
+    return dmax_;
+  }
+}
+
+double MasterDBWord::getRangeMin(void) {
+  if(dmin_ < DBL_MAX) {
+    return dmin_;
+  }
+}
+void MasterDBWord::findRange(void) {
+  if (gMasterDBCast == nullptr) {
+    return;
+  }
+  leveldb::ReadOptions readOptions;
+  readOptions.snapshot = gMasterDBCast->GetSnapshot();
+  auto it = gMasterDBCast->NewIterator(readOptions);
+  it->SeekToFirst();
+  DUMP_VAR(it->Valid());
+  while (it->Valid()) {
+    auto keyStr = it->key().ToString();
+    auto valueStr = it->value().ToString();
+    TRACE_VAR(keyStr);
+    TRACE_VAR(valueStr);
+    try {
+      auto value = std::stod(valueStr);
+      TRACE_VAR(value);
+      if (value > dmax_) {
+        dmax_ = value;
+        // TRACE_VAR(keyStr);
+        // TRACE_VAR(valueStr);
+      }
+       if (value < dmin_) {
+        dmin_ = value;
+        // TRACE_VAR(keyStr);
+        // TRACE_VAR(valueStr);
+      }
+   } catch(std::exception &e ) {
+    }
+    it->Next();
+  }
+  DUMP_VAR(dmax_);
+  DUMP_VAR(dmin_);
 }
