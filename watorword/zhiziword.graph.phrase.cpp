@@ -24,8 +24,7 @@ typedef boost::graph_traits<Graph>::vertex_descriptor   Vertex;
 typedef boost::graph_traits<Graph>::edge_descriptor Edge;
 
 
-//static const double dConstWeightNotFound = DBL_MAX/10000000.0 ;
-//static const double dConstWeightNotFound = 10000000.0 ;
+static const double dConstWeightNotFoundFator = 10.0 ;
 
 struct sample_graph_writer {
   void operator()(std::ostream& out, int i) const {
@@ -134,9 +133,9 @@ void ZhiZiWord::calcPredictionPhrase(const multimap<int, WordElement> &confuse,c
           auto vrtxNext = std::get<1>(itNext->second);
           auto wordNext = std::get<0>(itNext->second);
           string phrase = word + "-" + wordNext;
-          auto phraseWeight = phraseInputCN_.getRangeMin()/2.0;
+          auto phraseWeight = phraseInputCN_.getRangeMin()/dConstWeightNotFoundFator;
           if(lang =="ja") {
-              phraseWeight = phraseInputJA_.getRangeMin()/2.0;
+              phraseWeight = phraseInputJA_.getRangeMin()/dConstWeightNotFoundFator;
           }
           auto pred = -1.0;
           if(lang =="cn") {
@@ -319,9 +318,9 @@ string ZhiZiWord::createGraphPhrase(const string &text,const string &sentence,co
           auto ed = boost::add_edge(vrtxSelf, vrtxNext,g);
           auto wordNext = std::get<0>(itNext->second);
           string phrase = word + "-" + wordNext;
-          auto phraseWeight =  phraseInputCN_.getRangeMin()/2.0;
+          auto phraseWeight =  phraseInputCN_.getRangeMin()/dConstWeightNotFoundFator;
           if(lang =="ja") {
-              phraseWeight = phraseInputJA_.getRangeMin()/2.0;
+              phraseWeight = phraseInputJA_.getRangeMin()/dConstWeightNotFoundFator;
           }
           auto pred = -1.0;
           if(lang =="cn") {
