@@ -64,10 +64,8 @@ struct sample_graph_writer {
 
 
 struct sample_graph_weight_writer {
-  void operator()(std::ostream& out, int i) const {
-    auto weight = labelEdge_.at(i);
+  void operator()(std::ostream& out,Edge edge) const {
     out << " [ label = <";
-    out << weight;
     out << ">]";
   }
   sample_graph_weight_writer(vector<double> &labelEdge):labelEdge_(labelEdge) {
