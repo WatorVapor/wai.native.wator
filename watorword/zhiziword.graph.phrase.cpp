@@ -19,7 +19,7 @@ using namespace std;
 
 typedef boost::adjacency_list<boost::listS, boost::vecS, boost::directedS,
     boost::no_property, boost::property<boost::edge_weight_t, float> > Graph;
-typedef std::pair<int, int>                             Edge;
+/*typedef std::pair<int, int>                             Edge;*/
 typedef boost::graph_traits<Graph>::vertex_descriptor   Vertex;
 
 
