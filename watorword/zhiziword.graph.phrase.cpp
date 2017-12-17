@@ -64,7 +64,7 @@ struct sample_graph_writer {
 
 
 struct sample_graph_weight_writer {
-  void operator()(std::ostream& out,const Edge& e) const {
+  void operator()(std::ostream& out,const auto& e) const {
     out << " [ label = <";
     out << ">]";
   }
