@@ -66,7 +66,7 @@ struct sample_graph_writer {
 
 struct sample_graph_weight_writer {
   void operator()(std::ostream& out,const Edge& e) const {
-    auto weight = boost::get(boost::edge_weight_t(), g_, e.first);
+    auto weight = boost::get(boost::edge_weight_t(), g_, e);
     out << " [ label = <" << weight << ">]";
   }
   sample_graph_weight_writer(Graph &g):g_(g) {
