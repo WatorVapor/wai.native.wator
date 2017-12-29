@@ -9,5 +9,5 @@ services:
     environment:
       - PATH=/ipfs:$PATH
       - IPFS_PATH=/storage
-    command: ipfs help
-    restart: always
+    command: ipfs init
+    restart: no
