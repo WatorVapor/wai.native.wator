@@ -1,6 +1,6 @@
 version: '2'
 services:
-  ipfs-dameon:
+  ipfs-dameon-init:
     image: golang
     volumes:
       - ./go-ipfs:/ipfs
