@@ -1,0 +1,8 @@
+version: '3'
+services:
+  ipfs-dameon:
+    image: golang
+    volumes:
+      - ./ipfs-binary:/ipfs
+    command: ipfs help
+    restart: always
