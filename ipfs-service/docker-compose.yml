@@ -3,6 +3,8 @@ services:
   ipfs-dameon:
     image: golang
     volumes:
-      - ./ipfs-binary:/ipfs
+      - ./go-ipfs:/ipfs
+    environment:
+      - PATH=/ipfs:$PATH
     command: ipfs help
     restart: always
