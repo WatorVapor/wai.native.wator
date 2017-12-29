@@ -10,4 +10,4 @@ services:
       - PATH=/ipfs:$PATH
       - IPFS_PATH=/storage
     command: ipfs init
-    restart: no
+    restart: "no"
