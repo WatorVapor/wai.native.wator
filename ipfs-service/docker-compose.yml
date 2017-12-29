@@ -6,10 +6,7 @@ services:
       - ./go-ipfs:/ipfs
       - ./storage-ipfs:/storage
       - ./conf-ipfs:/conf
-    ports:
-      - 4001:4001
-      - 5001:5001
-      - 127.0.0.1:8080:8080
+    network_mode: "host"
     environment:
       - PATH=/ipfs:$PATH
       - IPFS_PATH=/storage
