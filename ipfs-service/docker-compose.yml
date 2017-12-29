@@ -4,7 +4,10 @@ services:
     image: golang
     volumes:
       - ./go-ipfs:/ipfs
+      - ./storage-ipfs:/storage
+      - ./conf-ipfs:/conf
     environment:
       - PATH=/ipfs:$PATH
+      - IPFS_PATH=/storage
     command: ipfs help
     restart: always
