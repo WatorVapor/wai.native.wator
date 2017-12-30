@@ -16,6 +16,6 @@ services:
     image: nginx
     network_mode: "host"
     volumes:
-      - ./conf-nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./conf-nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
     command: nginx
     restart: always
