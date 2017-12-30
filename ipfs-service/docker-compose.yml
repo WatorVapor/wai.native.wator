@@ -12,3 +12,10 @@ services:
       - IPFS_PATH=/storage
     command: ipfs daemon
     restart: always
+  ipfs-nginx:
+    image: nginx
+    network_mode: "host"
+    volumes:
+      - ./conf-nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    command: nginx
+    restart: always
