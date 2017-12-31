@@ -55,7 +55,7 @@ ipfs.key.list({},function(err,key){
 });
 
 
-ipfs.util.addFromFs('path/to/a/folder',{ recursive: false},function(err, result) {
+ipfs.util.addFromFs('/tmp/test.txt',{ recursive: false},function(err, result) {
   if (err) {
     throw err;
   }
