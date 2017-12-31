@@ -5,3 +5,5 @@ storage-ipfs/config
 storage-ipfs/datastore
 storage-ipfs/datastore_spec
 storage-ipfs/version
+storage-ipfs/api
+storage-ipfs/repo.lock
