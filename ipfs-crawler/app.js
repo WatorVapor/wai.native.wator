@@ -53,3 +53,11 @@ ipfs.key.list({},function(err,key){
   }
   console.log('key=<',key,'>');
 });
+
+
+ipfs.util.addFromFs('path/to/a/folder',{ recursive: false},function(err, result) {
+  if (err) {
+    throw err;
+  }
+  console.log('result=<',result,'>');
+});
