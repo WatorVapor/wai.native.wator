@@ -23,27 +23,27 @@ ipfs.version(function(err, version){
   if (err) {
     throw err;
   }
-  console.log(version);
+  console.log('version=<',version,'>');
 });
 
-ipfs.stats.bitswap(function(err,stat){
+ipfs.stats.bitswap(function(err,bitswap){
   if (err) {
     throw err;
   }
-  console.log(stat);
+  console.log('bitswap=<',bitswap,'>');
 });
 
-ipfs.stats.bw({},function(err,stat){
+ipfs.stats.bw({},function(err,bw){
   if (err) {
     throw err;
   }
-  console.log(stat);
+  console.log('bw=<',bw,'>');
 });
 
-ipfs.stats.repo({},function(err,stat){
+ipfs.stats.repo({},function(err,repo){
   if (err) {
     throw err;
   }
-  console.log(stat);
+  console.log('repo=<',repo,'>');
 });
 
