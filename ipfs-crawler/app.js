@@ -47,3 +47,9 @@ ipfs.stats.repo({},function(err,repo){
   console.log('repo=<',repo,'>');
 });
 
+ipfs.key.list({},function(err,key){
+  if (err) {
+    throw err;
+  }
+  console.log('key=<',key,'>');
+});
