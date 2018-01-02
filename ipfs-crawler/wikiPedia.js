@@ -16,6 +16,7 @@ https.get('https://zh.wikipedia.org/zh-cn/%E5%8E%9F%E5%AD%90', (resp) => {
 const cheerio = require('cheerio');
 
 function parseHTML(data) {
+  var plainText = '';
   try {
     const $ = cheerio.load(data);
     $('p').each( (i, elem) => {
@@ -24,7 +25,8 @@ function parseHTML(data) {
       elem.children.forEach( (value, index, ar) => {
         //console.log('value=<',value,'>');
         if(value.type === 'text') {
-          console.log('value.data=<',value.data,'>');
+          //console.log('value.data=<',value.data,'>');
+          plainText += value.data;
         }
         //console.log('index=<',index,'>');
       });
@@ -32,4 +34,5 @@ function parseHTML(data) {
   } catch(e) {
     console.log('e=<',e,'>');
   }
+  console.log('plainText=<',plainText,'>');
 }
