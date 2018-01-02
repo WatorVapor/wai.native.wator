@@ -17,6 +17,7 @@ const cheerio = require('cheerio');
 
 function parseHTML(data) {
   var plainText = '';
+  var hrefsLinks = [];
   try {
     const $ = cheerio.load(data);
     $('p').each( (i, elem) => {
@@ -29,7 +30,14 @@ function parseHTML(data) {
           plainText += value.data;
         }
         if(value.type === 'tag' && value.name === 'a') {
-          console.log('value=<',value,'>');
+          //console.log('value=<',value,'>');
+          value.children.forEach( (valueA, indexA, arA) => {
+            if(valueA.type === 'text') {
+              //console.log('valueA.data=<',valueA.data,'>');
+              plainText += valueA.data;
+            }
+          });
+          hrefs.push(value.attribs.href);
         }
         //console.log('index=<',index,'>');
       });
@@ -38,4 +46,5 @@ function parseHTML(data) {
     console.log('e=<',e,'>');
   }
   console.log('plainText=<',plainText,'>');
+  console.log('hrefsLinks=<',hrefsLinks,'>');
 }
