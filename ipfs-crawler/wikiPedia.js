@@ -143,7 +143,7 @@ module.exports = class WikiCrawler {
           console.log('result=<',result,'>');
           let ipfsPath =result[0].hash;
           console.log('ipfsPath=<',ipfsPath,'>');
-          self.client.set(redisKeyPrefixIpfs + '/' + self.tag + '/ipfs'+ ipfsPath, '{}');
+          self.client.set(redisKeyPrefixIpfs + '/' + self.tag + '/ipfs/'+ ipfsPath, '{}');
         }
       } catch(e) {
         console.log('e=<',e,'>');
