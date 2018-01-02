@@ -35,9 +35,5 @@ clientZh.getArticle('中國', function(err, data) {
     console.error('err=<',err,'>');
     return;
   }
-  //console.log('data=<',data,'>');
-  for(var i = 0;i < data.length;i++) {
-    var page = data[i];
-    console.log('page=<',page,'>');
-  }
+  console.log('data=<',data,'>');
 });
