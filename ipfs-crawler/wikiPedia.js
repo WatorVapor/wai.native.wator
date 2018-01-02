@@ -9,7 +9,7 @@ var ipfsAPI = require('ipfs-api');
 const redisKeyPrefix = '/wator/wai/crawler/wiki';
 const redisKeyPrefixDone = '/wator/wai/crawler/wiki/done';
 const redisKeyPrefixTodo = '/wator/wai/crawler/wiki/todo';
-const redisKeyPrefixIpfs = '/wator/wai/wiki/text/ipfs';
+const redisKeyPrefixIpfs = '/wator/wai/wiki/text';
 
 
 var ipfs = ipfsAPI({host: 'localhost', port: '5001', protocol: 'http'});
@@ -143,7 +143,7 @@ module.exports = class WikiCrawler {
           console.log('result=<',result,'>');
           let ipfsPath =result[0].hash;
           console.log('ipfsPath=<',ipfsPath,'>');
-          self.client.set(redisKeyPrefixIpfs + '/' + self.tag + '/'+ ipfsPath, '{}');
+          self.client.set(redisKeyPrefixIpfs + '/' + self.tag + '/ipfs'+ ipfsPath, '{}');
         }
       } catch(e) {
         console.log('e=<',e,'>');
