@@ -9,5 +9,5 @@ services:
     environment:
       - PATH=/ipfs:$PATH
       - IPFS_PATH=/storage
-    command: /conf/init.sh
+    command: /conf/test.sh
     restart: "no"
