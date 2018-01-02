@@ -1,8 +1,10 @@
 const https = require('https');
 const cheerio = require('cheerio');
 var redis = require('redis');
-var client = redis.createClient();
 
+const redisKeyPrefix = '/wator/wai/crawler/wiki';
+const redisKeyPrefixDone = '/wator/wai/crawler/wiki/done';
+const redisKeyPrefixTodo = '/wator/wai/crawler/wiki/todo';
 
 module.exports = class WikiCrawler {
   constructor(option) {
@@ -18,12 +20,34 @@ module.exports = class WikiCrawler {
     if(option.seed) {
       this.seed = option.seed;
     }
+    this.client = redis.createClient();
     //console.log('WikiCrawler::constructor this=<',this,'>');
   }
   
   
   runOnce(){
-    https.get(this.root + this.seed, (resp) => {
+    this.runTopTodo_();
+  }
+  
+  runTopTodo_() {
+    this.client.keys(redisKeyPrefixTodo + '/*', function (err, keys) {
+      if (err) {
+        return console.log(err);
+      }
+      if(keys.length > 0) {
+        console.log('keys[0]=<',keys[0],'>');
+        this.client.get(keys[0], function (err, reply) {
+          console.log('reply=<',reply,'>');
+          getOneTitle_('');
+        });
+      } else {
+        getOneTitle_(this.root + this.seed);
+      }
+    });
+  }
+  
+  getOneTitle_(url) {
+    https.get(url, (resp) => {
       let data = '';
       resp.on('data', (chunk) => {
         data += chunk;
@@ -36,7 +60,6 @@ module.exports = class WikiCrawler {
       console.log('Error: err=<',err,'>');
     });
   }
-  
   
   parseHTML_(data) {
     var plainText = '';
