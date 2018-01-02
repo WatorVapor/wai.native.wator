@@ -2,7 +2,7 @@ const https = require('https');
 const hrefPrefix = '/wiki/';
 const hrefReplace = '/zh-cn/';
 const hrefRoot = 'https://zh.wikipedia.org';
-const seed = '/zh-cn/%E5%8E%9F%E5%AD%90'
+const seed = '/zh-cn/化學元素'
 
 https.get(hrefRoot + seed, (resp) => {
   let data = '';
