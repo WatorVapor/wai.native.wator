@@ -14,7 +14,8 @@ https.get('https://zh.wikipedia.org/zh-cn/%E5%8E%9F%E5%AD%90', (resp) => {
 });
 
 const cheerio = require('cheerio');
-function parseHTML($data) {
+
+function parseHTML(data) {
   try {
     const $ = cheerio.load(data);
     $('p').each( (i, elem)=> {
