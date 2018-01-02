@@ -37,7 +37,7 @@ function parseHTML(data) {
               plainText += valueA.data;
             }
           });
-          hrefs.push(value.attribs.href);
+          hrefsLinks.push(value.attribs.href);
         }
         //console.log('index=<',index,'>');
       });
