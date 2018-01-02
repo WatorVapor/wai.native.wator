@@ -8,7 +8,15 @@ var zhOption =  {
 }
 var zhWiki = new wiki(zhOption);
 console.log('zhWiki=<',zhWiki,'>');
-zhWiki.runOnce();
+setTimeout(function(){
+  zhWiki.runOnce(onFinnish);
+},1000);
+
+function onFinnish(){
+  setTimeout(function(){
+    zhWiki.runOnce(onFinnish);
+  },1);
+}
 
 
 /*
