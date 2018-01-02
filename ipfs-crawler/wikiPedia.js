@@ -33,7 +33,8 @@ module.exports = class WikiCrawler {
     let self = this;
     this.client.keys(redisKeyPrefixTodo + '/*', function (err, keys) {
       if (err) {
-        return console.log(err);
+        console.log('err=<',err,'>');
+        return;
       }
       if(keys.length > 0) {
         console.log('keys[0]=<',keys[0],'>');
@@ -42,7 +43,7 @@ module.exports = class WikiCrawler {
           //self.getOneTitle_('');
         });
       } else {
-        self.getOneTitle_(this.root + this.seed);
+        self.getOneTitle_(self.root + self.seed);
       }
     });
   }
