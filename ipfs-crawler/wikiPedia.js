@@ -7,7 +7,7 @@ var client = new bot({
   debug: false                 // is more verbose when set to true
 });
 
-client.getArticleRevisions('日本', function(err, data) {
+client.fetchUrl('日本', function(err, data) {
   // error handling
   if (err) {
     console.error('err=<',err,'>');
