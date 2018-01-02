@@ -20,5 +20,7 @@ services:
     restart: always
   ipfs-redis:
     image: redis
+    volumes:
+      - ./redis-ipfs/data:/data
     network_mode: "host"
     restart: always
