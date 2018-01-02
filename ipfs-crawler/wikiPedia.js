@@ -1,9 +1,10 @@
 const https = require('https');
 const hrefPrefix = '/wiki/';
 const hrefReplace = '/zh-cn/';
+const hrefRoot = 'https://zh.wikipedia.org';
+const seed = '/zh-cn/%E5%8E%9F%E5%AD%90'
 
-
-https.get('https://zh.wikipedia.org/zh-cn/%E5%8E%9F%E5%AD%90', (resp) => {
+https.get(hrefRoot + seed, (resp) => {
   let data = '';
   resp.on('data', (chunk) => {
     data += chunk;
@@ -44,9 +45,9 @@ function parseHTML(data) {
             if(hrefReplace) {
               let newHref = value.attribs.href.replace(hrefPrefix,hrefReplace);
               //console.log('newHref=<',newHref,'>');
-              hrefsLinks.push(newHref);
+              hrefsLinks.push(hrefRoot + newHref);
             } else {
-              hrefsLinks.push(value.attribs.href);
+              hrefsLinks.push(hrefRoot + value.attribs.href);
             }
           } else {
             console.log('value.attribs.href=<',value.attribs.href,'>');
