@@ -12,4 +12,4 @@ ipfs.util.addFromFs('/tmp/test.txt',{ recursive: false},function(err, result) {
 
 var redis = require('redis');
 var client = redis.createClient();
-console.log('client=<',client,'>');
+//console.log('client=<',client,'>');
