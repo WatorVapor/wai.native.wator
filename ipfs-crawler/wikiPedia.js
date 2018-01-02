@@ -29,7 +29,7 @@ var clientZh = new bot({
   debug: false                 // is more verbose when set to true
 });
 
-clientZh.getArticleCategories('中國', function(err, data) {
+clientZh.getArticle('中國', function(err, data) {
   // error handling
   if (err) {
     console.error('err=<',err,'>');
