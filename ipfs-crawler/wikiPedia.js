@@ -134,6 +134,7 @@ module.exports = class WikiCrawler {
       console.log('link=<',link,'>');
       let hashLink = this.sha512_(link);
       console.log('hashLink=<',hashLink,'>');
+      let self = this;
       this.client.keys(redisKeyPrefixDone + '/' + hashLink, function (err, keys) {
         if (err) {
           console.log('err=<',err,'>');
@@ -141,7 +142,7 @@ module.exports = class WikiCrawler {
         }
         console.log('keys=<',keys,'>');
         if(keys.length === 0) {
-          this.client.set(redisKeyPrefixTodo + '/' + hashLink, link);
+          self.client.set(redisKeyPrefixTodo + '/' + hashLink, link);
         }
       });
     }
