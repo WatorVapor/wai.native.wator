@@ -13,7 +13,7 @@ client.getBacklinks('日本', function(err, data) {
     console.error('err=<',err,'>');
     return;
   }
-  console.log('data=<',data,'>');
+  //console.log('data=<',data,'>');
   for(var i = 0;i < data.length;i++) {
     var page = data[i];
     console.log('page=<',page,'>');
