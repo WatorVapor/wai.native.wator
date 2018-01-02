@@ -111,6 +111,12 @@ module.exports = class WikiCrawler {
     
     //console.log('plainText=<',plainText,'>');
     //console.log('hrefsLinks=<',hrefsLinks,'>');
+    for(let i = 0;i < hrefsLinks.length ;i++) {
+      let link = hrefsLinks[0];
+      console.log('link=<',link,'>');
+      let hashLink = this.sha512(link);
+      this.client.set(redisKeyPrefixTodo + '/' + hashLink, link);
+    }
   }
   
   sha512(msg) {
