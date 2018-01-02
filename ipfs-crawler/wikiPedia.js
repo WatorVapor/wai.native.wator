@@ -1,7 +1,7 @@
 const cheerio = require('cheerio');
 const https = require('https');
 
-https.get('', (resp) => {
+https.get('https://zh.wikipedia.org/zh-cn/%E5%8E%9F%E5%AD%90', (resp) => {
   let data = '';
   resp.on('data', (chunk) => {
     data += chunk;
