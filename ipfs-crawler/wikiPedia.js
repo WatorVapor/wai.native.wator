@@ -50,7 +50,7 @@ function parseHTML(data) {
               hrefsLinks.push(hrefRoot + value.attribs.href);
             }
           } else {
-            console.log('value.attribs.href=<',value.attribs.href,'>');
+            //console.log('value.attribs.href=<',value.attribs.href,'>');
           }
         }
         //console.log('index=<',index,'>');
