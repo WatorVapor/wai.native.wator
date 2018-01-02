@@ -32,14 +32,6 @@ var clientZh = new bot({
   debug: false                 // is more verbose when set to true
 });
 console.log('clientZh.getConfig()=<',clientZh.getConfig(),'>');
-clientZh.wikia.getWikiVariables(function(err, data) {
-  if (err) {
-    console.error('err=<',err,'>');
-    return;
-  }
-  console.log('data=<',data,'>');
-});
-
 
 /*
 clientZh.getArticle('中国', function(err, data) {
