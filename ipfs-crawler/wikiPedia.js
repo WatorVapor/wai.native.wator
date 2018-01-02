@@ -124,6 +124,14 @@ module.exports = class WikiCrawler {
     let hashURL = this.sha512_(url);
     console.log('url=<',url,'>');
     console.log('hashURL=<',hashURL,'>');
+    //this.client.set(redisKeyPrefixDone + '/' + hashURL, url);
+    //this.client.del(redisKeyPrefixTodo + '/' + hashURL, url);
+    ipfs.util.add(plainText,function(err, result) {
+      if (err) {
+        throw err;
+      }
+      console.log('result=<',result,'>');
+    });
   }
   
   
