@@ -128,7 +128,8 @@ module.exports = class WikiCrawler {
     console.log('hashURL=<',hashURL,'>');
     //this.client.set(redisKeyPrefixDone + '/' + hashURL, url);
     //this.client.del(redisKeyPrefixTodo + '/' + hashURL, url);
-    var bufText = Buffer.from(plainText, 'utf8');
+    let bufText = Buffer.from(plainText, 'utf8');
+    let self = this;
     ipfs.files.add(bufText,function(err, result) {
       if (err) {
         console.log('err=<',err,'>');
@@ -139,7 +140,7 @@ module.exports = class WikiCrawler {
           console.log('result=<',result,'>');
           let ipfsPath =result[0].hash;
           console.log('ipfsPath=<',ipfsPath,'>');
-          this.client.set(redisKeyPrefixIpfs + '/' + ipfsPath, '{}');
+          self.client.set(redisKeyPrefixIpfs + '/' + ipfsPath, '{}');
         }
       } catch(e) {
         console.log('e=<',e,'>');
