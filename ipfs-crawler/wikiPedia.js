@@ -30,6 +30,7 @@ module.exports = class WikiCrawler {
   }
   
   runTopTodo_() {
+    let self = this;
     this.client.keys(redisKeyPrefixTodo + '/*', function (err, keys) {
       if (err) {
         return console.log(err);
@@ -38,10 +39,10 @@ module.exports = class WikiCrawler {
         console.log('keys[0]=<',keys[0],'>');
         this.client.get(keys[0], function (err, reply) {
           console.log('reply=<',reply,'>');
-          //this.getOneTitle_('');
+          //self.getOneTitle_('');
         });
       } else {
-        this.getOneTitle_(this.root + this.seed);
+        self.getOneTitle_(this.root + this.seed);
       }
     });
   }
