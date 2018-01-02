@@ -7,6 +7,7 @@ var clientJa = new bot({
   debug: false                 // is more verbose when set to true
 });
 
+/*
 clientJa.getBacklinks('日本', function(err, data) {
   // error handling
   if (err) {
@@ -19,6 +20,7 @@ clientJa.getBacklinks('日本', function(err, data) {
     console.log('page=<',page,'>');
   }
 });
+*/
 
 var clientZh = new bot({
   protocol: 'https',           // Wikipedia now enforces HTTPS
