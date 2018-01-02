@@ -1,5 +1,6 @@
 var wiki = require('./wikiPedia.js');
 var zhOption =  {
+  tag:'zh-cn',
   prefix:'/wiki/',
   replace:'/zh-cn/',
   root:'https://zh.wikipedia.org',
