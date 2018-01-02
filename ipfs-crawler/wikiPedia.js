@@ -42,11 +42,11 @@ function parseHTML(data) {
           });
           if(value.attribs.href.startsWith(hrefPrefix)) {
             if(hrefReplace) {
-              hrefsLinks.push(value.attribs.href);
-            } else {
               let newHref = value.attribs.href.replace(hrefPrefix,hrefReplace);
               console.log('newHref=<',newHref,'>');
               hrefsLinks.push(newHref);
+            } else {
+              hrefsLinks.push(value.attribs.href);
             }
           } else {
             console.log('value.attribs.href=<',value.attribs.href,'>');
