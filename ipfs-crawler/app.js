@@ -1,6 +1,3 @@
-var ipfsAPI = require('ipfs-api');
-var ipfs = ipfsAPI({host: 'localhost', port: '5001', protocol: 'http'});
-
 var wiki = require('./wikiPedia.js');
 var zhOption =  {
   prefix:'/wiki/',
