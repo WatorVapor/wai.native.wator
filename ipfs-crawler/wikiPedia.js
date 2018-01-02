@@ -40,7 +40,7 @@ module.exports = class WikiCrawler {
       }
       if(keys.length > 0) {
         console.log('keys[0]=<',keys[0],'>');
-        this.client.get(keys[0], function (err, reply) {
+        self.client.get(keys[0], function (err, reply) {
           console.log('reply=<',reply,'>');
           //self.getOneTitle_('');
         });
