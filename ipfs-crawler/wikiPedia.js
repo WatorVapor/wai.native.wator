@@ -1,6 +1,8 @@
 const https = require('https');
 const cheerio = require('cheerio');
 var redis = require('redis');
+var crypto = require("crypto");
+
 
 const redisKeyPrefix = '/wator/wai/crawler/wiki';
 const redisKeyPrefixDone = '/wator/wai/crawler/wiki/done';
@@ -56,14 +58,14 @@ module.exports = class WikiCrawler {
       });
       resp.on('end', () => {
         //console.log('end: data=<',data,'>');
-        this.parseHTML_(data);
+        this.parseHTML_(data,url);
       });
     }).on('error', (err) => {
       console.log('Error: err=<',err,'>');
     });
   }
   
-  parseHTML_(data) {
+  parseHTML_(data,url) {
     var plainText = '';
     var hrefsLinks = [];
     try {
@@ -103,9 +105,20 @@ module.exports = class WikiCrawler {
     } catch(e) {
       console.log('e=<',e,'>');
     }
-    console.log('plainText=<',plainText,'>');
-    console.log('hrefsLinks=<',hrefsLinks,'>');
-  }    
+    let hashURL = this.sha512(url);
+    console.log('url=<',url,'>');
+    console.log('hashURL=<',hashURL,'>');
+    
+    //console.log('plainText=<',plainText,'>');
+    //console.log('hrefsLinks=<',hrefsLinks,'>');
+  }
+  
+  sha512(msg) {
+    let sha512 = crypto.createHash('sha512');
+    sha512.update(msg);
+    let hash = sha512.digest('hex');
+    return hash;
+  }
 }
 
 
