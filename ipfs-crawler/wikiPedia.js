@@ -126,7 +126,8 @@ module.exports = class WikiCrawler {
     console.log('hashURL=<',hashURL,'>');
     //this.client.set(redisKeyPrefixDone + '/' + hashURL, url);
     //this.client.del(redisKeyPrefixTodo + '/' + hashURL, url);
-    ipfs.files.add(plainText,function(err, result) {
+    var bufText = Buffer.from(plainText, 'utf8');
+    ipfs.files.add(bufText,function(err, result) {
       if (err) {
         console.log('err=<',err,'>');;
       } else {
