@@ -115,6 +115,7 @@ module.exports = class WikiCrawler {
       let link = hrefsLinks[0];
       console.log('link=<',link,'>');
       let hashLink = this.sha512(link);
+      console.log('hashLink=<',hashLink,'>');
       this.client.set(redisKeyPrefixTodo + '/' + hashLink, link);
     }
   }
