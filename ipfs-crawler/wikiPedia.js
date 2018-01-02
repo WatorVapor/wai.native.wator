@@ -41,8 +41,12 @@ module.exports = class WikiCrawler {
       if(keys.length > 0) {
         console.log('keys[0]=<',keys[0],'>');
         self.client.get(keys[0], function (err, reply) {
-          console.log('reply=<',reply,'>');
-          //self.getOneTitle_('');
+        if (err) {
+          console.log('err=<',err,'>');
+          return;
+        }
+        console.log('reply=<',reply,'>');
+          self.getOneTitle_(reply);
         });
       } else {
         self.getOneTitle_(self.root + self.seed);
