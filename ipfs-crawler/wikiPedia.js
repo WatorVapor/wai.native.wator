@@ -41,7 +41,11 @@ function parseHTML(data) {
             }
           });
           if(value.attribs.href.startsWith(hrefPrefix)) {
-            hrefsLinks.push(value.attribs.href);
+            if(hrefReplace) {
+              hrefsLinks.push(value.attribs.href);
+            } else {
+              hrefsLinks.push(value.attribs.href.replace(hrefPrefix,hrefReplace));
+            }
           } else {
             console.log('value.attribs.href=<',value.attribs.href,'>');
           }
