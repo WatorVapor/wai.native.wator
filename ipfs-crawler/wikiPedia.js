@@ -7,7 +7,7 @@ var client = new bot({
   debug: false                 // is more verbose when set to true
 });
 
-client.getArticle('カタリナ事件', function(err, data) {
+client.getBacklinks('カタリナ事件', function(err, data) {
   // error handling
   if (err) {
     console.error('err=<',err,'>');
