@@ -22,9 +22,9 @@ function parseHTML(data) {
       //console.log('i=<',i,'>');
       //console.log('elem=<',elem,'>');
       elem.children.forEach(function(value, index, ar){
-        console.log('value=<',value,'>');
-        console.log('index=<',index,'>');
-        console.log('ar=<',ar,'>');
+        //console.log('value=<',value,'>');
+        //console.log('index=<',index,'>');
+        //console.log('ar=<',ar,'>');
       });
     });
   } catch(e) {
