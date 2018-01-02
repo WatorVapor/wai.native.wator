@@ -1,8 +1,7 @@
 const https = require('https');
-const hrefPrefix = '/wiki/';
-const hrefReplace = '/zh-cn/';
-const hrefRoot = 'https://zh.wikipedia.org';
-const seed = '/zh-cn/%E5%8C%96%E5%AD%B8%E5%85%83%E7%B4%A0';
+var redis = require('redis');
+var client = redis.createClient();
+
 
 export class WikiCrawler {
   constructor(option) {
