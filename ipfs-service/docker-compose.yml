@@ -18,3 +18,8 @@ services:
     volumes:
       - ./conf-nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
     restart: always
+  ipfs-redis:
+    image: redis
+    network_mode: "host"
+    volumes:
+    restart: always
