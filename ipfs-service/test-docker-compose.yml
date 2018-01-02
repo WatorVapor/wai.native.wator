@@ -1,0 +1,13 @@
+version: '2'
+services:
+  ipfs-dameon-init:
+    image: golang
+    volumes:
+      - ./go-ipfs:/ipfs
+      - ./storage-ipfs:/storage
+      - ./conf-ipfs:/conf
+    environment:
+      - PATH=/ipfs:$PATH
+      - IPFS_PATH=/storage
+    command: /conf/init.sh
+    restart: "no"
