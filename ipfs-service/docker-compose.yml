@@ -21,6 +21,7 @@ services:
   ipfs-redis:
     image: redis
     volumes:
+      - ./redis-ipfs/redis.conf:/usr/local/etc/redis/redis.conf:ro
       - ./redis-ipfs/data:/data
     network_mode: "host"
     restart: always
