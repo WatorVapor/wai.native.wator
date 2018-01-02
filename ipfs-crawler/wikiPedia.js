@@ -19,8 +19,8 @@ function parseHTML(data) {
   try {
     const $ = cheerio.load(data);
     $('p').each( (i, elem)=> {
-      console.log('i=<',i,'>');
-      console.log('elem=<',elem,'>');
+      //console.log('i=<',i,'>');
+      //console.log('elem=<',elem,'>');
       elem.children.forEach(function(value, index, ar){
         console.log('value=<',value,'>');
         console.log('index=<',index,'>');
