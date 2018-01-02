@@ -129,9 +129,17 @@ module.exports = class WikiCrawler {
     var bufText = Buffer.from(plainText, 'utf8');
     ipfs.files.add(bufText,function(err, result) {
       if (err) {
-        console.log('err=<',err,'>');;
-      } else {
-        console.log('result=<',result,'>');
+        console.log('err=<',err,'>');
+        return;
+      }
+      try {
+        if(result.length > 0){
+          console.log('result=<',result,'>');
+          let ipfsPath =result[0].hash;
+          console.log('ipfsPath=<',ipfsPath,'>');
+        }
+      } catch(e) {
+        console.log('e=<',e,'>');
       }
     });
   }
