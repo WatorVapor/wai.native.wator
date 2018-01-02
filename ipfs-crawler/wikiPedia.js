@@ -38,7 +38,7 @@ clientZh.wikia.getWikiVariables(function(err, data) {
     return;
   }
   console.log('data=<',data,'>');
-}
+});
 
 
 /*
