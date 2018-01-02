@@ -1,4 +1,7 @@
 const https = require('https');
+const hrefPrefix = '/wiki/';
+const hrefReplace = '/zh-cn/';
+
 
 https.get('https://zh.wikipedia.org/zh-cn/%E5%8E%9F%E5%AD%90', (resp) => {
   let data = '';
@@ -37,7 +40,11 @@ function parseHTML(data) {
               plainText += valueA.data;
             }
           });
-          hrefsLinks.push(value.attribs.href);
+          if(value.attribs.href.startsWith(hrefPrefix)) {
+            hrefsLinks.push(value.attribs.href);
+          } else {
+            console.log('value.attribs.href=<',value.attribs.href,'>');
+          }
         }
         //console.log('index=<',index,'>');
       });
