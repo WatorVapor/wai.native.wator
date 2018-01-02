@@ -38,10 +38,10 @@ module.exports = class WikiCrawler {
         console.log('keys[0]=<',keys[0],'>');
         this.client.get(keys[0], function (err, reply) {
           console.log('reply=<',reply,'>');
-          getOneTitle_('');
+          //this.getOneTitle_('');
         });
       } else {
-        getOneTitle_(this.root + this.seed);
+        this.getOneTitle_(this.root + this.seed);
       }
     });
   }
