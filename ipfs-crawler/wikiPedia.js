@@ -128,7 +128,7 @@ module.exports = class WikiCrawler {
   
   
   
-  saveLinkedWiki_(url){
+  saveLinkedWiki_(hrefsLinks){
     for(let i = 0;i < hrefsLinks.length ;i++) {
       let link = hrefsLinks[i];
       console.log('link=<',link,'>');
