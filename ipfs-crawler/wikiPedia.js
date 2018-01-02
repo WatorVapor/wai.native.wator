@@ -28,7 +28,7 @@ function parseHTML(data) {
           //console.log('value.data=<',value.data,'>');
           plainText += value.data;
         }
-        if(value.type === 'tag') {
+        if(value.type === 'tag' && value.name === 'a') {
           console.log('value=<',value,'>');
         }
         //console.log('index=<',index,'>');
