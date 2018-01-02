@@ -10,7 +10,8 @@ var client = new bot({
 client.getArticle('foo', function(err, data) {
   // error handling
   if (err) {
-    console.error(err);
+    console.error('err=<',err,'>');
     return;
   }
+  console.log('data=<',data,'>')
 });
