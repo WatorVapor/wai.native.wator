@@ -24,4 +24,5 @@ services:
       - ./redis-ipfs/redis.conf:/usr/local/etc/redis/redis.conf:ro
       - ./redis-ipfs/data:/data
     network_mode: "host"
+    command: [ "redis-server", "/usr/local/etc/redis/redis.conf" ]
     restart: always
