@@ -18,7 +18,7 @@ module.exports = class WikiCrawler {
     if(option.seed) {
       this.seed = option.seed;
     }
-    console.log('WikiCrawler::constructor this=<',this,'>');
+    //console.log('WikiCrawler::constructor this=<',this,'>');
   }
   
   
