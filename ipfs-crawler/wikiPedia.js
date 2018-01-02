@@ -7,6 +7,9 @@ var clientJa = new bot({
   debug: false                 // is more verbose when set to true
 });
 
+console.log('clientJa.getConfig()=<',clientJa.getConfig(),'>');
+
+
 /*
 clientJa.getBacklinks('日本', function(err, data) {
   // error handling
@@ -28,7 +31,7 @@ var clientZh = new bot({
   path: '/w',                  // path to api.php script
   debug: false                 // is more verbose when set to true
 });
-
+console.log('clientZh.getConfig()=<',clientZh.getConfig(),'>');
 /*
 clientZh.getArticle('中国', function(err, data) {
   // error handling
