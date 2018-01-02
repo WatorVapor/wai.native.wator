@@ -10,6 +10,7 @@ var zhOption =  {
 }
 var zhWiki = new wiki(zhOption);
 console.log('zhWiki=<',zhWiki,'>');
+zhWiki.runOnce();
 
 
 /*
