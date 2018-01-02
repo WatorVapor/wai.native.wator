@@ -1,9 +1,16 @@
-var ipfsAPI = require('ipfs-api');
-var ipfs = ipfsAPI('/ip4/127.0.0.1/tcp/5001');
+var bot = require('nodemw');
+// pass configuration object
+var client = new bot({
+  protocol: 'https',           // Wikipedia now enforces HTTPS
+  server: 'en.wikipedia.org',  // host name of MediaWiki-powered site
+  path: '/w',                  // path to api.php script
+  debug: false                 // is more verbose when set to true
+});
 
-ipfs.util.addFromFs('/tmp/test.txt',{ recursive: false},function(err, result) {
+client.getArticle('foo', function(err, data) {
+  // error handling
   if (err) {
-    throw err;
+    console.error(err);
+    return;
   }
-  console.log('result=<',result,'>');
 });
