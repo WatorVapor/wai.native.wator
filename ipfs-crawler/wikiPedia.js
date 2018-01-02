@@ -29,6 +29,7 @@ var clientZh = new bot({
   debug: false                 // is more verbose when set to true
 });
 
+/*
 clientZh.getArticle('中国', function(err, data) {
   // error handling
   if (err) {
@@ -37,3 +38,14 @@ clientZh.getArticle('中国', function(err, data) {
   }
   console.log('data=<',data,'>');
 });
+*/
+
+clientZh.fetchUrl('https://zh.wikipedia.org/zh-cn/%E6%AC%A1%E5%8E%9F%E5%AD%90%E7%B2%92%E5%AD%90', function(err, data) {
+  // error handling
+  if (err) {
+    console.error('err=<',err,'>');
+    return;
+  }
+  console.log('data=<',data,'>');
+});
+
