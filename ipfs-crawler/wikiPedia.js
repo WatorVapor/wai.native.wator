@@ -28,6 +28,9 @@ function parseHTML(data) {
           //console.log('value.data=<',value.data,'>');
           plainText += value.data;
         }
+        if(value.type === 'tag') {
+          console.log('value=<',value,'>');
+        }
         //console.log('index=<',index,'>');
       });
     });
