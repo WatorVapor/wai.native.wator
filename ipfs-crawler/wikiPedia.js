@@ -126,11 +126,12 @@ module.exports = class WikiCrawler {
     console.log('hashURL=<',hashURL,'>');
     //this.client.set(redisKeyPrefixDone + '/' + hashURL, url);
     //this.client.del(redisKeyPrefixTodo + '/' + hashURL, url);
-    ipfs.util.add(plainText,function(err, result) {
+    ipfs.files.add(plainText,function(err, result) {
       if (err) {
-        throw err;
+        console.log('err=<',err,'>');;
+      } else {
+        console.log('result=<',result,'>');
       }
-      console.log('result=<',result,'>');
     });
   }
   
