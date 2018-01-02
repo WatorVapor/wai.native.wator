@@ -113,22 +113,41 @@ module.exports = class WikiCrawler {
     } catch(e) {
       console.log('e=<',e,'>');
     }
-    let hashURL = this.sha512(url);
-    console.log('url=<',url,'>');
-    console.log('hashURL=<',hashURL,'>');
-    
+    this.saveDoneWiki_(url,plainText);
+    this.saveLinkedWiki_(hrefsLinks);
     //console.log('plainText=<',plainText,'>');
     //console.log('hrefsLinks=<',hrefsLinks,'>');
+  }
+  
+  
+  saveDoneWiki_(url,plainText){
+    let hashURL = this.sha512_(url);
+    console.log('url=<',url,'>');
+    console.log('hashURL=<',hashURL,'>');
+  }
+  
+  
+  
+  saveLinkedWiki_(url){
     for(let i = 0;i < hrefsLinks.length ;i++) {
       let link = hrefsLinks[i];
       console.log('link=<',link,'>');
-      let hashLink = this.sha512(link);
+      let hashLink = this.sha512_(link);
       console.log('hashLink=<',hashLink,'>');
-      this.client.set(redisKeyPrefixTodo + '/' + hashLink, link);
+      this.client.keys(redisKeyPrefixDone + '/' + hashLink, function (err, keys) {
+        if (err) {
+          console.log('err=<',err,'>');
+          return;
+        }
+        console.log('keys=<',keys,'>');
+        if(keys.length === 0) {
+          this.client.set(redisKeyPrefixTodo + '/' + hashLink, link);
+        }
+      });
     }
   }
   
-  sha512(msg) {
+  sha512_(msg) {
     let sha512 = crypto.createHash('sha512');
     sha512.update(msg);
     let hash = sha512.digest('hex');
