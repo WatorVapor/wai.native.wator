@@ -44,7 +44,9 @@ function parseHTML(data) {
             if(hrefReplace) {
               hrefsLinks.push(value.attribs.href);
             } else {
-              hrefsLinks.push(value.attribs.href.replace(hrefPrefix,hrefReplace));
+              let newHref = value.attribs.href.replace(hrefPrefix,hrefReplace);
+              console.log('newHref=<',newHref,'>');
+              hrefsLinks.push(newHref);
             }
           } else {
             console.log('value.attribs.href=<',value.attribs.href,'>');
