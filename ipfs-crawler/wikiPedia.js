@@ -22,7 +22,10 @@ function parseHTML(data) {
       //console.log('i=<',i,'>');
       //console.log('elem=<',elem,'>');
       elem.children.forEach( (value, index, ar) => {
-        console.log('value=<',value,'>');
+        //console.log('value=<',value,'>');
+        if(value.type === 'text') {
+          console.log('value.data=<',value.data,'>');
+        }
         //console.log('index=<',index,'>');
       });
     });
