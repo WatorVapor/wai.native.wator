@@ -22,8 +22,8 @@ clientJa.getBacklinks('日本', function(err, data) {
 
 var clientZh = new bot({
   protocol: 'https',           // Wikipedia now enforces HTTPS
-  server: 'zh.wikipedia.org',  // host name of MediaWiki-powered site
-  path: '/zh-cn/w',                  // path to api.php script
+  server: 'zh-cn.wikipedia.org',  // host name of MediaWiki-powered site
+  path: '/w',                  // path to api.php script
   debug: false                 // is more verbose when set to true
 });
 
