@@ -2,11 +2,15 @@ const https = require('https');
 const cheerio = require('cheerio');
 var redis = require('redis');
 var crypto = require("crypto");
+var ipfsAPI = require('ipfs-api');
+
 
 
 const redisKeyPrefix = '/wator/wai/crawler/wiki';
 const redisKeyPrefixDone = '/wator/wai/crawler/wiki/done';
 const redisKeyPrefixTodo = '/wator/wai/crawler/wiki/todo';
+
+var ipfs = ipfsAPI({host: 'localhost', port: '5001', protocol: 'http'});
 
 module.exports = class WikiCrawler {
   constructor(option) {
