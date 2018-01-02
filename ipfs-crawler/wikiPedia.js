@@ -7,7 +7,7 @@ var client = new bot({
   debug: false                 // is more verbose when set to true
 });
 
-client.getBacklinks('中性子爆弾', function(err, data) {
+client.getBacklinks('原子力砕氷船', function(err, data) {
   // error handling
   if (err) {
     console.error('err=<',err,'>');
