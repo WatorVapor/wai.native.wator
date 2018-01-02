@@ -4,7 +4,7 @@ var redis = require('redis');
 var client = redis.createClient();
 
 
-export class WikiCrawler {
+module.exports = class WikiCrawler {
   constructor(option) {
     if(option.prefix) {
       this.prefix = option.prefix;
