@@ -148,7 +148,8 @@ module.exports = class WikiCrawler {
           console.log('result=<',result,'>');
           let ipfsPath =result[0].hash;
           console.log('ipfsPath=<',ipfsPath,'>');
-          self.client.set(redisKeyPrefixIpfs + '/' + self.tag + '/ipfs/'+ ipfsPath, '{}');
+          let saveInfo ={url:url};
+          self.client.set(redisKeyPrefixIpfs + '/' + self.tag + '/ipfs/'+ ipfsPath, JSON.stringify(saveInfo));
           self.ipfsWritten = true;
           if(self.ipfsWritten && self.todoWritten && self.doneWritten) {
             self.cb();
