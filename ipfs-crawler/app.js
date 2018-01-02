@@ -10,6 +10,6 @@ ipfs.util.addFromFs('/tmp/test.txt',{ recursive: false},function(err, result) {
 });
 */
 
-var client = redis.createClient();
 var redis = require('redis');
+var client = redis.createClient();
 console.log('redis=<',redis,'>');
