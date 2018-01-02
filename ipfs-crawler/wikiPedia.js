@@ -43,7 +43,7 @@ function parseHTML(data) {
           if(value.attribs.href.startsWith(hrefPrefix)) {
             if(hrefReplace) {
               let newHref = value.attribs.href.replace(hrefPrefix,hrefReplace);
-              console.log('newHref=<',newHref,'>');
+              //console.log('newHref=<',newHref,'>');
               hrefsLinks.push(newHref);
             } else {
               hrefsLinks.push(value.attribs.href);
