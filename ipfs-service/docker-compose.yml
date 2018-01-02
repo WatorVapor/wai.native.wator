@@ -21,5 +21,4 @@ services:
   ipfs-redis:
     image: redis
     network_mode: "host"
-    volumes:
     restart: always
