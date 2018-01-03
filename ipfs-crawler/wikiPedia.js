@@ -204,12 +204,12 @@ module.exports = class WikiCrawler {
     }
     if(counter < 1) {
       console.log('counter=<',counter,'>');
-      self.todoWritten = true;
-      console.log('self.ipfsWritten=<',self.ipfsWritten,'>');
-      console.log('self.todoWritten=<',self.todoWritten,'>');
-      console.log('self.doneWritten=<',self.doneWritten,'>');
-      if(self.ipfsWritten && self.todoWritten && self.doneWritten) {
-        self.cb();
+      this.todoWritten = true;
+      console.log('this.ipfsWritten=<',this.ipfsWritten,'>');
+      console.log('this.todoWritten=<',this.todoWritten,'>');
+      console.log('this.doneWritten=<',this.doneWritten,'>');
+      if(this.ipfsWritten && this.todoWritten && this.doneWritten) {
+        this.cb();
       }
     }
   }
