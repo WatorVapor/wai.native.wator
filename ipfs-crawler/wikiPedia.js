@@ -69,6 +69,7 @@ module.exports = class WikiCrawler {
   
   getOneTitle_(url) {
     https.get(url, (resp) => {
+      resp.setEncoding('utf8');
       let data = '';
       resp.on('data', (chunk) => {
         data += chunk;
