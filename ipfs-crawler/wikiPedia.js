@@ -1,4 +1,5 @@
-const https = require('https');
+//const https = require('https');
+var request = require('request');
 const cheerio = require('cheerio');
 var redis = require('redis');
 var crypto = require("crypto");
@@ -67,6 +68,7 @@ module.exports = class WikiCrawler {
     });
   }
   
+  /*
   getOneTitle_(url) {
     https.get(url, (resp) => {
       resp.setEncoding('utf8');
@@ -82,6 +84,36 @@ module.exports = class WikiCrawler {
       console.log('Error: err=<',err,'>');
     });
   }
+  */
+  getOneTitle_(url) {
+    let options = {url:url};
+    let self = this;
+    request.get(options, function (error, response, body) {
+      if (error && response.statusCode !== 200) {
+        console.log('error: error=<',error,'>');
+        console.log('error: response=<',response,'>');
+      } else {
+        console.log('body=<',body,'>');
+        self.parseHTML_(body,url);
+      }
+    });
+    /*
+    https.get(url, (resp) => {
+      resp.setEncoding('utf8');
+      let data = '';
+      resp.on('data', (chunk) => {
+        data += chunk;
+      });
+      resp.on('end', () => {
+        //console.log('end: data=<',data,'>');
+        this.parseHTML_(data,url);
+      });
+    }).on('error', (err) => {
+      console.log('Error: err=<',err,'>');
+    });
+    */
+  }
+  
   
   parseHTML_(data,url) {
     var plainText = '';
