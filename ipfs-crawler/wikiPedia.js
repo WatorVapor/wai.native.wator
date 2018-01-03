@@ -202,6 +202,16 @@ module.exports = class WikiCrawler {
         }
       });
     }
+    if(counter < 1) {
+      console.log('counter=<',counter,'>');
+      self.todoWritten = true;
+      console.log('self.ipfsWritten=<',self.ipfsWritten,'>');
+      console.log('self.todoWritten=<',self.todoWritten,'>');
+      console.log('self.doneWritten=<',self.doneWritten,'>');
+      if(self.ipfsWritten && self.todoWritten && self.doneWritten) {
+        self.cb();
+      }
+    }
   }
   
   sha512_(msg) {
