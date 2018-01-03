@@ -132,8 +132,8 @@ module.exports = class WikiCrawler {
   
   saveDoneWiki_(url,plainText){
     let hashURL = this.sha512_(url);
-    console.log('url=<',url,'>');
-    console.log('hashURL=<',hashURL,'>');
+    //console.log('url=<',url,'>');
+    //console.log('hashURL=<',hashURL,'>');
     this.client.set(redisKeyPrefixDone + '/' + hashURL, url);
     this.client.del(redisKeyPrefixTodo + '/' + hashURL, url);
     this.doneWritten = true
@@ -170,21 +170,21 @@ module.exports = class WikiCrawler {
     let counter = hrefsLinks.length;
     for(let i = 0;i < hrefsLinks.length ;i++) {
       let link = hrefsLinks[i];
-      console.log('link=<',link,'>');
+      //console.log('link=<',link,'>');
       let hashLink = this.sha512_(link);
-      console.log('hashLink=<',hashLink,'>');
+      //console.log('hashLink=<',hashLink,'>');
       let self = this;
       this.client.keys(redisKeyPrefixDone + '/' + hashLink, function (err, keys) {
         if (err) {
           console.log('err=<',err,'>');
           return;
         }
-        console.log('keys=<',keys,'>');
+        //console.log('keys=<',keys,'>');
         if(keys.length === 0) {
           self.client.set(redisKeyPrefixTodo + '/' + hashLink, link);
         }
         counter -= 1;
-        console.log('counter=<',counter,'>');
+        //console.log('counter=<',counter,'>');
         if(counter === 0) {
           self.todoWritten = true;
           if(self.ipfsWritten && self.todoWritten && self.doneWritten) {
