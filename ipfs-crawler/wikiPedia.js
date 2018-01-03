@@ -142,7 +142,7 @@ module.exports = class WikiCrawler {
     this.doneWritten = true
     let bufText = Buffer.from(plainText, 'utf8');
     let self = this;
-    /*
+    
     ipfs.files.add(bufText,function(err, result) {
       if (err) {
         console.log('err=<',err,'>');
@@ -156,6 +156,9 @@ module.exports = class WikiCrawler {
           let saveInfo ={url:url};
           self.client.set(redisKeyPrefixIpfs + '/' + self.tag + '/ipfs/'+ ipfsPath, JSON.stringify(saveInfo));
           self.ipfsWritten = true;
+          console.log('self.ipfsWritten=<',self.ipfsWritten,'>');
+          console.log('self.todoWritten=<',self.todoWritten,'>');
+          console.log('self.doneWritten=<',self.doneWritten,'>');
           if(self.ipfsWritten && self.todoWritten && self.doneWritten) {
             self.cb();
           }
@@ -164,7 +167,7 @@ module.exports = class WikiCrawler {
         console.log('e=<',e,'>');
       }
     });
-    */
+    
   }
   
   
@@ -187,9 +190,12 @@ module.exports = class WikiCrawler {
           self.client.set(redisKeyPrefixTodo + '/' + hashLink, link);
         }
         counter -= 1;
-        //console.log('counter=<',counter,'>');
+        console.log('counter=<',counter,'>');
         if(counter === 0) {
           self.todoWritten = true;
+          console.log('self.ipfsWritten=<',self.ipfsWritten,'>');
+          console.log('self.todoWritten=<',self.todoWritten,'>');
+          console.log('self.doneWritten=<',self.doneWritten,'>');
           if(self.ipfsWritten && self.todoWritten && self.doneWritten) {
             self.cb();
           }
