@@ -68,7 +68,10 @@ module.exports = class WikiCrawler {
   }
   
   getOneTitle_(url) {
-    let options = {url:url};
+    let options = {
+      url:url,
+      encoding: null
+    };
     let self = this;
     request.get(options, function (error, response, body) {
       if (error && response.statusCode !== 200) {
