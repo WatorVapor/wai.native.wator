@@ -138,6 +138,7 @@ module.exports = class WikiCrawler {
     this.doneWritten = true
     let bufText = Buffer.from(plainText, 'utf8');
     let self = this;
+    /*
     ipfs.files.add(bufText,function(err, result) {
       if (err) {
         console.log('err=<',err,'>');
@@ -159,6 +160,7 @@ module.exports = class WikiCrawler {
         console.log('e=<',e,'>');
       }
     });
+    */
   }
   
   
