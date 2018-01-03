@@ -32,5 +32,13 @@ services:
       - ./redis-ipfs/redis.conf:/usr/local/etc/redis/redis.conf:ro
       - ./redis-ipfs/data:/data
     network_mode: "host"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.80'
+          memory: 256M
+        reservations:
+          cpus: '0.50'
+          memory: 128M    
     command: [ "redis-server", "/usr/local/etc/redis/redis.conf" ]
     restart: always
