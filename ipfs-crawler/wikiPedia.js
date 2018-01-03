@@ -89,7 +89,7 @@ module.exports = class WikiCrawler {
     var plainText = '';
     var hrefsLinks = [];
     try {
-      console.log('data=<',data,'>');
+      //console.log('data=<',data,'>');
       const $ = cheerio.load(data);
       $('p').each( (i, elem) => {
         //console.log('i=<',i,'>');
