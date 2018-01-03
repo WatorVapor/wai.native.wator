@@ -10,6 +10,14 @@ services:
     environment:
       - PATH=/ipfs:$PATH
       - IPFS_PATH=/storage
+    deploy:
+      resources:
+        limits:
+          cpus: '0.80'
+          memory: 256M
+        reservations:
+          cpus: '0.50'
+          memory: 128M
     command: ipfs daemon
     restart: always
   ipfs-nginx:
