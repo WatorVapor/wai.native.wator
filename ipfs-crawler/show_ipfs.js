@@ -6,5 +6,5 @@ var refs = ipfs.refs.local();
 console.log('refs=<',refs,'>');
 
 
-var client = redis.createClient();
+//var client = redis.createClient();
   
