@@ -36,9 +36,9 @@ services:
       resources:
         limits:
           cpus: '0.80'
-          memory: 256M
+          memory: 512M
         reservations:
           cpus: '0.50'
-          memory: 128M    
+          memory: 256M    
     command: [ "redis-server", "/usr/local/etc/redis/redis.conf" ]
     restart: always
