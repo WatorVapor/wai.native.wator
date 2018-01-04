@@ -10,14 +10,9 @@ services:
     environment:
       - PATH=/ipfs:$PATH
       - IPFS_PATH=/storage
-    deploy:
-      resources:
-        limits:
-          cpus: '0.80'
-          memory: 256M
-        reservations:
-          cpus: '0.50'
-          memory: 128M
+    cpu_count: 1
+    cpu_percent: 90
+    mem_limit:256M
     command: ipfs daemon
     restart: always
   ipfs-nginx:
@@ -32,13 +27,8 @@ services:
       - ./redis-ipfs/redis.conf:/usr/local/etc/redis/redis.conf:ro
       - ./redis-ipfs/data:/data
     network_mode: "host"
-    deploy:
-      resources:
-        limits:
-          cpus: '0.80'
-          memory: 512M
-        reservations:
-          cpus: '0.50'
-          memory: 256M    
+    cpu_count: 1
+    cpu_percent: 90
+    mem_limit:256M
     command: [ "redis-server", "/usr/local/etc/redis/redis.conf" ]
     restart: always
