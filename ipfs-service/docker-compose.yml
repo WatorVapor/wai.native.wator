@@ -25,6 +25,14 @@ services:
     network_mode: "host"
     volumes:
       - ./conf-nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    deploy:
+      resources:
+        limits:
+          cpus: '0.90'
+          memory: 256M
+        reservations:
+          cpus: '0.5'
+          memory: 128M    
     restart: always
   ipfs-redis:
     image: redis
