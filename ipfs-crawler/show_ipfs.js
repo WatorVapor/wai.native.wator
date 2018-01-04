@@ -1,9 +1,7 @@
-var redis = require('redis');
-var ipfsAPI = require('ipfs-api');
-
-var ipfs = ipfsAPI({host: 'localhost', port: '5001', protocol: 'http'});
 
 /*
+var ipfsAPI = require('ipfs-api');
+var ipfs = ipfsAPI({host: 'localhost', port: '5001', protocol: 'http'});
 var refs = ipfs.refs.local((err,result)=>{
   console.log('err=<',err,'>');
   console.log('result=<',result,'>');
@@ -11,21 +9,42 @@ var refs = ipfs.refs.local((err,result)=>{
 console.log('refs=<',refs,'>');
 */
 
+var redis = require('redis');
+var client = redis.createClient();
 
 const redisKeyPrefix = '/wator/wai/crawler/wiki';
 const redisKeyPrefixDone = '/wator/wai/crawler/wiki/done';
 const redisKeyPrefixTodo = '/wator/wai/crawler/wiki/todo';
 const redisKeyPrefixIpfs = '/wator/wai/wiki/text';
 
-
-var client = redis.createClient();
-
 client.keys(redisKeyPrefixIpfs + '/*', function (err, keys) {
   if (err) { 
     return console.log('err=<',err,'>');
   }
   try {
-    console.log('keys.length=<',keys.length,'>');
+    console.log(redisKeyPrefixIpfs,'keys.length=<',keys.length,'>');
+  } catch(e) {
+    console.log('err=<',err,'>');
+  }
+}); 
+
+client.keys(redisKeyPrefixDone + '/*', function (err, keys) {
+  if (err) { 
+    return console.log('err=<',err,'>');
+  }
+  try {
+    console.log(redisKeyPrefixDone,'keys.length=<',keys.length,'>');
+  } catch(e) {
+    console.log('err=<',err,'>');
+  }
+}); 
+
+client.keys(redisKeyPrefixTodo + '/*', function (err, keys) {
+  if (err) { 
+    return console.log('err=<',err,'>');
+  }
+  try {
+    console.log(redisKeyPrefixTodo,'keys.length=<',keys.length,'>');
   } catch(e) {
     console.log('err=<',err,'>');
   }
