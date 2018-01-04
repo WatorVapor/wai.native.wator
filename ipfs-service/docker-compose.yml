@@ -12,7 +12,7 @@ services:
       - IPFS_PATH=/storage
     cpu_count: 1
     cpu_percent: 90
-    mem_limit:256M
+    mem_limit: 256M
     command: ipfs daemon
     restart: always
   ipfs-nginx:
@@ -29,6 +29,6 @@ services:
     network_mode: "host"
     cpu_count: 1
     cpu_percent: 90
-    mem_limit:256M
+    mem_limit: 256M
     command: [ "redis-server", "/usr/local/etc/redis/redis.conf" ]
     restart: always
