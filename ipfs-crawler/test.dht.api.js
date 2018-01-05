@@ -10,3 +10,11 @@ ipfs.dht.put('hello.11', JSON.stringify(data), function (err) {
     console.log('err=<',err,'>');
   }
 });
+
+ipfs.dht.get(key, function (err, value) {
+  if(err) {
+    console.log('err=<',err,'>');
+  } else {
+    console.log('value=<',value,'>');
+  }  
+});
