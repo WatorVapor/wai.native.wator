@@ -4,7 +4,8 @@ var zhOption =  {
   prefix:'/wiki/',
   replace:'/zh-cn/',
   root:'https://zh.wikipedia.org',
-  seed:'/zh-cn/%E5%8C%96%E5%AD%B8%E5%85%83%E7%B4%A0'
+  seed:'/zh-cn/%E5%8C%96%E5%AD%B8%E5%85%83%E7%B4%A0',
+  dry:true;
 }
 var zhWiki = new wiki(zhOption);
 console.log('zhWiki=<',zhWiki,'>');
