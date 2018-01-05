@@ -131,8 +131,10 @@ module.exports = class WikiCrawler {
     if(!this.dry) {
       this.saveDoneWiki_(url,this.plainText);
       this.saveLinkedWiki_(hrefsLinks);
+    } else {
+      console.log('this.plainText=<',this.plainText,'>');
     }
-    console.log('this.plainText=<',this.plainText,'>');
+    //console.log('this.plainText=<',this.plainText,'>');
     //console.log('hrefsLinks=<',hrefsLinks,'>');
   }
   
