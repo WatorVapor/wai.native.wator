@@ -57,13 +57,13 @@ module.exports = class WikiCrawler {
       }
       if(keys.length > 0) {
         console.log('keys[0]=<',keys[0],'>');
-        self.client.get(keys[0], function (err, reply) {
+        self.client.get(keys[0], function (err, wikiUrl) {
         if (err) {
           console.log('err=<',err,'>');
           self.onApiError_();
         }
-        console.log('reply=<',reply,'>');
-          self.getOneTitle_(reply);
+        console.log('wikiUrl=<',wikiUrl,'>');
+          self.getOneTitle_(wikiUrl);
         });
       } else {
         self.getOneTitle_(self.root + self.seed);
@@ -102,7 +102,7 @@ module.exports = class WikiCrawler {
         //console.log('i=<',i,'>');
         //console.log('elem=<',elem,'>');
         elem.children.forEach( (value, index, ar) => {
-          //console.log('value=<',value,'>');
+          console.log('value=<',value,'>');
           if(value.type === 'text') {
             //console.log('value.data=<',value.data,'>');
             plainText += value.data;
