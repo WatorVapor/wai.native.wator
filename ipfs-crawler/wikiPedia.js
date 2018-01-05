@@ -131,7 +131,7 @@ module.exports = class WikiCrawler {
     }
     this.saveDoneWiki_(url,plainText);
     this.saveLinkedWiki_(hrefsLinks);
-    console.log('plainText=<',plainText,'>');
+    //console.log('plainText=<',plainText,'>');
     //console.log('hrefsLinks=<',hrefsLinks,'>');
   }
   
@@ -196,7 +196,7 @@ module.exports = class WikiCrawler {
           self.client.set(redisKeyPrefixTodo + '/' + hashLink, link);
         }
         counter -= 1;
-        console.log('counter=<',counter,'>');
+        //console.log('counter=<',counter,'>');
         if(counter === 0) {
           self.todoWritten = true;
           console.log('self.ipfsWritten=<',self.ipfsWritten,'>');
