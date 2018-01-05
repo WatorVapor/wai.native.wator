@@ -6,5 +6,7 @@ var data = {test:true};
 ipfs.dht.put('hello.11', JSON.stringify(data), function (err) {
   if(err) {
     console.log('err=<',err,'>');
+  } else {
+    console.log('err=<',err,'>');
   }
 });
