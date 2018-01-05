@@ -138,8 +138,9 @@ module.exports = class WikiCrawler {
       //console.log('elem.data=<',elem.data,'>');
       this.plainText += elem.data;
     }
-    if(elem.children && typeof elem.children === 'array') {
+    if(elem.children && elem.children.isArray()) {
       let self = this;
+      console.log('elem.children=<',elem.children,'>');
       elem.children.forEach( (valueA, indexA, arA) => {
         self.getTextAllChildren_(valueA);
       });
