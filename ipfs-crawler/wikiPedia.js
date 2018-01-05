@@ -111,7 +111,7 @@ module.exports = class WikiCrawler {
                 plainText += valueA.data;
               }
             });
-            if(value.attribs.href.startsWith(this.prefix)) {
+            if(value.attribs.href && value.attribs.href.startsWith(this.prefix)) {
               if(this.replace) {
                 let newHref = value.attribs.href.replace(this.prefix,this.replace);
                 //console.log('newHref=<',newHref,'>');
