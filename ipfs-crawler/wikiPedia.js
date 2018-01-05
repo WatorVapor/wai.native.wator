@@ -104,7 +104,7 @@ module.exports = class WikiCrawler {
             plainText += value.data;
           }
           if(value.type === 'tag' && value.name === 'a') {
-            //console.log('value=<',value,'>');
+            console.log('value=<',value,'>');
             value.children.forEach( (valueA, indexA, arA) => {
               if(valueA.type === 'text') {
                 //console.log('valueA.data=<',valueA.data,'>');
@@ -128,7 +128,7 @@ module.exports = class WikiCrawler {
       });
     } catch(e) {
       console.log('e=<',e,'>');
-      this.onApiError_();
+      //this.onApiError_();
     }
     this.saveDoneWiki_(url,plainText);
     this.saveLinkedWiki_(hrefsLinks);
