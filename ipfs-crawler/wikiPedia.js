@@ -102,11 +102,19 @@ module.exports = class WikiCrawler {
         //console.log('i=<',i,'>');
         //console.log('elem=<',elem,'>');
         elem.children.forEach( (value, index, ar) => {
-          console.log('value=<',value,'>');
+          //console.log('value=<',value,'>');
           if(value.type === 'text') {
             //console.log('value.data=<',value.data,'>');
             plainText += value.data;
           }
+          if(value.type === 'tag' && value.name === 'b') {
+            console.log('value=<',value,'>');
+            value.children.forEach( (valueA, indexA, arA) => {
+              if(valueA.type === 'text') {
+                //console.log('valueA.data=<',valueA.data,'>');
+                plainText += valueA.data;
+              }
+            });
           if(value.type === 'tag' && value.name === 'a') {
             //console.log('value=<',value,'>');
             value.children.forEach( (valueA, indexA, arA) => {
