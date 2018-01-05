@@ -115,6 +115,7 @@ module.exports = class WikiCrawler {
                 plainText += valueA.data;
               }
             });
+          }
           if(value.type === 'tag' && value.name === 'a') {
             //console.log('value=<',value,'>');
             value.children.forEach( (valueA, indexA, arA) => {
