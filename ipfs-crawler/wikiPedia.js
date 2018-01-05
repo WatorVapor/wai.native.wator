@@ -78,7 +78,7 @@ module.exports = class WikiCrawler {
     };
     let self = this;
     request.get(options, function (error, response, body) {
-      if (error && response.statusCode !== 200) {
+      if (error) {
         console.log('error: error=<',error,'>');
         console.log('error: response=<',response,'>');
         if(error) {
@@ -86,7 +86,9 @@ module.exports = class WikiCrawler {
         }
       } else {
         //console.log('body=<',body,'>');
-        self.parseHTML_(body,url);
+        if(response && response.statusCode === 200) {
+          self.parseHTML_(body,url);
+        }
       }
     });
   }
