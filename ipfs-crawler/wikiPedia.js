@@ -49,14 +49,14 @@ module.exports = class WikiCrawler {
     this.client.keys(redisKeyPrefixTodo + '/*', function (err, keys) {
       if (err) {
         console.log('err=<',err,'>');
-        return;
+        self.onApiError_();
       }
       if(keys.length > 0) {
         console.log('keys[0]=<',keys[0],'>');
         self.client.get(keys[0], function (err, reply) {
         if (err) {
           console.log('err=<',err,'>');
-          return;
+          self.onApiError_();
         }
         console.log('reply=<',reply,'>');
           self.getOneTitle_(reply);
@@ -77,6 +77,9 @@ module.exports = class WikiCrawler {
       if (error && response.statusCode !== 200) {
         console.log('error: error=<',error,'>');
         console.log('error: response=<',response,'>');
+        if(error) {
+          self.onApiError_();
+        }
       } else {
         //console.log('body=<',body,'>');
         self.parseHTML_(body,url);
@@ -125,6 +128,7 @@ module.exports = class WikiCrawler {
       });
     } catch(e) {
       console.log('e=<',e,'>');
+      this.onApiError_();
     }
     this.saveDoneWiki_(url,plainText);
     this.saveLinkedWiki_(hrefsLinks);
@@ -146,6 +150,7 @@ module.exports = class WikiCrawler {
     ipfs.files.add(bufText,function(err, result) {
       if (err) {
         console.log('err=<',err,'>');
+        self.onApiError_();
         return;
       }
       try {
@@ -165,6 +170,7 @@ module.exports = class WikiCrawler {
         }
       } catch(e) {
         console.log('e=<',e,'>');
+        self.onApiError_();
       }
     });
     
@@ -183,6 +189,7 @@ module.exports = class WikiCrawler {
       this.client.keys(redisKeyPrefixDone + '/' + hashLink, function (err, keys) {
         if (err) {
           console.log('err=<',err,'>');
+          self.onApiError_();
           return;
         }
         //console.log('keys=<',keys,'>');
@@ -219,6 +226,9 @@ module.exports = class WikiCrawler {
     sha512.update(msg);
     let hash = sha512.digest('hex');
     return hash;
+  }
+  onApiError_() {
+    process.exit(0);
   }
 }
 
