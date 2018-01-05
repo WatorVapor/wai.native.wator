@@ -103,27 +103,9 @@ module.exports = class WikiCrawler {
         //console.log('elem=<',elem,'>');
         elem.children.forEach( (value, index, ar) => {
           //console.log('value=<',value,'>');
-          if(value.type === 'text') {
-            //console.log('value.data=<',value.data,'>');
-            plainText += value.data;
-          }
-          if(value.type === 'tag' && value.name === 'b') {
-            console.log('value=<',value,'>');
-            value.children.forEach( (valueA, indexA, arA) => {
-              if(valueA.type === 'text') {
-                //console.log('valueA.data=<',valueA.data,'>');
-                plainText += valueA.data;
-              }
-            });
-          }
+          self.getTextAllChildren_(value);
           if(value.type === 'tag' && value.name === 'a') {
             //console.log('value=<',value,'>');
-            value.children.forEach( (valueA, indexA, arA) => {
-              if(valueA.type === 'text') {
-                //console.log('valueA.data=<',valueA.data,'>');
-                plainText += valueA.data;
-              }
-            });
             if(value.attribs.href && value.attribs.href.startsWith(this.prefix)) {
               if(this.replace) {
                 let newHref = value.attribs.href.replace(this.prefix,this.replace);
@@ -148,6 +130,18 @@ module.exports = class WikiCrawler {
     }
     console.log('plainText=<',plainText,'>');
     //console.log('hrefsLinks=<',hrefsLinks,'>');
+  }
+  
+  getTextAllChildren_(elem){
+    if(elem.type === 'text') {
+      //console.log('elem.data=<',elem.data,'>');
+      plainText += elem.data;
+    }
+    if(elem.children && typeof elem.children === 'array') {
+      elem.children.forEach( (valueA, indexA, arA) => {
+        self.getTextAllChildren_(valueA);
+      });
+    }
   }
   
   
