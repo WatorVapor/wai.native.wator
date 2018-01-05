@@ -12,7 +12,7 @@ ipfs.dht.put(key, JSON.stringify(data), function (err) {
   }
 });
 
-ipfs.dht.get(key, function (err, value) {
+ipfs.dht.get(key, { timeout: '100ms' },function (err, value) {
   if(err) {
     console.log('get err=<',err,'>');
   } else {
