@@ -123,8 +123,8 @@ module.exports = class WikiCrawler {
           }
           //console.log('index=<',index,'>');
         });
+        this.plainText += '\n';
       });
-      this.plainText += '\n';
     } catch(e) {
       console.log('e=<',e,'>');
     }
