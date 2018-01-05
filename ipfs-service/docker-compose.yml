@@ -19,7 +19,7 @@ services:
         reservations:
           cpus: '1.50'
           memory: 256M
-    command: ipfs daemon
+    command: ipfs daemon --enable-pubsub-experiment
     restart: always
   ipfs-nginx:
     image: nginx
