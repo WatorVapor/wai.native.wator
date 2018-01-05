@@ -31,6 +31,10 @@ module.exports = class WikiCrawler {
     if(option.tag) {
       this.tag = option.tag;
     }
+    this.dry = false;
+    if(option.dry) {
+      this.dry = option.dry;
+    }
     this.client = redis.createClient();
     //console.log('WikiCrawler::constructor this=<',this,'>');
   }
@@ -129,8 +133,10 @@ module.exports = class WikiCrawler {
     } catch(e) {
       console.log('e=<',e,'>');
     }
-    this.saveDoneWiki_(url,plainText);
-    this.saveLinkedWiki_(hrefsLinks);
+    if(!this.dry) {
+      this.saveDoneWiki_(url,plainText);
+      this.saveLinkedWiki_(hrefsLinks);
+    }
     //console.log('plainText=<',plainText,'>');
     //console.log('hrefsLinks=<',hrefsLinks,'>');
   }
