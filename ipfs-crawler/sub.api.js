@@ -6,4 +6,9 @@ const topic = 'fruit-of-the-day-wator';
 const receiveMsg = (msg) => {
   console.log('receiveMsg msg=<',msg,'>');
 }
-ipfs.pubsub.subscribe(topic, receiveMsg);
+ipfs.pubsub.subscribe(topic, receiveMsg,(err) => {
+  if (err) {
+    throw err
+  }
+  console.log('subscribe topic=<',topic,'>');
+});
