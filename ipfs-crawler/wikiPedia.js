@@ -93,8 +93,9 @@ module.exports = class WikiCrawler {
   
   
   parseHTML_(data,url) {
-    var plainText = '';
-    var hrefsLinks = [];
+    this.plainText = '';
+    let hrefsLinks = [];
+    let self = this;
     try {
       //console.log('data=<',data,'>');
       const $ = cheerio.load(data);
@@ -125,19 +126,20 @@ module.exports = class WikiCrawler {
       console.log('e=<',e,'>');
     }
     if(!this.dry) {
-      this.saveDoneWiki_(url,plainText);
+      this.saveDoneWiki_(url,this.plainText);
       this.saveLinkedWiki_(hrefsLinks);
     }
-    console.log('plainText=<',plainText,'>');
+    console.log('this.plainText=<',this.plainText,'>');
     //console.log('hrefsLinks=<',hrefsLinks,'>');
   }
   
   getTextAllChildren_(elem){
     if(elem.type === 'text') {
       //console.log('elem.data=<',elem.data,'>');
-      plainText += elem.data;
+      this.plainText += elem.data;
     }
     if(elem.children && typeof elem.children === 'array') {
+      let self = this;
       elem.children.forEach( (valueA, indexA, arA) => {
         self.getTextAllChildren_(valueA);
       });
