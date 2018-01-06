@@ -16,3 +16,10 @@ ipfs.files.stat((err,result) => {
   console.log('ipfs.files.stat result=<',result,'>');
 });
 
+ipfs.key.list((err, keys) => {
+  if (err) {
+    return console.log('ipfs.key.list err=<',err,'>');
+  }
+  console.log('ipfs.key.list keys=<',keys,'>');
+});
+
