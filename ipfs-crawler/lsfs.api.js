@@ -9,12 +9,14 @@ ipfs.files.ls('/', (err,result) => {
   console.log('ipfs.files.ls result=<',result,'>');
 });
 
+/*
 ipfs.files.stat((err,result) => {
   if (err) {
     return console.log('ipfs.files.stat err=<',err,'>');
   }
   console.log('ipfs.files.stat result=<',result,'>');
 });
+*/
 
 ipfs.key.list((err, keys) => {
   if (err) {
