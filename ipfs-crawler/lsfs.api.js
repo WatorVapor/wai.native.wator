@@ -22,3 +22,10 @@ ipfs.files.stat('/',(err,result) => {
   }
   console.log('ipfs.files.stat result=<',result,'>');
 });
+
+ipfs.refs.local({},(err,result) => {
+  if (err) {
+    return console.log('ipfs.refs.local err=<',err,'>');
+  }
+  console.log('ipfs.refs.local result=<',result,'>');
+});
