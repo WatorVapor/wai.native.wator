@@ -90,12 +90,12 @@ module.exports = class WikiCrawler {
         console.log('err=<',err,'>');
         self.onApiError_();
       }
-      console.log('res=<',res,'>');
+      //console.log('res=<',res,'>');
       self.cursor = res[0];
       let keys = res[1];
-      console.log('keys=<',keys,'>');
+      //console.log('keys=<',keys,'>');
       if(keys.length > 0) {
-        console.log('keys[0]=<',keys[0],'>');
+        //console.log('keys[0]=<',keys[0],'>');
         self.client.get(keys[0], function (err, wikiUrl) {
         if (err) {
           console.log('err=<',err,'>');
