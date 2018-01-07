@@ -185,6 +185,7 @@ module.exports = class WikiCrawler {
         //console.log('elem=<',elem,'>');
         console.log('elem.data=<',elem.data,'>');
         console.log('typeof elem.data=<',typeof elem.data,'>');
+        console.log('elem.data.length=<',elem.data.length,'>');
       }
       this.plainText += elem.data;
     }
