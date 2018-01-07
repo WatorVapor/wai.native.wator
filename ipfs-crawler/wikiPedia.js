@@ -83,7 +83,7 @@ module.exports = class WikiCrawler {
     let cursor = '0';
     this.client.scan(cursor,
                      'MATCH',redisKeyPrefixTodo + '/*',
-                     'COUNT', '1',
+                     'COUNT', '10',
                      function (err, res) {
       if (err) {
         console.log('err=<',err,'>');
