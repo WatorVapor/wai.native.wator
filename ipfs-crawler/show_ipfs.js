@@ -12,10 +12,12 @@ console.log('refs=<',refs,'>');
 
 var redis = require('redis');
 
-const redisPort = 6379;
-const redisHost = 'master.redis.wator.xyz';
+const redisOption = {
+  port:6379,
+  host:'master.redis.wator.xyz',
+};
 
-var client = redis.createClient(redisPort,redisHost);
+var client = redis.createClient(redisOption);
 
 const redisKeyPrefix = '/wator/wai/crawler/wiki';
 const redisKeyPrefixDone = '/wator/wai/crawler/wiki/done';
