@@ -53,6 +53,7 @@ module.exports = class WikiCrawler {
     this.runTopTodo_();
   }
   
+  /*
   runTopTodo_() {
     let self = this;
     this.client.keys(redisKeyPrefixTodo + '/*', function (err, keys) {
@@ -75,6 +76,39 @@ module.exports = class WikiCrawler {
       }
     });
   }
+  */
+
+  runTopTodo_() {
+    let self = this;
+    let cursor = '0';
+    this.client.scan(cursor,
+                     'MATCH',redisKeyPrefixTodo + '/*',
+                     'COUNT', '10',
+                     function (err, res) {
+      if (err) {
+        console.log('err=<',err,'>');
+        self.onApiError_();
+      }
+      console.log('res=<',res[0],'>');
+      let keys = res[1];
+      console.log('keys=<',keys,'>');
+      if(keys.length > 0) {
+        console.log('keys[0]=<',keys[0],'>');
+        self.client.get(keys[0], function (err, wikiUrl) {
+        if (err) {
+          console.log('err=<',err,'>');
+          self.onApiError_();
+        }
+        console.log('wikiUrl=<',wikiUrl,'>');
+          self.getOneTitle_(wikiUrl);
+        });
+      } else {
+        self.getOneTitle_(self.root + self.seed);
+      }
+    });
+  }
+  
+  
   
   getOneTitle_(url) {
     let options = {
