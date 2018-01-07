@@ -5,6 +5,8 @@ var crypto = require("crypto");
 var ipfsAPI = require('ipfs-api');
 
 
+const redisPort = 6379;
+const redisHost = 'master.redis.wator.xyz';
 
 const redisKeyPrefix = '/wator/wai/crawler/wiki';
 const redisKeyPrefixDone = '/wator/wai/crawler/wiki/done';
@@ -35,7 +37,7 @@ module.exports = class WikiCrawler {
     if(option.dry) {
       this.dry = option.dry;
     }
-    this.client = redis.createClient(6379,'master.redis.wator.xyz');
+    this.client = redis.createClient(redisPort,redisHost);
     //console.log('WikiCrawler::constructor this=<',this,'>');
   }
   
