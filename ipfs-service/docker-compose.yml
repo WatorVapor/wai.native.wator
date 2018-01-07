@@ -17,7 +17,7 @@ services:
           cpus: '4.00'
           memory: 512M
         reservations:
-          cpus: '1.00'
+          cpus: '2.00'
           memory: 256M
     command: ipfs daemon --enable-pubsub-experiment
     restart: always
@@ -33,7 +33,7 @@ services:
           cpus: '1.00'
           memory: 64M
         reservations:
-          cpus: '0.5'
+          cpus: '0.1'
           memory: 32M    
     restart: always
 networks:
