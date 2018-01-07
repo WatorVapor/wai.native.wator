@@ -181,7 +181,10 @@ module.exports = class WikiCrawler {
   
   getTextAllChildren_(elem){
     if(elem.type === 'text') {
-      //console.log('elem.data=<',elem.data,'>');
+      if(this.dry) {
+        console.log('elem=<',elem,'>');
+        //console.log('elem.data=<',elem.data,'>');
+      }
       this.plainText += elem.data;
     }
     if(elem.children && Array.isArray(elem.children)) {
