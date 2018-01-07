@@ -35,7 +35,7 @@ module.exports = class WikiCrawler {
     if(option.dry) {
       this.dry = option.dry;
     }
-    this.client = redis.createClient();
+    this.client = redis.createClient(6379,'master.redis.wator.xyz');
     //console.log('WikiCrawler::constructor this=<',this,'>');
   }
   
