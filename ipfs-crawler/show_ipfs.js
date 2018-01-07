@@ -15,6 +15,7 @@ var redis = require('redis');
 const redisOption = {
   port:6379,
   host:'master.redis.wator.xyz',
+  family:'IPv6'
 };
 
 var client = redis.createClient(redisOption);
