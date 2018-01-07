@@ -84,7 +84,7 @@ module.exports = class WikiCrawler {
     console.log('this.cursor=<',this.cursor,'>');
     this.client.scan(this.cursor,
                      'MATCH',redisKeyPrefixTodo + '/*',
-                     'COUNT', '2',
+                     'COUNT', '1',
                      function (err, res) {
       if (err) {
         console.log('err=<',err,'>');
