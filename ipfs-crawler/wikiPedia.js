@@ -40,6 +40,7 @@ module.exports = class WikiCrawler {
     if(option.dry) {
       this.dry = option.dry;
     }
+    this.cursor = '0';
     this.client = redis.createClient(redisOption);
     //console.log('WikiCrawler::constructor this=<',this,'>');
   }
@@ -80,8 +81,8 @@ module.exports = class WikiCrawler {
 
   runTopTodo_() {
     let self = this;
-    let cursor = '0';
-    this.client.scan(cursor,
+    console.log('this.cursor=<',this.cursor,'>');
+    this.client.scan(this.cursor,
                      'MATCH',redisKeyPrefixTodo + '/*',
                      'COUNT', '2',
                      function (err, res) {
@@ -89,7 +90,8 @@ module.exports = class WikiCrawler {
         console.log('err=<',err,'>');
         self.onApiError_();
       }
-      console.log('res=<',res[0],'>');
+      console.log('res=<',res,'>');
+      self.cursor = res[0];
       let keys = res[1];
       console.log('keys=<',keys,'>');
       if(keys.length > 0) {
