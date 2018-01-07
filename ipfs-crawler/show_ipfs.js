@@ -9,8 +9,13 @@ var refs = ipfs.refs.local((err,result)=>{
 console.log('refs=<',refs,'>');
 */
 
+
 var redis = require('redis');
-var client = redis.createClient();
+
+const redisPort = 6379;
+const redisHost = 'master.redis.wator.xyz';
+
+var client = redis.createClient(redisPort,redisHost);
 
 const redisKeyPrefix = '/wator/wai/crawler/wiki';
 const redisKeyPrefixDone = '/wator/wai/crawler/wiki/done';
