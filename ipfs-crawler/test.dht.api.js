@@ -20,7 +20,7 @@ ipfs.id(function (err, identity) {
 */
 
 
-var key = 'hello.11';
+var key = '9fe394af5829929ade61cc86a3ca6748e8a3c66e0e49ca53430825321d2eaa35215d8ab1514404a0ba1212fa1d71dfb5f4df7536e84306cf27c605a01f6f5fe2';
 var data = {test:true};
 ipfs.dht.put(key, JSON.stringify(data), function (err) {
   if(err) {
