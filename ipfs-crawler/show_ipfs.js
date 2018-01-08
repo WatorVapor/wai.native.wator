@@ -31,6 +31,7 @@ client.keys(redisKeyPrefixIpfs + '/*', function (err, keys) {
   }
   try {
     console.log(redisKeyPrefixIpfs,'keys.length=<',keys.length,'>');
+    console.log(redisKeyPrefixIpfs,'keys[0]=<',keys[0],'>');
   } catch(e) {
     console.log('err=<',err,'>');
   }
