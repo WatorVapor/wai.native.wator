@@ -106,6 +106,7 @@ module.exports = class WikiCrawler {
           self.getOneTitle_(wikiUrl);
         });
       } else {
+        console.log('self.first=<',self.first,'>');
         if(self.first) {
           let wikiUrl = self.root + self.seed;
           console.log('wikiUrl=<',wikiUrl,'>');
