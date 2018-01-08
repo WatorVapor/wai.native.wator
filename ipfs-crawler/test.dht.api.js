@@ -7,6 +7,14 @@ ipfs.id(function (err, identity) {
     return console.log('err=<',err,'>');
   }
   console.log('identity.id=<',identity.id,'>');
+  setTimeout(()=>{
+    ipfs.dht.query(identity.id, (err, peerInfos)=> {
+      if (err) {
+        return console.log('err=<',err,'>');
+      }
+      console.log('peerInfos=<',peerInfos,'>');
+    });
+  },1);
 })
 
 /*
