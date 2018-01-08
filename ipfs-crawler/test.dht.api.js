@@ -27,7 +27,7 @@ ipfs.dht.put(key, JSON.stringify(data), function (err) {
     console.log('put err=<',err,'>');
   } else {
     console.log('put err=<',err,'>');
-    ipfs.dht.get(key, { timeout: '100ms' },function (err, value) {
+    ipfs.dht.get(key, { timeout: '10000ms' },function (err, value) {
       if(err) {
         console.log('get err=<',err,'>');
       } else {
