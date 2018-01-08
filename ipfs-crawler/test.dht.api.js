@@ -6,7 +6,7 @@ ipfs.id(function (err, identity) {
   if (err) {
     return console.log('err=<',err,'>');
   }
-  console.log('identity=<',identity,'>');
+  console.log('identity.id=<',identity.id,'>');
 })
 
 /*
