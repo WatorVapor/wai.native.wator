@@ -42,6 +42,7 @@ module.exports = class WikiCrawler {
     }
     this.cursor = '0';
     this.client = redis.createClient(redisOption);
+    this.first = true;
     //console.log('WikiCrawler::constructor this=<',this,'>');
   }
   
@@ -105,9 +106,16 @@ module.exports = class WikiCrawler {
           self.getOneTitle_(wikiUrl);
         });
       } else {
-        let wikiUrl = self.root + self.seed;
-        console.log('wikiUrl=<',wikiUrl,'>');
-        self.getOneTitle_(wikiUrl);
+        if(self.first) {
+          let wikiUrl = self.root + self.seed;
+          console.log('wikiUrl=<',wikiUrl,'>');
+          self.getOneTitle_(wikiUrl);
+          self.first = false;
+        } else {
+          if(typeof self.cb === 'function') {
+            self.cb();
+          }
+        }
       }
     });
   }
