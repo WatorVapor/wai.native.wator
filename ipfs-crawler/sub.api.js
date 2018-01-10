@@ -3,7 +3,7 @@ var ipfsAPI = require('ipfs-api');
 var ipfs = ipfsAPI('master.ipfs.wator.xyz', '5001', {protocol: 'http'});
 //console.log('ipfs=<',ipfs,'>');
 
-const topic = 'fruit-of-the-day-wator';
+const topic = 'fruit-of-the-day';
 const receiveMsg = (msg) => {
   console.log('receiveMsg msg=<',msg,'>');
 }
