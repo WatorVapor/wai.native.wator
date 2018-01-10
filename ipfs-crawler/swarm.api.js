@@ -3,26 +3,10 @@ var ipfsAPI = require('ipfs-api');
 var ipfs = ipfsAPI('master.ipfs.wator.xyz', '5001', {protocol: 'http'});
 //console.log('ipfs=<',ipfs,'>');
 
-const topic = 'fruit-of-the-day';
-const msg = new Buffer('banana');
-ipfs.pubsub.publish(topic, msg, (err) => {
+ipfs.swarm.peers(function (err, peerInfos) {
   if (err) {
     throw err;
   }
-  console.log('sented msg=<',msg,'>');
+  console.log('peerInfos=<',peerInfos,'>');
 });
-
-ipfs.pubsub.peers(topic, (err, peerIds) => {
-  if (err) {
-    throw err;
-  }
-  console.log('peers peerIds=<',peerIds,'>');
-})
-
-ipfs.pubsub.ls((err, topics) => {
-  if (err) {
-    throw err;
-  }
-  console.log('ls topics=<',topics,'>');
-})
 
