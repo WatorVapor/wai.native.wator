@@ -6,7 +6,7 @@ var ipfs = ipfsAPI('master.ipfs.wator.xyz', '5001', {protocol: 'http'});
 
 //console.log('ipfs=<',ipfs,'>');
 
-const addr = '/ipfs/QmbezGequPwcsWo8UL4wDF6a8hYwM1hmbzYv2mnKkEWaUp'
+const addr = '/ipfs/QmZaddjvL7hd24abTXkedaEa2GCqqb3QPTdA2V6FnN2A24'
 
 ipfs.name.publish(addr, function (err, res) {
   if(err) {
