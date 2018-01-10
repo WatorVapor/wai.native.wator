@@ -7,7 +7,15 @@ const topic = 'fruit-of-the-day-wator';
 const msg = new Buffer('banana');
 ipfs.pubsub.publish(topic, msg, (err) => {
   if (err) {
-    throw err
+    throw err;
   }
   console.log('sented msg=<',msg,'>');
 });
+
+ipfs.pubsub.peers(topic, (err, peerIds) => {
+  if (err) {
+    throw err;
+  }
+  console.log(peerIds)
+})
+
