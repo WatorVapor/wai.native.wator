@@ -6,20 +6,11 @@ var ipfs = ipfsAPI('master.ipfs.wator.xyz', '5001', {protocol: 'http'});
 
 //console.log('ipfs=<',ipfs,'>');
 
-/*
-ipfs.swarm.addrs(function (err, addrs) {
-  if (err) {
+const addr = '/ipfs/QmbezGequPwcsWo8UL4wDF6a8hYwM1hmbzYv2mnKkEWaUp'
+
+ipfs.name.publish(addr, function (err, res) {
+  if(err) {
     throw err;
   }
-  console.log('addrs=<',addrs,'>');
-})
-*/
-
-
-ipfs.swarm.peers(function (err, peerInfos) {
-  if (err) {
-    throw err;
-  }
-  console.log('peerInfos=<',peerInfos,'>');
+  console.log('res=<',res,'>');
 });
-
