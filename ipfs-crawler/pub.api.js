@@ -16,6 +16,13 @@ ipfs.pubsub.peers(topic, (err, peerIds) => {
   if (err) {
     throw err;
   }
-  console.log(peerIds)
+  console.log(peerIds);
+})
+
+ipfs.pubsub.ls((err, topics) => {
+  if (err) {
+    throw err;
+  }
+  console.log(topics);
 })
 
