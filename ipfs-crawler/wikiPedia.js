@@ -124,6 +124,9 @@ module.exports = class WikiCrawler {
         console.log('body=<',body,'>');
         if(response && response.statusCode === 200) {
           self.parseHTML_(body,url);
+        } else {
+          self.todoWritten = true;
+          self.saveDoneWiki_(url,'');
         }
       }
     });
