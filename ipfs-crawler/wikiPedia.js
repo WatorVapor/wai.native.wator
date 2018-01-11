@@ -266,13 +266,13 @@ module.exports = class WikiCrawler {
   
   
   saveLinkedWiki_(hrefsLinks){
-    console.log('hrefsLinks.length=<',hrefsLinks.length,'>');
+    //console.log('hrefsLinks.length=<',hrefsLinks.length,'>');
     let uniqueHrefsLinks = hrefsLinks.filter((animal, index, array) => {
       return array.indexOf(animal) === index;
     });
     
     let counter = uniqueHrefsLinks.length;
-    console.log('counter=<',counter,'>');
+    //console.log('counter=<',counter,'>');
     for(let i = 0;i < uniqueHrefsLinks.length ;i++) {
       let link = uniqueHrefsLinks[i];
       //console.log('link=<',link,'>');
@@ -286,7 +286,7 @@ module.exports = class WikiCrawler {
           return;
         }
         counter -= 1;
-        console.log('resultInDone=<',resultInDone,'>');
+        //console.log('resultInDone=<',resultInDone,'>');
         if(resultInDone) {
           return;
         }
@@ -296,11 +296,11 @@ module.exports = class WikiCrawler {
             self.onApiError_();
             return;
           }
-          console.log('resultTodo=<',resultTodo,'>');
+          //console.log('resultTodo=<',resultTodo,'>');
           if(resultTodo) {
             return;
           }
-          self.client.set(redisKeyPrefixTodo + '/' + hashLink, link,redis.print);
+          self.client.set(redisKeyPrefixTodo + '/' + hashLink, link);
         });
         //console.log('counter=<',counter,'>');
         if(counter === 0) {
