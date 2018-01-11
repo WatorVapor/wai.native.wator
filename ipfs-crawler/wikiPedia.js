@@ -148,7 +148,7 @@ module.exports = class WikiCrawler {
   
   parseHTML_(data,url) {
     this.plainText = '';
-    let hrefsLinks = [];
+    this.hrefsLinks = [];
     let self = this;
     try {
       //console.log('data=<',data,'>');
@@ -159,35 +159,26 @@ module.exports = class WikiCrawler {
         elem.children.forEach( (value, index, ar) => {
           //console.log('value=<',value,'>');
           self.getTextAllChildren_(value);
-          if(value.type === 'tag' && value.name === 'a') {
-            //console.log('value=<',value,'>');
-            if(value.attribs.href && value.attribs.href.startsWith(this.prefix)) {
-              if(this.replace) {
-                let newHref = value.attribs.href.replace(this.prefix,this.replace);
-                //console.log('newHref=<',newHref,'>');
-                hrefsLinks.push(this.root + newHref);
-              } else {
-                hrefsLinks.push(this.root + value.attribs.href);
-              }
-            } else {
-              //console.log('value.attribs.href=<',value.attribs.href,'>');
-            }
-          }
-          //console.log('index=<',index,'>');
         });
         this.plainText += '\n';
+      });
+      $('*').each( (i, elem) => {
+        //console.log('i=<',i,'>');
+        //console.log('elem=<',elem,'>');
+        self.getURLAllChildren_(elem);
       });
     } catch(e) {
       console.log('e=<',e,'>');
     }
     if(!this.dry) {
       this.saveDoneWiki_(url,this.plainText);
-      this.saveLinkedWiki_(hrefsLinks);
+      this.saveLinkedWiki_(this.hrefsLinks);
     } else {
       console.log('this.plainText=<',this.plainText,'>');
+      console.log('this.hrefsLinks=<',this.hrefsLinks,'>');
     }
     //console.log('this.plainText=<',this.plainText,'>');
-    //console.log('hrefsLinks=<',hrefsLinks,'>');
+    //console.log('this.hrefsLinks=<',this.hrefsLinks,'>');
   }
   
   getTextAllChildren_(elem){
@@ -211,6 +202,26 @@ module.exports = class WikiCrawler {
     }
   }
   
+  getURLAllChildren_(elem){
+    let self = this;
+    if(elem.type === 'tag' && elem.name === 'a') {
+      if(elem.attribs.href && elem.attribs.href.startsWith(this.prefix)) {
+      }
+      if(this.replace) {
+        let newHref = elem.attribs.href.replace(this.prefix,this.replace);
+        //console.log('newHref=<',newHref,'>');
+        this.hrefsLinks.push(this.root + newHref);
+      } else {
+        this.hrefsLinks.push(this.root + value.attribs.href);
+      }
+    }
+    elem.children.forEach( (value, index, ar) => {
+      if(value.type === 'tag' && value.name === 'a') {
+        self.getURLAllChildren_(value);
+      }
+    });
+  }
+
   
   saveDoneWiki_(url,plainText){
     let hashURL = this.sha512_(url);
