@@ -83,10 +83,10 @@ module.exports = class WikiCrawler {
           self.getOneTitle_(wikiUrl);
           let escape = new Date() - self.startTP;
           self.wikiDoneCounter++;
-          let doneWikiPerSecond = 1000* self.wikiDoneCounter / escape;
-          console.log('self.wikiDoneCounter=<',self.wikiDoneCounter,'>');
-          console.log('escape=<',escape,'>');
-          console.log('doneWikiPerSecond=<',doneWikiPerSecond,'>');
+          let doneWikiPerMinute  = 60*1000* self.wikiDoneCounter / escape;
+          console.log('self.doneWikiPerMinute=<',self.doneWikiPerMinute,'>');
+          //console.log('escape=<',escape,'>');
+          //console.log('doneWikiPerHout=<',doneWikiPerHout,'>');
         });
       } else {
         console.log('self.first=<',self.first,'>');
