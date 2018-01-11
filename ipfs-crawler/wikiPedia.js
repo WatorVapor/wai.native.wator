@@ -206,13 +206,13 @@ module.exports = class WikiCrawler {
     let self = this;
     if(elem.type === 'tag' && elem.name === 'a') {
       if(elem.attribs.href && elem.attribs.href.startsWith(this.prefix)) {
-      }
-      if(this.replace) {
-        let newHref = elem.attribs.href.replace(this.prefix,this.replace);
-        //console.log('newHref=<',newHref,'>');
-        this.hrefsLinks.push(this.root + newHref);
-      } else {
-        this.hrefsLinks.push(this.root + value.attribs.href);
+        if(this.replace) {
+          let newHref = elem.attribs.href.replace(this.prefix,this.replace);
+          //console.log('newHref=<',newHref,'>');
+          this.hrefsLinks.push(this.root + newHref);
+        } else {
+          this.hrefsLinks.push(this.root + value.attribs.href);
+        }
       }
     }
     elem.children.forEach( (value, index, ar) => {
