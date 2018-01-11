@@ -162,7 +162,7 @@ module.exports = class WikiCrawler {
         });
         this.plainText += '\n';
       });
-      $('p').each( (i, elem) => {
+      $('body').each( (i, elem) => {
         //console.log('i=<',i,'>');
         //console.log('elem=<',elem,'>');
         self.getURLAllChildren_(elem);
