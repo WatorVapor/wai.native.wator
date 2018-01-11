@@ -120,6 +120,7 @@ module.exports = class WikiCrawler {
           self.onApiError_();
         }
       } else {
+        console.log('response=<',response,'>');
         console.log('body=<',body,'>');
         if(response && response.statusCode === 200) {
           self.parseHTML_(body,url);
