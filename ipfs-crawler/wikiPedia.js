@@ -287,7 +287,18 @@ module.exports = class WikiCrawler {
         }
         //console.log('keys=<',keys,'>');
         if(keys.length === 0) {
-          self.client.set(redisKeyPrefixTodo + '/' + hashLink, link);
+          self.client.keys(redisKeyPrefixTodo + '/' + hashLink, function (err, todoKeys) {
+            if (err) {
+              console.log('err=<',err,'>');
+              self.onApiError_();
+              return;
+            }
+            if(todoKeys.length <1) {
+              self.client.set(redisKeyPrefixTodo + '/' + hashLink, link);
+            } else {
+              console.log('todoKeys=<',todoKeys,'>');
+            }
+          }
         }
         counter -= 1;
         //console.log('counter=<',counter,'>');
