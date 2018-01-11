@@ -279,21 +279,21 @@ module.exports = class WikiCrawler {
       let hashLink = this.sha512_(link);
       //console.log('hashLink=<',hashLink,'>');
       let self = this;
-      this.client.keys(redisKeyPrefixDone + '/' + hashLink, function (err, keys) {
+      this.client.get(redisKeyPrefixDone + '/' + hashLink, function (err, resultInDone) {
         if (err) {
           console.log('err=<',err,'>');
           self.onApiError_();
           return;
         }
-        //console.log('keys=<',keys,'>');
+        console.log('resultInDone=<',resultInDone,'>');
         if(keys.length === 0) {
-          self.client.keys(redisKeyPrefixTodo + '/' + hashLink, function (err, todoKeys) {
+          self.client.get(redisKeyPrefixTodo + '/' + hashLink, function (err, resultTodo) {
             if (err) {
               console.log('err=<',err,'>');
               self.onApiError_();
               return;
             }
-            if(todoKeys.length <1) {
+            if(resultTodo.length <1) {
               self.client.set(redisKeyPrefixTodo + '/' + hashLink, link);
             } else {
               console.log('todoKeys=<',todoKeys,'>');
