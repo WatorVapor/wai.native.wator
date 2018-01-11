@@ -43,6 +43,8 @@ module.exports = class WikiCrawler {
     this.cursor = '0';
     this.client = redis.createClient(redisOption);
     this.first = true;
+    this.startTP = new Date();
+    this.wikiDoneCounter = 0;
     //console.log('WikiCrawler::constructor this=<',this,'>');
   }
   
@@ -52,7 +54,7 @@ module.exports = class WikiCrawler {
     this.ipfsWritten = false;
     this.todoWritten = false;
     this.doneWritten = false;
-    this.runTopTodo_();
+    this.runTopTodo_();    
   }
   
   runTopTodo_() {
@@ -73,12 +75,17 @@ module.exports = class WikiCrawler {
       if(keys.length > 0) {
         //console.log('keys[0]=<',keys[0],'>');
         self.client.get(keys[0], function (err, wikiUrl) {
-        if (err) {
-          console.log('err=<',err,'>');
-          self.onApiError_();
-        }
-        console.log('wikiUrl=<',wikiUrl,'>');
+          if (err) {
+            console.log('err=<',err,'>');
+            self.onApiError_();
+          }
+          console.log('wikiUrl=<',wikiUrl,'>');
           self.getOneTitle_(wikiUrl);
+          let escape = new Date() - self.startTP;
+          this.wikiDoneCounter++;
+          console.log('escape=<',escape,'>');
+          let doneWikiPerSecond = 1000* this.wikiDoneCounter / escape;
+          console.log('doneWikiPerSecond=<',doneWikiPerSecond,'>');
         });
       } else {
         console.log('self.first=<',self.first,'>');
