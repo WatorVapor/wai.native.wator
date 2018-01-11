@@ -55,31 +55,6 @@ module.exports = class WikiCrawler {
     this.runTopTodo_();
   }
   
-  /*
-  runTopTodo_() {
-    let self = this;
-    this.client.keys(redisKeyPrefixTodo + '/*', function (err, keys) {
-      if (err) {
-        console.log('err=<',err,'>');
-        self.onApiError_();
-      }
-      if(keys.length > 0) {
-        console.log('keys[0]=<',keys[0],'>');
-        self.client.get(keys[0], function (err, wikiUrl) {
-        if (err) {
-          console.log('err=<',err,'>');
-          self.onApiError_();
-        }
-        console.log('wikiUrl=<',wikiUrl,'>');
-          self.getOneTitle_(wikiUrl);
-        });
-      } else {
-        self.getOneTitle_(self.root + self.seed);
-      }
-    });
-  }
-  */
-
   runTopTodo_() {
     let self = this;
     console.log('this.cursor=<',this.cursor,'>');
