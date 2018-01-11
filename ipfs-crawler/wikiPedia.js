@@ -298,7 +298,7 @@ module.exports = class WikiCrawler {
             } else {
               console.log('todoKeys=<',todoKeys,'>');
             }
-          }
+          });
         }
         counter -= 1;
         //console.log('counter=<',counter,'>');
