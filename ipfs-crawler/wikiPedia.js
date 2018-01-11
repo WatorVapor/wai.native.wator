@@ -206,7 +206,7 @@ module.exports = class WikiCrawler {
     let self = this;
     if(elem.type === 'tag' && elem.name === 'a') {
       if(elem.attribs.href && elem.attribs.href.startsWith(this.prefix) && elem.attribs.title) {
-        console.log('elem.attribs.title=<',elem.attribs.title,'>');
+        console.log('typeof elem.attribs.title=<',typeof elem.attribs.title,'>');
         if(this.replace) {
           let newHref = elem.attribs.href.replace(this.prefix,this.replace);
           //console.log('newHref=<',newHref,'>');
