@@ -285,6 +285,7 @@ module.exports = class WikiCrawler {
           self.onApiError_();
           return;
         }
+        counter -= 1;
         console.log('resultInDone=<',resultInDone,'>');
         if(resultInDone) {
           return;
@@ -299,9 +300,8 @@ module.exports = class WikiCrawler {
           if(resultTodo) {
             return;
           }
-          self.client.set(redisKeyPrefixTodo + '/' + hashLink, link);
+          self.client.set(redisKeyPrefixTodo + '/' + hashLink, link,redis.print);
         });
-        counter -= 1;
         //console.log('counter=<',counter,'>');
         if(counter === 0) {
           self.todoWritten = true;
