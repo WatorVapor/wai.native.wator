@@ -266,9 +266,15 @@ module.exports = class WikiCrawler {
   
   
   saveLinkedWiki_(hrefsLinks){
-    let counter = hrefsLinks.length;
-    for(let i = 0;i < hrefsLinks.length ;i++) {
-      let link = hrefsLinks[i];
+    console.log('hrefsLinks.length=<',hrefsLinks.length,'>');
+    let uniqueHrefsLinks = hrefsLinks.filter((animal, index, array) => {
+      return array.indexOf(animal) === index;
+    });
+    
+    let counter = uniqueHrefsLinks.length;
+    console.log('counter=<',counter,'>');
+    for(let i = 0;i < uniqueHrefsLinks.length ;i++) {
+      let link = uniqueHrefsLinks[i];
       //console.log('link=<',link,'>');
       let hashLink = this.sha512_(link);
       //console.log('hashLink=<',hashLink,'>');
