@@ -166,7 +166,10 @@ module.exports = class WikiCrawler {
       this.saveLinkedWiki_(this.hrefsLinks);
     } else {
       console.log('this.plainText=<',this.plainText,'>');
-      console.log('this.hrefsLinks=<',this.hrefsLinks.join(',\n'),'>');
+      let uniqueHrefsLinks = this.hrefsLinks.filter((animal, index, array) => {
+        return array.indexOf(animal) === index;
+      });
+      console.log('uniqueHrefsLinks=<',uniqueHrefsLinks.join(',\n'),'>');
     }
     //console.log('this.plainText=<',this.plainText,'>');
     //console.log('this.hrefsLinks=<',this.hrefsLinks,'>');
