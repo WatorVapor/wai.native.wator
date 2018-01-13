@@ -16,6 +16,11 @@ const redisKeyPrefixDone = '/wator/wai/crawler/wiki/done';
 const redisKeyPrefixTodo = '/wator/wai/crawler/wiki/todo';
 const redisKeyPrefixIpfs = '/wator/wai/wiki/text';
 
+const filterWiki = [
+  '/Wikipedia:','/Help:','/Portal:',
+  '/Special:', '/Project:','/Category:'
+];
+
 
 var ipfs = ipfsAPI({host: 'localhost', port: '5001', protocol: 'http'});
 
@@ -192,12 +197,23 @@ module.exports = class WikiCrawler {
     if(elem.type === 'tag' && elem.name === 'a') {
       if(elem.attribs.href && elem.attribs.href.startsWith(this.prefix) && typeof elem.attribs.title === 'string') {
         //console.log('typeof elem.attribs.title=<',typeof elem.attribs.title,'>');
-        if(this.replace) {
-          let newHref = elem.attribs.href.replace(this.prefix,this.replace);
-          //console.log('newHref=<',newHref,'>');
-          this.hrefsLinks.push(this.root + newHref);
-        } else {
-          this.hrefsLinks.push(this.root + value.attribs.href);
+        let filterout = false;
+        for(let i = 0;i<filterWiki.length;i++) {
+          let filter = filterWiki[i];
+          if(elem.attribs.href.indexOf(filter) !== -1) {
+            console.log('elem.attribs.href=<',elem.attribs.href,'>');
+            filterout = true;
+            continue;
+          }
+        }
+        if(filterout == false) {
+          if(this.replace) {
+            let newHref = elem.attribs.href.replace(this.prefix,this.replace);
+            //console.log('newHref=<',newHref,'>');
+            this.hrefsLinks.push(this.root + newHref);
+          } else {
+            this.hrefsLinks.push(this.root + value.attribs.href);
+          }
         }
       }
     }
