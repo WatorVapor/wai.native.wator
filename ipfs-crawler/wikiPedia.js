@@ -291,7 +291,7 @@ module.exports = class WikiCrawler {
           return;
         }
         counter -= 1;
-        //console.log('resultInDone=<',resultInDone,'>');
+        console.log('resultInDone=<',resultInDone,'>');
         if(resultInDone) {
           return;
         }
@@ -301,13 +301,13 @@ module.exports = class WikiCrawler {
             self.onApiError_();
             return;
           }
-          //console.log('resultTodo=<',resultTodo,'>');
+          console.log('resultTodo=<',resultTodo,'>');
           if(resultTodo) {
             return;
           }
           self.client.set(redisKeyPrefixTodo + '/' + hashLink, link);
         });
-        //console.log('counter=<',counter,'>');
+        console.log('counter=<',counter,'>');
         if(counter === 0) {
           self.todoWritten = true;
           console.log('self.ipfsWritten=<',self.ipfsWritten,'>');
