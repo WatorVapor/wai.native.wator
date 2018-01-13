@@ -14,10 +14,10 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2.00'
+          cpus: '4.00'
           memory: 512M
         reservations:
-          cpus: '1.00'
+          cpus: '2.00'
           memory: 256M
     command: ipfs daemon --enable-pubsub-experiment
   ipfs-nginx:
