@@ -14,7 +14,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '1.50'
+          cpus: '2.00'
           memory: 512M
         reservations:
           cpus: '1.00'
@@ -34,7 +34,7 @@ services:
           cpus: '1.00'
           memory: 64M
         reservations:
-          cpus: '0.1'
+          cpus: '0.2'
           memory: 32M    
 networks:
   outside:
