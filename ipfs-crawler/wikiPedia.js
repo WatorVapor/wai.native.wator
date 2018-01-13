@@ -65,7 +65,7 @@ module.exports = class WikiCrawler {
   
   runTopTodo_() {
     let self = this;
-    console.log('this.cursor=<',this.cursor,'>');
+    //console.log('this.cursor=<',this.cursor,'>');
     this.client.scan(this.cursor,
                      'MATCH',redisKeyPrefixTodo + '/*',
                      'COUNT', '1',
@@ -95,7 +95,7 @@ module.exports = class WikiCrawler {
           console.log('doneWikiPerMinute=<',doneWikiPerMinute,'>');
         });
       } else {
-        console.log('self.first=<',self.first,'>');
+        //console.log('self.first=<',self.first,'>');
         if(self.first) {
           let wikiUrl = self.root + self.seed;
           console.log('wikiUrl=<',wikiUrl,'>');
