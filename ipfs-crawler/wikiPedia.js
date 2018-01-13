@@ -205,7 +205,7 @@ module.exports = class WikiCrawler {
         for(let i = 0;i<filterWiki.length;i++) {
           let filter = filterWiki[i];
           if(elem.attribs.href.indexOf(filter) !== -1) {
-            console.log('elem.attribs.href=<',elem.attribs.href,'>');
+            //console.log('elem.attribs.href=<',elem.attribs.href,'>');
             filterout = true;
             continue;
           }
