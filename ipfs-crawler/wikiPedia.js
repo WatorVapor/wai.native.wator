@@ -285,12 +285,12 @@ module.exports = class WikiCrawler {
       //console.log('hashLink=<',hashLink,'>');
       let self = this;
       this.client.get(redisKeyPrefixDone + '/' + hashLink, function (err, resultInDone) {
+        counter -= 1;
         if (err) {
           console.log('err=<',err,'>');
           self.onApiError_();
           return;
         }
-        counter -= 1;
         console.log('resultInDone=<',resultInDone,'>');
         if(resultInDone) {
           return;
