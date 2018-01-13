@@ -104,18 +104,16 @@ module.exports = class WikiCrawler {
     });
   }
   
-  
-  
+
   getOneTitle_(url) {
-    console.log('encodeURI(url)=<',encodeURI(url),'>');
     let options = {
-      url:encodeURI(url),
+      url:url,
       encoding: null
     };
     let self = this;
     request.get(options, function (error, response, body) {
       if (error) {
-        console.log('error: encodeURI(url)=<',encodeURI(url),'>');
+        console.log('error: url=<',url,'>');
         console.log('error: error=<',error,'>');
         console.log('error: response=<',response,'>');
         self.onApiError_();
