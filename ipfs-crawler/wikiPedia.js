@@ -114,6 +114,7 @@ module.exports = class WikiCrawler {
     let self = this;
     request.get(options, function (error, response, body) {
       if (error) {
+        console.log('error: encodeURI(url)=<',encodeURI(url),'>');
         console.log('error: error=<',error,'>');
         console.log('error: response=<',response,'>');
         self.onApiError_();
