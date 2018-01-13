@@ -108,7 +108,7 @@ module.exports = class WikiCrawler {
   
   getOneTitle_(url) {
     let options = {
-      url:url,
+      url:encodeURI(url),
       encoding: null
     };
     let self = this;
@@ -116,9 +116,7 @@ module.exports = class WikiCrawler {
       if (error) {
         console.log('error: error=<',error,'>');
         console.log('error: response=<',response,'>');
-        if(error) {
-          self.onApiError_();
-        }
+        self.onApiError_();
       } else {
         //console.log('response=<',response,'>');
         //console.log('body=<',body,'>');
