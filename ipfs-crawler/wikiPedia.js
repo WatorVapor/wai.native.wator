@@ -292,21 +292,19 @@ module.exports = class WikiCrawler {
           return;
         }
         console.log('resultInDone=<',resultInDone,'>');
-        if(resultInDone) {
-          return;
+        if(!resultInDone) {
+          self.client.get(redisKeyPrefixTodo + '/' + hashLink, function (err, resultTodo) {
+            if (err) {
+              console.log('err=<',err,'>');
+              self.onApiError_();
+              return;
+            }
+            console.log('resultTodo=<',resultTodo,'>');
+            if(!resultTodo) {
+              self.client.set(redisKeyPrefixTodo + '/' + hashLink, link);
+            }
+          });
         }
-        self.client.get(redisKeyPrefixTodo + '/' + hashLink, function (err, resultTodo) {
-          if (err) {
-            console.log('err=<',err,'>');
-            self.onApiError_();
-            return;
-          }
-          console.log('resultTodo=<',resultTodo,'>');
-          if(resultTodo) {
-            return;
-          }
-          self.client.set(redisKeyPrefixTodo + '/' + hashLink, link);
-        });
         console.log('counter=<',counter,'>');
         if(counter === 0) {
           self.todoWritten = true;
