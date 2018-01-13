@@ -18,7 +18,8 @@ const redisKeyPrefixIpfs = '/wator/wai/wiki/text';
 
 const filterWiki = [
   '/Wikipedia:','/Help:','/Portal:',
-  '/Special:', '/Project:','/Category:'
+  '/Special:', '/Project:','/Category:',
+  '/Talk:'
 ];
 
 
