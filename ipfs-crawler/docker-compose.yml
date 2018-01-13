@@ -13,7 +13,7 @@ services:
           cpus: '2.00'
           memory: 128M
         reservations:
-          cpus: '1.00'
+          cpus: '0.60'
           memory: 64M
     command: node app.js
     restart: always
