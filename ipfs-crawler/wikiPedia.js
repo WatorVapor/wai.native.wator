@@ -107,6 +107,7 @@ module.exports = class WikiCrawler {
   
   
   getOneTitle_(url) {
+    console.log('encodeURI(url)=<',encodeURI(url),'>');
     let options = {
       url:encodeURI(url),
       encoding: null
