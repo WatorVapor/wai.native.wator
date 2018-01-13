@@ -16,9 +16,6 @@ services:
           cpus: '0.60'
           memory: 64M
     command: node app.js
-    restart: always
-
-
 networks:
   outside:
     external:
