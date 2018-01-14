@@ -123,6 +123,7 @@ module.exports = class WikiCrawler {
         console.log('error: url=<',url,'>');
         console.log('error: error=<',error,'>');
         console.log('error: typeof error=<',typeof error,'>');
+        console.log('error: error.TypeError=<',error.TypeError,'>');
         console.log('error: response=<',response,'>');
         if(error.TypeError === 'ERR_INVALID_CHAR') {
           self.todoWritten = true;
