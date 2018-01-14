@@ -124,7 +124,12 @@ module.exports = class WikiCrawler {
         console.log('error: error=<',error,'>');
         console.log('error: typeof error=<',typeof error,'>');
         console.log('error: response=<',response,'>');
-        self.onApiError_();
+        if(error.TypeError === 'ERR_INVALID_CHAR') {
+          self.todoWritten = true;
+          self.saveDoneWiki_(url,'');
+        } else {
+          self.onApiError_();
+        }
       } else {
         //console.log('response=<',response,'>');
         //console.log('body=<',body,'>');
