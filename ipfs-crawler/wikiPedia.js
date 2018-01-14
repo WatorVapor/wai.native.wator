@@ -122,6 +122,7 @@ module.exports = class WikiCrawler {
       if (error) {
         console.log('error: url=<',url,'>');
         console.log('error: error=<',error,'>');
+        console.log('error: typeof error=<',typeof error,'>');
         console.log('error: response=<',response,'>');
         self.onApiError_();
       } else {
