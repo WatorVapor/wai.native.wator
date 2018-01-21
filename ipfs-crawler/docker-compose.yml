@@ -1,7 +1,7 @@
 version: '3'
 services:
   ipfs-crawler:
-    image: node
+    image: node:alpine
     volumes:
       - ./:/crawler_app
     working_dir: "/crawler_app"
