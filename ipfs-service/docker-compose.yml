@@ -21,7 +21,7 @@ services:
           memory: 256M
     command: ipfs daemon --enable-pubsub-experiment
   ipfs-nginx:
-    image: nginx/alpine
+    image: nginx:alpine
     networks:
       - outside
     volumes:
