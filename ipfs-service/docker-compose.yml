@@ -1,7 +1,7 @@
 version: '3'
 services:
   ipfs-dameon:
-    image: golang
+    image: golang:alpine
     volumes:
       - ./go-ipfs:/ipfs
       - ./storage-ipfs:/storage
@@ -21,7 +21,7 @@ services:
           memory: 256M
     command: ipfs daemon --enable-pubsub-experiment
   ipfs-nginx:
-    image: nginx
+    image: nginx/alpine
     networks:
       - outside
     volumes:
