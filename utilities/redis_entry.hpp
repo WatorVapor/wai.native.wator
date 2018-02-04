@@ -18,7 +18,7 @@ public:
     RedisClient(boost::asio::io_service &ioService)
         : ioService(ioService)
     {}
-    void onMessage(const std::vector<char> &buf);
+    void onMessageAPI(const std::vector<char> &buf);
 private:
     boost::asio::io_service &ioService;
 };
