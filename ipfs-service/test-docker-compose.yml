@@ -1,0 +1,13 @@
+version: '2'
+services:
+  ipfs-dameon-test:
+    image: golang
+    volumes:
+      - ./go-ipfs:/ipfs
+      - ./storage-ipfs:/storage
+      - ./conf-ipfs:/conf
+    environment:
+      - PATH=/ipfs:$PATH
+      - IPFS_PATH=/storage
+    command: /conf/test.sh
+    restart: "no"

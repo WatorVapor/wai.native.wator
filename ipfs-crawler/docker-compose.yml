@@ -1,0 +1,22 @@
+version: '3'
+services:
+  ipfs-crawler:
+    image: node:slim
+    volumes:
+      - ./:/crawler_app
+    working_dir: "/crawler_app"
+    networks:
+      - outside
+    deploy:
+      resources:
+        limits:
+          cpus: '2.00'
+          memory: 128M
+        reservations:
+          cpus: '0.60'
+          memory: 64M
+    command: node app.js
+networks:
+  outside:
+    external:
+      name: "host"
