@@ -10,6 +10,7 @@ include_directories(./)
 include_directories(./watorword)
 include_directories(./utilities)
 include_directories(./tools)
+include_directories(./redisclient/src)
 
 set(LIBS
   boost_filesystem
@@ -124,6 +125,7 @@ add_library(utilitieswator
   utilities/dictstorage.cpp
   utilities/trainstorage.cpp
   utilities/udp_entry.cpp
+  utilities/redis_entry.cpp
   utilities/log.cpp
 )
 
