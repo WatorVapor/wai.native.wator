@@ -9,3 +9,16 @@
 #include <thread>
 using namespace std;
 
+#include <boost/asio/ip/address.hpp>
+#include <redisclient/redisasyncclient.h>
+
+class RedisClient
+{
+public:
+    RedisClient(boost::asio::io_service &ioService)
+        : ioService(ioService)
+    {}
+    void onMessage(const std::vector<char> &buf);
+private:
+    boost::asio::io_service &ioService;
+};
