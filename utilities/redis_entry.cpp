@@ -29,5 +29,6 @@ void redis_main(void) {
 
 
 void RedisClient::onMessageAPI(const std::vector<char> &buf) {
-  DUMP_VAR(buf);
+  string msg(buf.begin(),buf.end());
+  DUMP_VAR(msg);
 }
