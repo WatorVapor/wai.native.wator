@@ -4,8 +4,11 @@
 using namespace std;
 
 void api_upd_main(void);
+void redis_main(void);
 int main(int ac, char *av[]) {
-  std::thread t(api_upd_main);
-  t.join();
+  std::thread t1(api_upd_main);
+  std::thread t2(redis_main);
+  t1.join();
+  t2.join();
   return 0;
 }
