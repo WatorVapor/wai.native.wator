@@ -8,7 +8,7 @@ void redis_main(void) {
   const unsigned short port = 6379;
   boost::asio::ip::tcp::endpoint endpoint(address, port);
   boost::asio::io_service ioService;
-  RedisClient client(ioService);
+  RedisEntryClient client(ioService);
   redisclient::RedisAsyncClient publisher(ioService);
   publisher.connect(endpoint, [&](boost::system::error_code ec) {
     if(ec) {
@@ -21,8 +21,12 @@ void redis_main(void) {
     if(ec) {
       DUMP_VAR(ec);
     } else {
-      subscriber.subscribe(strConstTrainChannelName,std::bind(&RedisClient::onMessageAPI, &client, std::placeholders::_1));
+      subscriber.subscribe(strConstTrainChannelName,std::bind(&RedisEntryClient::onMessageAPI, &client, std::placeholders::_1));
     }
   });  
   ioService.run();
+}
+void RedisEntryClient::onMessageAPI(const std::vector<char> &buf) {
+  string msg(buf.begin(),buf.end());
+  DUMP_VAR(msg);
 }
