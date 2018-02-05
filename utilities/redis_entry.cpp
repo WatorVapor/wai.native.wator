@@ -26,6 +26,8 @@ void redis_main(void) {
   });  
   ioService.run();
 }
-RedisClient::onMessageAPI(const std::vector<char> &buf) {
+
+
+void RedisClient::onMessageAPI(const std::vector<char> &buf) {
   DUMP_VAR(buf);
 }
