@@ -12,10 +12,10 @@ using namespace std;
 #include <boost/asio/ip/address.hpp>
 #include <redisclient/redisasyncclient.h>
 
-class RedisClient
+class RedisEntryClient
 {
 public:
-    RedisClient(boost::asio::io_service &ioService)
+    RedisEntryClient(boost::asio::io_service &ioService)
         : ioService(ioService)
     {}
     void onMessageAPI(const std::vector<char> &buf);
