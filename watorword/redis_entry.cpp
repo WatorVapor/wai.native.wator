@@ -8,6 +8,7 @@ void redis_main(void) {
     boost::asio::ip::address address = boost::asio::ip::address::from_string("master.redis.wator.xyz");
     const unsigned short port = 6379;
     boost::asio::ip::tcp::endpoint endpoint(address, port);
+    DUMP_VAR(endpoint);
     boost::asio::io_service ioService;
     RedisEntryClient client(ioService);
     redisclient::RedisAsyncClient publisher(ioService);
