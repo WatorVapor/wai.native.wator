@@ -6,7 +6,7 @@ const string strConstTrainChannelName("wai.train");
 void redis_main(void) {
   try{
     boost::asio::io_service ioService;
-    boost::asio::ip::tcp::resolver resolver(io_service);
+    boost::asio::ip::tcp::resolver resolver(ioService);
     boost::asio::ip::tcp::resolver::query query("master.redis.wator.xyz", "6379");
     boost::asio::ip::tcp::resolver::iterator iter = resolver.resolve(query);
     boost::asio::ip::tcp::endpoint endpoint = iter->endpoint();
