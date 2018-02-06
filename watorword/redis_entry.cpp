@@ -18,7 +18,9 @@ void redis_main(void) {
         DUMP_VAR(ec);
       } else {
       }
+      DUMP_VAR(ec);
     });
+    DUMP_VAR(publisher);
     redisclient::RedisAsyncClient subscriber(ioService);
     subscriber.connect(endpoint, [&](boost::system::error_code ec){
       if(ec) {
@@ -26,7 +28,9 @@ void redis_main(void) {
       } else {
         subscriber.subscribe(strConstTrainChannelName,std::bind(&RedisEntryClient::onMessageAPI, &client, std::placeholders::_1));
       }
-    });  
+      DUMP_VAR(ec);
+    });
+    DUMP_VAR(subscriber);
     ioService.run();
   } catch(std::exception e) {
     DUMP_VAR(e.what());
