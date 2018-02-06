@@ -6,6 +6,7 @@ const string strConstTrainChannelName("wai.train");
 void redis_main(void) {
   try{
     boost::asio::ip::address address = boost::asio::ip::address::from_string("master.redis.wator.xyz");
+    DUMP_VAR(address);
     const unsigned short port = 6379;
     boost::asio::ip::tcp::endpoint endpoint(address, port);
     DUMP_VAR(endpoint);
