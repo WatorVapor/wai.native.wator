@@ -5,12 +5,12 @@ const string strConstTrainChannelName("wai.train");
 
 void redis_main(void) {
   try{
-    boost::asio::ip::address address = boost::asio::ip::address::from_string("master.redis.wator.xyz");
-    DUMP_VAR(address);
-    const unsigned short port = 6379;
-    boost::asio::ip::tcp::endpoint endpoint(address, port);
-    DUMP_VAR(endpoint);
     boost::asio::io_service ioService;
+    boost::asio::ip::tcp::resolver resolver(io_service);
+    boost::asio::ip::tcp::resolver::query query("master.redis.wator.xyz", "6379");
+    boost::asio::ip::tcp::resolver::iterator iter = resolver.resolve(query);
+    boost::asio::ip::tcp::endpoint endpoint = iter->endpoint();
+    DUMP_VAR(endpoint);
     RedisEntryClient client(ioService);
     redisclient::RedisAsyncClient publisher(ioService);
     publisher.connect(endpoint, [&](boost::system::error_code ec) {
