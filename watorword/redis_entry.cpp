@@ -2,6 +2,7 @@
 #include "log.hpp"
 
 const string strConstTrainChannelName("wai.train");
+const string strConstTrainResponseChannelName("wai.train.response");
 
 #include<memory>
 std::shared_ptr<redisclient::RedisAsyncClient> gPublish;
@@ -46,4 +47,8 @@ void RedisEntryClient::onMessageAPI(const std::vector<char> &buf) {
   DUMP_VAR(msg);
   auto result = processText(msg);
   DUMP_VAR(result);
+  if(gPublish && result.empty()==false) {
+    gPublish->publish(strConstTrainResponseChannelName, result,[&](const redisclient::RedisValue &) {
+    });
+  }
 }
