@@ -2,4 +2,4 @@
 Storage=`pwd`/storage-ipfs
 export IPFS_PATH=${Storage}
 env
-#ipfs init
+go-ipfs/ipfs init
