@@ -6,6 +6,7 @@ var ipfs = ipfsAPI('master.ipfs.wator.xyz', '5001', {protocol: 'http'});
 const topic = 'fruit-of-the-day';
 const receiveMsg = (msg) => {
   console.log('receiveMsg msg=<',msg,'>');
+  console.trace();
 }
 ipfs.pubsub.subscribe(topic, receiveMsg,(err) => {
   if (err) {
