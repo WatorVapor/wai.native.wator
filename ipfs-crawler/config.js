@@ -1,7 +1,10 @@
 var ipfsAPI = require('ipfs-api');
-var ipfs = ipfsAPI({host: 'localhost', port: '5001', protocol: 'http'});
-var refs = ipfs.refs.local((err,result)=>{
-  console.log('err=<',err,'>');
-  console.log('result=<',result,'>');
-});
-console.log('refs=<',refs,'>');
+//var ipfs = ipfsAPI('/ip4/127.0.0.1/tcp/5001');
+var ipfs = ipfsAPI('master.ipfs.wator.xyz', '5001', {protocol: 'http'});
+
+ipfs.config.get('*',(err, config) => {
+  if (err) {
+    throw err
+  }
+  console.log('get::config=<',config,'')
+})
