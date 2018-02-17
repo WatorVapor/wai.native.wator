@@ -11,10 +11,10 @@ services:
       resources:
         limits:
           cpus: '2.00'
-          memory: 128M
+          memory: 64M
         reservations:
           cpus: '0.60'
-          memory: 64M
+          memory: 32M
     command: node app.js
 networks:
   outside:
