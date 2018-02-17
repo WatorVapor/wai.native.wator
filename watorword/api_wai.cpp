@@ -44,11 +44,16 @@ string processText(const string &text) {
     auto langOpt = configJson.get_optional<string>("lang");
     if (langOpt) {
       gLang = langOpt.get();
-      return "";
+    }
+    auto sentenceOpt = configJson.get_optional<string>("sentence");
+    if (sentenceOpt) {
+      auto text = sentenceOpt.get();
+      return processWord(text,gLang);
+      
     }
   } catch (boost::exception &e) {
     DUMP_VAR(boost::diagnostic_information(e));
-    return processWord(text,gLang);
+    return "";
   }
   return "";
 }
