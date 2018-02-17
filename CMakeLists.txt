@@ -11,6 +11,7 @@ include_directories(./watorword)
 include_directories(./utilities)
 include_directories(./tools)
 include_directories(./redisclient/src)
+include_directories(./nlohmann-json/include)
 
 set(LIBS
   boost_filesystem
