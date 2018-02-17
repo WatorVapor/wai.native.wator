@@ -84,8 +84,12 @@ void RedisEntryClient::onMessageAPI(const std::vector<char> &buf) {
     result = emptyObj.dump();
   }
   DUMP_VAR2(gPublish,result);
-  if(gPublishConnected && gPublish && isConnected->isConnected()) {
-    gPublish->publish(strConstTrainResponseChannelName, result,[&](const redisclient::RedisValue &) {
-    });
+  if(gPublishConnected && gPublish ) {
+    if(gPublish->isConnected()) {
+      gPublish->publish(strConstTrainResponseChannelName, result,[&](const redisclient::RedisValue &) {
+      });
+    } else {
+      DUMP_VAR(gPublish->isConnected());
+    }
   }
 }
