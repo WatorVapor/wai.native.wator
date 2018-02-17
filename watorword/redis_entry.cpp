@@ -7,6 +7,7 @@ const string strConstTrainResponseChannelName("wai.train.response");
 #include<memory>
 #include <chrono>
 #include <thread>
+#include <atomic>
 
 void redis_sub_main(void) {
   boost::asio::io_service ioService;
