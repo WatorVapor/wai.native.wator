@@ -56,6 +56,8 @@ void redis_pub_main(void) {
   }
 }
 
+#include <nlohmann/json.hpp>
+using json = nlohmann::json;
 
 string processText(const string &text);
 void RedisEntryClient::onMessageAPI(const std::vector<char> &buf) {
@@ -65,7 +67,8 @@ void RedisEntryClient::onMessageAPI(const std::vector<char> &buf) {
   auto result = processText(msg);
   TRACE_VAR(result);
   if(result.empty()) {
-    result = "{\"finnish\":true}";
+    json emptyObj = {{"finnish",true}};
+    result = emptyObj.dump();;
   }
   DUMP_VAR2(gPublish,result);
   if(gPublish) {
