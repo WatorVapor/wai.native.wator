@@ -64,8 +64,12 @@ void RedisEntryClient::onMessageAPI(const std::vector<char> &buf) {
   
   auto result = processText(msg);
   DUMP_VAR(result);
-  if(gPublish && result.empty()==false) {
-    gPublish->publish(strConstTrainResponseChannelName, result,[&](const redisclient::RedisValue &) {
-    });
+  if(gPublish) {
+    if(result.empty()) {
+      gPublish->publish(strConstTrainResponseChannelName, "{}",[&](const redisclient::RedisValue &) {
+      });
+    } else {
+      gPublish->publish(strConstTrainResponseChannelName, result,[&](const redisclient::RedisValue &) {
+    }
   }
 }
