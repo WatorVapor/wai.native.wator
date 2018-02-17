@@ -64,13 +64,13 @@ void RedisEntryClient::onMessageAPI(const std::vector<char> &buf) {
   
   auto result = processText(msg);
   DUMP_VAR(result);
+  if(result.empty()) {
+    result = "{\"finnish\":true}";
+  }
+  DUMP_VAR(result);
+  DUMP_VAR(gPublish);
   if(gPublish) {
-    if(result.empty()) {
-      gPublish->publish(strConstTrainResponseChannelName, "{\"finnish\":true}",[&](const redisclient::RedisValue &) {
-      });
-    } else {
-      gPublish->publish(strConstTrainResponseChannelName, result,[&](const redisclient::RedisValue &) {
-      });
-    }
+    gPublish->publish(strConstTrainResponseChannelName, result,[&](const redisclient::RedisValue &) {
+    });
   }
 }
