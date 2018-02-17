@@ -15,10 +15,10 @@ services:
       resources:
         limits:
           cpus: '4.00'
-          memory: 512M
+          memory: 768M
         reservations:
           cpus: '2.00'
-          memory: 256M
+          memory: 512M
     command: ipfs daemon --enable-pubsub-experiment
   ipfs-nginx:
     image: nginx
@@ -32,10 +32,10 @@ services:
       resources:
         limits:
           cpus: '1.00'
-          memory: 64M
+          memory: 32M
         reservations:
           cpus: '0.2'
-          memory: 32M    
+          memory: 16M    
 networks:
   outside:
     external:
