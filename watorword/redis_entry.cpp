@@ -36,7 +36,9 @@ void redis_sub_main(void) {
 }
 
 
-std::shared_ptr<redisclient::RedisAsyncClient> gPublish;
+static std::shared_ptr<redisclient::RedisAsyncClient> gPublish;
+static std::atomic_bool gPublishConnected(false);
+
 
 void redis_pub_main(void) {
   boost::asio::io_service ioService;
@@ -54,12 +56,14 @@ void redis_pub_main(void) {
           DUMP_VAR(ec);
         } else {
           DUMP_VAR(ec);
+          gPublishConnected = true;
         }
       });
       ioService.run();
     } catch(std::exception e) {
       DUMP_VAR(e.what());
     }
+    gPublishConnected = false;
     std::this_thread::sleep_for(10s);
   }
 }
@@ -79,7 +83,7 @@ void RedisEntryClient::onMessageAPI(const std::vector<char> &buf) {
     result = emptyObj.dump();
   }
   DUMP_VAR2(gPublish,result);
-  if(gPublish) {
+  if(gPublishConnected && gPublish) {
     gPublish->publish(strConstTrainResponseChannelName, result,[&](const redisclient::RedisValue &) {
     });
   }
