@@ -45,12 +45,11 @@ string processText(const string &text);
 void RedisEntryClient::onMessageAPI(const std::vector<char> &buf) {
   string msg(buf.begin(),buf.end());
   DUMP_VAR(msg);
-  /*
+  
   auto result = processText(msg);
   DUMP_VAR(result);
   if(gPublish && result.empty()==false) {
     gPublish->publish(strConstTrainResponseChannelName, result,[&](const redisclient::RedisValue &) {
     });
   }
-  */
 }
