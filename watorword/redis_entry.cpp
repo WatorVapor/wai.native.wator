@@ -63,7 +63,7 @@ void RedisEntryClient::onMessageAPI(const std::vector<char> &buf) {
   DUMP_VAR(msg);
   
   auto result = processText(msg);
-  DUMP_VAR(result);
+  TRACE_VAR(result);
   if(result.empty()) {
     result = "{\"finnish\":true}";
   }
