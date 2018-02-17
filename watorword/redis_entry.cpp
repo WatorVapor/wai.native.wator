@@ -66,8 +66,7 @@ void RedisEntryClient::onMessageAPI(const std::vector<char> &buf) {
   
   auto result = processText(msg);
   TRACE_VAR(result);
-  //if(result.empty())
-  {
+  if(result.empty()) {
     auto  emptyObj = R"({"finnish": true})"_json;
     result = emptyObj.dump();
   }
