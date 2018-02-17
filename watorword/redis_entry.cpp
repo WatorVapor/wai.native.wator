@@ -10,16 +10,16 @@ const string strConstTrainResponseChannelName("wai.train.response");
 #include <atomic>
 
 void redis_sub_main(void) {
-  boost::asio::io_service ioService;
-  boost::asio::ip::tcp::resolver resolver(ioService);
-  boost::asio::ip::tcp::resolver::query query("master.redis.wator.xyz", "6379");
-  boost::asio::ip::tcp::resolver::iterator iter = resolver.resolve(query);
-  boost::asio::ip::tcp::endpoint endpoint = iter->endpoint();
-  DUMP_VAR(endpoint);
-  RedisEntryClient client(ioService);
-  redisclient::RedisAsyncClient subscriber(ioService);
   for(;;) {
     try{
+      boost::asio::io_service ioService;
+      boost::asio::ip::tcp::resolver resolver(ioService);
+      boost::asio::ip::tcp::resolver::query query("master.redis.wator.xyz", "6379");
+      boost::asio::ip::tcp::resolver::iterator iter = resolver.resolve(query);
+      boost::asio::ip::tcp::endpoint endpoint = iter->endpoint();
+      DUMP_VAR(endpoint);
+      RedisEntryClient client(ioService);
+      redisclient::RedisAsyncClient subscriber(ioService);
       subscriber.connect(endpoint, [&](boost::system::error_code ec){
         if(ec) {
           DUMP_VAR(ec);
@@ -42,16 +42,16 @@ static std::atomic_bool gPublishConnected(false);
 
 
 void redis_pub_main(void) {
-  boost::asio::io_service ioService;
-  boost::asio::ip::tcp::resolver resolver(ioService);
-  boost::asio::ip::tcp::resolver::query query("master.redis.wator.xyz", "6379");
-  boost::asio::ip::tcp::resolver::iterator iter = resolver.resolve(query);
-  boost::asio::ip::tcp::endpoint endpoint = iter->endpoint();
-  DUMP_VAR(endpoint);
-  RedisEntryClient client(ioService);
-  gPublish = std::make_shared<redisclient::RedisAsyncClient>(ioService);
   for(;;) {
     try {
+      boost::asio::io_service ioService;
+      boost::asio::ip::tcp::resolver resolver(ioService);
+      boost::asio::ip::tcp::resolver::query query("master.redis.wator.xyz", "6379");
+      boost::asio::ip::tcp::resolver::iterator iter = resolver.resolve(query);
+      boost::asio::ip::tcp::endpoint endpoint = iter->endpoint();
+      DUMP_VAR(endpoint);
+      RedisEntryClient client(ioService);
+      gPublish = std::make_shared<redisclient::RedisAsyncClient>(ioService);
       gPublish->connect(endpoint, [&](boost::system::error_code ec) {
         if(ec) {
           DUMP_VAR(ec);
