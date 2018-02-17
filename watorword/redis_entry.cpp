@@ -70,6 +70,7 @@ void RedisEntryClient::onMessageAPI(const std::vector<char> &buf) {
       });
     } else {
       gPublish->publish(strConstTrainResponseChannelName, result,[&](const redisclient::RedisValue &) {
+      });
     }
   }
 }
