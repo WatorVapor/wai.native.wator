@@ -43,7 +43,9 @@ ipfs.config.set('API.HTTPHeaders.Access-Control-Allow-Methods',methods,(err, rep
   console.log('set API.HTTPHeaders.Access-Control-Allow-Methods::reply=<',reply,'')
 })
 
-ipfs.config.set('API.HTTPHeaders.Access-Control-Allow-Origin','*',(err, reply) => {
+let api_origins = ['*'];
+
+ipfs.config.set('API.HTTPHeaders.Access-Control-Allow-Origin',api_origins,(err, reply) => {
   if (err) {
     throw err
   }
