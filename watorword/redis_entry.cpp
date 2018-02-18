@@ -38,7 +38,7 @@ void redis_sub_main(void) {
 
 
 static std::weak_ptr<redisclient::RedisAsyncClient> gPublishRef;
-static std::atomic_bool gPublishConnected(false);
+//static std::atomic_bool gPublishConnected(false);
 
 
 void redis_pub_main(void) {
@@ -59,7 +59,7 @@ void redis_pub_main(void) {
           DUMP_VAR(ec);
         } else {
           DUMP_VAR(ec);
-          gPublishConnected = true;
+          //gPublishConnected = true;
         }
       });
       DUMP_VAR(publish);
@@ -67,7 +67,7 @@ void redis_pub_main(void) {
     } catch(std::exception e) {
       DUMP_VAR(e.what());
     }
-    gPublishConnected = false;
+    //gPublishConnected = false;
     std::this_thread::sleep_for(10s);
   }
 }
@@ -88,12 +88,10 @@ void RedisEntryClient::onMessageAPI(const std::vector<char> &buf) {
   }
   auto publish = gPublishRef.lock();
   DUMP_VAR2(publish,result);
-  if(gPublishConnected && publish ) {
-    if(publish->isConnected()) {
+  if(publish &&publish->isConnected()) {
       publish->publish(strConstTrainResponseChannelName, result,[&](const redisclient::RedisValue &) {
       });
-    } else {
-      DUMP_VAR(publish->isConnected());
-    }
+  } else {
+      DUMP_VAR(publish);
   }
 }
