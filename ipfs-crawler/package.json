@@ -604,7 +604,7 @@
       "resolved": "https://registry.npmjs.org/ip/-/ip-1.1.5.tgz",
       "version": "1.1.5"
     },
-    "ipfs-api": "^17.2.6",
+    "ipfs-api": "^17.5.0",
     "ipfs-block": {
       "integrity": "sha512-28dgGsb2YsYnFs+To4cVBX8e/lTCb8eWDzGhN5csj3a/sHMOYrHeK8+Ez0IV67CI3lqKGuG/ZD01Cmd6JUvKrQ==",
       "requires": {
