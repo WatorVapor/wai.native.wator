@@ -25,6 +25,7 @@ services:
     networks:
       - outside
     volumes:
+      - /watorvapor/cert/www.wator.xyz:/etc/certs/www.wator.xyz
       - ./conf-nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./conf-nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
       - ./conf-nginx/tcp.conf.d:/etc/nginx/tcp.conf.d:ro
