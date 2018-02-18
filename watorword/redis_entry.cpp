@@ -37,7 +37,7 @@ void redis_sub_main(void) {
 }
 
 
-static std::shared_ptr<redisclient::RedisAsyncClient> gPublish;
+static std::weak_ptr<redisclient::RedisAsyncClient> gPublishRef;
 static std::atomic_bool gPublishConnected(false);
 
 
@@ -51,9 +51,10 @@ void redis_pub_main(void) {
       boost::asio::ip::tcp::endpoint endpoint = iter->endpoint();
       DUMP_VAR(endpoint);
       RedisEntryClient client(ioService);
-      gPublish = std::make_shared<redisclient::RedisAsyncClient>(ioService);
+      auto publish = std::make_shared<redisclient::RedisAsyncClient>(ioService);
       DUMP_VAR(gPublish);
-      gPublish->connect(endpoint, [&](boost::system::error_code ec) {
+      gPublishRef = publish;
+      publish->connect(endpoint, [&](boost::system::error_code ec) {
         if(ec) {
           DUMP_VAR(ec);
         } else {
@@ -61,16 +62,12 @@ void redis_pub_main(void) {
           gPublishConnected = true;
         }
       });
-      DUMP_VAR(gPublish);
+      DUMP_VAR(publish);
       ioService.run();
     } catch(std::exception e) {
       DUMP_VAR(e.what());
     }
     gPublishConnected = false;
-    if(gPublish && gPublish->isConnected()) {
-      gPublish->disconnect();
-    }
-    gPublish= nullptr;
     std::this_thread::sleep_for(10s);
   }
 }
@@ -90,12 +87,12 @@ void RedisEntryClient::onMessageAPI(const std::vector<char> &buf) {
     result = emptyObj.dump();
   }
   DUMP_VAR2(gPublish,result);
-  if(gPublishConnected && gPublish ) {
-    if(gPublish->isConnected()) {
-      gPublish->publish(strConstTrainResponseChannelName, result,[&](const redisclient::RedisValue &) {
+  if(gPublishConnected && gPublishRef ) {
+    if(gPublishRef->isConnected()) {
+      gPublishRef->publish(strConstTrainResponseChannelName, result,[&](const redisclient::RedisValue &) {
       });
     } else {
-      DUMP_VAR(gPublish->isConnected());
+      DUMP_VAR(gPublishRef->isConnected());
     }
   }
 }
