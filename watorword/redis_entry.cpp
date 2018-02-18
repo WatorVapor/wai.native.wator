@@ -52,6 +52,7 @@ void redis_pub_main(void) {
       DUMP_VAR(endpoint);
       RedisEntryClient client(ioService);
       gPublish = std::make_shared<redisclient::RedisAsyncClient>(ioService);
+      DUMP_VAR(gPublish);
       gPublish->connect(endpoint, [&](boost::system::error_code ec) {
         if(ec) {
           DUMP_VAR(ec);
@@ -60,6 +61,7 @@ void redis_pub_main(void) {
           gPublishConnected = true;
         }
       });
+      DUMP_VAR(gPublish);
       ioService.run();
     } catch(std::exception e) {
       DUMP_VAR(e.what());
