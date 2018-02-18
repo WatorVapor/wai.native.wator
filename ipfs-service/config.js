@@ -18,8 +18,9 @@ ipfs.config.get('Datastore.StorageMax',(err, config) => {
 })
 
 let methods = ['GET','POST'];
+JSON.stringify(methods);
 
-ipfs.config.set('Gateway.HTTPHeaders.Access-Control-Allow-Methods',JSON.stringify(methods),(err, reply) => {
+ipfs.config.set('Gateway.HTTPHeaders.Access-Control-Allow-Methods',methods,(err, reply) => {
   if (err) {
     throw err
   }
