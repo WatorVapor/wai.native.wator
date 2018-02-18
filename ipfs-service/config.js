@@ -16,3 +16,10 @@ ipfs.config.get('Datastore.StorageMax',(err, config) => {
   }
   console.log('get::config=<',config,'')
 })
+
+ipfs.config.get('Gateway.HTTPHeaders.Access-Control-Allow-Methods',(err, config) => {
+  if (err) {
+    throw err
+  }
+  console.log('get:: Gateway.HTTPHeaders.Access-Control-Allow-Methods config=<',config,'')
+})
