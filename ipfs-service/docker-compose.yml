@@ -1,7 +1,7 @@
 version: '3'
 services:
   ipfs-dameon:
-    image: golang:alpine
+    image: golang
     volumes:
       - ./go-ipfs:/ipfs
       - ./storage-ipfs:/storage
