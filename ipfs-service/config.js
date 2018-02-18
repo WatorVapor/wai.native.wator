@@ -35,3 +35,18 @@ ipfs.config.get('Gateway.HTTPHeaders.Access-Control-Allow-Methods',(err, config)
 })
 
 
+
+ipfs.config.set('API.HTTPHeaders.Access-Control-Allow-Methods',methods,(err, reply) => {
+  if (err) {
+    throw err
+  }
+  console.log('set API.HTTPHeaders.Access-Control-Allow-Methods::reply=<',reply,'')
+})
+
+ipfs.config.set('API.HTTPHeaders.Access-Control-Allow-Origin','*',(err, reply) => {
+  if (err) {
+    throw err
+  }
+  console.log('set::API.HTTPHeaders.Access-Control-Allow-Origin reply=<',reply,'')
+})
+
