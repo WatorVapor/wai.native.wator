@@ -86,13 +86,14 @@ void RedisEntryClient::onMessageAPI(const std::vector<char> &buf) {
     auto  emptyObj = R"({"finnish": true})"_json;
     result = emptyObj.dump();
   }
-  DUMP_VAR2(gPublishRef,result);
-  if(gPublishConnected && gPublishRef ) {
-    if(gPublishRef->isConnected()) {
-      gPublishRef->publish(strConstTrainResponseChannelName, result,[&](const redisclient::RedisValue &) {
+  auto publish = gPublishRef.lock();
+  DUMP_VAR2(publish,result);
+  if(gPublishConnected && publish ) {
+    if(publish->isConnected()) {
+      publish->publish(strConstTrainResponseChannelName, result,[&](const redisclient::RedisValue &) {
       });
     } else {
-      DUMP_VAR(gPublishRef->isConnected());
+      DUMP_VAR(publish->isConnected());
     }
   }
 }
