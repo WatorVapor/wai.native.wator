@@ -67,6 +67,10 @@ void redis_pub_main(void) {
       DUMP_VAR(e.what());
     }
     gPublishConnected = false;
+    if(gPublish && gPublish->isConnected) {
+      gPublish->disconnect();
+    }
+    gPublish= nullptr;
     std::this_thread::sleep_for(10s);
   }
 }
