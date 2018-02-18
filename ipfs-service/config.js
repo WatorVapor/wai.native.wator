@@ -1,5 +1,5 @@
-var ipfsAPI = require('ipfs-api');
-var ipfs = ipfsAPI('/ip4/127.0.0.1/tcp/5001');
+const ipfsAPI = require('ipfs-api');
+const ipfs = ipfsAPI('/ip4/127.0.0.1/tcp/5001');
 //var ipfs = ipfsAPI('master.ipfs.wator.xyz', '5001', {protocol: 'http'});
 
 ipfs.config.set('Datastore.StorageMax','16GB',(err, reply) => {
@@ -17,7 +17,9 @@ ipfs.config.get('Datastore.StorageMax',(err, config) => {
   console.log('get::config=<',config,'')
 })
 
-ipfs.config.set('Gateway.HTTPHeaders.Access-Control-Allow-Methods','[*]',(err, reply) => {
+let methods = ['GET','POST'];
+
+ipfs.config.set('Gateway.HTTPHeaders.Access-Control-Allow-Methods',JSON.stringify(methods),(err, reply) => {
   if (err) {
     throw err
   }
