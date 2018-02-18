@@ -52,3 +52,12 @@ ipfs.config.set('API.HTTPHeaders.Access-Control-Allow-Origin',api_origins,(err, 
   console.log('set::API.HTTPHeaders.Access-Control-Allow-Origin reply=<',reply,'')
 })
 
+let api_heads = ['X-Requested-With','Range'];
+
+ipfs.config.set('API.HTTPHeaders.Access-Control-Allow-Headers',api_heads,(err, reply) => {
+  if (err) {
+    throw err
+  }
+  console.log('set::API.HTTPHeaders.Access-Control-Allow-Headers reply=<',reply,'')
+})
+
