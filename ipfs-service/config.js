@@ -43,7 +43,7 @@ ipfs.config.set('API.HTTPHeaders.Access-Control-Allow-Methods',methods,(err, rep
   console.log('set API.HTTPHeaders.Access-Control-Allow-Methods::reply=<',reply,'')
 })
 
-let api_origins = ['*'];
+let api_origins = ['https://www.wator.xyz'];
 
 ipfs.config.set('API.HTTPHeaders.Access-Control-Allow-Origin',api_origins,(err, reply) => {
   if (err) {
