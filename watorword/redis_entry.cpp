@@ -52,7 +52,7 @@ void redis_pub_main(void) {
       DUMP_VAR(endpoint);
       RedisEntryClient client(ioService);
       auto publish = std::make_shared<redisclient::RedisAsyncClient>(ioService);
-      DUMP_VAR(gPublish);
+      DUMP_VAR(publish);
       gPublishRef = publish;
       publish->connect(endpoint, [&](boost::system::error_code ec) {
         if(ec) {
@@ -86,7 +86,7 @@ void RedisEntryClient::onMessageAPI(const std::vector<char> &buf) {
     auto  emptyObj = R"({"finnish": true})"_json;
     result = emptyObj.dump();
   }
-  DUMP_VAR2(gPublish,result);
+  DUMP_VAR2(gPublishRef,result);
   if(gPublishConnected && gPublishRef ) {
     if(gPublishRef->isConnected()) {
       gPublishRef->publish(strConstTrainResponseChannelName, result,[&](const redisclient::RedisValue &) {
