@@ -8,8 +8,12 @@ console.log('pathDB =<',pathDB,'>');
 var db = levelup(pathDB);
 var stream = db.createReadStream();
 
+var counter = 0;
 stream.on('data', function (data) {
-  console.log(data.key, '=', data.value)
+  console.log(data.key, '=', data.value);
+  console.log('data.key=<',data.key,'>')
+  console.log('data.value=<',data.value,'>')
+  counter++
 });
 stream.on('error', function (err) {
   console.log('Oh my!', err)
@@ -19,4 +23,5 @@ stream.on('close', function () {
 });
 stream.on('end', function () {
   console.log('Stream ended')
+  console.log('counter=<',counter,'>')
 });
