@@ -10,6 +10,7 @@ console.log('phoneme =<',phoneme,'>');
 
 //var distDB = args.targets[1];
 //console.log('distDB =<',distDB,'>');
+var distDB = '../tts/ja/phoneme'
 var dist = levelup(distDB);
 
 
