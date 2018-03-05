@@ -12,5 +12,11 @@ console.log('phoneme =<',phoneme,'>');
 //console.log('distDB =<',distDB,'>');
 var distDB = '../tts/ja/phoneme'
 var dist = levelup(distDB);
+if(phoneme.ja) {
+  phoneme.ja.forEach(function(num){
+    console.log('num =<',num,'>');
+  });
+}
+
 
 
