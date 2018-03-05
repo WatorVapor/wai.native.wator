@@ -6,17 +6,17 @@ console.log('pathDB =<',pathDB,'>');
 
 
 var db = levelup(pathDB);
-db.createReadStream()
-  .on('data', function (data) {
-    var value = parseInt(data.value);
-    console.log(data.key, '=', data.value)
-  })
-  .on('error', function (err) {
-    console.log('Oh my!', err)
-  })
-  .on('close', function () {
-    console.log('Stream closed')
-  })
-  .on('end', function () {
-    console.log('Stream ended')
-  })
+var stream = db.createReadStream();
+
+stream.on('data', function (data) {
+  console.log(data.key, '=', data.value)
+});
+stream.on('error', function (err) {
+  console.log('Oh my!', err)
+});
+stream.on('close', function () {
+  console.log('Stream closed')
+});
+stream.on('end', function () {
+  console.log('Stream ended')
+});
