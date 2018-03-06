@@ -94,7 +94,7 @@ pt::ptree ZhiZiWord::summaryCutPhrase(const string &text,const string &lang) {
   string sentence = "";
   for(auto wordSed:wordSeqTopSelected_) {
     auto word = std::get<0>(wordSed.second);
-    TRACE_VAR(word);
+    DUMP_VAR(word);
     sentence += word + "%";
   }
   sentence.pop_back();
