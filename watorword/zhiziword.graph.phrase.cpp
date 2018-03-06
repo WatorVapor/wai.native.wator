@@ -28,7 +28,7 @@ static const double dConstWeightNotFoundFator = 1.0 ;
 
 typedef std::tuple<string,double,double,string,string,string,int> LabelVertex;
 
-struct sample_graph_writer {
+struct phrase_graph_writer {
   void operator()(std::ostream& out, int i) const {
     auto wordPair = labelVertex_.at(i);
     out << " [ label = <";
@@ -54,18 +54,18 @@ struct sample_graph_writer {
     out << "</TABLE>";
     out << ">]";
   }
-  sample_graph_writer(vector<LabelVertex> &labelVertex):labelVertex_(labelVertex) {
+  phrase_graph_writer(vector<LabelVertex> &labelVertex):labelVertex_(labelVertex) {
   }
   vector<LabelVertex> &labelVertex_;
 };
 
 
-struct sample_graph_weight_writer {
+struct phrase_graph_weight_writer {
   void operator()(std::ostream& out,const Edge& e) const {
     auto weight = boost::get(boost::edge_weight_t(), g_, e);
     out << " [ label = <" << weight << ">]";
   }
-  sample_graph_weight_writer(Graph &g):g_(g) {
+  phrase_graph_weight_writer(Graph &g):g_(g) {
   }
   Graph &g_;
 };
@@ -181,8 +181,8 @@ void ZhiZiWord::calcPredictionPhrase(const multimap<int, WordElement> &confuse,c
  
  
   try {
-      sample_graph_writer gw(labelVertex);
-      sample_graph_weight_writer gew(g);
+      phrase_graph_writer gw(labelVertex);
+      phrase_graph_weight_writer gew(g);
 
       std::stringstream ss;
       boost::write_graphviz(ss, g, gw,gew);
@@ -374,8 +374,8 @@ string ZhiZiWord::createGraphPhrase(const string &text,const string &sentence,co
   }
   
     
-  sample_graph_writer gw(labelVertex);
-  sample_graph_weight_writer gew(g);
+  phrase_graph_writer gw(labelVertex);
+  phrase_graph_weight_writer gew(g);
 
   std::stringstream ss;
   boost::write_graphviz(ss, g, gw,gew);
