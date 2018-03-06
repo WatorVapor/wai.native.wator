@@ -343,11 +343,11 @@ string ZhiZiWord::createGraphPhrase(const string &text,const string &sentence,co
         for (auto itNext = rangeNext.first; itNext != rangeNext.second;
              itNext++) {
           auto vrtxNext = std::get<1>(itNext->second);
-          auto ed = boost::add_edge(vrtxSelf, vrtxNext,g);
           auto wordNext = std::get<0>(itNext->second);
           if(wordNext == "E") {
               continue;
           }
+          auto ed = boost::add_edge(vrtxSelf, vrtxNext,g);
           string phrase = word + "-" + wordNext;
           auto phraseWeight =  phraseInputCN_.getRangeMin()/dConstWeightNotFoundFator;
           if(lang =="ja") {
