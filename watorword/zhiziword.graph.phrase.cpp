@@ -224,7 +224,7 @@ void ZhiZiWord::calcPredictionPhrase(const multimap<int, WordElement> &confuse,c
   }
   for(auto it = path.rbegin();it != path.rend();it++) {
       auto wordSelected = std::get<0>(labelVertex.at(*it));
-      //DUMP_VAR2(*it,wordSelected);
+      DUMP_VAR2(*it,wordSelected);
       for (auto elem : confuse) {
         auto word = std::get<0>(elem.second);
         if(word ==wordSelected) {
