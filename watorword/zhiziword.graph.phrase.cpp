@@ -191,7 +191,7 @@ void ZhiZiWord::calcPredictionPhrase(const multimap<int, WordElement> &confuse,c
   
   
   
-  TRACE_VAR(boost::num_vertices(g),vrtxStart,vrtxEnd);
+  DUMP_VAR(boost::num_vertices(g),vrtxStart,vrtxEnd);
   
   std::vector<Vertex> parents(boost::num_vertices(g));
   std::vector<float> distance(boost::num_vertices(g));
@@ -212,7 +212,7 @@ void ZhiZiWord::calcPredictionPhrase(const multimap<int, WordElement> &confuse,c
   }
   #endif
   
-  TRACE_VAR(distance.at(vrtxEnd));
+  DUMP_VAR(distance.at(vrtxEnd));
 
   if (parents[vrtxEnd] == vrtxEnd) {
     std::cout << "no path" << std::endl;
@@ -224,6 +224,7 @@ void ZhiZiWord::calcPredictionPhrase(const multimap<int, WordElement> &confuse,c
       path.push_back(v);
     }
   }
+  DUMP_VAR(path.size());
   for(auto it = path.rbegin();it != path.rend();it++) {
       auto wordSelected = std::get<0>(labelVertex.at(*it));
       DUMP_VAR2(*it,wordSelected);
