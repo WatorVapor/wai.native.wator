@@ -26,6 +26,8 @@ typedef boost::graph_traits<Graph>::edge_descriptor Edge;
 
 static const double dConstWeightNotFoundFator = 1.0 ;
 
+typedef std::tuple<string,double,double,string,string,string,int> LabelVertex;
+
 struct sample_graph_writer {
   void operator()(std::ostream& out, int i) const {
     auto wordPair = labelVertex_.at(i);
@@ -52,9 +54,9 @@ struct sample_graph_writer {
     out << "</TABLE>";
     out << ">]";
   }
-  sample_graph_writer(vector<std::tuple<string,double,double,string,string,string,int>> &labelVertex):labelVertex_(labelVertex) {
+  sample_graph_writer(vector<LabelVertex> &labelVertex):labelVertex_(labelVertex) {
   }
-  vector<std::tuple<string,double,double,string,string,string,int>> &labelVertex_;
+  vector<LabelVertex> &labelVertex_;
 };
 
 
@@ -72,7 +74,7 @@ struct sample_graph_weight_writer {
 void ZhiZiWord::calcPredictionPhrase(const multimap<int, WordElement> &confuse,const string &lang) {
   Graph g;
   multimap<int, std::tuple<string, Vertex,double,double>> vertexWator;
-  vector<std::tuple<string,double,double,string,string,string,int>> labelVertex;
+  vector<LabelVertex> labelVertex;
   
   auto vrtxStart = boost::add_vertex(g);
   auto vrtxPrStart = std::make_tuple("S", vrtxStart,1.0,1.0);
@@ -247,12 +249,12 @@ void ZhiZiWord::calcPredictionPhrase(const multimap<int, WordElement> &confuse,c
 string ZhiZiWord::createGraphPhrase(const string &text,const string &sentence,const string &lang) {
   Graph g;
   multimap<int, std::tuple<string, Vertex,double,double>> vertexWator;
-  vector<std::tuple<string,double,double,string,string,string>> labelVertex;
+  vector<LabelVertex> labelVertex;
   
   auto vrtxStart = boost::add_vertex(g);
   auto vrtxPrStart = std::make_tuple("S", vrtxStart,1.0,1.0);
   vertexWator.insert(std::make_pair(-1, vrtxPrStart));
-  labelVertex.push_back(std::make_tuple("S",1.0,1.0,"","",""));
+  labelVertex.push_back(std::make_tuple("S",1.0,1.0,"","","",-1));
  
   int posLast = 0;
   for (auto elem : wordAdjustedSeq_) {
@@ -263,13 +265,13 @@ string ZhiZiWord::createGraphPhrase(const string &text,const string &sentence,co
     auto vrtx = boost::add_vertex(g);
     auto vrtxPr = std::make_tuple(word, vrtx,weight,weightO);
     vertexWator.insert(std::make_pair(position, vrtxPr));
-    labelVertex.push_back(std::make_tuple(word,weight,weightO,"","",""));
+    labelVertex.push_back(std::make_tuple(word,weight,weightO,"","","",position));
     posLast = position + word.size();
   }
   auto vrtxEnd = add_vertex(g);
   auto vrtxPrvrtxEnd = std::make_tuple("E", vrtxEnd,1.0,1.0);
   vertexWator.insert(std::make_pair(posLast,vrtxPrvrtxEnd));
-  labelVertex.push_back(std::make_tuple("E",1.0,1.0,"","",""));
+  labelVertex.push_back(std::make_tuple("E",1.0,1.0,"","","",-1));
 
   auto vrtxTitle = add_vertex(g);
   auto title = u8"input=【" + text + u8"】";
