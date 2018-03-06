@@ -72,12 +72,12 @@ struct sample_graph_weight_writer {
 void ZhiZiWord::calcPredictionPhrase(const multimap<int, WordElement> &confuse,const string &lang) {
   Graph g;
   multimap<int, std::tuple<string, Vertex,double,double>> vertexWator;
-  vector<std::tuple<string,double,double,string,string,string>> labelVertex;
+  vector<std::tuple<string,double,double,string,string,string,int>> labelVertex;
   
   auto vrtxStart = boost::add_vertex(g);
   auto vrtxPrStart = std::make_tuple("S", vrtxStart,1.0,1.0);
   vertexWator.insert(std::make_pair(-1, vrtxPrStart));
-  labelVertex.push_back(std::make_tuple("S",1.0,1.0,"","",""));
+  labelVertex.push_back(std::make_tuple("S",1.0,1.0,"","","",-1));
   
   int posLast = 0;
   for (auto elem : confuse) {
@@ -88,13 +88,13 @@ void ZhiZiWord::calcPredictionPhrase(const multimap<int, WordElement> &confuse,c
     auto vrtx = boost::add_vertex(g);
     auto vrtxPr = std::make_tuple(word, vrtx,weight,weightO);
     vertexWator.insert(std::make_pair(position, vrtxPr));
-    labelVertex.push_back(std::make_tuple(word,weight,weightO,"","",""));
+    labelVertex.push_back(std::make_tuple(word,weight,weightO,"","","",position));
     posLast = position + word.size();
   }
   auto vrtxEnd = add_vertex(g);
   auto vrtxPrvrtxEnd = std::make_tuple("E", vrtxEnd,1.0,1.0);
   vertexWator.insert(std::make_pair(posLast,vrtxPrvrtxEnd));
-  labelVertex.push_back(std::make_tuple("E",1.0,1.0,"","",""));
+  labelVertex.push_back(std::make_tuple("E",1.0,1.0,"","","",-1));
  
   // add dummy start.
   {
@@ -224,7 +224,7 @@ void ZhiZiWord::calcPredictionPhrase(const multimap<int, WordElement> &confuse,c
   }
   for(auto it = path.rbegin();it != path.rend();it++) {
       auto wordSelected = std::get<0>(labelVertex.at(*it));
-      auto positionSelected = std::get<0>(vertexWator.at(*it));
+      auto positionSelected = std::get<6>(labelVertex.at(*it));
       DUMP_VAR3(*it,wordSelected,positionSelected);
       for (auto elem : confuse) {
         auto word = std::get<0>(elem.second);
