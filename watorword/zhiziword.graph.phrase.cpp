@@ -52,7 +52,7 @@ struct sample_graph_writer {
     out << "</TABLE>";
     out << ">]";
   }
-  sample_graph_writer(vector<std::tuple<string,double,double,string,string,string>> &labelVertex):labelVertex_(labelVertex) {
+  sample_graph_writer(vector<std::tuple<string,double,double,string,string,string,int>> &labelVertex):labelVertex_(labelVertex) {
   }
   vector<std::tuple<string,double,double,string,string,string>> &labelVertex_;
 };
