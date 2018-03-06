@@ -355,7 +355,8 @@ string ZhiZiWord::createGraphPhrase(const string &text,const string &sentence,co
               phraseWeight = 1.0 / phraseWeight;
           }
           TRACE_VAR(phrase,pred,phraseWeight);
-          boost::put(boost::edge_weight_t(), g, ed.first, phraseWeight);
+          auto multiWeight = phraseWeight/weightR;
+          boost::put(boost::edge_weight_t(), g, ed.first, multiWeight);
         }
         break;
       }
