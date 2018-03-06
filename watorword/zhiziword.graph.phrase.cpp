@@ -179,19 +179,22 @@ void ZhiZiWord::calcPredictionPhrase(const multimap<int, WordElement> &confuse,c
   }
   DUMP_VAR3(boost::num_vertices(g),vrtxStart,vrtxEnd);
  
-    
-  sample_graph_writer gw(labelVertex);
-  sample_graph_weight_writer gew(g);
+ 
+  try {
+      sample_graph_writer gw(labelVertex);
+      sample_graph_weight_writer gew(g);
 
-  std::stringstream ss;
-  boost::write_graphviz(ss, g, gw,gew);
-  auto dotStr = ss.str();
-  boost::algorithm::replace_all(
-      dotStr, "digraph G {",
-      "digraph G { \n rankdir=LR;\n graph [charset=\"UTF-8\"];\n");
-  TRACE_VAR(dotStr);
-  // dot -v -T svg 1.dot -o 1.svg
-  
+      std::stringstream ss;
+      boost::write_graphviz(ss, g, gw,gew);
+      auto dotStr = ss.str();
+      boost::algorithm::replace_all(
+          dotStr, "digraph G {",
+          "digraph G { \n rankdir=LR;\n graph [charset=\"UTF-8\"];\n");
+      TRACE_VAR(dotStr);
+      // dot -v -T svg 1.dot -o 1.svg
+  } catch(const std::exception &e) {
+      DUMP_VAR(e.what());
+  }
   
   
   DUMP_VAR3(boost::num_vertices(g),vrtxStart,vrtxEnd);
