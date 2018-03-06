@@ -174,7 +174,11 @@ void ZhiZiWord::calcPredictionPhrase(const multimap<int, WordElement> &confuse,c
         DUMP_VAR3(posLast,position + range,wordSelf);
         if (word == wordSelf) {
           auto ed = boost::add_edge(vrtxSelf,vrtxEnd,g);
-          auto multiWeight = 1.0/weightR;
+           auto phraseWeight = phraseInputCN_.getRangeMin()/dConstWeightNotFoundFator;
+          if(lang =="ja") {
+              phraseWeight = phraseInputJA_.getRangeMin()/dConstWeightNotFoundFator;
+          }
+         auto multiWeight = phraseWeight/weightR;
           boost::put(boost::edge_weight_t(), g, ed.first, multiWeight);
           break;
         }
