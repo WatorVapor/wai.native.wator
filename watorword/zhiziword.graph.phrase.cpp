@@ -158,7 +158,8 @@ void ZhiZiWord::calcPredictionPhrase(const multimap<int, WordElement> &confuse,c
             phraseWeight = 1.0 / phraseWeight;
           }
           auto ed = boost::add_edge(vrtxSelf, vrtxNext,g);
-          boost::put(boost::edge_weight_t(), g, ed.first, phraseWeight);
+          auto multiWeight = phraseWeight/weightR;
+          boost::put(boost::edge_weight_t(), g, ed.first, multiWeight);
         }
         break;
       }
