@@ -73,7 +73,7 @@ void ZhiZiWord::calcPrediction(const multimap<int, WordElement> &confuse) {
   auto vrtxStart = boost::add_vertex(g);
   auto vrtxPrStart = std::make_tuple("S", vrtxStart,1.0,1.0);
   vertexWator.insert(std::make_pair(-1, vrtxPrStart));
-  labelVertex.push_back(std::make_tuple("S",1.0,1.0,"","",""));
+  labelVertex.push_back(std::make_tuple("S",1.0,1.0,"","","",-1));
   
   int posLast = 0;
   for (auto elem : confuse) {
@@ -84,13 +84,13 @@ void ZhiZiWord::calcPrediction(const multimap<int, WordElement> &confuse) {
     auto vrtx = boost::add_vertex(g);
     auto vrtxPr = std::make_tuple(word, vrtx,weight,weightO);
     vertexWator.insert(std::make_pair(position, vrtxPr));
-    labelVertex.push_back(std::make_tuple(word,weight,weightO,"","",""));
+    labelVertex.push_back(std::make_tuple(word,weight,weightO,"","","",position));
     posLast = position + word.size();
   }
   auto vrtxEnd = add_vertex(g);
   auto vrtxPrvrtxEnd = std::make_tuple("E", vrtxEnd,1.0,1.0);
   vertexWator.insert(std::make_pair(posLast,vrtxPrvrtxEnd));
-  labelVertex.push_back(std::make_tuple("E",1.0,1.0,"","",""));
+  labelVertex.push_back(std::make_tuple("E",1.0,1.0,"","","",-1));
  
   // add dummy start.
   {
@@ -231,7 +231,7 @@ string ZhiZiWord::createGraph(const string &text,const string &sentence) {
   auto vrtxStart = boost::add_vertex(g);
   auto vrtxPrStart = std::make_tuple("S", vrtxStart,1.0,1.0);
   vertexWator.insert(std::make_pair(-1, vrtxPrStart));
-  labelVertex.push_back(std::make_tuple("S",1.0,1.0,"","",""));
+  labelVertex.push_back(std::make_tuple("S",1.0,1.0,"","","",-1));
  
   int posLast = 0;
   for (auto elem : wordAdjustedSeq_) {
@@ -242,13 +242,13 @@ string ZhiZiWord::createGraph(const string &text,const string &sentence) {
     auto vrtx = boost::add_vertex(g);
     auto vrtxPr = std::make_tuple(word, vrtx,weight,weightO);
     vertexWator.insert(std::make_pair(position, vrtxPr));
-    labelVertex.push_back(std::make_tuple(word,weight,weightO,"","",""));
+    labelVertex.push_back(std::make_tuple(word,weight,weightO,"","","",position));
     posLast = position + word.size();
   }
   auto vrtxEnd = add_vertex(g);
   auto vrtxPrvrtxEnd = std::make_tuple("E", vrtxEnd,1.0,1.0);
   vertexWator.insert(std::make_pair(posLast,vrtxPrvrtxEnd));
-  labelVertex.push_back(std::make_tuple("E",1.0,1.0,"","",""));
+  labelVertex.push_back(std::make_tuple("E",1.0,1.0,"","","",-1));
 
   auto vrtxTitle = add_vertex(g);
   auto title = u8"input=【" + text + u8"】";
@@ -256,7 +256,7 @@ string ZhiZiWord::createGraph(const string &text,const string &sentence) {
   vertexWator.insert(std::make_pair(posLast + 10,vrtxPrvrtxTitle));
   labelVertex.push_back(std::make_tuple(title,1.0,1.0,"distance : 1.0 / adjusted duplicate rate"
                                         ," adjusted duplicate rate:  duplicate rate* power(CONST, word length)"
-                                        ,"duplicate rate : this word duplicate couter / max duplicate couter"));
+                                        ,"duplicate rate : this word duplicate couter / max duplicate couter",-1));
 
   auto vrtxSentence = add_vertex(g);
   auto titleSentence = u8"output=【" + sentence + u8"】";
@@ -264,7 +264,7 @@ string ZhiZiWord::createGraph(const string &text,const string &sentence) {
   vertexWator.insert(std::make_pair(posLast + 11,vrtxPrvrtxvrtxSentence));
   labelVertex.push_back(std::make_tuple(titleSentence,1.0,1.0,"---"
                                         ,"---"
-                                        ,"---"));
+                                        ,"---",-1));
     
   auto ed = boost::add_edge(vrtxTitle,vrtxSentence,g);
 
