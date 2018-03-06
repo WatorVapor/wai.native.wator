@@ -23,6 +23,8 @@ typedef std::pair<int, int>                             Edge;
 typedef boost::graph_traits<Graph>::vertex_descriptor   Vertex;
 
 
+typedef std::tuple<string,double,double,string,string,string,int> LabelVertex;
+
 struct sample_graph_writer {
   void operator()(std::ostream& out, int i) const {
     auto wordPair = labelVertex_.at(i);
@@ -57,16 +59,16 @@ struct sample_graph_writer {
 */
     out << ">]";
   }
-  sample_graph_writer(vector<std::tuple<string,double,double,string,string,string>> &labelVertex):labelVertex_(labelVertex) {
+  sample_graph_writer(vector<LabelVertex> &labelVertex):labelVertex_(labelVertex) {
   }
-  vector<std::tuple<string,double,double,string,string,string>> &labelVertex_;
+  vector<LabelVertex> &labelVertex_;
 };
 
 
 void ZhiZiWord::calcPrediction(const multimap<int, WordElement> &confuse) {
   Graph g;
   multimap<int, std::tuple<string, Vertex,double,double>> vertexWator;
-  vector<std::tuple<string,double,double,string,string,string>> labelVertex;
+  vector<LabelVertex> labelVertex;
   
   auto vrtxStart = boost::add_vertex(g);
   auto vrtxPrStart = std::make_tuple("S", vrtxStart,1.0,1.0);
@@ -224,7 +226,7 @@ void ZhiZiWord::calcPrediction(const multimap<int, WordElement> &confuse) {
 string ZhiZiWord::createGraph(const string &text,const string &sentence) {
   Graph g;
   multimap<int, std::tuple<string, Vertex,double,double>> vertexWator;
-  vector<std::tuple<string,double,double,string,string,string>> labelVertex;
+  vector<LabelVertex> labelVertex;
   
   auto vrtxStart = boost::add_vertex(g);
   auto vrtxPrStart = std::make_tuple("S", vrtxStart,1.0,1.0);
