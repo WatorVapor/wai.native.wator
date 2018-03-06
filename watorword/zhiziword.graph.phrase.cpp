@@ -115,7 +115,7 @@ void ZhiZiWord::calcPredictionPhrase(const multimap<int, WordElement> &confuse,c
     }
   }
   
-  DUMP_VAR3(boost::num_vertices(g),vrtxStart,vrtxEnd);
+  TRACE_VAR(boost::num_vertices(g),vrtxStart,vrtxEnd);
 
 
   
@@ -132,7 +132,7 @@ void ZhiZiWord::calcPredictionPhrase(const multimap<int, WordElement> &confuse,c
       auto vrtxSelf = std::get<1>(itSelf->second);
       auto weightR = std::get<2>(itSelf->second);
       auto weightRO = std::get<3>(itSelf->second);
-      DUMP_VAR3(wordSelf,weightR,weightRO);
+      TRACE_VAR(wordSelf,weightR,weightRO);
       if (word == wordSelf) {
         auto rangeNext = vertexWator.equal_range(next);
         for (auto itNext = rangeNext.first; itNext != rangeNext.second;
@@ -173,7 +173,7 @@ void ZhiZiWord::calcPredictionPhrase(const multimap<int, WordElement> &confuse,c
         auto wordSelf = std::get<0>(itSelf->second);
         auto vrtxSelf = std::get<1>(itSelf->second);
         auto weightR = std::get<2>(itSelf->second);
-        DUMP_VAR3(posLast,position + range,wordSelf);
+        TRACE_VAR(posLast,position + range,wordSelf);
         if (word == wordSelf) {
           auto ed = boost::add_edge(vrtxSelf,vrtxEnd,g);
            auto phraseWeight = phraseInputCN_.getRangeMin()/dConstWeightNotFoundFator;
@@ -188,7 +188,7 @@ void ZhiZiWord::calcPredictionPhrase(const multimap<int, WordElement> &confuse,c
       }
     }
   }
-  DUMP_VAR3(boost::num_vertices(g),vrtxStart,vrtxEnd);
+  TRACE_VAR(boost::num_vertices(g),vrtxStart,vrtxEnd);
  
  
   try {
@@ -241,12 +241,12 @@ void ZhiZiWord::calcPredictionPhrase(const multimap<int, WordElement> &confuse,c
       path.push_back(v);
     }
   }
-  DUMP_VAR(path.size());
+  TRACE_VAR(path.size());
   for(auto it = path.rbegin();it != path.rend();it++) {
       auto wordSelected = std::get<0>(labelVertex.at(*it));
-      DUMP_VAR2(*it,wordSelected);
+      TRACE_VAR(*it,wordSelected);
       auto positionSelected = std::get<6>(labelVertex.at(*it));
-      DUMP_VAR3(*it,wordSelected,positionSelected);
+      TRACE_VAR(*it,wordSelected,positionSelected);
       for (auto elem : confuse) {
         auto word = std::get<0>(elem.second);
         auto position = std::get<1>(elem.second);
@@ -379,7 +379,7 @@ string ZhiZiWord::createGraphPhrase(const string &text,const string &sentence,co
         auto wordSelf = std::get<0>(itSelf->second);
         auto vrtxSelf = std::get<1>(itSelf->second);
         auto weightR = std::get<2>(itSelf->second);
-        DUMP_VAR4(posLast,position + range,wordSelf,word);
+        TRACE_VAR(posLast,position + range,wordSelf,word);
         if (word == wordSelf) {
           auto ed = boost::add_edge(vrtxSelf,vrtxEnd,g);
           auto phraseWeight = phraseInputCN_.getRangeMin()/dConstWeightNotFoundFator;
