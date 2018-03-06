@@ -130,6 +130,7 @@ void ZhiZiWord::calcPredictionPhrase(const multimap<int, WordElement> &confuse,c
       auto vrtxSelf = std::get<1>(itSelf->second);
       auto weightR = std::get<2>(itSelf->second);
       auto weightRO = std::get<3>(itSelf->second);
+      DUMP_VAR3(wordSelf,weightR,weightRO);
       if (word == wordSelf) {
         auto rangeNext = vertexWator.equal_range(next);
         for (auto itNext = rangeNext.first; itNext != rangeNext.second;
@@ -156,9 +157,6 @@ void ZhiZiWord::calcPredictionPhrase(const multimap<int, WordElement> &confuse,c
           } else {
             phraseWeight = 1.0 / phraseWeight;
           }
-          auto predNext = std::get<1>(itNext->second);
-          auto predAdjNext = std::get<1>(itNext->second);
-          DUMP_VAR3(wordNext,predNext,predAdjNext);
           auto ed = boost::add_edge(vrtxSelf, vrtxNext,g);
           boost::put(boost::edge_weight_t(), g, ed.first, phraseWeight);
         }
