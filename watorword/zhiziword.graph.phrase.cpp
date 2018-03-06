@@ -171,6 +171,7 @@ void ZhiZiWord::calcPredictionPhrase(const multimap<int, WordElement> &confuse,c
         auto wordSelf = std::get<0>(itSelf->second);
         auto vrtxSelf = std::get<1>(itSelf->second);
         auto weightR = std::get<2>(itSelf->second);
+        DUMP_VAR3(posLast,position + range,wordSelf);
         if (word == wordSelf) {
           auto ed = boost::add_edge(vrtxSelf,vrtxEnd,g);
           auto multiWeight = 1.0/weightR;
