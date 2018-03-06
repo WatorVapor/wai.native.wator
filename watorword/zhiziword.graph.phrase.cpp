@@ -191,7 +191,7 @@ void ZhiZiWord::calcPredictionPhrase(const multimap<int, WordElement> &confuse,c
   
   
   
-  DUMP_VAR(boost::num_vertices(g),vrtxStart,vrtxEnd);
+  DUMP_VAR3(boost::num_vertices(g),vrtxStart,vrtxEnd);
   
   std::vector<Vertex> parents(boost::num_vertices(g));
   std::vector<float> distance(boost::num_vertices(g));
