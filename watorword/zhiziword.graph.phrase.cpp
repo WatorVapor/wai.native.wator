@@ -109,7 +109,9 @@ void ZhiZiWord::calcPredictionPhrase(const multimap<int, WordElement> &confuse,c
       auto weightRO = std::get<3>(itSelf->second);
       auto ed = boost::add_edge(vrtxStart, vrtxSelf,g);
       //auto weightOld = boost::get(boost::edge_weight_t(), g, ed.first);
-      boost::put(boost::edge_weight_t(), g, ed.first, 0.0);
+      if(wordSelf != "E") {
+        boost::put(boost::edge_weight_t(), g, ed.first, 0.0);
+      }
     }
   }
   
@@ -319,7 +321,9 @@ string ZhiZiWord::createGraphPhrase(const string &text,const string &sentence,co
       auto weightR = std::get<2>(itSelf->second);
       auto weightRO = std::get<3>(itSelf->second);
       auto ed = boost::add_edge(vrtxStart, vrtxSelf,g);
-      boost::put(boost::edge_weight_t(), g, ed.first, 0.0);
+      if(wordSelf != "E") {
+        boost::put(boost::edge_weight_t(), g, ed.first, 0.0);
+      }
     }
   }    
     
