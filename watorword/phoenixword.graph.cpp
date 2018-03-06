@@ -23,6 +23,8 @@ typedef std::pair<int, int>                             Edge;
 typedef boost::graph_traits<Graph>::vertex_descriptor   Vertex;
 
 
+typedef std::tuple<string,double,double,string,string,string,int> LabelVertex;
+
 struct sample_graph_writer {
   void operator()(std::ostream& out, int i) const {
     auto wordPair = labelVertex_.at(i);
@@ -57,16 +59,16 @@ struct sample_graph_writer {
 */
     out << ">]";
   }
-  sample_graph_writer(vector<std::tuple<string,double,double,string,string,string>> &labelVertex):labelVertex_(labelVertex) {
+  sample_graph_writer(vector<LabelVertex> &labelVertex):labelVertex_(labelVertex) {
   }
-  vector<std::tuple<string,double,double,string,string,string>> &labelVertex_;
+  vector<LabelVertex> &labelVertex_;
 };
 
 
 void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
   Graph g;
   multimap<int, std::tuple<string, Vertex,double,double>> vertexWator;
-  vector<std::tuple<string,double,double,string,string,string>> labelVertex;
+  vector<LabelVertex> labelVertex;
   
   auto vrtxStart = boost::add_vertex(g);
   auto vrtxPrStart = std::make_tuple("S", vrtxStart,1.0,1.0);
@@ -203,10 +205,12 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
   }
   for(auto it = path.rbegin();it != path.rend();it++) {
       auto wordSelected = std::get<0>(labelVertex.at(*it));
+      auto positionSelected = std::get<6>(labelVertex.at(*it));
       TRACE_VAR(*it,wordSelected);
       for (auto elem : confuse) {
         auto word = std::get<0>(elem.second);
-        if(word ==wordSelected) {
+        auto position = std::get<1>(elem.second);
+        if(word ==wordSelected && position == positionSelected) {
             wordSeqTopSelected_.insert(elem);
             break;
         }
@@ -224,7 +228,7 @@ void PhoenixWord::calcPrediction(const multimap<int, WordElement> &confuse) {
 string PhoenixWord::createGraph(const string &text,const string &sentence) {
   Graph g;
   multimap<int, std::tuple<string, Vertex,double,double>> vertexWator;
-  vector<std::tuple<string,double,double,string,string,string>> labelVertex;
+  vector<LabelVertex> labelVertex;
   
   auto vrtxStart = boost::add_vertex(g);
   auto vrtxPrStart = std::make_tuple("S", vrtxStart,1.0,1.0);
