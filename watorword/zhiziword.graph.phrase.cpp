@@ -178,7 +178,8 @@ void ZhiZiWord::calcPredictionPhrase(const multimap<int, WordElement> &confuse,c
           if(lang =="ja") {
               phraseWeight = phraseInputJA_.getRangeMin()/dConstWeightNotFoundFator;
           }
-         auto multiWeight = phraseWeight/weightR;
+          phraseWeight = 1.0 / phraseWeight;
+          auto multiWeight = phraseWeight/weightR;
           boost::put(boost::edge_weight_t(), g, ed.first, multiWeight);
           break;
         }
@@ -381,6 +382,7 @@ string ZhiZiWord::createGraphPhrase(const string &text,const string &sentence,co
           if(lang =="ja") {
               phraseWeight = phraseInputJA_.getRangeMin()/dConstWeightNotFoundFator;
           }
+          phraseWeight = 1.0 / phraseWeight;
           auto multiWeight = phraseWeight/weightR;
           boost::put(boost::edge_weight_t(), g, ed.first, multiWeight);
           break;
