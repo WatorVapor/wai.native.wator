@@ -54,7 +54,7 @@ struct sample_graph_writer {
   }
   sample_graph_writer(vector<std::tuple<string,double,double,string,string,string,int>> &labelVertex):labelVertex_(labelVertex) {
   }
-  vector<std::tuple<string,double,double,string,string,string>> &labelVertex_;
+  vector<std::tuple<string,double,double,string,string,string,int>> &labelVertex_;
 };
 
 
