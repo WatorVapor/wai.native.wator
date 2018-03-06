@@ -113,6 +113,8 @@ void ZhiZiWord::calcPredictionPhrase(const multimap<int, WordElement> &confuse,c
     }
   }
   
+  DUMP_VAR3(boost::num_vertices(g),vrtxStart,vrtxEnd);
+
 
   
   
@@ -175,7 +177,8 @@ void ZhiZiWord::calcPredictionPhrase(const multimap<int, WordElement> &confuse,c
       }
     }
   }
-  
+  DUMP_VAR3(boost::num_vertices(g),vrtxStart,vrtxEnd);
+ 
     
   sample_graph_writer gw(labelVertex);
   sample_graph_weight_writer gew(g);
