@@ -14,11 +14,11 @@ var distDB = '../db/tts/cn/hanzi'
 var dist = levelup(distDB);
 if(phonemeDB.cn) {
   phonemeDB.cn.forEach(function(phoneme){
-    console.log('phoneme =<',phoneme,'>');
+    //console.log('phoneme =<',phoneme,'>');
     let hanzis = phoneme.cn_help.split(' ');
-    console.log('hanzis =<',hanzis,'>');
+    //console.log('hanzis =<',hanzis,'>');
     hanzis.forEach(function(hanzi){
-      console.log('hanzi =<',hanzi,'>');
+      //console.log('hanzi =<',hanzi,'>');
       tryAddHanzi(hanzi,phoneme.phoneme);
     });
     //dist.put(phoneme.phoneme,phoneme.ipfs);
