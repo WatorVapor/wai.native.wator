@@ -31,17 +31,13 @@ function tryAddHanzi(hanzi,phoneme) {
   dist.get(hanzi, function (err, value) {
     if (err) {
       if (err.notFound) {
-        setTimeout(function(){
-          dist.set(hanzi,value + ',' + phoneme);
-        },0)
+        dist.set(hanzi,value + ',' + phoneme);
       } else {
         console.log('tryAddHanzi:err =<',err,'>');
       }
     } else {
       console.log('tryAddHanzi:value =<',value,'>');
-      setTimeout(function(){
-        dist.set(hanzi,value + ',' + phoneme);
-      },0)
+      dist.set(hanzi,value + ',' + phoneme);
     }
   });
 }
