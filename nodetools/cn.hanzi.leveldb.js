@@ -12,6 +12,7 @@ console.log('phonemeDB =<',phonemeDB,'>');
 //console.log('distDB =<',distDB,'>');
 var distDB = '../db/tts/cn/hanzi'
 var dist = levelup(distDB);
+var hanziDB = {};
 if(phonemeDB.cn) {
   phonemeDB.cn.forEach(function(phoneme){
     //console.log('phoneme =<',phoneme,'>');
@@ -25,21 +26,30 @@ if(phonemeDB.cn) {
   });
 }
 
+console.log('hanziDB =<',hanziDB,'>');
+
 function tryAddHanzi(hanzi,phoneme) {
+  if(hanziDB.hanzi) {
+    hanziDB.hanzi.push(phoneme);
+  } else {
+    hanziDB.hanzi = [phoneme];
+  }
+/*  
   //console.log('hanzi =<',hanzi,'>');
   //console.log('phoneme =<',phoneme,'>');
   dist.get(hanzi, function (err, value) {
     if (err) {
       if (err.notFound) {
-        dist.set(hanzi,phoneme);
+        dist.put(hanzi,phoneme);
       } else {
         console.log('tryAddHanzi:err =<',err,'>');
       }
     } else {
       console.log('tryAddHanzi:value =<',value,'>');
-      dist.set(hanzi,value + ',' + phoneme);
+      dist.put(hanzi,value + ',' + phoneme);
     }
   });
+*/
 }
 
 
