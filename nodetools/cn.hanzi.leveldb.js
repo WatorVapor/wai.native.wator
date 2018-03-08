@@ -30,10 +30,10 @@ if(phonemeDB.cn) {
 
 let keysHanzi = Object.keys(hanziDB);
 keysHanzi.forEach(function(hanzi){
-  console.log('hanzi =<',hanzi,'>');
+  //console.log('hanzi =<',hanzi,'>');
   let phoneme = hanziDB[hanzi];
-  console.log('phoneme =<',phoneme,'>');
-  //dist.put(hanzi,phoneme);
+  //console.log('phoneme =<',phoneme,'>');
+  dist.put(hanzi,phoneme);
 });
 
 
@@ -43,22 +43,6 @@ function tryAddHanzi(hanzi,phoneme) {
   } else {
     hanziDB[hanzi] += ',' + phoneme;
   }
-/*  
-  //console.log('hanzi =<',hanzi,'>');
-  //console.log('phoneme =<',phoneme,'>');
-  dist.get(hanzi, function (err, value) {
-    if (err) {
-      if (err.notFound) {
-        dist.put(hanzi,phoneme);
-      } else {
-        console.log('tryAddHanzi:err =<',err,'>');
-      }
-    } else {
-      console.log('tryAddHanzi:value =<',value,'>');
-      dist.put(hanzi,value + ',' + phoneme);
-    }
-  });
-*/
 }
 
 
