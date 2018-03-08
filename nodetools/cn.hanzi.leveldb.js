@@ -30,6 +30,7 @@ function tryAddHanzi(hanzi,phoneme) {
   //console.log('phoneme =<',phoneme,'>');
   dist.get(hanzi, function (err, value) {
     if (err) {
+      console.log('tryAddHanzi:err =<',err,'>');
       if (err.notFound) {
         return dist.put(hanzi,phoneme);
       }
