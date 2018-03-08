@@ -31,11 +31,12 @@ function tryAddHanzi(hanzi,phoneme) {
   dist.get(hanzi, function (err, value) {
     if (err) {
       if (err.notFound) {
-        dist.put(hanzi,phoneme);
+        return dist.put(hanzi,phoneme);
       }
+      console.log('tryAddHanzi:err =<',err,'>');
     } else {
       console.log('tryAddHanzi:value =<',value,'>');
-      dist.put(hanzi,value + ',' + phoneme);
+      return dist.put(hanzi,value + ',' + phoneme);
     }
   });
 }
