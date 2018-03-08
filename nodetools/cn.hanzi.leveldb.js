@@ -10,14 +10,24 @@ console.log('phonemeDB =<',phonemeDB,'>');
 
 //var distDB = args.targets[1];
 //console.log('distDB =<',distDB,'>');
-var distDB = '../db/tts/cn/phoneme'
+var distDB = '../db/tts/cn/hanzi'
 var dist = levelup(distDB);
 if(phonemeDB.cn) {
   phonemeDB.cn.forEach(function(phoneme){
     console.log('phoneme =<',phoneme,'>');
-    dist.put(phoneme.phoneme,phoneme.ipfs);
+    let hanzis = phoneme.cn_help.split(' ');
+    console.log('hanzis =<',hanzis,'>');
+    hanzis.forEach(function(hanzi){
+      console.log('hanzi =<',hanzi,'>');
+      tryAddHanzi(hanzi,phoneme.phoneme);
+    });
+    //dist.put(phoneme.phoneme,phoneme.ipfs);
   });
 }
 
+function tryAddHanzi(hanzi,phoneme) {
+  console.log('hanzi =<',hanzi,'>');
+  console.log('phoneme =<',phoneme,'>');
+}
 
 
