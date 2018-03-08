@@ -26,8 +26,17 @@ if(phonemeDB.cn) {
 }
 
 function tryAddHanzi(hanzi,phoneme) {
-  console.log('hanzi =<',hanzi,'>');
-  console.log('phoneme =<',phoneme,'>');
+  //console.log('hanzi =<',hanzi,'>');
+  //console.log('phoneme =<',phoneme,'>');
+  dist.get(hanzi, function (err, value) {
+    if (err) {
+      if (err.notFound) {
+        dist.put(hanzi,phoneme);
+      }
+    } else {
+      dist.put(hanzi,value + ',' + phoneme);
+    }
+  });
 }
 
 
