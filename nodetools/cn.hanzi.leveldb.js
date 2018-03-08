@@ -30,9 +30,10 @@ console.log('hanziDB =<',hanziDB,'>');
 
 function tryAddHanzi(hanzi,phoneme) {
   if(! hanziDB[hanzi]) {
-    hanziDB[hanzi] = '';
+    hanziDB[hanzi] = phoneme;
+  } else {
+    hanziDB[hanzi] += ',' + phoneme;
   }
-  hanziDB[hanzi] += phoneme;
 /*  
   //console.log('hanzi =<',hanzi,'>');
   //console.log('phoneme =<',phoneme,'>');
