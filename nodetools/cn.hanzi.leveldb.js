@@ -28,8 +28,10 @@ if(phonemeDB.cn) {
 
 //console.log('hanziDB =<',hanziDB,'>');
 
-hanziDB.forEach(function(hanzi,phoneme){
+let keysHanzi = Object.keys(hanziDB);
+keysHanzi.forEach(function(hanzi){
   console.log('hanzi =<',hanzi,'>');
+  let phoneme = hanziDB[hanzi];
   console.log('phoneme =<',phoneme,'>');
   //dist.put(hanzi,phoneme);
 });
