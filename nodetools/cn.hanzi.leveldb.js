@@ -26,7 +26,14 @@ if(phonemeDB.cn) {
   });
 }
 
-console.log('hanziDB =<',hanziDB,'>');
+//console.log('hanziDB =<',hanziDB,'>');
+
+hanziDB.forEach(function(hanzi,phoneme){
+  console.log('hanzi =<',hanzi,'>');
+  console.log('phoneme =<',phoneme,'>');
+  //dist.put(hanzi,phoneme);
+});
+
 
 function tryAddHanzi(hanzi,phoneme) {
   if(! hanziDB[hanzi]) {
