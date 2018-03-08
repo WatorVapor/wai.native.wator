@@ -34,6 +34,7 @@ function tryAddHanzi(hanzi,phoneme) {
         dist.put(hanzi,phoneme);
       }
     } else {
+      console.log('tryAddHanzi:value =<',value,'>');
       dist.put(hanzi,value + ',' + phoneme);
     }
   });
