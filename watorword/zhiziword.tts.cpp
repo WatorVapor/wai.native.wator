@@ -15,8 +15,9 @@ using namespace std;
 
 
 
-vector<string> ZhiZiWord::createAudioList(void) {
+vector<string> ZhiZiWord::createAudioList(const string &lang) {
   vector<string> result;
+  DUMP_VAR(lang);
   for(auto wordSed:wordSeqTopSelected_) {
     auto word = std::get<0>(wordSed.second);
     DUMP_VAR(word);
