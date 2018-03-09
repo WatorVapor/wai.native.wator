@@ -12,6 +12,7 @@ using namespace std;
 
 #include "log.hpp"
 #include "zhiziword.hpp"
+#include "ttsmaster.hpp"
 
 
 static const TTSMaster gCN("./db/tts/cn");
