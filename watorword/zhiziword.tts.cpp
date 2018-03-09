@@ -27,7 +27,7 @@ vector<string> ZhiZiWord::createAudioList(const string &lang) {
     auto word = std::get<0>(wordSed.second);
     DUMP_VAR(word);
     auto phoneme = createPhoneme(word,lang);
-    phonemeList.insert(result.end(),phoneme.begin(),phoneme.end());
+    phonemeList.insert(phonemeList.end(),phoneme.begin(),phoneme.end());
   }
   vector<string> result;
   for(auto phoneme:phonemeList) {
