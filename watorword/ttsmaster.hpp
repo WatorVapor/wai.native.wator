@@ -8,11 +8,11 @@ class TTSMaster {
  public:
   TTSMaster(const string &path);
   ~TTSMaster();
+  string getPhoneme(const string &word);
+ 
+ private:
   void openDB();
   void closeDB();
-  string getPhoneme(const string &word);
-
- private:
  private:
   string phrase_master_db_path_;
   string hanzi_master_db_path_;
