@@ -8,9 +8,9 @@ class TTSMaster {
  public:
   TTSMaster(const string &path);
   ~TTSMaster();
-  string getPhoneme(const string &pinyin);
-  string getHanzi(const string &hanzi);
-  string getPhrase(const string &word);
+  string getPhoneme(const string &pinyin) const;
+  string getHanzi(const string &hanzi) const;
+  string getPhrase(const string &word) const;
  
  private:
   void openDB();
