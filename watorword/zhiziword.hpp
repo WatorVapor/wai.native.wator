@@ -6,11 +6,8 @@
 using namespace std;
 #pragma once
 
-#include <boost/foreach.hpp>
-#include <boost/optional.hpp>
-#include <boost/property_tree/json_parser.hpp>
-#include <boost/property_tree/ptree.hpp>
-namespace pt = boost::property_tree;
+#include "nlohmann/json.hpp"
+using json = nlohmann::json;
 
 #include "word_db_master.hpp"
 
@@ -23,8 +20,8 @@ class ZhiZiWord {
   ZhiZiWord(const string &word_db,const string &phrase_db);
   ~ZhiZiWord();
   void learn(const vector<string> &word, const string &text,const string &lang);
-  pt::ptree cut(const vector<string> &word, const string &text,const string &lang);
-  pt::ptree cutSpace(const vector<string> &word, const string &text,const string &lang);
+  json cut(const vector<string> &word, const string &text,const string &lang);
+  json cutSpace(const vector<string> &word, const string &text,const string &lang);
   bool loadMaster(bool castForce = true);
   void unloadMaster(void);
   void commitArticle(void);
