@@ -27,17 +27,53 @@ TTSMaster::~TTSMaster() {
 }
 
 
-string TTSMaster::getPhoneme(const string &word) {
+string TTSMaster::getPhoneme(const string &pinyin) {
   string result;
+  if (master_phoneme_) {
+    leveldb::ReadOptions readOptions;
+    readOptions.verify_checksums = true;
+    leveldb::Slice key(pinyin);
+    string valueStr;
+    auto status = master_phoneme_->Get(readOptions, key, &valueStr);
+    TRACE_VAR(status.ToString());
+    if (status.ok() && valueStr.empty() == false) {
+      TRACE_VAR(valueStr);
+      return valueStr;
+    }
+  }
   return result;
 }
 
 string TTSMaster::getHanzi(const string &hanzi){
   string result;
+  if (master_hanzi_) {
+    leveldb::ReadOptions readOptions;
+    readOptions.verify_checksums = true;
+    leveldb::Slice key(hanzi);
+    string valueStr;
+    auto status = master_hanzi_->Get(readOptions, key, &valueStr);
+    TRACE_VAR(status.ToString());
+    if (status.ok() && valueStr.empty() == false) {
+      TRACE_VAR(valueStr);
+      return valueStr;
+    }
+  }
   return result;
 }
 string TTSMaster::getPhrase(const string &word){
   string result;
+  if (master_phrase_) {
+    leveldb::ReadOptions readOptions;
+    readOptions.verify_checksums = true;
+    leveldb::Slice key(word);
+    string valueStr;
+    auto status = master_phrase_->Get(readOptions, key, &valueStr);
+    TRACE_VAR(status.ToString());
+    if (status.ok() && valueStr.empty() == false) {
+      TRACE_VAR(valueStr);
+      return valueStr;
+    }
+  }
   return result;
 }
 
