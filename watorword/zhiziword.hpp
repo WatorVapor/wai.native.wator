@@ -43,7 +43,9 @@ class ZhiZiWord {
   void calcPrediction(const multimap<int, WordElement> &confuse);
   pt::ptree summaryCut(const string &text);
   string createGraph(const string &text,const string &sentence);
-
+  
+  vector<string> createAudioList(void);
+  
   void calcPredictionPhrase(const string &lang);
   void calcPredictionPhrase(const multimap<int, WordElement> &confuse,const string &lang);
   pt::ptree summaryCutPhrase(const string &text,const string &lang);
@@ -51,6 +53,7 @@ class ZhiZiWord {
  
   void collectWord(void);
 
+  
   
   void dumpRank();
   void dumpSeq();
