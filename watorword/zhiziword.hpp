@@ -38,7 +38,7 @@ class ZhiZiWord {
 
   void calcPrediction(void);
   void calcPrediction(const multimap<int, WordElement> &confuse);
-  pt::ptree summaryCut(const string &text);
+  json summaryCut(const string &text);
   string createGraph(const string &text,const string &sentence);
   
   vector<string> createAudioList(const string &lang);
