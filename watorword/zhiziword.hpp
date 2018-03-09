@@ -44,7 +44,7 @@ class ZhiZiWord {
   pt::ptree summaryCut(const string &text);
   string createGraph(const string &text,const string &sentence);
   
-  vector<string> createAudioList(void);
+  vector<string> createAudioList(const string &lang);
   
   void calcPredictionPhrase(const string &lang);
   void calcPredictionPhrase(const multimap<int, WordElement> &confuse,const string &lang);
