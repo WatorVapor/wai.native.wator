@@ -8,7 +8,7 @@ class TTSMaster {
  public:
   TTSMaster(const string &path);
   ~TTSMaster();
-  string getPhoneme(const string &hanzi);
+  string getPhoneme(const string &pinyin);
   string getHanzi(const string &hanzi);
   string getPhrase(const string &word);
  
