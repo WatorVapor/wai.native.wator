@@ -25,10 +25,8 @@ void unloadMasterDB(void) {
   gZhiZi.reset();
 }
 
-#include <boost/exception/all.hpp>
-#include <boost/property_tree/json_parser.hpp>
-#include <boost/property_tree/ptree.hpp>
-namespace pt = boost::property_tree;
+#include "nlohmann/json.hpp"
+using json = nlohmann::json;
 #include <sstream>
 
 string processWord(const string &text,const string &lang);
