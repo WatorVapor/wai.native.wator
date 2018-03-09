@@ -63,11 +63,17 @@ string processWord(const string &text,const string &lang) {
     DUMP_VAR(multi);
     if(multi) {
       auto result = gZhiZi->cut(word, wordStr, lang);
-      ttsTotal.push_back(result["tts"]);
+      for (auto& element : result["tts"]) {
+        ttsTotal.push_back(element);
+      }
+      result.erase("tts");
       resultTotal.push_back(result);
     } else {
       auto result = gZhiZi->cutSpace(word, wordStr, lang);
-      ttsTotal.push_back(result["tts"]);
+      for (auto& element : result["tts"]) {
+        ttsTotal.push_back(element);
+      }
+      result.erase("tts");
       resultTotal.push_back(result);
     }
   };
