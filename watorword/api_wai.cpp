@@ -110,8 +110,11 @@ string createTTSLink(json clipList) {
   auto id = boost::uuids::random_generator()();
   auto fileName = boost::lexical_cast<std::string>(id);
   ::system("mkdir -p /watorvapor/autogen/wator/wai/audio/");
+  
+  
+  
   string url = "/autogen/wai/audio/";
-  url += id;
+  url += fileName;
   url += ".m3u8";
   return url;
 }
