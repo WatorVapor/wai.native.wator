@@ -37,24 +37,24 @@ string TTSMaster::getPhoneme(const string &word) {
 
 
 #define OPEN_DB(x) { \
-  if (x#master_ == nullptr) {\
+  if (#x#master_ == nullptr) {\
     leveldb::Options options;\
     options.create_if_missing = true;\
     options.max_open_files = 512;\
     options.paranoid_checks = true;\
     options.compression = leveldb::kNoCompression;\
-    auto status = leveldb::DB::Open(options, x#master_db_path_, &x#master_);\
+    auto status = leveldb::DB::Open(options, #x#master_db_path_, &#x#master_);\
     if (status.ok() == false) {\
       DUMP_VAR(status.ToString());\
-      x#master_ = nullptr;\
+      #x#master_ = nullptr;\
     }\
   }\
 }
 
 #define CLOSE_DB(x) { \
-  if (x#master_ != nullptr) {\
-    delete x#master_;\
-    x#master_ = nullptr;\
+  if (#x#master_ != nullptr) {\
+    delete #x#master_;\
+    #x#master_ = nullptr;\
   }\
 }
 
