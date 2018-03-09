@@ -43,7 +43,7 @@ vector<string> ZhiZiWord::createPhoneme(const string &word,const string &lang) {
       for(auto hanzi :hanziA) {
         auto pinyin = gCN.getHanzi(hanzi);
         if(pinyin.empty()) {
-          result.push_back("miss hanzi");
+          result.push_back("wm");
         } else {
           std::vector<std::string> results;
           boost::algorithm::split(results, pinyin, boost::algorithm::is_any_of(","));
@@ -58,6 +58,6 @@ vector<string> ZhiZiWord::createPhoneme(const string &word,const string &lang) {
       result.insert(result.end(),results.begin(),results.end());
     }
   }
-  result.push_back("word space");
+  result.push_back("ws");
   return result;
 }
