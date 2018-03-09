@@ -16,9 +16,9 @@ using namespace std;
 
 
 TTSMaster::TTSMaster(const string &path) {
-  phrase_master_db_path_ = path + "/phrase";
-  hanzi_master_db_path_ = path + "/hanzi";
-  phoneme_master_db_path_ = path + "/phoneme";
+  master_db_path_phrase_ = path + "/phrase";
+  master_db_path_hanzi_ = path + "/hanzi";
+  master_db_path_phoneme_ = path + "/phoneme";
   openDB();
 }
 
@@ -37,24 +37,24 @@ string TTSMaster::getPhoneme(const string &word) {
 
 
 #define OPEN_DB(x) { \
-  if (#x#master_ == nullptr) {\
+  if (master_##x##_ == nullptr) {\
     leveldb::Options options;\
     options.create_if_missing = true;\
     options.max_open_files = 512;\
     options.paranoid_checks = true;\
     options.compression = leveldb::kNoCompression;\
-    auto status = leveldb::DB::Open(options, #x#master_db_path_, &#x#master_);\
+    auto status = leveldb::DB::Open(options, master_db_path_##x##, & master_##x##_);\
     if (status.ok() == false) {\
       DUMP_VAR(status.ToString());\
-      #x#master_ = nullptr;\
+      master_##x##_ = nullptr;\
     }\
   }\
 }
 
 #define CLOSE_DB(x) { \
-  if (#x#master_ != nullptr) {\
-    delete #x#master_;\
-    #x#master_ = nullptr;\
+  if (master_##x##_ != nullptr) {\
+    delete master_##x##_;\
+    master_##x##_ = nullptr;\
   }\
 }
 
