@@ -27,7 +27,7 @@ TTSMaster::~TTSMaster() {
 }
 
 
-string TTSMaster::getPhoneme(const string &pinyin) {
+string TTSMaster::getPhoneme(const string &pinyin) const{
   string result;
   if (master_phoneme_) {
     leveldb::ReadOptions readOptions;
@@ -44,7 +44,7 @@ string TTSMaster::getPhoneme(const string &pinyin) {
   return result;
 }
 
-string TTSMaster::getHanzi(const string &hanzi){
+string TTSMaster::getHanzi(const string &hanzi) const{
   string result;
   if (master_hanzi_) {
     leveldb::ReadOptions readOptions;
@@ -60,7 +60,7 @@ string TTSMaster::getHanzi(const string &hanzi){
   }
   return result;
 }
-string TTSMaster::getPhrase(const string &word){
+string TTSMaster::getPhrase(const string &word) const{
   string result;
   if (master_phrase_) {
     leveldb::ReadOptions readOptions;
