@@ -35,52 +35,48 @@ static bool gJapanese = false;
 static string gLang = "ja";
 string processText(const string &text) {
   try {
-    pt::ptree configJson;
-    std::stringstream ss;
-    ss << text;
-    pt::read_json(ss, configJson);
-    auto langOpt = configJson.get_optional<string>("lang");
-    if (langOpt) {
-      gLang = langOpt.get();
+    json configJson = json::parse(text);
+    configJson.find("lang");
+    auto langOpt = configJson.find("lang");
+    if (langOpt != configJson.end()) {
+      gLang = langOpt.get<string>();
     }
-    auto sentenceOpt = configJson.get_optional<string>("sentence");
-    if (sentenceOpt) {
-      auto text = sentenceOpt.get();
+    auto sentenceOpt = configJson.find("sentence");
+    if (sentenceOpt!= configJson.end()) {
+      auto text = sentenceOpt.get<string>();
       return processWord(text,gLang);
       
     }
-  } catch (boost::exception &e) {
-    DUMP_VAR(boost::diagnostic_information(e));
+  } catch (std::exception &e) {
+    DUMP_VAR(e.what());
     return "";
   }
   return "";
 }
 
 string processWord(const string &text,const string &lang) {
-  pt::ptree resultTotal;
+  json resultTotal;
   auto learnZhiZi = [&](string wordStr, vector<string> word,bool multi) {
     //DUMP_VAR(gZhiZi);
     DUMP_VAR(wordStr);
     DUMP_VAR(multi);
     if(multi) {
       auto result = gZhiZi->cut(word, wordStr, lang);
-      resultTotal.push_back(std::make_pair("", result));
+      resultTotal.push_back(result);
     } else {
       auto result = gZhiZi->cutSpace(word, wordStr, lang);
-      resultTotal.push_back(std::make_pair("", result));
+      resultTotal.push_back(result);
     }
   };
   CtrlClaw claw;
   claw.claw(text);
   claw.eachSentenceMix(learnZhiZi);
   try {
-    pt::ptree result;
-    result.add_child(u8"wai", resultTotal);
-    std::stringstream ss;
-    pt::write_json(ss, result);
-    return ss.str();
-  } catch (boost::exception &e) {
-    DUMP_VAR(boost::diagnostic_information(e));
+    json result;
+    result[u8"wai"] = resultTotal;
+    return json.dump();;
+  } catch (std::exception &e) {
+    DUMP_VAR(e.what());
   }
   return "";
 }
