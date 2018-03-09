@@ -43,7 +43,7 @@ string TTSMaster::getPhoneme(const string &word) {
     options.max_open_files = 512;\
     options.paranoid_checks = true;\
     options.compression = leveldb::kNoCompression;\
-    auto status = leveldb::DB::Open(options, master_db_path_##x##, & master_##x##_);\
+    auto status = leveldb::DB::Open(options, master_db_path_##x##_, & master_##x##_);\
     if (status.ok() == false) {\
       DUMP_VAR(status.ToString());\
       master_##x##_ = nullptr;\
