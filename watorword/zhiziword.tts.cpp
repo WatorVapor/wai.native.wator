@@ -14,6 +14,8 @@ using namespace std;
 #include "zhiziword.hpp"
 
 
+static const TTSMaster gCN("./db/tts/cn");
+static const TTSMaster gJA("./db/tts/ja");
 
 vector<string> ZhiZiWord::createAudioList(const string &lang) {
   vector<string> result;
