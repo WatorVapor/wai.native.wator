@@ -10,7 +10,7 @@ class TTSMaster {
   ~TTSMaster();
   void openDB();
   void closeDB();
-  string getDoublePred(const string &word);
+  string getPhoneme(const string &word);
 
  private:
  private:
