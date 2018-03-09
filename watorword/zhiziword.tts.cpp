@@ -21,13 +21,22 @@ static const TTSMaster gJA("./db/tts/ja");
 vector<string> parseUTF8(const string &words);
 
 vector<string> ZhiZiWord::createAudioList(const string &lang) {
-  vector<string> result;
+  vector<string> phonemeList;
   DUMP_VAR(lang);
   for(auto wordSed:wordSeqTopSelected_) {
     auto word = std::get<0>(wordSed.second);
     DUMP_VAR(word);
     auto phoneme = createPhoneme(word,lang);
-    result.insert(result.end(),phoneme.begin(),phoneme.end());
+    phonemeList.insert(result.end(),phoneme.begin(),phoneme.end());
+  }
+  vector<string> result;
+  for(auto phoneme:phonemeList) {
+    if(lang == "cn") {
+      auto clipAudio = gCN.getPhoneme(phoneme);
+      if(clipAudio.empty() == false) {
+        result.push_back(clipAudio);
+      }
+    }
   }
   return result;
 }
