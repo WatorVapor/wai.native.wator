@@ -85,7 +85,7 @@ json ZhiZiWord::summaryCut(const string &text) {
   result[u8"sentence"] = sentence;
   auto graph = this->createGraph(text,sentence);
   result[u8"graph"] = graph;
-  result[u8"input"} = text;
+  result[u8"input"] = text;
   return result;
 }
 
