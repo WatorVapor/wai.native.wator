@@ -56,15 +56,18 @@ string processText(const string &text) {
 
 string processWord(const string &text,const string &lang) {
   json resultTotal;
+  json ttsTotal;
   auto learnZhiZi = [&](string wordStr, vector<string> word,bool multi) {
     //DUMP_VAR(gZhiZi);
     DUMP_VAR(wordStr);
     DUMP_VAR(multi);
     if(multi) {
       auto result = gZhiZi->cut(word, wordStr, lang);
+      ttsTotal.push_back(result["tts"]);
       resultTotal.push_back(result);
     } else {
       auto result = gZhiZi->cutSpace(word, wordStr, lang);
+      ttsTotal.push_back(result["tts"]);
       resultTotal.push_back(result);
     }
   };
@@ -74,6 +77,7 @@ string processWord(const string &text,const string &lang) {
   try {
     json result;
     result[u8"wai"] = resultTotal;
+    result[u8"tts"] = ttsTotal;
     return result.dump();;
   } catch (std::exception &e) {
     DUMP_VAR(e.what());
