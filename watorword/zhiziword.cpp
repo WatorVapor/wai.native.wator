@@ -40,9 +40,9 @@ void ZhiZiWord::learn(const vector<string> &wordBytes, const string &text,const 
   this->collectWord();
 }
 
-pt::ptree ZhiZiWord::cut(const vector<string> &wordBytes, const string &text,
+json ZhiZiWord::cut(const vector<string> &wordBytes, const string &text,
                             const string &lang) {
-  pt::ptree result;
+  json result;
 /*  
   if (wordBytes.size() < 2) {
     return result;
@@ -73,8 +73,8 @@ pt::ptree ZhiZiWord::cut(const vector<string> &wordBytes, const string &text,
 
 
 
-pt::ptree ZhiZiWord::summaryCut(const string &text) {
-  pt::ptree result;
+json ZhiZiWord::summaryCut(const string &text) {
+  json result;
   string sentence = "";
   for(auto wordSed:wordSeqTopSelected_) {
     auto word = std::get<0>(wordSed.second);
@@ -82,15 +82,15 @@ pt::ptree ZhiZiWord::summaryCut(const string &text) {
     sentence += word + "%";
   }
   sentence.pop_back();
-  result.put(u8"sentence", sentence);
+  result[u8"sentence"] = sentence;
   auto graph = this->createGraph(text,sentence);
-  result.put(u8"graph", graph);
-  result.put(u8"input", text);
+  result[u8"graph"] = graph;
+  result[u8"input"} = text;
   return result;
 }
 
-pt::ptree ZhiZiWord::summaryCutPhrase(const string &text,const string &lang) {
-  pt::ptree result;
+json ZhiZiWord::summaryCutPhrase(const string &text,const string &lang) {
+  json result;
   string sentence = "";
   for(auto wordSed:wordSeqTopSelected_) {
     auto word = std::get<0>(wordSed.second);
@@ -98,17 +98,16 @@ pt::ptree ZhiZiWord::summaryCutPhrase(const string &text,const string &lang) {
     sentence += word + "%";
   }
   sentence.pop_back();
-  result.put(u8"sentence", sentence);
+  result[u8"sentence"] = sentence;
   auto graph = this->createGraphPhrase(text,sentence,lang);
-  result.put(u8"graph", graph);
-  result.put(u8"input", text);
+  result[u8"graph"] = graph;
+  result[u8"input"] = text;
   auto audioList = this->createAudioList(lang);
-  pt::ptree audioPt;
+  json audioPt;
   for(auto audio:audioList) {
-    pt::ptree audioObj(audio);
-    audioPt.push_back(std::make_pair("", audioObj));
+    audioPt.push_back(audio);
   }
-  result.add(u8"tts", audioPt);
+  result[u8"tts"] = audioPt;
   return result;
 }
 
