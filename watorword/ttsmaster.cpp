@@ -19,9 +19,12 @@ TTSMaster::TTSMaster(const string &path) {
   phrase_master_db_path_ = path + "/phrase";
   hanzi_master_db_path_ = path + "/hanzi";
   phoneme_master_db_path_ = path + "/phoneme";
+  openDB();
 }
 
-TTSMaster::~TTSMaster() {}
+TTSMaster::~TTSMaster() {
+  closeDB();
+}
 
 
 string TTSMaster::getPhoneme(const string &word) {
