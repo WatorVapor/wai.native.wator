@@ -14,10 +14,10 @@ class TTSMaster {
   void openDB();
   void closeDB();
  private:
-  string phrase_master_db_path_;
-  string hanzi_master_db_path_;
-  string phoneme_master_db_path_;
-  leveldb::DB * phrase_master_;
-  leveldb::DB * hanzi_master_;
-  leveldb::DB * phoneme_master_;
+  string master_db_path_phrase_;
+  string master_db_path_hanzi_;
+  string master_db_path_phoneme_;
+  leveldb::DB * master_phrase_;
+  leveldb::DB * master_hanzi_;
+  leveldb::DB * master_phoneme_;
 };
