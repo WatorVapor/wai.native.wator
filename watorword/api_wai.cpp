@@ -69,14 +69,12 @@ string processWord(const string &text,const string &lang) {
       for (auto& element : result["tts"]) {
         ttsTotal.push_back(element);
       }
-      result.erase("tts");
       resultTotal.push_back(result);
     } else {
       auto result = gZhiZi->cutSpace(word, wordStr, lang);
       for (auto& element : result["tts"]) {
         ttsTotal.push_back(element);
       }
-      result.erase("tts");
       resultTotal.push_back(result);
     }
   };
@@ -86,11 +84,7 @@ string processWord(const string &text,const string &lang) {
   try {
     json result;
     result[u8"wai"] = resultTotal;
-    
-    
     result[u8"m3u8"] = createTTSLink(ttsTotal);
-    result[u8"tts"] = ttsTotal;
-
     return result.dump();
   } catch (std::exception &e) {
     DUMP_VAR(e.what());
