@@ -42,7 +42,7 @@ class ZhiZiWord {
   string createGraph(const string &text,const string &sentence);
   
   vector<string> createAudioList(const string &lang);
-  vector<string> createPhoneme(const string &lang);
+  vector<string> createPhoneme(const string &word,const string &lang);
   
   void calcPredictionPhrase(const string &lang);
   void calcPredictionPhrase(const multimap<int, WordElement> &confuse,const string &lang);
