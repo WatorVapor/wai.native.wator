@@ -42,10 +42,14 @@ vector<string> ZhiZiWord::createPhoneme(const string &word,const string &lang) {
       auto hanziA = parseUTF8(word);
       for(auto hanzi :hanziA) {
         auto pinyin = gCN.getHanzi(hanzi);
-        if(pinyin.empty() == false) {
-          result.push_back(pinyin);
-        } else {
+        if(pinyin.empty()) {
           result.push_back("miss hanzi");
+        } else {
+          std::vector<std::string> results;
+          boost::algorithm::split(results, pinyin, boost::algorithm::is_any_of(","));
+          if(results.size() > 0) {
+            result.push_back(results.at(0));
+          }
         }
       }
     } else {
