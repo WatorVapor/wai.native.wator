@@ -51,6 +51,7 @@ add_library(watorword
   watorword/word_db_master.cpp
   watorword/word_db_master2.cpp
   #watorword/word_statistics_parrot.cpp
+  watorword/ttsmaster.cpp
   watorword/log.cpp
 ) 
 
