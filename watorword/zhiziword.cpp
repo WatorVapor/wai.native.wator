@@ -325,9 +325,9 @@ void ZhiZiWord::calcPredictionPhrase(const string &lang) {
 
 #include <boost/algorithm/string.hpp>
 
-pt::ptree ZhiZiWord::cutSpace(const vector<string> &wordBytes, const string &text,
+json ZhiZiWord::cutSpace(const vector<string> &wordBytes, const string &text,
                             const string &lang) {
-  pt::ptree result;
+  json result;
   DUMP_VAR(text);
   string sentence = "";
   for(auto mbyte:wordBytes) {
@@ -340,9 +340,9 @@ pt::ptree ZhiZiWord::cutSpace(const vector<string> &wordBytes, const string &tex
       }
     }
   }
-  result.put(u8"sentence", sentence);
-  result.put(u8"graph", "");
-  result.put(u8"input", text);
+  result[u8"sentence"] = sentence;
+  result[u8"graph"] = "";
+  result[u8"input"] = text;
   return result;
 }
 
