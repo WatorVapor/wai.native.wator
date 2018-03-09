@@ -28,7 +28,7 @@ void TTSMaster::openDB() {
     options.max_open_files = 512;
     options.paranoid_checks = true;
     options.compression = leveldb::kNoCompression;
-    auto status = leveldb::DB::Open(options, out_db_path_, &master_);
+    auto status = leveldb::DB::Open(options, master_db_path_, &master_);
     if (status.ok() == false) {
       DUMP_VAR(status.ToString());
       master_ = nullptr;
