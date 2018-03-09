@@ -15,58 +15,35 @@ using namespace std;
 #include "log.hpp"
 
 
-DictionaryMaster::DictionaryMaster(const string &path) {
+TTSMaster::TTSMaster(const string &path) {
   master_db_path_ = path ;
-  master_cast_db_path_ = path + ".cast";
 }
 
-DictionaryMaster::~DictionaryMaster() {}
+TTSMaster::~TTSMaster() {}
 
-void DictionaryMaster::openDB() {
-  if (gSaveDB == nullptr) {
+void TTSMaster::openDB() {
+  if (master_ == nullptr) {
     leveldb::Options options;
     options.create_if_missing = true;
     options.max_open_files = 512;
     options.paranoid_checks = true;
     options.compression = leveldb::kNoCompression;
-    auto status = leveldb::DB::Open(options, out_db_path_, &gSaveDB);
+    auto status = leveldb::DB::Open(options, out_db_path_, &master_);
     if (status.ok() == false) {
       DUMP_VAR(status.ToString());
-      gSaveDB = nullptr;
+      master_ = nullptr;
     }
   }
 }
 
-void DictionaryMaster::closeDB() {
-  if (gSaveDB != nullptr) {
-    delete gSaveDB;
-    gSaveDB = nullptr;
+void TTSMaster::closeDB() {
+  if (master_ != nullptr) {
+    delete master_;
+    master_ = nullptr;
   }
 }
-
-
-void DictionaryMaster::putWord(const string &word, int counter) {
-  leveldb::ReadOptions readOptions;
-  readOptions.verify_checksums = true;
-  string valueStr;
-  leveldb::Slice key(word);
-  if (gSaveDB != nullptr) {
-    auto status = gSaveDB->Get(readOptions, key, &valueStr);
-    TRACE_VAR(status.ToString());
-    TRACE_VAR(valueStr);
-    int sum = counter;
-    if (status.ok()) {
-      try {
-        sum += std::stoi(valueStr);
-      } catch (std::exception e) {
-        DUMP_VAR2(e.what(), valueStr);
-      }
-    }
-    TRACE_VAR(sum);
-    leveldb::Slice value(std::to_string(sum));
-    gSaveDBBatch.Put(key, value);
-  }
+string TTSMaster::getPhoneme(const string &word) {
+  string result;
+  return result;
 }
-double DictionaryMaster::getDoublePred(const string &word) {
-  return 1.0;
-}
+
