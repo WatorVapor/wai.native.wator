@@ -88,7 +88,8 @@ string processWord(const string &text,const string &lang) {
     result[u8"wai"] = resultTotal;
     
     
-    result[u8"tts"] = createTTSLink(ttsTotal);
+    result[u8"m3u8"] = createTTSLink(ttsTotal);
+    result[u8"tts"] = ttsTotal
 
     return result.dump();;
   } catch (std::exception &e) {
