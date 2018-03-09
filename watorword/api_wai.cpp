@@ -39,11 +39,11 @@ string processText(const string &text) {
     configJson.find("lang");
     auto langOpt = configJson.find("lang");
     if (langOpt != configJson.end()) {
-      gLang = langOpt.get<string>();
+      gLang = langOpt->get<string>();
     }
     auto sentenceOpt = configJson.find("sentence");
     if (sentenceOpt!= configJson.end()) {
-      auto text = sentenceOpt.get<string>();
+      auto text = sentenceOpt->get<string>();
       return processWord(text,gLang);
       
     }
@@ -74,7 +74,7 @@ string processWord(const string &text,const string &lang) {
   try {
     json result;
     result[u8"wai"] = resultTotal;
-    return json.dump();;
+    return result.dump();;
   } catch (std::exception &e) {
     DUMP_VAR(e.what());
   }
