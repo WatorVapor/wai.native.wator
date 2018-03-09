@@ -102,6 +102,12 @@ pt::ptree ZhiZiWord::summaryCutPhrase(const string &text,const string &lang) {
   auto graph = this->createGraphPhrase(text,sentence,lang);
   result.put(u8"graph", graph);
   result.put(u8"input", text);
+  auto audioList = this->createAudioList(lang);
+  pt::ptree audioPt;
+  for(auto audio:audioList) {
+    audioPt.push_back(std::make_pair("", audio));
+  }
+  result.put(u8"tts", audioPt);
   return result;
 }
 
