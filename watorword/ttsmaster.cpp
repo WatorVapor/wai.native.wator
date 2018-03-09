@@ -32,6 +32,14 @@ string TTSMaster::getPhoneme(const string &word) {
   return result;
 }
 
+string TTSMaster::getHanzi(const string &hanzi){
+  string result;
+  return result;
+}
+string TTSMaster::getPhrase(const string &word){
+  string result;
+  return result;
+}
 
 
 
