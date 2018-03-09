@@ -27,7 +27,7 @@ vector<string> ZhiZiWord::createAudioList(const string &lang) {
     auto word = std::get<0>(wordSed.second);
     DUMP_VAR(word);
     auto phoneme = createPhoneme(word,lang);
-    result.insert(result.end(),phoneme);
+    result.insert(result.end(),phoneme.begin(),phoneme.end());
   }
   return result;
 }
@@ -50,7 +50,8 @@ vector<string> ZhiZiWord::createPhoneme(const string &word,const string &lang) {
       }
     } else {
       std::vector<std::string> results;
-      boost::algorithm::split(results, phrasePinyin, is_any_of(","));
+      boost::algorithm::split(results, phrasePinyin, boost::algorithm::is_any_of(","));
+      result.insert(result.end(),results.begin(),results.end());
     }
   }
   result.push_back("word space")
