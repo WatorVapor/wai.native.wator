@@ -54,6 +54,13 @@ string processText(const string &text) {
   return "";
 }
 
+#include <boost/uuid/uuid.hpp>
+#include <boost/uuid/uuid_io.hpp>
+#include <boost/uuid/uuid_generators.hpp>
+#include <boost/lexical_cast.hpp>
+#include <fstream>
+
+
 string processWord(const string &text,const string &lang) {
   json resultTotal;
   json ttsTotal;
@@ -83,11 +90,24 @@ string processWord(const string &text,const string &lang) {
   try {
     json result;
     result[u8"wai"] = resultTotal;
-    result[u8"tts"] = ttsTotal;
+    
+    
+    result[u8"tts"] = createTTSLink(ttsTotal);
+
     return result.dump();;
   } catch (std::exception &e) {
     DUMP_VAR(e.what());
   }
   return "";
+}
+
+string createTTSLink(json clipList) {
+  for (auto& clip : clipList) {
+    DUMP_VAR(clip);
+  }
+  auto id = boost::uuids::random_generator()();
+  auto fileName = boost::lexical_cast<std::string>(id);
+  ::system("mkdir -p /watorvapor/autogen/wator/wai/audio/");
+  return "/autogen/wai/audio/" + id + ".m3u8"
 }
 
