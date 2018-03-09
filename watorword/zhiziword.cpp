@@ -105,7 +105,8 @@ pt::ptree ZhiZiWord::summaryCutPhrase(const string &text,const string &lang) {
   auto audioList = this->createAudioList(lang);
   pt::ptree audioPt;
   for(auto audio:audioList) {
-    audioPt.push_back(std::make_pair("", audio));
+    pt::ptree audioObj(audio);
+    audioPt.push_back(std::make_pair("", audioObj));
   }
   result.put(u8"tts", audioPt);
   return result;
