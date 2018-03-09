@@ -14,7 +14,9 @@ class TTSMaster {
 
  private:
  private:
-  string master_db_path_;
+  string phrase_master_db_path_;
+  string hanzi_master_db_path_;
+  string phoneme_master_db_path_;
   leveldb::DB * phrase_master_;
   leveldb::DB * hanzi_master_;
   leveldb::DB * phoneme_master_;
