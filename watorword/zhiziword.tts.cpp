@@ -54,5 +54,5 @@ vector<string> ZhiZiWord::createPhoneme(const string &word,const string &lang) {
       result.insert(result.end(),results.begin(),results.end());
     }
   }
-  result.push_back("word space")
+  result.push_back("word space");
 }
