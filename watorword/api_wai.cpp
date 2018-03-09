@@ -104,14 +104,24 @@ string processWord(const string &text,const string &lang) {
 #include <fstream>
 
 string createTTSLink(json clipList) {
+  string m3u8;
   for (auto& clip : clipList) {
     DUMP_VAR(clip);
+    string clipUrl("https://ipfs.io/ipfs/");
+    clipUrl += clip;
+    DUMP_VAR(clipUrl);
+    m3u8 += clipUrl;
+    m3u8 += "\r\n";
   }
+  DUMP_VAR(m3u8);
   auto id = boost::uuids::random_generator()();
   auto fileName = boost::lexical_cast<std::string>(id);
   ::system("mkdir -p /watorvapor/autogen/wator/wai/audio/");
-  
-  
+  string path("/watorvapor/autogen/wator/wai/audio/");
+  path += fileName;
+  path += ".m3u8";
+  std::ofstream outfile (path,std::ofstream::binary);
+  outfile << m3u8;
   
   string url = "/autogen/wai/audio/";
   url += fileName;
