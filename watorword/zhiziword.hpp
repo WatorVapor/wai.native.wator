@@ -25,7 +25,7 @@ class ZhiZiWord {
   bool loadMaster(bool castForce = true);
   void unloadMaster(void);
   void commitArticle(void);
-  void commitArticle(const pt::ptree &task,const string &ws);
+  void commitArticle(const json &task,const string &ws);
   void dumpDot(void);
 
  private:
