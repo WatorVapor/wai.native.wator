@@ -8,7 +8,7 @@ var dataPinYin = fs.readFileSync('pinyin.txt', {
 var pinYinLine = dataPinYin.split('\n');
 //console.log('pinYinLine =<',pinYinLine,'>');
 pinYinLine.forEach(function(line) {
-  if(line.startsWith('#')) {
+  if(!line.startsWith('#')) {
     console.log('line =<',line,'>');
   }
 });
