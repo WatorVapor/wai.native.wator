@@ -30,9 +30,12 @@ function tryAddHanzi(hanzi,phoneme) {
   }
 }
 for(let index in multiHanziDB) {
-  console.log('index =<',index,'>');
+  //console.log('index =<',index,'>');
   let multiPhoneme = multiHanziDB[index];
-  console.log('multiPhoneme =<',multiPhoneme,'>');
+  //console.log('multiPhoneme =<',multiPhoneme,'>');
+  if(multiPhoneme.length <2) {
+    delete multiHanziDB[index];
+  }
 }
-//console.log('multiHanziDB =<',multiHanziDB,'>');
+console.log('multiHanziDB =<',multiHanziDB,'>');
 
