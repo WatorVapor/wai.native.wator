@@ -1,6 +1,7 @@
 var levelup = require('levelup');
 
-var phonemeDB = {};
+var distDB = '../db/tts/cn/hanzi'
+var dist = levelup(distDB);
 
 var fs = require('fs');
 var dataPinYin = fs.readFileSync('pinyin.txt', {
@@ -26,10 +27,9 @@ pinYinLine.forEach(function(line) {
     let pinYinGood = pinYin.join(',');
     console.log('hanzi =<',hanzi,'>');
     console.log('pinYinGood =<',pinYinGood,'>');
+    dist.put(hanzi,pinYinGood);
   }
 });
 
 console.log('phonemeDB =<',phonemeDB,'>');
 
-var distDB = '../db/tts/cn/hanzi'
-//var dist = levelup(distDB);
