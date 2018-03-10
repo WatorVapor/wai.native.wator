@@ -2,9 +2,14 @@ var levelup = require('levelup');
 
 var fs = require('fs');
 var dataPinYin = fs.readFileSync('pinyin.txt', {
-    encoding: 'utf-8'
+  encoding: 'utf-8'
 });
-console.log('data =<',dataPinYin,'>');
+//console.log('dataPinYin =<',dataPinYin,'>');
+var pinYinLine = dataPinYin.split('\n');
+#console.log('pinYinLine =<',pinYinLine,'>');
+pinYinLine.forEach(function(line) {
+  console.log('line =<',line,'>');
+});
 
 var phonemeDB = {};
 console.log('phonemeDB =<',phonemeDB,'>');
