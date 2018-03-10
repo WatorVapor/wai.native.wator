@@ -23,7 +23,7 @@ pinYinLine.forEach(function(line) {
     param3.forEach(function(pinYinRaw) {
       pinYin.push(pinYinRaw.trim());
     });
-    let pinYinGood = JSON.stringify(pinYin);
+    let pinYinGood = pinYin.join(',');
     console.log('hanzi =<',hanzi,'>');
     console.log('pinYinGood =<',pinYinGood,'>');
   }
