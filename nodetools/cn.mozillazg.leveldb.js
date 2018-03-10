@@ -12,6 +12,9 @@ pinYinLine.forEach(function(line) {
     //console.log('line =<',line,'>');
     let param1 = line.split(':');
     console.log('param1[1] =<',param1[1],'>');
+    let param2 = param1[1].split('#');
+    console.log('param2[0] =<',param2[0],'>');
+    console.log('param2[1] =<',param2[1],'>');
   }
 });
 
