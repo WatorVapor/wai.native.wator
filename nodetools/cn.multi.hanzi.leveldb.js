@@ -23,12 +23,16 @@ function tryAddHanzi(hanzi,phoneme) {
   } else {
     hanziDB[hanzi] += ',' + phoneme;
   }
-  
   if(!multiHanziDB[hanzi]) {
     multiHanziDB[hanzi] = [phoneme];
   } else {
     multiHanziDB[hanzi].push(phoneme);
   }
 }
-console.log('multiHanziDB =<',multiHanziDB,'>');
+for(let index in multiHanziDB) {
+  console.log('index =<',index,'>');
+  let multiPhoneme = multiHanziDB[index];
+  console.log('multiPhoneme =<',multiPhoneme,'>');
+}
+//console.log('multiHanziDB =<',multiHanziDB,'>');
 
