@@ -6,7 +6,7 @@ var dataPinYin = fs.readFileSync('pinyin.txt', {
 });
 //console.log('dataPinYin =<',dataPinYin,'>');
 var pinYinLine = dataPinYin.split('\n');
-#console.log('pinYinLine =<',pinYinLine,'>');
+//console.log('pinYinLine =<',pinYinLine,'>');
 pinYinLine.forEach(function(line) {
   console.log('line =<',line,'>');
 });
