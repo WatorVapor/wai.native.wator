@@ -8,7 +8,9 @@ var dataPinYin = fs.readFileSync('pinyin.txt', {
 var pinYinLine = dataPinYin.split('\n');
 //console.log('pinYinLine =<',pinYinLine,'>');
 pinYinLine.forEach(function(line) {
-  console.log('line =<',line,'>');
+  if(line.startsWith('#')) {
+    console.log('line =<',line,'>');
+  }
 });
 
 var phonemeDB = {};
