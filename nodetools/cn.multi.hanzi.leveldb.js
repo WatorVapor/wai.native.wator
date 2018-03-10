@@ -3,6 +3,8 @@ var phonemePath = '/watorvapor/rsaauth/wator/pubKeys/b3f3e38d032b4b956d3c4591f40
 var phonemeDB = require(phonemePath);
 
 var hanziDB = {};
+var multiHanziDB = {};
+
 if(phonemeDB.cn) {
   phonemeDB.cn.forEach(function(phoneme){
     //console.log('phoneme =<',phoneme,'>');
@@ -15,16 +17,14 @@ if(phonemeDB.cn) {
   });
 }
 
-var multiHanziDB = {};
-
 function tryAddHanzi(hanzi,phoneme) {
-  if(! hanziDB[hanzi]) {
+  if(!hanziDB[hanzi]) {
     hanziDB[hanzi] = phoneme;
   } else {
     hanziDB[hanzi] += ',' + phoneme;
   }
   
-  if(! multiHanziDB[hanzi]) {
+  if(!multiHanziDB[hanzi]) {
     multiHanziDB[hanzi] = [phoneme];
   } else {
     multiHanziDB[hanzi].push(phoneme);
