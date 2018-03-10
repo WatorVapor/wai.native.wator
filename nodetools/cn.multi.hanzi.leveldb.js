@@ -40,7 +40,7 @@ for(let index in multiHanziDB) {
 //console.log('multiHanziDB =<',multiHanziDB,'>');
 var jsonMulti = JSON.stringify(multiHanziDB);
 var fs = require('fs');
-fs.writeFile('multiHanZiDB.json', jsonMulti, 'utf8',);
+fs.writeFile('multiHanZiDB.json', jsonMulti, 'utf8');
 
 
 
