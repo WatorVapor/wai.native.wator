@@ -67,6 +67,6 @@ vector<string> ZhiZiWord::createPhoneme(const string &word,const string &lang) {
       result.insert(result.end(),results.begin(),results.end());
     }
   }
-  result.push_back("ws");
+  result.push_back(u8"(无音)");
   return result;
 }
