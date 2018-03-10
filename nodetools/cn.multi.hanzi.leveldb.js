@@ -38,7 +38,7 @@ for(let index in multiHanziDB) {
   }
 }
 //console.log('multiHanziDB =<',multiHanziDB,'>');
-var jsonMulti = JSON.stringify(multiHanziDB);
+var jsonMulti = JSON.stringify(multiHanziDB,null,2);
 var fs = require('fs');
 fs.writeFile('multiHanZiDB.json', jsonMulti, 'utf8');
 
