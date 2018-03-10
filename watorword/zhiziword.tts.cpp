@@ -35,6 +35,8 @@ vector<string> ZhiZiWord::createAudioList(const string &lang) {
       auto clipAudio = gCN.getPhoneme(phoneme);
       if(clipAudio.empty() == false) {
         result.push_back(clipAudio);
+      } else {
+        DUMP_VAR(phoneme,clipAudio);
       }
     }
   }
