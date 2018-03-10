@@ -9,7 +9,9 @@ var pinYinLine = dataPinYin.split('\n');
 //console.log('pinYinLine =<',pinYinLine,'>');
 pinYinLine.forEach(function(line) {
   if(!line.startsWith('#')) {
-    console.log('line =<',line,'>');
+    //console.log('line =<',line,'>');
+    let param1 = line.split(':');
+    console.log('param1[1] =<',param1[1],'>');
   }
 });
 
