@@ -37,5 +37,10 @@ for(let index in multiHanziDB) {
     delete multiHanziDB[index];
   }
 }
-console.log('multiHanziDB =<',multiHanziDB,'>');
+//console.log('multiHanziDB =<',multiHanziDB,'>');
+var jsonMulti = JSON.stringify(multiHanziDB);
+var fs = require('fs');
+fs.writeFile('multiHanZiDB.json', jsonMulti, 'utf8',);
+
+
 
