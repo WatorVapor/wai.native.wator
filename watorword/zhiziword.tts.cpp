@@ -39,6 +39,14 @@ vector<string> ZhiZiWord::createAudioList(const string &lang) {
         DUMP_VAR2(phoneme,clipAudio);
       }
     }
+    if(lang == "ja") {
+      auto clipAudio = gJA.getPhoneme(phoneme);
+      if(clipAudio.empty() == false) {
+        result.push_back(clipAudio);
+      } else {
+        DUMP_VAR2(phoneme,clipAudio);
+      }
+    }
   }
   return result;
 }
@@ -95,7 +103,7 @@ vector<string> ZhiZiWord::createPhonemeJA(const string &word) {
         result.push_back("wm");
       } else {
         std::vector<std::string> results;
-        boost::algorithm::split(results, pinyin, boost::algorithm::is_any_of(","));
+        boost::algorithm::split(results, kana, boost::algorithm::is_any_of(","));
         if(results.size() > 0) {
           result.push_back(results.at(0));
         }
@@ -103,7 +111,7 @@ vector<string> ZhiZiWord::createPhonemeJA(const string &word) {
     }
   } else {
     std::vector<std::string> results;
-    boost::algorithm::split(results, phrasePinyin, boost::algorithm::is_any_of(","));
+    boost::algorithm::split(results, phraseKana, boost::algorithm::is_any_of(","));
     result.insert(result.end(),results.begin(),results.end());
   }
   return result;
