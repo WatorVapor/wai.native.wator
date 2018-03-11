@@ -10,86 +10,86 @@ dist.put('ウ','う');
 dist.put('エ','え');
 dist.put('オ','お');
 
-dist.put('ア','か');
-dist.put('イ','き');
-dist.put('ウ','く');
-dist.put('エ','け');
-dist.put('オ','こ');
+dist.put('カ','か');
+dist.put('キ','き');
+dist.put('ク','く');
+dist.put('ケ','け');
+dist.put('コ','こ');
 
-dist.put('ア','が');
-dist.put('イ','ぎ');
-dist.put('ウ','ぐ');
-dist.put('エ','げ');
-dist.put('オ','ご');
+dist.put('ガ','が');
+dist.put('ギ','ぎ');
+dist.put('グ','ぐ');
+dist.put('ゲ','げ');
+dist.put('ゴ','ご');
 
-dist.put('ア','さ');
-dist.put('イ','し');
-dist.put('ウ','す');
-dist.put('エ','せ');
-dist.put('オ','そ');
+dist.put('サ','さ');
+dist.put('シ','し');
+dist.put('ス','す');
+dist.put('セ','せ');
+dist.put('ソ','そ');
 
-dist.put('ア','ざ');
-dist.put('イ','じ');
-dist.put('ウ','ず');
-dist.put('エ','ぜ');
-dist.put('オ','ぞ');
+dist.put('ザ','ざ');
+dist.put('ジ','じ');
+dist.put('ズ','ず');
+dist.put('ゼ','ぜ');
+dist.put('ゾ','ぞ');
 
-dist.put('ア','た');
-dist.put('イ','ち');
-dist.put('ウ','つ');
-dist.put('エ','て');
-dist.put('オ','と');
+dist.put('タ','た');
+dist.put('チ','ち');
+dist.put('ツ','つ');
+dist.put('テ','て');
+dist.put('ト','と');
 
-dist.put('ア','だ');
-dist.put('イ','ぢ');
-dist.put('ウ','づ');
-dist.put('エ','で');
-dist.put('オ','ど');
+dist.put('ダ','だ');
+dist.put('ヂ','ぢ');
+dist.put('ヅ','づ');
+dist.put('デ','で');
+dist.put('ド','ど');
 
-dist.put('ア','な');
-dist.put('イ','に');
-dist.put('ウ','ぬ');
-dist.put('エ','ね');
-dist.put('オ','の');
+dist.put('ナ','な');
+dist.put('ニ','に');
+dist.put('ヌ','ぬ');
+dist.put('ネ','ね');
+dist.put('ノ','の');
 
-dist.put('ア','は');
-dist.put('イ','ひ');
-dist.put('ウ','ふ');
-dist.put('エ','へ');
-dist.put('オ','ほ');
+dist.put('ハ','は');
+dist.put('ヒ','ひ');
+dist.put('フ','ふ');
+dist.put('ヘ','へ');
+dist.put('ホ','ほ');
 
-dist.put('ア','ば');
-dist.put('イ','び');
-dist.put('ウ','ぶ');
-dist.put('エ','べ');
-dist.put('オ','ぼ');
+dist.put('バ','ば');
+dist.put('ビ','び');
+dist.put('ブ','ぶ');
+dist.put('ベ','べ');
+dist.put('ボ','ぼ');
 
-dist.put('ア','ぱ');
-dist.put('イ','ぴ');
-dist.put('ウ','ぷ');
-dist.put('エ','ぺ');
-dist.put('オ','ぽ');
+dist.put('パ','ぱ');
+dist.put('ピ','ぴ');
+dist.put('プ','ぷ');
+dist.put('ペ','ぺ');
+dist.put('ポ','ぽ');
 
-dist.put('ア','ま');
-dist.put('イ','み');
-dist.put('ウ','む');
-dist.put('エ','め');
-dist.put('オ','も');
+dist.put('マ','ま');
+dist.put('ミ','み');
+dist.put('ム','む');
+dist.put('メ','め');
+dist.put('モ','も');
 
-dist.put('ア','や');
-dist.put('イ','ゆ');
-dist.put('ウ','よ');
+dist.put('ヤ','や');
+dist.put('ユ','ゆ');
+dist.put('ヨ','よ');
 
-dist.put('ア','ら');
-dist.put('イ','り');
-dist.put('ウ','る');
-dist.put('エ','れ');
-dist.put('オ','ろ');
+dist.put('ラ','ら');
+dist.put('リ','り');
+dist.put('ル','る');
+dist.put('レ','れ');
+dist.put('ロ','ろ');
 
-dist.put('','わ');
-dist.put('イ','を');
+dist.put('ワ','わ');
+dist.put('ヲ','を');
 
-dist.put('ウ','ん');
+dist.put('ン','ん');
 
 
 
