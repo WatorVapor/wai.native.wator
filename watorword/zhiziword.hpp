@@ -43,6 +43,8 @@ class ZhiZiWord {
   
   vector<string> createAudioList(const string &lang);
   vector<string> createPhoneme(const string &word,const string &lang);
+  vector<string> createPhonemeCN(const string &word);
+  vector<string> createPhonemeJA(const string &word);
   
   void calcPredictionPhrase(const string &lang);
   void calcPredictionPhrase(const multimap<int, WordElement> &confuse,const string &lang);
