@@ -3,9 +3,9 @@ var levelup = require('levelup');
 var distDB = '../db/tts/ja/hanzi'
 var dist = levelup(distDB);
 
-var Kana = {
-  あ:'あ',
-};
+var Kana = [
+  {あ:'あ'}
+];
 console.log('Kana =<',Kana,'>');
 
 Kana.forEach(function(jakan,phoneme){
