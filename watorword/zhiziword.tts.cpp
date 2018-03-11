@@ -33,12 +33,11 @@ vector<string> ZhiZiWord::createAudioList(const string &lang) {
   vector<string> result;
   if(lang == "cn") {
     for(auto phoneme:phonemeList) {
-        auto clipAudio = gCN.getPhoneme(phoneme);
-        if(clipAudio.empty() == false) {
-          result.push_back(clipAudio);
-        } else {
-          DUMP_VAR2(phoneme,clipAudio);
-        }
+      auto clipAudio = gCN.getPhoneme(phoneme);
+      if(clipAudio.empty() == false) {
+        result.push_back(clipAudio);
+      } else {
+        DUMP_VAR2(phoneme,clipAudio);
       }
     }
   }
