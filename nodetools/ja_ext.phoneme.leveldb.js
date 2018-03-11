@@ -1,5 +1,7 @@
 var levelup = require('levelup');
-var phonemePath = '/watorvapor/rsaauth/wator/pubKeys/b3f3e38d032b4b956d3c4591f40aaff21fb337ec1340626eaf3b35e84e23ced763c18502925f0a16d5b4a10284b83d5e15cbc1cbcec593e095c0776d287e8f36/wai/phoneme_ja.json';
+var phonemePath = '/watorvapor/rsaauth/wator/pubKeys/';
+phonemePath += 'b3f3e38d032b4b956d3c4591f40aaff21fb337ec1340626eaf3b35e84e23ced763c18502925f0a16d5b4a10284b83d5e15cbc1cbcec593e095c0776d287e8f36';
+phonemePath += '/wai/phoneme_ext_ja.json';
 var phonemeDB = require(phonemePath);
 console.log('phonemeDB =<',phonemeDB,'>');
 
