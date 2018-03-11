@@ -14,7 +14,9 @@ var dist2 = levelup(distDB2);
 if(phonemeDB.ctrl) {
   phonemeDB.ctrl.forEach(function(phoneme){
     console.log('phoneme =<',phoneme,'>');
-    dist.put(phoneme.phoneme,phoneme.ipfs);
-    dist2.put(phoneme.phoneme,phoneme.ipfs);
+    if(phoneme.phoneme) {
+      dist.put(phoneme.phoneme,phoneme.ipfs);
+      dist2.put(phoneme.phoneme,phoneme.ipfs);
+    }
   });
 }
