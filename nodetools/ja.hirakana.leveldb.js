@@ -7,6 +7,14 @@ var phonemePath = '/watorvapor/rsaauth/wator/pubKeys/b3f3e38d032b4b956d3c4591f40
 var phonemeDB = require(phonemePath);
 console.log('phonemeDB =<',phonemeDB,'>');
 
+
+if(phonemeDB.ja) {
+  phonemeDB.ja.forEach(function(phoneme){
+    console.log('phoneme =<',phoneme,'>');
+    dist.put(phoneme.phoneme,phoneme.phoneme);
+  });
+}
+
 /*
 Kana.forEach(function(jakan,phoneme){
   console.log('jakan =<',jakan,'>');
