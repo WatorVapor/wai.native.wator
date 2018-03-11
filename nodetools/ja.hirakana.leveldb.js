@@ -14,12 +14,3 @@ if(phonemeDB.ja) {
     dist.put(phoneme.phoneme,phoneme.phoneme);
   });
 }
-
-/*
-Kana.forEach(function(jakan,phoneme){
-  console.log('jakan =<',jakan,'>');
-  console.log('phoneme =<',phoneme,'>');
-  dist.put(jakan,phoneme);
-});
-*/
-
