@@ -98,6 +98,8 @@ vector<string> ZhiZiWord::createPhonemeCN(const string &word) {
 }
 
 
+vector<string> jaHirakaraPair(const vector<string> &hirakana);
+
 vector<string> ZhiZiWord::createPhonemeJA(const string &word) {
   vector<string> result;
   auto phraseKana = gJA.getPhrase(word);
@@ -120,7 +122,13 @@ vector<string> ZhiZiWord::createPhonemeJA(const string &word) {
     boost::algorithm::split(results, phraseKana, boost::algorithm::is_any_of(","));
     result.insert(result.end(),results.begin(),results.end());
   }
-  result.push_back(u8"ws");
+  auto result2 = jaHirakaraPair(result);
+  result2.push_back(u8"ws");
+  return result2;
+}
+
+vector<string> jaHirakaraPair(const vector<string> &hirakana) {
+  vector<string> result;
   return result;
 }
 
