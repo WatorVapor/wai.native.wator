@@ -145,14 +145,17 @@ vector<string> jaHirakaraPair(const vector<string> &hirakana) {
     if(clipAudio3.empty()) {
       if(clipAudio2.empty()) {
         result.push_back(*it);
+        DUMP_VAR(*it);
         it = next;
       } else {
         result.push_back(*it + *next);
         it = next2;
+        DUMP_VAR(*it + *next);
       }
     } else {
       result.push_back(*it + *next + *next2);
       it = std::next(it,3);
+      DUMP_VAR(*it + *next + *next2);
     }
   }
   return result;
