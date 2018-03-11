@@ -14,8 +14,8 @@ console.log('phonemeDB =<',phonemeDB,'>');
 //console.log('distDB =<',distDB,'>');
 var distDB = '../db/tts/ja/phoneme'
 var dist = levelup(distDB);
-if(phonemeDB.ja) {
-  phonemeDB.ja.forEach(function(phoneme){
+if(phonemeDB.ext_ja) {
+  phonemeDB.ext_ja.forEach(function(phoneme){
     console.log('phoneme =<',phoneme,'>');
     dist.put(phoneme.phoneme,phoneme.ipfs);
   });
