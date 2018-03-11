@@ -66,14 +66,14 @@ json ZhiZiWord::cut(const vector<string> &wordBytes, const string &text,
     return this->summaryCutPhrase(text,lang);
   } else {
     this->calcPrediction();
-    return this->summaryCut(text);
+    return this->summaryCut(text,lang);
   }
 }
 
 
 
 
-json ZhiZiWord::summaryCut(const string &text) {
+json ZhiZiWord::summaryCut(const string &text,const string &lang) {
   json result;
   string sentence = "";
   for(auto wordSed:wordSeqTopSelected_) {
