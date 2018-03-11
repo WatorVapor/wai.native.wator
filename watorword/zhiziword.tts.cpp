@@ -42,16 +42,6 @@ vector<string> ZhiZiWord::createAudioList(const string &lang) {
       }
     }
   }
-  if(lang == "ja") {
-    for(auto phoneme:phonemeList) {
-      auto clipAudio = gJA.getPhoneme(phoneme);
-      if(clipAudio.empty() == false) {
-        result.push_back(clipAudio);
-      } else {
-        DUMP_VAR2(phoneme,clipAudio);
-      }
-    }
-  }
   return result;
 }
 
