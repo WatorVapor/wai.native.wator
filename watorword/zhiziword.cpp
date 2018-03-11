@@ -86,6 +86,14 @@ json ZhiZiWord::summaryCut(const string &text) {
   auto graph = this->createGraph(text,sentence);
   result[u8"graph"] = graph;
   result[u8"input"] = text;
+  
+  auto audioList = this->createAudioList(lang);
+  json audioPt;
+  for(auto audio:audioList) {
+    audioPt.push_back(audio);
+  }
+  result[u8"tts"] = audioPt;
+
   return result;
 }
 
