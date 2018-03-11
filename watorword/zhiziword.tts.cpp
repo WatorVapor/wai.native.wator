@@ -143,11 +143,18 @@ vector<string> jaHirakaraPair(const vector<string> &hirakana) {
       clipAudio3 = gJA.getPhoneme(*it + *next + *next2);
     }
     if(clipAudio3.empty()) {
+      if(clipAudio2.empty()) {
+        result.push_back(*it);
+        it = next;
+      } else {
+        result.push_back(*it + *next);
+        it = next2;
+      }
     } else {
-      result +=
+      result.push_back(*it + *next + *next2);
+      it = std::next(it,3);
     }
   }
-  return 
-    result +=;
+  return result;
 }
 
