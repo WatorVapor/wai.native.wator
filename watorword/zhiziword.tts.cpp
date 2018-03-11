@@ -48,27 +48,64 @@ vector<string> ZhiZiWord::createAudioList(const string &lang) {
 vector<string> ZhiZiWord::createPhoneme(const string &word,const string &lang) {
   vector<string> result;
   if(lang == "cn") {
-    auto phrasePinyin = gCN.getPhrase(word);
-    if(phrasePinyin.empty()) {
-      auto hanziA = parseUTF8(word);
-      for(auto hanzi :hanziA) {
-        auto pinyin = gCN.getHanzi(hanzi);
-        if(pinyin.empty()) {
-          result.push_back("wm");
-        } else {
-          std::vector<std::string> results;
-          boost::algorithm::split(results, pinyin, boost::algorithm::is_any_of(","));
-          if(results.size() > 0) {
-            result.push_back(results.at(0));
-          }
-        }
-      }
-    } else {
-      std::vector<std::string> results;
-      boost::algorithm::split(results, phrasePinyin, boost::algorithm::is_any_of(","));
-      result.insert(result.end(),results.begin(),results.end());
-    }
+    result = createPhonemeCN(word);
+  }
+  if(lang == "ja") {
+    result = createPhonemeJA(word);
   }
   result.push_back(u8" ");
   return result;
 }
+
+
+vector<string> ZhiZiWord::createPhonemeCN(const string &word) {
+  vector<string> result;
+  auto phrasePinyin = gCN.getPhrase(word);
+  if(phrasePinyin.empty()) {
+    auto hanziA = parseUTF8(word);
+    for(auto hanzi :hanziA) {
+      auto pinyin = gCN.getHanzi(hanzi);
+      if(pinyin.empty()) {
+        result.push_back("wm");
+      } else {
+        std::vector<std::string> results;
+        boost::algorithm::split(results, pinyin, boost::algorithm::is_any_of(","));
+        if(results.size() > 0) {
+          result.push_back(results.at(0));
+        }
+      }
+    }
+  } else {
+    std::vector<std::string> results;
+    boost::algorithm::split(results, phrasePinyin, boost::algorithm::is_any_of(","));
+    result.insert(result.end(),results.begin(),results.end());
+  }
+  return result;
+}
+
+
+vector<string> ZhiZiWord::createPhonemeJA(const string &word) {
+  vector<string> result;
+  auto phraseKana = gJA.getPhrase(word);
+  if(phraseKana.empty()) {
+    auto jHanKaHiA = parseUTF8(word);
+    for(auto jHanKaHi :jHanKaHiA) {
+      auto kana = gJA.getHanzi(jHanKaHi);
+      if(kana.empty()) {
+        result.push_back("wm");
+      } else {
+        std::vector<std::string> results;
+        boost::algorithm::split(results, pinyin, boost::algorithm::is_any_of(","));
+        if(results.size() > 0) {
+          result.push_back(results.at(0));
+        }
+      }
+    }
+  } else {
+    std::vector<std::string> results;
+    boost::algorithm::split(results, phrasePinyin, boost::algorithm::is_any_of(","));
+    result.insert(result.end(),results.begin(),results.end());
+  }
+  return result;
+}
+
