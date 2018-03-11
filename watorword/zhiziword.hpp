@@ -38,13 +38,9 @@ class ZhiZiWord {
 
   void calcPrediction(void);
   void calcPrediction(const multimap<int, WordElement> &confuse);
-  json summaryCut(const string &text);
+  json summaryCut(const string &text,const string &lang);
   string createGraph(const string &text,const string &sentence);
   
-  vector<string> createAudioList(const string &lang);
-  vector<string> createPhoneme(const string &word,const string &lang);
-  vector<string> createPhonemeCN(const string &word);
-  vector<string> createPhonemeJA(const string &word);
   
   void calcPredictionPhrase(const string &lang);
   void calcPredictionPhrase(const multimap<int, WordElement> &confuse,const string &lang);
@@ -53,7 +49,11 @@ class ZhiZiWord {
  
   void collectWord(void);
 
-  
+  vector<string> createAudioList(const string &lang);
+  vector<string> createPhoneme(const string &word,const string &lang);
+  vector<string> createPhonemeCN(const string &word);
+  vector<string> createPhonemeJA(const string &word);
+ 
   
   void dumpRank();
   void dumpSeq();
