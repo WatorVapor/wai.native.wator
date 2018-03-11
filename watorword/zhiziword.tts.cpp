@@ -129,8 +129,8 @@ vector<string> ZhiZiWord::createPhonemeJA(const string &word) {
 
 vector<string> jaHirakaraPair(const vector<string> &hirakana) {
   vector<string> result;
-  auto ir =  hirakana.begin();
-  while(ir != hirakana.end()) {
+  auto it =  hirakana.begin();
+  while(it != hirakana.end()) {
     auto clipAudio1 = gJA.getPhoneme(*it);
     string clipAudio2;
     auto next = std::next(it,1);
