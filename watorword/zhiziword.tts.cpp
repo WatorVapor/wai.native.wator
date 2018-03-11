@@ -92,7 +92,6 @@ vector<string> ZhiZiWord::createPhonemeCN(const string &word) {
     boost::algorithm::split(results, phrasePinyin, boost::algorithm::is_any_of(","));
     result.insert(result.end(),results.begin(),results.end());
   }
-  result.push_back(u8" ");
   result.push_back(u8"ws");
  return result;
 }
