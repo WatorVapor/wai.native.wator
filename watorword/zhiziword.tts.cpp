@@ -139,7 +139,7 @@ vector<string> jaHirakaraPair(const vector<string> &hirakana) {
     }
     auto next2 = std::next(it,2);
     string clipAudio3;
-    if(next != hirakana.end()) {
+    if(next != hirakana.end()　&& next2 != hirakana.end()) {
       clipAudio3 = gJA.getPhoneme(*it + *next + *next2);
     }
     if(clipAudio3.empty()) {
