@@ -29,6 +29,7 @@ vector<string> ZhiZiWord::createAudioList(const string &lang) {
     auto phoneme = createPhoneme(word,lang);
     phonemeList.insert(phonemeList.end(),phoneme.begin(),phoneme.end());
   }
+  
   vector<string> result;
   if(lang == "cn") {
     for(auto phoneme:phonemeList) {
