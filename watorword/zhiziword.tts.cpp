@@ -30,16 +30,19 @@ vector<string> ZhiZiWord::createAudioList(const string &lang) {
     phonemeList.insert(phonemeList.end(),phoneme.begin(),phoneme.end());
   }
   vector<string> result;
-  for(auto phoneme:phonemeList) {
-    if(lang == "cn") {
-      auto clipAudio = gCN.getPhoneme(phoneme);
-      if(clipAudio.empty() == false) {
-        result.push_back(clipAudio);
-      } else {
-        DUMP_VAR2(phoneme,clipAudio);
+  if(lang == "cn") {
+    for(auto phoneme:phonemeList) {
+        auto clipAudio = gCN.getPhoneme(phoneme);
+        if(clipAudio.empty() == false) {
+          result.push_back(clipAudio);
+        } else {
+          DUMP_VAR2(phoneme,clipAudio);
+        }
       }
     }
-    if(lang == "ja") {
+  }
+  if(lang == "ja") {
+    for(auto phoneme:phonemeList) {
       auto clipAudio = gJA.getPhoneme(phoneme);
       if(clipAudio.empty() == false) {
         result.push_back(clipAudio);
@@ -88,7 +91,9 @@ vector<string> ZhiZiWord::createPhonemeCN(const string &word) {
     boost::algorithm::split(results, phrasePinyin, boost::algorithm::is_any_of(","));
     result.insert(result.end(),results.begin(),results.end());
   }
-  return result;
+  result.push_back(u8" ");
+  result.push_back(u8"ws");
+ return result;
 }
 
 
@@ -114,6 +119,7 @@ vector<string> ZhiZiWord::createPhonemeJA(const string &word) {
     boost::algorithm::split(results, phraseKana, boost::algorithm::is_any_of(","));
     result.insert(result.end(),results.begin(),results.end());
   }
+  result.push_back(u8"ws");
   return result;
 }
 
