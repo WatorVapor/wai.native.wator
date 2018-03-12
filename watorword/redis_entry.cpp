@@ -14,7 +14,7 @@ void redis_sub_main(void) {
     try{
       boost::asio::io_service ioService;
       boost::asio::ip::tcp::resolver resolver(ioService);
-      boost::asio::ip::tcp::resolver::query query("master.redis.wator.xyz", "6379");
+      boost::asio::ip::tcp::resolver::query query("127.0.0.1", "6379");
       boost::asio::ip::tcp::resolver::iterator iter = resolver.resolve(query);
       boost::asio::ip::tcp::endpoint endpoint = iter->endpoint();
       DUMP_VAR(endpoint);
@@ -46,7 +46,7 @@ void redis_pub_main(void) {
     try {
       boost::asio::io_service ioService;
       boost::asio::ip::tcp::resolver resolver(ioService);
-      boost::asio::ip::tcp::resolver::query query("master.redis.wator.xyz", "6379");
+      boost::asio::ip::tcp::resolver::query query("127.0.0.1", "6379");
       boost::asio::ip::tcp::resolver::iterator iter = resolver.resolve(query);
       boost::asio::ip::tcp::endpoint endpoint = iter->endpoint();
       DUMP_VAR(endpoint);
