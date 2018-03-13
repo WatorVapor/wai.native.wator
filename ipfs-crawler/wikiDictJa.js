@@ -70,7 +70,7 @@ module.exports = class WikiDict {
     }
     console.log('this.plainText=<',this.plainText,'>');
     let kana1 = this.plainText.split(')');
-    console.log('parseHTML_::kana1=<',kana,'>');
+    console.log('parseHTML_::kana1=<',kana1,'>');
   }
   
   getTextAllChildren_(elem){
