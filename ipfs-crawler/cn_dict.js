@@ -4,3 +4,12 @@ var zhOption =  {
 }
 var zhWiki = new wiki(zhOption);
 console.log('zhWiki=<',zhWiki,'>');
+
+function onFinnish(){
+  setTimeout(function(){
+    zhWiki.runOnce(onFinnish);
+  },1);
+}
+setTimeout(function(){
+  zhWiki.runOnce(onFinnish);
+},1000);
