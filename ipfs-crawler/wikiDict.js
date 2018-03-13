@@ -41,8 +41,8 @@ module.exports = class WikiDict {
           self.onApiError_();
         }
       } else {
-        //console.log('response=<',response,'>');
-        //console.log('body=<',body,'>');
+        console.log('response=<',response,'>');
+        console.log('body=<',body,'>');
         if(response && response.statusCode === 200) {
           self.parseHTML_(body,url);
         } else {
