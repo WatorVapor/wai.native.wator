@@ -56,7 +56,7 @@ module.exports = class WikiDict {
     try {
       //console.log('data=<',data,'>');
       const $ = cheerio.load(data);
-      $('tt').each( (i, elem) => {
+      $('p').each( (i, elem) => {
         //console.log('i=<',i,'>');
         //console.log('elem=<',elem,'>');
         elem.children.forEach( (value, index, ar) => {
