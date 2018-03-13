@@ -14,18 +14,21 @@ module.exports = class WikiDict {
     
   runOnce(cb){
     this.cb = cb;
-    let url = this.root + encodeURIComponent('民事訴訟');
+    this.word = '民事訴訟';
+    let url = this.root + encodeURIComponent(this.word);
     this.getOneTitle_(url);
   }
   
   readKana_() {
     let kana1 = this.plainText.split('）');
-    console.log('readKana_::kana1=<',kana1,'>');
+    //console.log('readKana_::kana1=<',kana1,'>');
     if(kana1.length > 0) {
       let kana2 = kana1[0].split('（');
-      console.log('readKana_::kana2=<',kana2,'>');
+      //console.log('readKana_::kana2=<',kana2,'>');
       if(kana2.length > 1) {
-        console.log('readKana_::kana2[1]=<',kana2[1],'>');
+        //console.log('readKana_::kana2[1]=<',kana2[1],'>');
+        let kana = kana2[1];
+        console.log('readKana_::this.word=<',this.word,'>','kana=<',kana,'>');
       }
     }
   }
