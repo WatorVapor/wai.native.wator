@@ -24,6 +24,9 @@ module.exports = class WikiDict {
     if(kana1.length > 0) {
       let kana2 = kana1[0].split('（');
       console.log('readKana_::kana2=<',kana2,'>');
+      if(kana2.length > 1) {
+        console.log('readKana_::kana2[1]=<',kana2[1],'>');
+      }
     }
   }
   
