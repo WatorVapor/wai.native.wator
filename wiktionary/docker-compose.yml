@@ -5,6 +5,8 @@ services:
     image: node:slim
     volumes:
       - ./:/wiktionary
+      - /watorvapor/wai.storage/wiktionary/input_db:/input
+      - /watorvapor/wai.storage/wiktionary/out_db:/out
     working_dir: "/wiktionary"
     networks:
       - outside
@@ -22,6 +24,8 @@ services:
     image: node:slim
     volumes:
       - ./:/wiktionary
+      - /watorvapor/wai.storage/wiktionary/input_db:/input
+      - /watorvapor/wai.storage/wiktionary/out_db:/out
     working_dir: "/wiktionary"
     networks:
       - outside
