@@ -14,7 +14,7 @@ module.exports = class WikiDict {
     
   runOnce(cb){
     this.cb = cb;
-    let url = this.root + '/词典';
+    let url = this.root + '词典';
     this.getOneTitle_(url);    
   }
   
@@ -35,20 +35,14 @@ module.exports = class WikiDict {
         console.log('error: error.code=<',error.code,'>');
         console.log('error: error.message=<',error.message,'>');
         console.log('error: response=<',response,'>');
-        if(error.code === 'ERR_INVALID_CHAR') {
-          self.todoWritten = true;
-          self.saveDoneWiki_(url,'');
-        } else {
-          self.onApiError_();
-        }
+        this.cb();
       } else {
-        console.log('response=<',response,'>');
+        //console.log('response=<',response,'>');
         console.log('body=<',body,'>');
         if(response && response.statusCode === 200) {
           self.parseHTML_(body,url);
         } else {
-          self.todoWritten = true;
-          self.saveDoneWiki_(url,'');
+          this.cb();
         }
       }
     });
