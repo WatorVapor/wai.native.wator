@@ -63,7 +63,7 @@ module.exports = class WikiDict {
           //console.log('value=<',value,'>');
           self.getTextAllChildren_(value);
         });
-        this.plainText += ',';
+        this.plainText += '';
       });
     } catch(e) {
       console.log('e=<',e,'>');
