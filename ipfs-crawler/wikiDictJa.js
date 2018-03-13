@@ -14,7 +14,7 @@ module.exports = class WikiDict {
     
   runOnce(cb){
     this.cb = cb;
-    let url = this.root + encodeURIComponent('役割');
+    let url = this.root + encodeURIComponent('民事訴訟');
     this.getOneTitle_(url);    
   }
   
