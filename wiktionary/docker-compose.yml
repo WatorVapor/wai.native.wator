@@ -4,19 +4,19 @@ services:
   ipfs-crawler:
     image: node:slim
     volumes:
-      - ./:/crawler_app
-    working_dir: "/crawler_app"
+      - ./:/wiktionary
+    working_dir: "/wiktionary"
     networks:
       - outside
     deploy:
       resources:
         limits:
           cpus: '2.00'
-          memory: 64M
+          memory: 128M
         reservations:
           cpus: '0.60'
           memory: 32M
-    command: node app.js
+    command: node dict_ja.js
 networks:
   outside:
     external:
