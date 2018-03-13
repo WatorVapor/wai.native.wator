@@ -22,7 +22,7 @@ module.exports = class WikiDict {
     let kana1 = this.plainText.split('）');
     console.log('readKana_::kana1=<',kana1,'>');
     if(kana1.length > 0) {
-      let kana2 = kana1.split('（');
+      let kana2 = kana1[0].split('（');
       console.log('readKana_::kana2=<',kana2,'>');
     }
   }
