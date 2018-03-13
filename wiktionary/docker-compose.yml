@@ -1,7 +1,7 @@
 
 version: '3'
 services:
-  ipfs-crawler:
+  wiktionary-ja:
     image: node:slim
     volumes:
       - ./:/wiktionary
@@ -17,6 +17,23 @@ services:
           cpus: '0.60'
           memory: 32M
     command: node dict_ja.js
+services:
+  wiktionary-cn:
+    image: node:slim
+    volumes:
+      - ./:/wiktionary
+    working_dir: "/wiktionary"
+    networks:
+      - outside
+    deploy:
+      resources:
+        limits:
+          cpus: '2.00'
+          memory: 128M
+        reservations:
+          cpus: '0.60'
+          memory: 32M
+    command: node dict_cn.js
 networks:
   outside:
     external:
