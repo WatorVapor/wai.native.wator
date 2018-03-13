@@ -69,6 +69,8 @@ module.exports = class WikiDict {
       console.log('e=<',e,'>');
     }
     console.log('this.plainText=<',this.plainText,'>');
+    let kana1 = this.plainText.split(')');
+    console.log('parseHTML_::kana1=<',kana,'>');
   }
   
   getTextAllChildren_(elem){
