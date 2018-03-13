@@ -15,7 +15,12 @@ module.exports = class WikiDict {
   runOnce(cb){
     this.cb = cb;
     let url = this.root + encodeURIComponent('民事訴訟');
-    this.getOneTitle_(url);    
+    this.getOneTitle_(url);
+  }
+  
+  readKana_() {
+    let kana1 = this.plainText.split('）');
+    console.log('readKana_::kana1=<',kana1,'>');
   }
   
   
@@ -69,8 +74,7 @@ module.exports = class WikiDict {
       console.log('e=<',e,'>');
     }
     console.log('this.plainText=<',this.plainText,'>');
-    let kana1 = this.plainText.split('）');
-    console.log('parseHTML_::kana1=<',kana1,'>');
+    this.readKana_();
   }
   
   getTextAllChildren_(elem){
