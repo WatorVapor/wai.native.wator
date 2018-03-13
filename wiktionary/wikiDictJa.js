@@ -1,5 +1,7 @@
 const request = require('request');
 const cheerio = require('cheerio');
+const wordDB = require('./wordFromLevelDB.js')
+
 
 module.exports = class WikiDict {
   constructor(option) {
