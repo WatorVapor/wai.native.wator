@@ -38,7 +38,7 @@ module.exports = class WikiDict {
         this.cb();
       } else {
         //console.log('response=<',response,'>');
-        console.log('body=<',body,'>');
+        //console.log('body=<',body,'>');
         if(response && response.statusCode === 200) {
           self.parseHTML_(body,url);
         } else {
@@ -65,26 +65,10 @@ module.exports = class WikiDict {
         });
         this.plainText += '\n';
       });
-      $('*').each( (i, elem) => {
-        //console.log('i=<',i,'>');
-        //console.log('elem=<',elem,'>');
-        self.getURLAllChildren_(elem);
-      });
     } catch(e) {
       console.log('e=<',e,'>');
     }
-    if(!this.dry) {
-      this.saveDoneWiki_(url,this.plainText);
-      this.saveLinkedWiki_(this.hrefsLinks);
-    } else {
-      console.log('this.plainText=<',this.plainText,'>');
-      let uniqueHrefsLinks = this.hrefsLinks.filter((animal, index, array) => {
-        return array.indexOf(animal) === index;
-      });
-      console.log('uniqueHrefsLinks=<',uniqueHrefsLinks.join(',\n'),'>');
-    }
-    //console.log('this.plainText=<',this.plainText,'>');
-    //console.log('this.hrefsLinks=<',this.hrefsLinks,'>');
+    console.log('this.plainText=<',this.plainText,'>');
   }
   
   getTextAllChildren_(elem){
