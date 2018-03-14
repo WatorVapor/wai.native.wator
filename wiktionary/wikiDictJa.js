@@ -16,7 +16,7 @@ module.exports = class WikiDict {
       input:'../../input_db/zhizi/ja',
       output:'../../out_db/ja',
     };
-    this.dictDB = new wordDB(this.db);
+    //this.dictDB = new wordDB(this.db);
   }
     
   runOnce(cb){
