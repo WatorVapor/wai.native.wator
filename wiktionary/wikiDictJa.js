@@ -67,14 +67,14 @@ module.exports = class WikiDict {
         console.log('error: error.code=<',error.code,'>');
         console.log('error: error.message=<',error.message,'>');
         console.log('error: response=<',response,'>');
-        this.cb();
+        self.cb();
       } else {
         //console.log('response=<',response,'>');
         //console.log('body=<',body,'>');
         if(response && response.statusCode === 200) {
           self.parseHTML_(body,url);
         } else {
-          this.cb();
+          self.cb();
         }
       }
     });
