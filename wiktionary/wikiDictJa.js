@@ -23,18 +23,16 @@ module.exports = class WikiDict {
     this.cb = cb;
     let once = this.dictDB.getWord(function(word){
       console.log('runOnce::word=<',word,'>');
-    });
+      this.word = word;
+      let url = this.root + encodeURIComponent(this.word);
+      this.getOneTitle_(url);
+    }.bind(this));
     console.log('runOnce::once=<',once,'>');
     if(once ==='prepare') {
       setTimeout(function(){
         this.cb();
       }.bind(this),5000);
     }
-    /*
-    this.word = '解決';
-    let url = this.root + encodeURIComponent(this.word);
-    this.getOneTitle_(url);
-    */
   }
   
   readKana_() {
