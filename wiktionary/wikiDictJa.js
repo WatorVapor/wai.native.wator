@@ -16,11 +16,12 @@ module.exports = class WikiDict {
       input:'../../input_db/zhizi/ja',
       output:'../../out_db/ja',
     };
-    this.word = new  wordDB(this.db);
+    this.dictDB = new wordDB(this.db);
   }
     
   runOnce(cb){
     this.cb = cb;
+    let onceWord = this.dictDB.getWord();
     this.word = '解決';
     let url = this.root + encodeURIComponent(this.word);
     this.getOneTitle_(url);
