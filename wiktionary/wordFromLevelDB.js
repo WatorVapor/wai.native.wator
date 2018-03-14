@@ -6,12 +6,9 @@ module.exports = class WordDBUtility {
   constructor(option) {
     if(option.input) {
       //console.log('constructor::option.input=<',option.input,'>');
-      this.input = level(option.input);
-      this.input.createKeyStream()
-        .on('data', function (data) {
-          console.log('key=', data)
-        });
+      this.input = LevelDown(option.input);
       //console.log('constructor::this.input=<',this.input,'>');
+      this.inputIt = this.input.iterator();
     }
     if(option.output) {
       try {
@@ -32,6 +29,8 @@ module.exports = class WordDBUtility {
     
   getWord(cb){
     this.cb = cb;
-    console.log('readKana_::kana1=<',kana1,'>');
+    let end = this.inputIt.end();
+    console.log('getWord::end=<',end,'>');
+    let next = this.inputIt.next();
   }
 }
