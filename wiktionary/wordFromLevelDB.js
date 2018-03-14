@@ -9,7 +9,7 @@ module.exports = class WordDBUtility {
     }
     if(option.input) {
       console.log('constructor::option.input=<',option.input,'>');
-      this.input = levelUp(option.input);
+      this.input = levelUp(LevelDown(option.input));
     }
     this.dry = false;
     if(option.dry) {
