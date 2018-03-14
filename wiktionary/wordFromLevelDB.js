@@ -42,9 +42,11 @@ module.exports = class WordDBUtility {
     if(!this.inputIt) {
       return 'prepare';
     }
-    let end = this.inputIt.end();
-    console.log('getWord::end=<',end,'>');
-    //let next = this.inputIt.next();
+    this.inputIt.next(function(error,key,value){
+      console.log('getWord::error=<',error,'>');
+      console.log('getWord::key=<',key,'>');
+      console.log('getWord::value=<',value,'>');
+    });
     return 'ready';
   }
 }
