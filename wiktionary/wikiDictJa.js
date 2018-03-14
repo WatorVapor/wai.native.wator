@@ -48,6 +48,7 @@ module.exports = class WikiDict {
         let kana = kana2[1];
         if(kana2[0].replace(/ /g,'') === this.word) {
           console.log('readKana_::this.word=<',this.word,'>','kana=<',kana,'>');
+          this.dictDB.setWordKana(this.word,kana);
         } else {
           console.log('readKana_:: !!MISS FORMAT!! this.word=<',this.word,'>','kana=<',kana,'>');
           console.log('readKana_::this.word=<',this.word,'>','kana2[0]=<',kana2[0],'>');
