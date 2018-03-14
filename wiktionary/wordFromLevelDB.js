@@ -40,7 +40,11 @@ module.exports = class WordDBUtility {
     this.cb = cb;
     console.log('getWord::this.inputIt=<',this.inputIt,'>');
     if(!this.inputIt) {
-      return this.cb('prepare');
+      setTimeout(function() {
+        this.cb('prepare');      
+      },5000)
+    } else {
+      this.cb('ready');
     }
     //let end = this.inputIt.end();
     //console.log('getWord::end=<',end,'>');
