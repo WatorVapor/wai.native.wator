@@ -26,7 +26,7 @@ module.exports = class WikiDict {
     if(once ==='prepare') {
       setTimeout(function(){
         this.cb();
-      },5000);
+      }.bind(this),5000);
     }
     /*
     this.word = '解決';
