@@ -7,7 +7,7 @@ console.log('jaWiki=<',jaWiki,'>');
 
 function onFinnish(){
   setTimeout(function(){
-    //jaWiki.runOnce(onFinnish);
+    jaWiki.runOnce(onFinnish);
   },1);
 }
 setTimeout(function(){
