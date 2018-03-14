@@ -6,14 +6,14 @@ module.exports = class WordDBUtility {
   constructor(option) {
     if(option.input) {
       console.log('constructor::option.input=<',option.input,'>');
-      //this.input = levelUp(LevelDown(option.input));
       this.input = level(option.input);
       console.log('constructor::this.input=<',this.input,'>');
     }
     if(option.output) {
       try {
         console.log('constructor::option.output=<',option.output,'>');
-        this.output = levelUp(LevelDown(option.output));
+        this.output = level(option.output);
+        console.log('constructor::this.output=<',this.output,'>');
       } catch(e) {
         console.log('constructor::e=<',e,'>');
       }
