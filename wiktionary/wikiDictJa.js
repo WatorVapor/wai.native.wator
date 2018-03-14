@@ -47,10 +47,10 @@ module.exports = class WikiDict {
         //console.log('readKana_::kana2[1]=<',kana2[1],'>');
         let kana = kana2[1];
         if(kana2[0] === this.word) {
-          console.log('readKana_::this.word=<',this.word,'>','kana2[0]=<',kana2[0],'>');
           console.log('readKana_::this.word=<',this.word,'>','kana=<',kana,'>');
         } else {
           console.log('readKana_:: !!MISS FORMAT!! this.word=<',this.word,'>','kana=<',kana,'>');
+          console.log('readKana_::this.word=<',this.word,'>','kana2[0]=<',kana2[0],'>');
         }
       }
     }
