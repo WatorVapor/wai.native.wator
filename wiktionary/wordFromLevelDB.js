@@ -56,4 +56,7 @@ module.exports = class WordDBUtility {
     });
     return 'ready';
   }
+  setWordKana(word,kana) {
+    this.output.put(word,kana);
+  }
 }
