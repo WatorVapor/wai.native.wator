@@ -12,6 +12,11 @@ module.exports = class WikiDict {
     if(option.dry) {
       this.dry = option.dry;
     }
+    this.db = {
+      input:'../../input_db/zhizi/ja',
+      output:'../../out_db/ja',
+    };
+    this.word = wordDB(this.db);
   }
     
   runOnce(cb){
