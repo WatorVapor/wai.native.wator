@@ -8,8 +8,13 @@ module.exports = class WordDBUtility {
       //console.log('constructor::option.input=<',option.input,'>');
       this.input = LevelDown(option.input);
       console.log('constructor::this.input=<',this.input,'>');
+      let self = this;
       this.input.open(function(error){
-        console.log('constructor::error=<',error,'>');
+        if(error) {
+          console.log('constructor::error=<',error,'>');
+        } else {
+          self.inputIt = self.input.iterator();
+        }
       });
       //this.inputIt = this.input.iterator();
       //console.log('constructor::this.inputIt=<',this.inputIt,'>');
