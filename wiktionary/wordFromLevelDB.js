@@ -3,13 +3,13 @@ var levelup = require('levelup');
 
 module.exports = class WordDBUtility {
   constructor(option) {
-    if(option.input) {
-      console.log('constructor::option.input=<',option.input,'>');
-      this.input = levelup(option.input);
-    }
     if(option.output) {
       this.output = levelup(option.output);
       console.log('constructor::option.output=<',option.output,'>');
+    }
+    if(option.input) {
+      console.log('constructor::option.input=<',option.input,'>');
+      this.input = levelup(option.input);
     }
     this.dry = false;
     if(option.dry) {
