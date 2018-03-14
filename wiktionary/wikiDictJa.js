@@ -21,7 +21,9 @@ module.exports = class WikiDict {
     
   runOnce(cb){
     this.cb = cb;
-    let once = this.dictDB.getWord();
+    let once = this.dictDB.getWord(function(word){
+      console.log('runOnce::word=<',word,'>');
+    });
     console.log('runOnce::once=<',once,'>');
     if(once ==='prepare') {
       setTimeout(function(){
