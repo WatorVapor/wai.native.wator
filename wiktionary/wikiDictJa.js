@@ -21,7 +21,7 @@ module.exports = class WikiDict {
     
   runOnce(cb){
     this.cb = cb;
-    //let onceWord = this.dictDB.getWord();
+    let onceWord = this.dictDB.getWord();
     this.word = '解決';
     let url = this.root + encodeURIComponent(this.word);
     this.getOneTitle_(url);
