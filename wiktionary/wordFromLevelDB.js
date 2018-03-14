@@ -4,8 +4,8 @@ var levelup = require('levelup');
 module.exports = class WordDBUtility {
   constructor(option) {
     if(option.output) {
-      this.output = levelup(option.output);
       console.log('constructor::option.output=<',option.output,'>');
+      this.output = levelup(option.output);
     }
     if(option.input) {
       console.log('constructor::option.input=<',option.input,'>');
