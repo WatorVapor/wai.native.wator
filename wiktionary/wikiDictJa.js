@@ -22,12 +22,13 @@ module.exports = class WikiDict {
   runOnce(cb){
     this.cb = cb;
     let once = this.dictDB.getWord(function(word){
-      console.log('runOnce::word=<',word,'>');
+      //console.log('runOnce::word=<',word,'>');
       this.word = word;
       let url = this.root + encodeURIComponent(this.word);
+      console.log('runOnce::url=<',url,'>');
       this.getOneTitle_(url);
     }.bind(this));
-    console.log('runOnce::once=<',once,'>');
+    //console.log('runOnce::once=<',once,'>');
     if(once ==='prepare') {
       setTimeout(function(){
         this.cb();
@@ -58,7 +59,7 @@ module.exports = class WikiDict {
       encoding: null
     };
     let self = this;
-    console.log('getOneTitle_:: options=<',options,'>');
+    //console.log('getOneTitle_:: options=<',options,'>');
     request.get(options, function (error, response, body) {
       if (error) {
         console.log('error: url=<',url,'>');
@@ -100,7 +101,7 @@ module.exports = class WikiDict {
     } catch(e) {
       console.log('e=<',e,'>');
     }
-    console.log('this.plainText=<',this.plainText,'>');
+    //console.log('this.plainText=<',this.plainText,'>');
     this.readKana_();
   }
   
