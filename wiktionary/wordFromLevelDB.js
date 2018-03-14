@@ -29,6 +29,7 @@ module.exports = class WordDBUtility {
     
   getWord(cb){
     this.cb = cb;
+    console.log('getWord::this.inputIt=<',this.inputIt,'>');
     let end = this.inputIt.end();
     console.log('getWord::end=<',end,'>');
     let next = this.inputIt.next();
