@@ -23,6 +23,11 @@ module.exports = class WikiDict {
     this.cb = cb;
     let once = this.dictDB.getWord();
     console.log('runOnce::once=<',once,'>');
+    if(once ==='prepare') {
+      setTimeout(function(){
+        this.cb();
+      },5000);
+    }
     /*
     this.word = '解決';
     let url = this.root + encodeURIComponent(this.word);
