@@ -6,6 +6,7 @@ module.exports = class WordDBUtility {
     if(option.input) {
       console.log('constructor::option.input=<',option.input,'>');
       this.input = levelUp(LevelDown(option.input));
+      console.log('constructor::this.input=<',this.input,'>');
     }
     if(option.output) {
       console.log('constructor::option.output=<',option.output,'>');
