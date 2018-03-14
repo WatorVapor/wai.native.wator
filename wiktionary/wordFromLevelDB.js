@@ -41,11 +41,10 @@ module.exports = class WordDBUtility {
     console.log('getWord::this.inputIt=<',this.inputIt,'>');
     if(!this.inputIt) {
       return 'prepare';
-    } else {
-      return 'ready';
     }
-    //let end = this.inputIt.end();
-    //console.log('getWord::end=<',end,'>');
+    let end = this.inputIt.end();
+    console.log('getWord::end=<',end,'>');
     //let next = this.inputIt.next();
+    return 'ready';
   }
 }
