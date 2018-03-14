@@ -38,7 +38,7 @@ module.exports = class WordDBUtility {
     
   getWord(cb){
     this.cb = cb;
-    console.log('getWord::this.inputIt=<',this.inputIt,'>');
+    //console.log('getWord::this.inputIt=<',this.inputIt,'>');
     if(!this.inputIt) {
       return 'prepare';
     }
@@ -48,9 +48,9 @@ module.exports = class WordDBUtility {
         console.log('getWord::error=<',error,'>');
         cb('error');
       } else {
-        console.log('getWord::key=<',key,'>');
-        console.log('getWord::key.toString=<',key.toString('utf8'),'>');
-        console.log('getWord::value=<',value,'>');
+        //console.log('getWord::key=<',key,'>');
+        //console.log('getWord::key.toString=<',key.toString('utf8'),'>');
+        //console.log('getWord::value=<',value,'>');
         cb(key.toString('utf8'));
       }
     });
