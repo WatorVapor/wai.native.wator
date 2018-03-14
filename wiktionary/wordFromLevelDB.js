@@ -45,6 +45,7 @@ module.exports = class WordDBUtility {
     this.inputIt.next(function(error,key,value){
       console.log('getWord::error=<',error,'>');
       console.log('getWord::key=<',key,'>');
+      console.log('getWord::key.toString=<',key.toString('utf8'),'>');
       console.log('getWord::value=<',value,'>');
     });
     return 'ready';
