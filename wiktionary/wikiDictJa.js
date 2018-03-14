@@ -47,6 +47,7 @@ module.exports = class WikiDict {
         console.log('readKana_::this.word=<',this.word,'>','kana=<',kana,'>');
       }
     }
+    this.cb();
   }
   
   
