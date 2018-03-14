@@ -1,5 +1,6 @@
-let LevelDown = require('leveldown');
+var LevelDown = require('leveldown');
 var levelUp = require('levelup');
+var level = require('level');
 
 module.exports = class WordDBUtility {
   constructor(option) {
