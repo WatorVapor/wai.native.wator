@@ -42,11 +42,17 @@ module.exports = class WordDBUtility {
     if(!this.inputIt) {
       return 'prepare';
     }
+    ///let self = this;
     this.inputIt.next(function(error,key,value){
-      console.log('getWord::error=<',error,'>');
-      console.log('getWord::key=<',key,'>');
-      console.log('getWord::key.toString=<',key.toString('utf8'),'>');
-      console.log('getWord::value=<',value,'>');
+      if(error) {
+        console.log('getWord::error=<',error,'>');
+        cb('error');
+      } else {
+        console.log('getWord::key=<',key,'>');
+        console.log('getWord::key.toString=<',key.toString('utf8'),'>');
+        console.log('getWord::value=<',value,'>');
+        cb(key.toString('utf8'));
+      }
     });
     return 'ready';
   }
