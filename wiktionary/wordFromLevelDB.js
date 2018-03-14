@@ -7,6 +7,10 @@ module.exports = class WordDBUtility {
     if(option.input) {
       //console.log('constructor::option.input=<',option.input,'>');
       this.input = level(option.input);
+      this.input.createKeyStream()
+        .on('data', function (data) {
+          console.log('key=', data)
+        });
       //console.log('constructor::this.input=<',this.input,'>');
     }
     if(option.output) {
