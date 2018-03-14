@@ -13,8 +13,8 @@ module.exports = class WikiDict {
       this.dry = option.dry;
     }
     this.db = {
-      input:'../../input_db/zhizi/ja',
-      output:'../../out_db/ja',
+      input:'/input/zhizi/ja',
+      output:'/out/ja',
     };
     this.dictDB = new wordDB(this.db);
   }
