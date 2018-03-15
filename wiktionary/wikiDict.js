@@ -61,7 +61,7 @@ module.exports = class WikiDict {
         if(response && response.statusCode === 200) {
           self.parseHTML_(body,url);
         } else {
-          this.cb();
+          self.cb();
         }
       }
     });
