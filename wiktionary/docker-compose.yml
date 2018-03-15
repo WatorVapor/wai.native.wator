@@ -1,7 +1,7 @@
 version: '3'
 services:
   wiktionary-ja:
-    image: node:8-slim
+    build: ./
     volumes:
       - ./:/wiktionary
       - /watorvapor/wai.storage/wiktionary/input_db:/input
