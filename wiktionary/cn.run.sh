@@ -1,4 +1,2 @@
 #/bin/bash
-npm --save install
-node dict_cn.js
-
+cd /watorvapor/wai.storage/wiktionary/wai.native.wator/wiktionary && node dict_cn.js > log.dict_cn.js.log
