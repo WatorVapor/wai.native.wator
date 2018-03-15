@@ -24,7 +24,7 @@ module.exports = class WikiDict {
     let once = this.dictDB.getWord(function(word){
       //console.log('runOnce::word=<',word,'>');
       this.word = word;
-      //this.word = '词典';
+      this.word = '词典';
       let url = this.root + encodeURIComponent(this.word);
       console.log('runOnce::url=<',url,'>');
       this.getOneTitle_(url);
