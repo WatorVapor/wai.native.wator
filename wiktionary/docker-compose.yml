@@ -17,7 +17,7 @@ services:
         reservations:
           cpus: '0.60'
           memory: 32M
-    command: node dict_ja.js
+    command: ja.run.sh
 networks:
   outside:
     external:
