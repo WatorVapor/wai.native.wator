@@ -333,6 +333,8 @@
       "resolved": "https://registry.npmjs.org/jsprim/-/jsprim-1.4.1.tgz",
       "version": "1.4.1"
     },
+    "level": "^3.0.0",
+    "leveldown": "^3.0.0",
     "levelup": "^2.0.2",
     "lodash": {
       "integrity": "sha512-svL3uiZf1RwhH+cWrfZn3A4+U58wbP0tGVTLQPbjplZxZ8ROD9VLuNgsRniTlLe7OlSqR79RUehXgpBW/s0IQw==",
