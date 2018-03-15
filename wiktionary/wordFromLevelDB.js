@@ -84,7 +84,11 @@ module.exports = class WordDBUtility {
     }
     return 'ready';
   }
+  
   setWordKana(word,kana) {
     this.output.put(word,kana);
+  }
+  setWordPinYin(word,pinYin) {
+    this.output.put(word,pinYin);
   }
 }
