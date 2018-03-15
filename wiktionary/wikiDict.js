@@ -87,8 +87,11 @@ module.exports = class WikiDict {
     } catch(e) {
       console.log('e=<',e,'>');
     }
-    console.log('this.word=<',this.word,'>','this.plainText=<',this.plainText,'>');
-    this.dictDB.setWordPinYin(this.word,this.plainText);
+    if(this.plainText) {
+      console.log('this.word=<',this.word,'>','this.plainText=<',this.plainText,'>');
+      this.dictDB.setWordPinYin(this.word,this.plainText);
+    }
+    this.cb();
   }
   
   getTextAllChildren_(elem){
