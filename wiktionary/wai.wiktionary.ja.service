@@ -5,8 +5,9 @@ After=syslog.target network.target
 [Service]
 Type=simple
 ExecStart=/watorvapor/wai.storage/wiktionary/wai.native.wator/wiktionary/ja.run.sh
+ExecStop=/bin/kill ${MAINPID}
 Restart=always
 RestartSec=10
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=default.target
