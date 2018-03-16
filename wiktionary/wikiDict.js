@@ -45,7 +45,7 @@ module.exports = class WikiDict {
       encoding: null
     };
     let self = this;
-    console.log('getOneTitle_:: options=<',options,'>');
+    //console.log('getOneTitle_:: options=<',options,'>');
     request.get(options, function (error, response, body) {
       if (error) {
         console.log('error: url=<',url,'>');
