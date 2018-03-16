@@ -4,8 +4,9 @@ Description=Wator wai  wiktionary cn spider
 [Service]
 Type=simple
 ExecStart=/watorvapor/wai.storage/wiktionary/wai.native.wator/wiktionary/cn.run.sh
+ExecStop=/bin/kill ${MAINPID}
 Restart=always
 RestartSec=10
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=default.target
