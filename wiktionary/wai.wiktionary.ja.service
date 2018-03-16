@@ -1,6 +1,5 @@
 [Unit]
 Description=Wator wai  wiktionary spider
-After=syslog.target network.target
 
 [Service]
 Type=simple
