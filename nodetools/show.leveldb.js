@@ -5,7 +5,7 @@ var pathDB = args.targets[0];
 console.log('pathDB =<',pathDB,'>');
 
 
-var db = levelup(pathDB);
+var db = levelup(leveldown(pathDB));
 var stream = db.createReadStream();
 
 var counter = 0;
