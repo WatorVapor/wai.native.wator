@@ -1,4 +1,5 @@
 var levelup = require('levelup');
+var leveldown = require('leveldown');
 var argv = require('argv');
 var args = argv.run();
 var pathDB = args.targets[0];
