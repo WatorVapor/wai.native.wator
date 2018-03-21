@@ -93,6 +93,7 @@ json ZhiZiWord::summaryCut(const string &text,const string &lang) {
     audioPt.push_back(audio);
   }
   result[u8"tts"] = audioPt;
+  result[u8"lang"] = lang;
 
   return result;
 }
@@ -116,6 +117,7 @@ json ZhiZiWord::summaryCutPhrase(const string &text,const string &lang) {
     audioPt.push_back(audio);
   }
   result[u8"tts"] = audioPt;
+  result[u8"lang"] = lang;
   return result;
 }
 
