@@ -79,14 +79,14 @@ module.exports = class WikiDict {
     try {
       //console.log('data=<',data,'>');
       const $ = cheerio.load(data);
-      $('li').each( (i, elem) => {
+      $('li td').each( (i, elem) => {
         //console.log('i=<',i,'>');
         //console.log('elem=<',elem,'>');
         elem.children.forEach( (value, index, ar) => {
           //console.log('value=<',value,'>');
           self.getTextAllChildren_(value);
         });
-        this.plainText += ',';
+        //this.plainText += ',';
       });
     } catch(e) {
       console.log('e=<',e,'>');
