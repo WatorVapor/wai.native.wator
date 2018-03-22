@@ -1,4 +1,4 @@
-var wiki = require('./wikiDictJa.js');
+var wiki = require('./wikiDictJaKan.js');
 var jaOption =  {
   root:'https://ja.wiktionary.org/wiki/'
 }
