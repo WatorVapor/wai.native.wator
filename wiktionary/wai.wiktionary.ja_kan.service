@@ -1,5 +1,5 @@
 [Unit]
-Description=Wator wai  wiktionary spider
+Description=Wator wai  wiktionary kan japanese spider
 
 [Service]
 Type=simple
