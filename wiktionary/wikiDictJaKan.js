@@ -141,10 +141,10 @@ module.exports = class WikiDict {
   }
 
   includeHanzi(utf8Str) {
-    console.log('includeHanzi::utf8Str=<',utf8Str,'>');
+    //console.log('includeHanzi::utf8Str=<',utf8Str,'>');
     for(let i = 0;i < utf8Str.length;i++) {
-      console.log('includeHanzi::typeof utf8Str[i]=<',typeof utf8Str[i],'>');
-      console.log('includeHanzi::utf8Str[i]=<',utf8Str[i],'>');
+      //console.log('includeHanzi::typeof utf8Str[i]=<',typeof utf8Str[i],'>');
+      //console.log('includeHanzi::utf8Str[i]=<',utf8Str[i],'>');
       let hanzi = utf8Str[i];
       for(let j = 0;j < HanziRange.length;j++) {
         if(hanzi >= HanziRange[j].b && hanzi <= HanziRange[j].e) {
