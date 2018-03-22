@@ -20,7 +20,7 @@ module.exports = class WikiDict {
   }
     
   runOnce(cb){
-    //this.cb = cb;
+    this.cb = cb;
     let once = this.dictDB.getWord(function(word){
       //console.log('runOnce::word=<',word,'>');
       this.word = word;
@@ -79,7 +79,7 @@ module.exports = class WikiDict {
     try {
       //console.log('data=<',data,'>');
       const $ = cheerio.load(data);
-      $('tt').each( (i, elem) => {
+      $('td').each( (i, elem) => {
         //console.log('i=<',i,'>');
         //console.log('elem=<',elem,'>');
         elem.children.forEach( (value, index, ar) => {
@@ -95,7 +95,7 @@ module.exports = class WikiDict {
       console.log('this.word=<',this.word,'>','this.plainText=<',this.plainText,'>');
       this.dictDB.setWordPinYin(this.word,this.plainText);
     }
-    this.cb();
+    //this.cb();
   }
   
   getTextAllChildren_(elem){
