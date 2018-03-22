@@ -126,14 +126,16 @@ module.exports = class WikiDict {
       let length = elem.data.length;
       let textPure = elem.data.substr(0,length);
       //console.log('textPure=<',textPure,'>');
+      let pinYin = false;
       if(textPure === '汉语拼音') {
         this.hintPinYin = true;
+        pinYin = true;
       }
-      if(this.hintPinYin) {
+      this.plainText += textPure;
+      if(this.hintPinYin && !pinYin) {
         console.log('textPure=<',textPure,'>');
         return;
       }
-      this.plainText += textPure;
     }
     if(elem.children && Array.isArray(elem.children)) {
       let self = this;
