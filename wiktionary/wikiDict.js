@@ -27,7 +27,7 @@ module.exports = class WikiDict {
       //this.word = '学习';
       //this.word = '三洋';
       //this.word = '三田';
-      this.word = '西安';
+      //this.word = '西安';
       if(this.includeHanzi(word)) {
         let url = this.root + encodeURIComponent(this.word);
         console.log('runOnce::url=<',url,'>');
@@ -124,9 +124,9 @@ module.exports = class WikiDict {
     if(this.plainText) {
       //console.log('this.word=<',this.word,'>','this.plainText=<',this.plainText,'>');
       self.getPinYin(this.plainText);
-      //this.dictDB.setWordPinYin(this.word,this.plainText);
+      this.dictDB.setWordPinYin(this.word,this.plainText);
     }
-    //this.cb();
+    this.cb();
   }
   
   getPinYin(text) {
