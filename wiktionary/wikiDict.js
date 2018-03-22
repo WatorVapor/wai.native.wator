@@ -20,11 +20,11 @@ module.exports = class WikiDict {
   }
     
   runOnce(cb){
-    this.cb = cb;
+    //this.cb = cb;
     let once = this.dictDB.getWord(function(word){
       //console.log('runOnce::word=<',word,'>');
       this.word = word;
-      //this.word = '词典';
+      this.word = '三洋';
       if(this.includeHanzi(word)) {
         let url = this.root + encodeURIComponent(this.word);
         console.log('runOnce::url=<',url,'>');
