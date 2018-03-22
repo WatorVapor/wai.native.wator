@@ -81,15 +81,21 @@ module.exports = class WikiDict {
     try {
       //console.log('data=<',data,'>');
       const $ = cheerio.load(data);
-      $('li').each( (i, elem) => {
+      $('tt').each( (i, elem) => {
         //console.log('i=<',i,'>');
         //console.log('elem=<',elem,'>');
         elem.children.forEach( (value, index, ar) => {
           //console.log('value=<',value,'>');
           self.getTextAllChildren_(value);
         });
-        //this.plainText += ',';
+        this.plainText += ',';
       });
+      if(this.plainText) {
+        console.log('this.word=<',this.word,'>','this.plainText=<',this.plainText,'>');
+        //this.dictDB.setWordPinYin(this.word,this.plainText);
+        //this.cb();
+        return;
+      }
       $('td').each( (i, elem) => {
         //console.log('i=<',i,'>');
         //console.log('elem=<',elem,'>');
@@ -119,12 +125,13 @@ module.exports = class WikiDict {
       }
       let length = elem.data.length;
       let textPure = elem.data.substr(0,length);
-      console.log('textPure=<',textPure,'>');
+      //console.log('textPure=<',textPure,'>');
       if(textPure === '汉语拼音') {
         this.hintPinYin = true;
       }
       if(this.hintPinYin) {
         console.log('textPure=<',textPure,'>');
+        return;
       }
       this.plainText += textPure;
     }
