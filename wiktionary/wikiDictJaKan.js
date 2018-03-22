@@ -148,4 +148,13 @@ module.exports = class WikiDict {
     }
     return false;
   }
+  
 }
+
+const HanziRange = [ 
+  {b:'⺀',e:'⿕'},
+  {b:'㆒',e:'㆟'},
+  {b:'㐀',e:'鿋'},
+  {b:'豈',e:'齃'},
+  {b:'',e:''}
+];
