@@ -26,8 +26,8 @@ module.exports = class WikiDict {
       this.word = word;
       //this.word = '学习';
       this.word = '三洋';
-      this.word = '三田';
-      this.word = '西安';
+      //this.word = '三田';
+      //this.word = '西安';
       if(this.includeHanzi(word)) {
         let url = this.root + encodeURIComponent(this.word);
         console.log('runOnce::url=<',url,'>');
