@@ -1,6 +1,7 @@
 const request = require('request');
 const cheerio = require('cheerio');
 const wordDB = require('./wordFromLevelDB.js')
+const utf8 = require('utf8');
 
 
 module.exports = class WikiDict {
@@ -26,9 +27,13 @@ module.exports = class WikiDict {
       //console.log('runOnce::word=<',word,'>');
       this.word = word;
       //this.word = '使用';
+      let wordUnicode = utf8.decode(word);
+      console.log('runOnce::wordUnicode=<',wordUnicode,'>');
+      /*
       let url = this.root + encodeURIComponent(this.word);
       console.log('runOnce::url=<',url,'>');
       this.getOneTitle_(url);
+      }\
     }.bind(this));
     //console.log('runOnce::once=<',once,'>');
     if(once ==='prepare') {
