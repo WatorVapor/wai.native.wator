@@ -4,6 +4,7 @@ const wordDB = require('./wordFromLevelDB.js')
 const utf8 = require('utf8');
 
 
+
 module.exports = class WikiDict {
   constructor(option) {
     if(option.root) {
@@ -27,13 +28,13 @@ module.exports = class WikiDict {
       //console.log('runOnce::word=<',word,'>');
       this.word = word;
       //this.word = '使用';
-      let wordUnicode = utf8.decode(word);
-      console.log('runOnce::wordUnicode=<',wordUnicode,'>');
-      /*
-      let url = this.root + encodeURIComponent(this.word);
-      console.log('runOnce::url=<',url,'>');
-      this.getOneTitle_(url);
-      */
+      if(this.includeHanzi(word)) {
+        let url = this.root + encodeURIComponent(this.word);
+        console.log('runOnce::url=<',url,'>');
+        this.getOneTitle_(url);
+      } else {
+        //this.cb();
+      }
     }.bind(this));
     //console.log('runOnce::once=<',once,'>');
     if(once ==='prepare') {
@@ -137,5 +138,9 @@ module.exports = class WikiDict {
         self.getTextAllChildren_(valueA);
       });
     }
+  }
+  includeHanzi(utf8) {
+    console.log('includeHanzi::utf8=<',utf8,'>');
+    return false;
   }
 }
