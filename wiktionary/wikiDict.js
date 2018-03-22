@@ -103,7 +103,7 @@ module.exports = class WikiDict {
           //console.log('value=<',value,'>');
           self.getTextAllChildren_(value);
         });
-        //this.plainText += ',';
+        this.plainText += ',';
       });
       $('li').each( (i, elem) => {
         //console.log('i=<',i,'>');
@@ -112,7 +112,7 @@ module.exports = class WikiDict {
           //console.log('value=<',value,'>');
           self.getTextAllChildren_(value);
         });
-        //this.plainText += ',';
+        this.plainText += ',';
       });
     } catch(e) {
       console.log('e=<',e,'>');
@@ -135,16 +135,7 @@ module.exports = class WikiDict {
       let length = elem.data.length;
       let textPure = elem.data.substr(0,length);
       //console.log('textPure=<',textPure,'>');
-      let pinYin = false;
-      if(textPure === '汉语拼音') {
-        this.hintPinYin = true;
-        pinYin = true;
-      }
       this.plainText += textPure;
-      if(this.hintPinYin && !pinYin) {
-        console.log('textPure=<',textPure,'>');
-        return;
-      }
     }
     if(elem.children && Array.isArray(elem.children)) {
       let self = this;
