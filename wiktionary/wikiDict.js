@@ -133,7 +133,7 @@ module.exports = class WikiDict {
     console.log('getPinYin::pinYin1[0]=<',pinYin1[0],'>');
     if(pinYin1.length >1) {
       let pinYin2 = pinYin1[1].split(',');
-      let pinYin = pinYin2[0].replace(/:/g,'');
+      let pinYin = pinYin2[0].replace(':','').trim();
       console.log('pinYin2::pinYin=<',pinYin,'>');
     }
   }
