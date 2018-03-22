@@ -121,10 +121,22 @@ module.exports = class WikiDict {
     }
     if(this.plainText) {
       console.log('this.word=<',this.word,'>','this.plainText=<',this.plainText,'>');
+      self.getPinYin(this.plainText);
       //this.dictDB.setWordPinYin(this.word,this.plainText);
     }
     //this.cb();
   }
+  
+  getPinYin(text) {
+    console.log('getPinYin::text=<',text,'>');
+    let pinYin1 = text.split('汉语拼音');
+    console.log('getPinYin::pinYin1[0]=<',pinYin1[0],'>');
+    if(pinYin1.length >1) {
+      let pinYin2 = pinYin1[1].split(',');
+      console.log('pinYin2::pinYin2[0]=<',pinYin2[0],'>');
+    }
+  }
+   
   
   getTextAllChildren_(elem){
     if(elem.type === 'text') {
