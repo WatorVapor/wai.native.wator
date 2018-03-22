@@ -94,10 +94,12 @@ module.exports = class WikiDict {
       });
       if(this.plainText) {
         console.log('this.word=<',this.word,'>','this.plainText=<',this.plainText,'>');
-        //this.dictDB.setWordPinYin(this.word,this.plainText);
-        //this.cb();
+        this.dictDB.setWordPinYin(this.word,this.plainText);
+        this.cb();
         return;
       }
+      
+      
       $('td').each( (i, elem) => {
         //console.log('i=<',i,'>');
         //console.log('elem=<',elem,'>');
@@ -120,7 +122,7 @@ module.exports = class WikiDict {
       console.log('e=<',e,'>');
     }
     if(this.plainText) {
-      console.log('this.word=<',this.word,'>','this.plainText=<',this.plainText,'>');
+      //console.log('this.word=<',this.word,'>','this.plainText=<',this.plainText,'>');
       self.getPinYin(this.plainText);
       //this.dictDB.setWordPinYin(this.word,this.plainText);
     }
@@ -128,12 +130,12 @@ module.exports = class WikiDict {
   }
   
   getPinYin(text) {
-    console.log('getPinYin::text=<',text,'>');
+    //console.log('getPinYin::text=<',text,'>');
     let pinYin1 = text.split('汉语拼音');
-    console.log('getPinYin::pinYin1[0]=<',pinYin1[0],'>');
+    //console.log('getPinYin::pinYin1[0]=<',pinYin1[0],'>');
     if(pinYin1.length >1) {
       let pinYin2 = pinYin1[1].split(',');
-      let pinYin = pinYin2[0].replace('：','').trim();
+      let pinYin = pinYin2[0].replace('：','').replace(':','').trim();
       console.log('pinYin2::pinYin=<',pinYin,'>');
     }
   }
