@@ -33,7 +33,7 @@ module.exports = class WikiDict {
         console.log('runOnce::url=<',url,'>');
         this.getOneTitle_(url);
       } else {
-        //this.cb();
+        this.cb();
       }
     }.bind(this));
     //console.log('runOnce::once=<',once,'>');
@@ -145,10 +145,15 @@ module.exports = class WikiDict {
     for(let i = 0;i < utf8Str.length;i++) {
       console.log('includeHanzi::typeof utf8Str[i]=<',typeof utf8Str[i],'>');
       console.log('includeHanzi::utf8Str[i]=<',utf8Str[i],'>');
+      let hanzi = utf8Str[i];
+      for(let j = 0;j < HanziRange.length;j++) {
+        if(hanzi >= HanziRange[j].b && hanzi <= HanziRange[j].e) {
+          return true;
+        }
+      }
     }
     return false;
   }
-  
 }
 
 const HanziRange = [ 
