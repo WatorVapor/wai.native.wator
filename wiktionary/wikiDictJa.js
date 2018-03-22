@@ -98,6 +98,7 @@ module.exports = class WikiDict {
     this.plainText = '';
     this.hrefsLinks = [];
     let self = this;
+    this.hintPinYin = false;
     try {
       //console.log('data=<',data,'>');
       const $ = cheerio.load(data);
@@ -127,6 +128,12 @@ module.exports = class WikiDict {
       }
       let length = elem.data.length;
       let textPure = elem.data.substr(0,length);
+      if(textPure === '汉语拼音') {
+        this.hintPinYin = true;
+      }
+      if(this.hintPinYin) {
+        console.log('textPure=<',textPure,'>');
+      }
       this.plainText += textPure;
     }
     if(elem.children && Array.isArray(elem.children)) {
