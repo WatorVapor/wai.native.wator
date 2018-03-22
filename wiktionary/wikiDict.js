@@ -105,6 +105,15 @@ module.exports = class WikiDict {
         });
         //this.plainText += ',';
       });
+      $('li').each( (i, elem) => {
+        //console.log('i=<',i,'>');
+        //console.log('elem=<',elem,'>');
+        elem.children.forEach( (value, index, ar) => {
+          //console.log('value=<',value,'>');
+          self.getTextAllChildren_(value);
+        });
+        //this.plainText += ',';
+      });
     } catch(e) {
       console.log('e=<',e,'>');
     }
