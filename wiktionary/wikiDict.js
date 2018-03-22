@@ -119,6 +119,7 @@ module.exports = class WikiDict {
       }
       let length = elem.data.length;
       let textPure = elem.data.substr(0,length);
+      console.log('textPure=<',textPure,'>');
       if(textPure === '汉语拼音') {
         this.hintPinYin = true;
       }
