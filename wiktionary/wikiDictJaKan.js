@@ -141,7 +141,7 @@ module.exports = class WikiDict {
   }
   includeHanzi(utf8Str) {
     console.log('includeHanzi::utf8Str=<',utf8Str,'>');
-    let test utf8.decode('あ');
+    let test = utf8.decode('あ');
     console.log('includeHanzi::test=<',test,'>');
     return false;
   }
