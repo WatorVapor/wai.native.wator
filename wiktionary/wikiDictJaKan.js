@@ -143,7 +143,7 @@ module.exports = class WikiDict {
     console.log('includeHanzi::utf8Str=<',utf8Str,'>');
     let test = utf8.decode('あい');
     console.log('includeHanzi::test=<',test,'>');
-    let multi = 'あい';
+    let multi = '私です。';
     for(let i = 0;i < multi.length;i++) {
       console.log('includeHanzi::multi[i]=<',multi[i],'>');
     }
