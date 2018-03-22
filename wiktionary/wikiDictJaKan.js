@@ -139,13 +139,12 @@ module.exports = class WikiDict {
       });
     }
   }
+
   includeHanzi(utf8Str) {
     console.log('includeHanzi::utf8Str=<',utf8Str,'>');
-    let test = utf8.decode('あい');
-    console.log('includeHanzi::test=<',test,'>');
-    let multi = '私です。';
-    for(let i = 0;i < multi.length;i++) {
-      console.log('includeHanzi::multi[i]=<',multi[i],'>');
+    for(let i = 0;i < utf8Str.length;i++) {
+      console.log('includeHanzi::typeof utf8Str[i]=<',typeof utf8Str[i],'>');
+      console.log('includeHanzi::utf8Str[i]=<',utf8Str[i],'>');
     }
     return false;
   }
