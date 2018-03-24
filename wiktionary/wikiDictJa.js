@@ -27,6 +27,7 @@ module.exports = class WikiDict {
       this.word = word;
       //this.word = '使用';
       //this.word = '一定';
+      this.word = '一角獣';
       if(this.isAllHanzi(word)) {
         let url = this.root + encodeURIComponent(this.word);
         console.log('runOnce::url=<',url,'>');
@@ -64,7 +65,7 @@ module.exports = class WikiDict {
         }
       }
     }
-    this.cb();
+    //this.cb();
   }
   
   
