@@ -178,13 +178,41 @@ module.exports = class WikiDict {
     return false;
   }
 
+  isAllHanzi(utf8Str) {
+    //console.log('includeHanzi::utf8Str=<',utf8Str,'>');
+    for(let i = 0;i < utf8Str.length;i++) {
+      //console.log('includeHanzi::typeof utf8Str[i]=<',typeof utf8Str[i],'>');
+      //console.log('includeHanzi::utf8Str[i]=<',utf8Str[i],'>');
+      let hanzi = utf8Str[i];
+      for(let j = 0;j < HanziRange.length;j++) {
+        if(hanzi >= HanziRange[j].b && hanzi <= HanziRange[j].e) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  
 }
 
 const HanziRange = [ 
-  {b:'⺀',e:'⿕'},
-  {b:'㆒',e:'㆟'},
-  {b:'㐀',e:'鿋'},
-  {b:'豈',e:'齃'},
-  {b:'',e:''}
+  {b:'㐀',e:'䶵'},
+  {b:'一',e:'龥'},
+  {b:'龦',e:'鿋'},
+  {b:'𠀀',e:'𪛖'},
+  {b:'𪜀',e:'𫜴'},
+  {b:'𫝀',e:'𫠝'},
+
+  {b:'⼀',e:'⿕'},
+  {b:'⺀',e:'⻳'},
+  {b:'豈',e:'龎'},
+  {b:'丽',e:'鼻'},/* +1 */
+
+  {b:'㇀',e:'㇣'},
+  {b:'⿰',e:'⿻'},
+  {b:'ㄅ',e:'ㄠ'},
+  {b:'ㆠ',e:'ㆷ'},
+  
 ];
 
