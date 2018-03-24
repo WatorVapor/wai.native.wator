@@ -28,7 +28,7 @@ module.exports = class WikiDict {
       //this.word = '三洋';
       //this.word = '三田';
       //this.word = '西安';
-      if(this.includeHanzi(word)) {
+      if(this.isAllHanzi(word)) {
         let url = this.root + encodeURIComponent(this.word);
         console.log('runOnce::url=<',url,'>');
         this.getOneTitle_(url);
@@ -184,13 +184,18 @@ module.exports = class WikiDict {
       //console.log('includeHanzi::typeof utf8Str[i]=<',typeof utf8Str[i],'>');
       //console.log('includeHanzi::utf8Str[i]=<',utf8Str[i],'>');
       let hanzi = utf8Str[i];
+      let isHanzi = false;
       for(let j = 0;j < HanziRange.length;j++) {
         if(hanzi >= HanziRange[j].b && hanzi <= HanziRange[j].e) {
-          return true;
+          isHanzi = true;
+          break;
         }
       }
+      if(!isHanzi) {
+        return false;
+      }
     }
-    return false;
+    return true;
   }
 
   
