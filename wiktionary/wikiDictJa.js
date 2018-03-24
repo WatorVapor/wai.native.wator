@@ -26,7 +26,7 @@ module.exports = class WikiDict {
       //console.log('runOnce::word=<',word,'>');
       this.word = word;
       //this.word = '使用';
-      this.word = '一定';
+      //this.word = '一定';
       if(this.isAllHanzi(word)) {
         let url = this.root + encodeURIComponent(this.word);
         console.log('runOnce::url=<',url,'>');
@@ -46,15 +46,15 @@ module.exports = class WikiDict {
   
   readKana_() {
     let kana1 = this.plainText.split('）');
-    console.log('readKana_::kana1=<',kana1,'>');
+    //console.log('readKana_::kana1=<',kana1,'>');
     if(kana1.length > 0) {
       let kana2 = kana1[0].split('（');
-      console.log('readKana_::kana2=<',kana2,'>');
+      //console.log('readKana_::kana2=<',kana2,'>');
       if(kana2.length > 1) {
         //console.log('readKana_::kana2[1]=<',kana2[1],'>');
         let kana = kana2[1];
         let word_get = kana2[0].replace(/ /g,'').replace(' ','');
-        console.log('readKana_::word_get=<',word_get,'>');
+        //console.log('readKana_::word_get=<',word_get,'>');
         if(word_get === this.word) {
           console.log('readKana_::this.word=<',this.word,'>','kana=<',kana,'>');
           this.dictDB.setWordKana(this.word,kana);
@@ -64,7 +64,7 @@ module.exports = class WikiDict {
         }
       }
     }
-    //this.cb();
+    this.cb();
   }
   
   
