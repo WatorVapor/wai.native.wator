@@ -56,12 +56,12 @@ module.exports = class WikiDict {
         let kana = kana2[1];
         let word_get = kana2[0].replace(/ /g,'').replace(' ','');
         //console.log('readKana_::word_get=<',word_get,'>');
-        if(word_get === this.word) {
+        if(word_get.endsWith(this.word)) {
           console.log('readKana_::this.word=<',this.word,'>','kana=<',kana,'>');
           this.dictDB.setWordKana(this.word,kana);
         } else {
           console.log('readKana_:: !!MISS FORMAT!! this.word=<',this.word,'>','kana=<',kana,'>');
-          console.log('readKana_::this.word=<',this.word,'>','kana2[0]=<',kana2[0],'>');
+          console.log('readKana_::this.word=<',this.word,'>','word_get=<',word_get,'>');
         }
       }
     }
