@@ -125,7 +125,6 @@ module.exports = class WikiDict {
     if(this.plainText) {
       //console.log('this.word=<',this.word,'>','this.plainText=<',this.plainText,'>');
       self.getPinYin(this.plainText);
-      this.dictDB.setWordPinYin(this.word,this.plainText);
     }
     this.cb();
   }
@@ -138,6 +137,7 @@ module.exports = class WikiDict {
       let pinYin2 = pinYin1[1].split(',');
       let pinYin = pinYin2[0].replace('：','').replace(':','').trim();
       console.log('pinYin2::pinYin=<',pinYin,'>');
+      this.dictDB.setWordPinYin(this.word,pinYin);
     }
   }
    
