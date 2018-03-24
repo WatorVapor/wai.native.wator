@@ -33,6 +33,7 @@ module.exports = class WikiDict {
         console.log('runOnce::url=<',url,'>');
         this.getOneTitle_(url);
       } else {
+        console.log('runOnce::word=<',word,'>');
         this.cb();
       }
     }.bind(this));
