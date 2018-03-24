@@ -26,11 +26,12 @@ module.exports = class WikiDict {
       //console.log('runOnce::word=<',word,'>');
       this.word = word;
       //this.word = '使用';
-      if(this.includeHanzi(word)) {
+      if(this.isAllHanzi(word)) {
         let url = this.root + encodeURIComponent(this.word);
         console.log('runOnce::url=<',url,'>');
         this.getOneTitle_(url);
       } else {
+        console.log('runOnce::word=<',word,'>');
         this.cb();
       }
     }.bind(this));
@@ -160,15 +161,47 @@ module.exports = class WikiDict {
     return false;
   }
 
+  isAllHanzi(utf8Str) {
+    //console.log('includeHanzi::utf8Str=<',utf8Str,'>');
+    for(let i = 0;i < utf8Str.length;i++) {
+      //console.log('includeHanzi::typeof utf8Str[i]=<',typeof utf8Str[i],'>');
+      //console.log('includeHanzi::utf8Str[i]=<',utf8Str[i],'>');
+      let hanzi = utf8Str[i];
+      let isHanzi = false;
+      for(let j = 0;j < HanziRange.length;j++) {
+        if(hanzi >= HanziRange[j].b && hanzi <= HanziRange[j].e) {
+          isHanzi = true;
+          break;
+        }
+      }
+      if(!isHanzi) {
+        return false;
+      }
+    }
+    return true;
+  }
+  
 }
 
 const HanziRange = [ 
-  {b:'⺀',e:'⿕'},
-  {b:'㆒',e:'㆟'},
-  {b:'㐀',e:'鿋'},
-  {b:'豈',e:'齃'},
-  {b:'',e:''}
+  {b:'㐀',e:'䶵'},
+  {b:'一',e:'龥'},
+  {b:'龦',e:'鿋'},
+  {b:'𠀀',e:'𪛖'},
+  {b:'𪜀',e:'𫜴'},
+  {b:'𫝀',e:'𫠝'},
+
+  {b:'⼀',e:'⿕'},
+  {b:'⺀',e:'⻳'},
+  {b:'豈',e:'龎'},
+  {b:'丽',e:'鼻'},/* +1 */
+
+  {b:'㇀',e:'㇣'},
+  {b:'⿰',e:'⿻'},
+  {b:'ㄅ',e:'ㄠ'},
+  {b:'ㆠ',e:'ㆷ'},
+
+  {b:'〇',e:'〇'},
+  
 ];
-
-
 
