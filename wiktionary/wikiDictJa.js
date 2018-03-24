@@ -49,9 +49,9 @@ module.exports = class WikiDict {
     //console.log('readKana_::kana1=<',kana1,'>');
     if(kana1.length > 0) {
       let kana2 = kana1[0].split('（');
-      //console.log('readKana_::kana2=<',kana2,'>');
+      console.log('readKana_::kana2=<',kana2,'>');
       if(kana2.length > 1) {
-        console.log('readKana_::kana2[1]=<',kana2[1],'>');
+        //console.log('readKana_::kana2[1]=<',kana2[1],'>');
         let kana = kana2[1];
         if(kana2[0].replace(/ /g,'') === this.word) {
           console.log('readKana_::this.word=<',this.word,'>','kana=<',kana,'>');
