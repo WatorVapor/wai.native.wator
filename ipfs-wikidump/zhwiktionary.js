@@ -56,7 +56,7 @@ function fetchByPronPinYin(title,textPure) {
     } 
   });
   
-  tryKeyWord(textPure,'{{zh-pron',function(parma1){
+  tryKeyWord(textPure,'{{zh-pron',function(parma20){
     if(parma20.length > 1) {
       let parma21 = parma20[1].split('}}');
       let pinYin4 = parma21[0];
