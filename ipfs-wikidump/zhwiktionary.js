@@ -15,6 +15,16 @@ function fetchByPronPinYin(title,textPure) {
     let parma2 = parma1[1].split('}}');
     if(parma2.length > 1) {
       console.log('fetchByPronPinYin::parma2[0]=<',parma2[0],'>');
+      let parma3 = parma2[0].split('漢語拼音=')
+      if(parma3.length > 1) {
+        console.log('fetchByPronPinYin::parma3[1]=<',parma3[1],'>');
+      } else {
+        let parma4 = parma2[0].split('{{國音|')
+        if(parma4.length > 1) {
+          let pinYin = parma4[1];
+          console.log('fetchByPronPinYin::pinYin=<',pinYin,'>');
+        }
+      }
     }
   } else {
     //console.log('fetchByPronPinYin::textPure=<',textPure,'>');
