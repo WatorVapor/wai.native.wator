@@ -8,7 +8,7 @@ function onPage(title,text){
   fetchByPronPinYin(title,text);
 }
 function fetchByPronPinYin(title,textPure) {
-  console.log('fetchByPronPinYin::title=<',title,'>');
+  //console.log('fetchByPronPinYin::title=<',title,'>');
   let parma1 = textPure.split('{{漢語讀音');
   if(parma1.length > 1) {
     //console.log('fetchByPronPinYin::parma1[1]=<',parma1[1],'>');
@@ -17,7 +17,7 @@ function fetchByPronPinYin(title,textPure) {
       //console.log('fetchByPronPinYin::parma2[0]=<',parma2[0],'>');
       let parma3 = parma2[0].split('漢語拼音=')
       if(parma3.length > 1) {
-        console.log('fetchByPronPinYin::parma3[1]=<',parma3[1],'>');
+        //console.log('fetchByPronPinYin::parma3[1]=<',parma3[1],'>');
         let param5 = parma3[1].split('|');
         let pinYin1 = param5[0];
         console.log('fetchByPronPinYin::pinYin1=<',pinYin1,'>');
