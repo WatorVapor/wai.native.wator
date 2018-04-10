@@ -12,7 +12,7 @@ function fetchByPronPinYin(title,textPure) {
   let parma1 = textPure.split('{{漢語讀音');
   if(parma1.length > 1) {
     //console.log('fetchByPronPinYin::parma1[1]=<',parma1[1],'>');
-    let parma2 = parma1[1].split('\n');
+    let parma2 = parma1[1].split('}}');
     if(parma2.length > 1) {
       console.log('fetchByPronPinYin::parma2[0]=<',parma2[0],'>');
     }
