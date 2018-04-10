@@ -75,8 +75,9 @@ function fetchByPronPinYin(title,textPure) {
   if(hint) {
     return;
   }
-
-  hint = tryKeyWord(textPure,'{{汉语读音',function(parma31){
+  
+  let keyword = ['{{汉语读音','{{漢語發音'];
+  hint = tryKeyWord(textPure,keyword,function(parma31){
     //console.log('fetchByPronPinYin::parma31[1]=<',parma31[1],'>');
     let parma32 = parma31[1].split('}}');
     if(parma32.length > 1) {
@@ -242,6 +243,21 @@ function fetchByPronPinYin(title,textPure) {
   if(hint) {
     return;
   }
+
+  hint = tryKeyWord(textPure,'==拼音==',function(parma131){
+    //console.log('fetchByPronPinYin::parma131[1]=<',parma131[1],'>');
+    let parma132 = parma131[1].split('\n');
+    if(parma132.length > 1) {
+      let pinYin15 = parma132[1];
+      console.log('fetchByPronPinYin::title=<',title,'>');
+      console.log('fetchByPronPinYin::pinYin15=<',pinYin15,'>');
+    } else {
+      console.log('fetchByPronPinYin::parma132=<',parma132,'>');
+    }
+  });
+  if(hint) {
+    return;
+  }
   
   
   console.log('fetchByPronPinYin::title=<',title,'>');
@@ -255,10 +271,22 @@ function fetchByPronPinYin(title,textPure) {
 
 
 function tryKeyWord(text,Keyword,cb) {
-  let parma = text.split(Keyword);
-  if(parma.length > 1) {
-    cb(parma);
-    return true;
+  if(typeof Keyword === 'string') {
+    let parma = text.split(Keyword);
+    if(parma.length > 1) {
+      cb(parma);
+      return true;
+    }
+  }
+  if(typeof Keyword === 'object') {
+    for(let i = 0;i < Keyword.length;i++) {
+      let kw = Keyword[i];
+      let parma = text.split(kw);
+      if(parma.length > 1) {
+        cb(parma);
+        return true;
+      }
+    }
   }
   return false;
 }
