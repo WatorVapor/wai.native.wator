@@ -14,8 +14,7 @@ function fetchByPronPinYin(title,textPure) {
     return;
   }
   //console.log('fetchByPronPinYin::title=<',title,'>');
-  let parma1 = textPure.split('{{漢語讀音');
-  if(parma1.length > 1) {
+  tryKeyWord(textPure,'{{漢語讀音',function(parma1){
     //console.log('fetchByPronPinYin::parma1[1]=<',parma1[1],'>');
     let parma2 = parma1[1].split('}}');
     if(parma2.length > 1) {
@@ -46,31 +45,57 @@ function fetchByPronPinYin(title,textPure) {
         }
       }
     }
-  } else {
-    //console.log('fetchByPronPinYin::title=<',title,'>');
-    //console.log('fetchByPronPinYin::textPure=<',textPure,'>');
-    let parma10 = textPure.split('|pinyin=');
-    if(parma10.length > 1) {
-      let parame11 = parma10[1].split('|');
-      let pinYin3 = parame11[0];
+  });
+
+  tryKeyWord(textPure,'|pinyin=',function(parma20){
+    if(parma20.length > 1) {
+      let parma21 = parma20[1].split('}}');
+      let pinYin4 = parma21[0];
       console.log('fetchByPronPinYin::title=<',title,'>');
-      console.log('fetchByPronPinYin::pinYin3=<',pinYin3,'>');      
-    } else {
-      let parma20 = textPure.split('{{zh-pron');
-      if(parma20.length > 1) {
-        let parma21 = parma20[1].split('}}');
-        let pinYin4 = parma21[0];
-        console.log('fetchByPronPinYin::title=<',title,'>');
-        console.log('fetchByPronPinYin::pinYin4=<',pinYin4,'>');      
-      } else {
-        console.log('fetchByPronPinYin::title=<',title,'>');
-        console.log('fetchByPronPinYin::textPure=<',textPure,'>');
+      console.log('fetchByPronPinYin::pinYin4=<',pinYin4,'>');      
+    } 
+  });
+  
+  tryKeyWord(textPure,'{{zh-pron',function(parma1){
+    if(parma20.length > 1) {
+      let parma21 = parma20[1].split('}}');
+      let pinYin4 = parma21[0];
+      console.log('fetchByPronPinYin::title=<',title,'>');
+      console.log('fetchByPronPinYin::pinYin4=<',pinYin4,'>');
+    }
+  });
+
+  tryKeyWord(textPure,'{{汉语读音',function(parma1){
+    if(parma1.length > 1) {
+      //console.log('fetchByPronPinYin::parma1[1]=<',parma1[1],'>');
+      let parma2 = parma1[1].split('}}');
+      if(parma2.length > 1) {
+        //console.log('fetchByPronPinYin::parma2[0]=<',parma2[0],'>');
+        let parma3 = parma2[0].split('汉语拼音=')
+        if(parma3.length > 1) {
+          //console.log('fetchByPronPinYin::parma3[1]=<',parma3[1],'>');
+          let param5 = parma3[1].split('|');
+          let pinYin5 = param5[0];
+          console.log('fetchByPronPinYin::title=<',title,'>');
+          console.log('fetchByPronPinYin::pinYin5=<',pinYin5,'>');
+        }
       }
     }
+  });
+} //fetchByPronPinYin
+
+
+
+
+
+
+function tryKeyWord(text,Keyword,cb) {
+  let parma = text.split(Keyword);
+  if(parma.length > 1) {
+    cb(parma);
   }
 }
-
-
+  
 function includeHanzi(utf8Str) {
   //console.log('includeHanzi::utf8Str=<',utf8Str,'>');
   for(let i = 0;i < utf8Str.length;i++) {
