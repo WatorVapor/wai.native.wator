@@ -96,6 +96,29 @@ function fetchByPronPinYin(title,textPure) {
   if(hint) {
     return;
   }
+
+  hint = tryKeyWord(textPure,'{{字音',function(parma41){
+    //console.log('fetchByPronPinYin::parma31[1]=<',parma31[1],'>');
+    let parma42 = parma31[1].split('}}');
+    if(parma42.length > 1) {
+      //console.log('fetchByPronPinYin::parma42[0]=<',parma42[0],'>');
+      let parma43 = parma42[0].split('{{國音|')
+      if(parma43.length > 1) {
+        //console.log('fetchByPronPinYin::parma43[1]=<',parma43[1],'>');
+        let param45 = parma43[1].split('|');
+        let pinYin6 = param45[0];
+        console.log('fetchByPronPinYin::title=<',title,'>');
+        console.log('fetchByPronPinYin::pinYin6=<',pinYin6,'>');
+      } else {
+        console.log('fetchByPronPinYin::parma42=<',parma42,'>');
+      }
+    }
+  });
+  if(hint) {
+    return;
+  }
+  
+  
   console.log('fetchByPronPinYin::title=<',title,'>');
   console.log('fetchByPronPinYin::textPure=<',textPure,'>');
   
