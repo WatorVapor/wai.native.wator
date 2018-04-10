@@ -45,10 +45,11 @@ module.exports = class WikiDumper {
       console.log('fetchTitle_:elem=<',elem,'>');
       let textElem = elem.children[0];
       if(textElem) {
-        //console.log('fetchTitle_:textElem=<',textElem,'>');
+        console.log('fetchTitle_:textElem=<',textElem,'>');
         if(textElem.type === 'text') {
           let length = textElem.data.length;
           let textPure = textElem.data.substr(0,length);
+          console.log('fetchTitle_:textPure=<',textPure,'>');
           return textPure;
         }
       }
@@ -57,13 +58,14 @@ module.exports = class WikiDumper {
   
   fetchText_($) {
     $('text').each( (i, elem) => {
-      //console.log('fetchText_:elem=<',elem,'>');
+      console.log('fetchText_:elem=<',elem,'>');
       let textElem = elem.children[0];
       if(textElem) {
-        //console.log('fetchText_:textElem=<',textElem,'>');
+        console.log('fetchText_:textElem=<',textElem,'>');
         if(textElem.type === 'text') {
           let length = textElem.data.length;
           let textPure = textElem.data.substr(0,length);
+          console.log('fetchText_:textPure=<',textPure,'>');
           return textPure;
         }
       }
