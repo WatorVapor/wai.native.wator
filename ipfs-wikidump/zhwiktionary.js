@@ -102,10 +102,17 @@ function fetchByPronPinYin(title,textPure) {
           let parma37 = parma32[0].split('{{國音|');
           if(parma37.length > 1) {
             let param38 = parma37[1].split('|');
-            let pinYin13 = param38[0];
+            let max = param38.length;
+            if(max > title.length) {
+              max = title.length;
+            }
+            let pinYin13 = '';
+            for(let i = 0;i < max ;i++) {
+              pinYin13 += param38[i];
+            }
             console.log('fetchByPronPinYin::title=<',title,'>');
             console.log('fetchByPronPinYin::pinYin13=<',pinYin13,'>');
-            console.log('fetchByPronPinYin::param38=<',param38,'>');
+            //console.log('fetchByPronPinYin::param38=<',param38,'>');
           } else {
             console.log('fetchByPronPinYin::title=<',title,'>');
             console.log('fetchByPronPinYin::parma32=<',parma32,'>');
