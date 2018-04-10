@@ -97,7 +97,17 @@ function fetchByPronPinYin(title,textPure) {
           console.log('fetchByPronPinYin::title=<',title,'>');
           console.log('fetchByPronPinYin::pinYin7=<',pinYin7,'>');
         } else {
-          console.log('fetchByPronPinYin::parma32=<',parma32,'>');
+          //console.log('fetchByPronPinYin::parma32=<',parma32,'>');
+          let parma37 = parma32[0].split('{{國音|');
+          if(parma37.length > 1) {
+            let param38 = parma37[1].split('|');
+            let pinYin13 = param38[0];
+            console.log('fetchByPronPinYin::title=<',title,'>');
+            console.log('fetchByPronPinYin::pinYin13=<',pinYin13,'>');
+          } else {
+            console.log('fetchByPronPinYin::title=<',title,'>');
+            console.log('fetchByPronPinYin::parma32=<',parma32,'>');
+          }
         }
       }
     }
