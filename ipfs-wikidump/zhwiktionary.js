@@ -14,7 +14,7 @@ function fetchByPronPinYin(title,textPure) {
     return;
   }
   //console.log('fetchByPronPinYin::title=<',title,'>');
-  tryKeyWord(textPure,'{{漢語讀音',function(parma1){
+  let hint = tryKeyWord(textPure,'{{漢語讀音',function(parma1){
     //console.log('fetchByPronPinYin::parma1[1]=<',parma1[1],'>');
     let parma2 = parma1[1].split('}}');
     if(parma2.length > 1) {
@@ -46,8 +46,12 @@ function fetchByPronPinYin(title,textPure) {
       }
     }
   });
+  if(hint) {
+    return;
+  }
+  
 
-  tryKeyWord(textPure,'|pinyin=',function(parma20){
+  hint = tryKeyWord(textPure,'|pinyin=',function(parma20){
     if(parma20.length > 1) {
       let parma21 = parma20[1].split('}}');
       let pinYin4 = parma21[0];
@@ -55,8 +59,11 @@ function fetchByPronPinYin(title,textPure) {
       console.log('fetchByPronPinYin::pinYin4=<',pinYin4,'>');      
     } 
   });
+  if(hint) {
+    return;
+  }
   
-  tryKeyWord(textPure,'{{zh-pron',function(parma20){
+  hint = tryKeyWord(textPure,'{{zh-pron',function(parma20){
     if(parma20.length > 1) {
       let parma21 = parma20[1].split('}}');
       let pinYin4 = parma21[0];
@@ -64,8 +71,11 @@ function fetchByPronPinYin(title,textPure) {
       console.log('fetchByPronPinYin::pinYin4=<',pinYin4,'>');
     }
   });
+  if(hint) {
+    return;
+  }
 
-  tryKeyWord(textPure,'{{汉语读音',function(parma1){
+  hint = tryKeyWord(textPure,'{{汉语读音',function(parma1){
     if(parma1.length > 1) {
       //console.log('fetchByPronPinYin::parma1[1]=<',parma1[1],'>');
       let parma2 = parma1[1].split('}}');
@@ -82,6 +92,12 @@ function fetchByPronPinYin(title,textPure) {
       }
     }
   });
+  if(hint) {
+    return;
+  }
+  console.log('fetchByPronPinYin::title=<',title,'>');
+  console.log('fetchByPronPinYin::textPure=<',textPure,'>');
+  
 } //fetchByPronPinYin
 
 
@@ -93,7 +109,9 @@ function tryKeyWord(text,Keyword,cb) {
   let parma = text.split(Keyword);
   if(parma.length > 1) {
     cb(parma);
+    return true;
   }
+  return false;
 }
   
 function includeHanzi(utf8Str) {
