@@ -236,6 +236,7 @@ function fetchByPronPinYin(title,textPure) {
       let pinYin14 = parma122[0];
       console.log('fetchByPronPinYin::title=<',title,'>');
       console.log('fetchByPronPinYin::pinYin14=<',pinYin14,'>');
+      console.log('fetchByPronPinYin::parma122=<',parma122,'>');
     } else {
       console.log('fetchByPronPinYin::parma122=<',parma122,'>');
     }
