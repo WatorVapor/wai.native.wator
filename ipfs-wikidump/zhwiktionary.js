@@ -122,12 +122,11 @@ function fetchByPronPinYin(title,textPure) {
     //console.log('fetchByPronPinYin::parma51[1]=<',parma51[1],'>');
     let parma52 = parma51[1].split('\n');
     if(parma52.length > 1) {
-        let pinYin6 = parma52[0];
-        console.log('fetchByPronPinYin::title=<',title,'>');
-        console.log('fetchByPronPinYin::pinYin6=<',pinYin6,'>');
-      } else {
-        console.log('fetchByPronPinYin::parma52=<',parma52,'>');
-      }
+      let pinYin6 = parma52[0];
+      console.log('fetchByPronPinYin::title=<',title,'>');
+      console.log('fetchByPronPinYin::pinYin6=<',pinYin6,'>');
+    } else {
+      console.log('fetchByPronPinYin::parma52=<',parma52,'>');
     }
   });
   if(hint) {
