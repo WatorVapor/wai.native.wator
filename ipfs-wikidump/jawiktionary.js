@@ -3,5 +3,6 @@ let dumpPath = '/watorvapor/wai.storage/dumps.wikimedia.org/jawiktionary/jawikti
 let wikiDumper = new wiki(dumpPath,onPage);
 
 function onPage(title,text){
-  console.log('runOnce::word=<',word,'>');
+  console.log('onPage::title=<',title,'>');
+  console.log('onPage::text=<',text,'>');
 }
