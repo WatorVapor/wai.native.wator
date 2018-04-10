@@ -187,6 +187,21 @@ function fetchByPronPinYin(title,textPure) {
   if(hint) {
     return;
   }
+
+  hint = tryKeyWord(textPure,'拼音:',function(parma91){
+    //console.log('fetchByPronPinYin::parma91[1]=<',parma91[1],'>');
+    let parma92 = parma91[1].split('\n');
+    if(parma92.length > 1) {
+      let pinYin11 = parma92[0];
+      console.log('fetchByPronPinYin::title=<',title,'>');
+      console.log('fetchByPronPinYin::pinYin11=<',pinYin11,'>');
+    } else {
+      console.log('fetchByPronPinYin::parma92=<',parma92,'>');
+    }
+  });
+  if(hint) {
+    return;
+  }
   
   
   console.log('fetchByPronPinYin::title=<',title,'>');
