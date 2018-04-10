@@ -98,8 +98,8 @@ function fetchByPronPinYin(title,textPure) {
   }
 
   hint = tryKeyWord(textPure,'{{字音',function(parma41){
-    //console.log('fetchByPronPinYin::parma31[1]=<',parma31[1],'>');
-    let parma42 = parma31[1].split('}}');
+    //console.log('fetchByPronPinYin::parma41[1]=<',parma41[1],'>');
+    let parma42 = parma41[1].split('}}');
     if(parma42.length > 1) {
       //console.log('fetchByPronPinYin::parma42[0]=<',parma42[0],'>');
       let parma43 = parma42[0].split('{{國音|')
