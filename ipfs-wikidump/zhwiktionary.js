@@ -28,6 +28,7 @@ function fetchByPronPinYin(title,textPure) {
           let pinYin2 = parma4[1];
           console.log('fetchByPronPinYin::title=<',title,'>');
           console.log('fetchByPronPinYin::pinYin2=<',pinYin2,'>');
+          console.log('fetchByPronPinYin::parma1=<',parma1,'>');
         }
       }
     }
