@@ -54,7 +54,8 @@ function fetchByPronPinYin(title,textPure) {
   hint = tryKeyWord(textPure,'|pinyin=',function(parma20){
     if(parma20.length > 1) {
       let parma21 = parma20[1].split('}}');
-      let pinYin4 = parma21[0];
+      let parma22 = parma21[0].split('|');
+      let pinYin4 = parma22[0];
       console.log('fetchByPronPinYin::title=<',title,'>');
       console.log('fetchByPronPinYin::pinYin4=<',pinYin4,'>');      
     } 
