@@ -44,6 +44,7 @@ function fetchByPronPinYin(title,textPure) {
       }
     }
   } else {
+    console.log('fetchByPronPinYin::title=<',title,'>');
     console.log('fetchByPronPinYin::textPure=<',textPure,'>');
   }
 }
