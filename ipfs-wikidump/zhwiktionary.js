@@ -150,7 +150,23 @@ function fetchByPronPinYin(title,textPure) {
       console.log('fetchByPronPinYin::title=<',title,'>');
       console.log('fetchByPronPinYin::pinYin8=<',pinYin8,'>');
     } else {
+      console.log('fetchByPronPinYin::title=<',title,'>');
       console.log('fetchByPronPinYin::parma62=<',parma62,'>');
+    }
+  });
+  if(hint) {
+    return;
+  }
+
+  hint = tryKeyWord(textPure,'汉语拼音]]:',function(parma71){
+    //console.log('fetchByPronPinYin::parma71[1]=<',parma71[1],'>');
+    let parma72 = parma71[1].split('\n');
+    if(parma72.length > 1) {
+      let pinYin9 = parma72[0];
+      console.log('fetchByPronPinYin::title=<',title,'>');
+      console.log('fetchByPronPinYin::pinYin9=<',pinYin9,'>');
+    } else {
+      console.log('fetchByPronPinYin::parma72=<',parma72,'>');
     }
   });
   if(hint) {
