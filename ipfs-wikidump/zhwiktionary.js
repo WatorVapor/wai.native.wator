@@ -76,17 +76,19 @@ function fetchByPronPinYin(title,textPure) {
   }
 
   hint = tryKeyWord(textPure,'{{汉语读音',function(parma31){
-    console.log('fetchByPronPinYin::parma31[1]=<',parma31[1],'>');
+    //console.log('fetchByPronPinYin::parma31[1]=<',parma31[1],'>');
     let parma32 = parma31[1].split('}}');
     if(parma32.length > 1) {
       //console.log('fetchByPronPinYin::parma32[0]=<',parma32[0],'>');
       let parma33 = parma32[0].split('汉语拼音=')
       if(parma33.length > 1) {
-        //console.log('fetchByPronPinYin::parma3[1]=<',parma3[1],'>');
+        //console.log('fetchByPronPinYin::parma33[1]=<',parma33[1],'>');
         let param35 = parma33[1].split('|');
         let pinYin5 = param35[0];
         console.log('fetchByPronPinYin::title=<',title,'>');
         console.log('fetchByPronPinYin::pinYin5=<',pinYin5,'>');
+      } else {
+        console.log('fetchByPronPinYin::parma32=<',parma32,'>');
       }
     }
   });
