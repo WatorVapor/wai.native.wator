@@ -172,6 +172,21 @@ function fetchByPronPinYin(title,textPure) {
   if(hint) {
     return;
   }
+
+  hint = tryKeyWord(textPure,"汉语拼音]]'''：",function(parma81){
+    //console.log('fetchByPronPinYin::parma81[1]=<',parma81[1],'>');
+    let parma82 = parma81[1].split('\n');
+    if(parma82.length > 1) {
+      let pinYin10 = parma82[0];
+      console.log('fetchByPronPinYin::title=<',title,'>');
+      console.log('fetchByPronPinYin::pinYin10=<',pinYin10,'>');
+    } else {
+      console.log('fetchByPronPinYin::parma82=<',parma82,'>');
+    }
+  });
+  if(hint) {
+    return;
+  }
   
   
   console.log('fetchByPronPinYin::title=<',title,'>');
