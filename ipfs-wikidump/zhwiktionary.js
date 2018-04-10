@@ -259,6 +259,36 @@ function fetchByPronPinYin(title,textPure) {
     return;
   }
   
+  hint = tryKeyWord(textPure,'拼音读音:',function(parma141){
+    //console.log('fetchByPronPinYin::parma141[1]=<',parma141[1],'>');
+    let parma142 = parma141[1].split('\n');
+    if(parma142.length > 1) {
+      let pinYin16 = parma142[0];
+      console.log('fetchByPronPinYin::title=<',title,'>');
+      console.log('fetchByPronPinYin::pinYin16=<',pinYin16,'>');
+    } else {
+      console.log('fetchByPronPinYin::parma142=<',parma142,'>');
+    }
+  });
+  if(hint) {
+    return;
+  }
+
+  hint = tryKeyWord(textPure,'汉语拼音：',function(parma151){
+    //console.log('fetchByPronPinYin::parma151[1]=<',parma151[1],'>');
+    let parma152 = parma151[1].split('\n');
+    if(parma152.length > 1) {
+      let pinYin17 = parma152[0];
+      console.log('fetchByPronPinYin::title=<',title,'>');
+      console.log('fetchByPronPinYin::pinYin17=<',pinYin17,'>');
+    } else {
+      console.log('fetchByPronPinYin::parma142=<',parma152,'>');
+    }
+  });
+  if(hint) {
+    return;
+  }
+
   
   console.log('fetchByPronPinYin::title=<',title,'>');
   console.log('fetchByPronPinYin::textPure=<',textPure,'>');
