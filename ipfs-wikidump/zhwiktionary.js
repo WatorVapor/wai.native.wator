@@ -89,7 +89,16 @@ function fetchByPronPinYin(title,textPure) {
         console.log('fetchByPronPinYin::title=<',title,'>');
         console.log('fetchByPronPinYin::pinYin5=<',pinYin5,'>');
       } else {
-        console.log('fetchByPronPinYin::parma32=<',parma32,'>');
+        //console.log('fetchByPronPinYin::parma32=<',parma32,'>');
+        let parma36 = parma32[0].split('漢語拼音=');
+        if(parma36.length > 1) {
+          let param35 = parma36[1].split('|');
+          let pinYin7 = param35[0];
+          console.log('fetchByPronPinYin::title=<',title,'>');
+          console.log('fetchByPronPinYin::pinYin7=<',pinYin7,'>');
+        } else {
+          console.log('fetchByPronPinYin::parma32=<',parma32,'>');
+        }
       }
     }
   });
