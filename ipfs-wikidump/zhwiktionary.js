@@ -44,7 +44,14 @@ function fetchByPronPinYin(title,textPure) {
       }
     }
   } else {
-    console.log('fetchByPronPinYin::title=<',title,'>');
-    console.log('fetchByPronPinYin::textPure=<',textPure,'>');
+    //console.log('fetchByPronPinYin::title=<',title,'>');
+    //console.log('fetchByPronPinYin::textPure=<',textPure,'>');
+    let parma10 = textPure.split('|pinyin=');
+    if(parma10.length > 1) {
+      let parame11 = parma10[1].split('|');
+      let pinYin3 = parame11[0];
+      console.log('fetchByPronPinYin::title=<',title,'>');
+      console.log('fetchByPronPinYin::pinYin3=<',pinYin3,'>');      
+    }
   }
 }
