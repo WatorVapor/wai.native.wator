@@ -18,11 +18,14 @@ function fetchByPronPinYin(title,textPure) {
       let parma3 = parma2[0].split('漢語拼音=')
       if(parma3.length > 1) {
         console.log('fetchByPronPinYin::parma3[1]=<',parma3[1],'>');
+        let param5 = parma3[1].split('|');
+        let pinYin1 = param5[0];
+        console.log('fetchByPronPinYin::pinYin1=<',pinYin1,'>');
       } else {
         let parma4 = parma2[0].split('{{國音|')
         if(parma4.length > 1) {
-          let pinYin = parma4[1];
-          console.log('fetchByPronPinYin::pinYin=<',pinYin,'>');
+          let pinYin2 = parma4[1];
+          console.log('fetchByPronPinYin::pinYin2=<',pinYin2,'>');
         }
       }
     }
