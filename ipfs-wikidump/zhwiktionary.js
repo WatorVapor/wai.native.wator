@@ -25,11 +25,19 @@ function fetchByPronPinYin(title,textPure) {
       } else {
         let parma4 = parma2[0].split('{{國音|')
         if(parma4.length > 1) {
-          let pinYin2 = parma4[1];
+          let param6 = parma4[1].split('|');
+          let max = param6.length;
+          if(max > title.length) {
+            max = title.length;
+          }
+          let pinYin2 ='';
+          for(let i = 0 ;i < max;i++) {
+            pinYin2 += param6[i];
+          }
           console.log('fetchByPronPinYin::title=<',title,'>');
           console.log('fetchByPronPinYin::pinYin2=<',pinYin2,'>');
           console.log('fetchByPronPinYin::title.length=<',title.length,'>');
-          console.log('fetchByPronPinYin::parma3=<',parma3,'>');
+          //console.log('fetchByPronPinYin::parma3=<',parma3,'>');
         }
       }
     }
