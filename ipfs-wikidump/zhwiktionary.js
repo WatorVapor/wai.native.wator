@@ -4,5 +4,5 @@ let wikiDumper = new wiki(dumpPath,onPage);
 
 function onPage(title,text){
   console.log('onPage::title=<',title,'>');
-  //console.log('onPage::text=<',text,'>');
+  console.log('onPage::text=<',text,'>');
 }
