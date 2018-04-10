@@ -18,6 +18,7 @@
       "resolved": "https://registry.npmjs.org/ajv/-/ajv-5.5.2.tgz",
       "version": "5.5.2"
     },
+    "argv": "0.0.2",
     "asn1": {
       "integrity": "sha1-2sh4dxPJlmhJ/IGAd36+nB3fO4Y=",
       "resolved": "https://registry.npmjs.org/asn1/-/asn1-0.2.3.tgz",
