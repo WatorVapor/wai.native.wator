@@ -52,6 +52,9 @@ function fetchByPronPinYin(title,textPure) {
       let pinYin3 = parame11[0];
       console.log('fetchByPronPinYin::title=<',title,'>');
       console.log('fetchByPronPinYin::pinYin3=<',pinYin3,'>');      
+    } else {
+      console.log('fetchByPronPinYin::title=<',title,'>');
+      console.log('fetchByPronPinYin::textPure=<',textPure,'>');
     }
   }
 }
