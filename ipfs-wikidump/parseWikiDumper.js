@@ -50,7 +50,7 @@ module.exports = class WikiDumper {
         if(textElem.type === 'text') {
           let length = textElem.data.length;
           let textPure = textElem.data.substr(0,length);
-          console.log('fetchTitle_:textPure=<',textPure,'>');
+          //console.log('fetchTitle_:textPure=<',textPure,'>');
           title = textPure;
         }
       }
@@ -68,7 +68,7 @@ module.exports = class WikiDumper {
         if(textElem.type === 'text') {
           let length = textElem.data.length;
           let textPure = textElem.data.substr(0,length);
-          console.log('fetchText_:textPure=<',textPure,'>');
+          //console.log('fetchText_:textPure=<',textPure,'>');
           text = textPure;
         }
       }
