@@ -41,6 +41,7 @@ module.exports = class WikiDumper {
     }
   }
   fetchTitle_($) {
+    let title ='';
     $('title').each( (i, elem) => {
       //console.log('fetchTitle_:elem=<',elem,'>');
       let textElem = elem.children[0];
@@ -50,13 +51,15 @@ module.exports = class WikiDumper {
           let length = textElem.data.length;
           let textPure = textElem.data.substr(0,length);
           console.log('fetchTitle_:textPure=<',textPure,'>');
-          return textPure;
+          title = textPure;
         }
       }
     });
+    return title;
   }
   
   fetchText_($) {
+    let text ='';
     $('text').each( (i, elem) => {
       //console.log('fetchText_:elem=<',elem,'>');
       let textElem = elem.children[0];
@@ -66,10 +69,11 @@ module.exports = class WikiDumper {
           let length = textElem.data.length;
           let textPure = textElem.data.substr(0,length);
           console.log('fetchText_:textPure=<',textPure,'>');
-          return textPure;
+          text = textPure;
         }
       }
     });
+    return text;
   }
   
 }
