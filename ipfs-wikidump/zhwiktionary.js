@@ -7,6 +7,8 @@ function onPage(title,text){
   //console.log('onPage::text=<',text,'>');
   fetchByPronPinYin(title,text);
 }
+
+
 function fetchByPronPinYin(title,textPure) {
   //console.log('fetchByPronPinYin::title=<',title,'>');
   let parma1 = textPure.split('{{漢語讀音');
@@ -42,6 +44,6 @@ function fetchByPronPinYin(title,textPure) {
       }
     }
   } else {
-    //console.log('fetchByPronPinYin::textPure=<',textPure,'>');
+    console.log('fetchByPronPinYin::textPure=<',textPure,'>');
   }
 }
