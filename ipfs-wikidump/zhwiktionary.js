@@ -56,8 +56,16 @@ function fetchByPronPinYin(title,textPure) {
       console.log('fetchByPronPinYin::title=<',title,'>');
       console.log('fetchByPronPinYin::pinYin3=<',pinYin3,'>');      
     } else {
-      console.log('fetchByPronPinYin::title=<',title,'>');
-      console.log('fetchByPronPinYin::textPure=<',textPure,'>');
+      let parma20 = textPure.split('{{zh-pron');
+      if(parma20.length > 1) {
+        let parma21 = parma20[1].split('}}');
+        let pinYin4 = parma21[0];
+        console.log('fetchByPronPinYin::title=<',title,'>');
+        console.log('fetchByPronPinYin::pinYin4=<',pinYin4,'>');      
+      } else {
+        console.log('fetchByPronPinYin::title=<',title,'>');
+        console.log('fetchByPronPinYin::textPure=<',textPure,'>');
+      }
     }
   }
 }
