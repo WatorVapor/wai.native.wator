@@ -141,6 +141,21 @@ function fetchByPronPinYin(title,textPure) {
   if(hint) {
     return;
   }
+
+  hint = tryKeyWord(textPure,'[[Wiktionary:汉语拼音索引|汉语拼音]]：',function(parma61){
+    //console.log('fetchByPronPinYin::parma61[1]=<',parma61[1],'>');
+    let parma62 = parma61[1].split('\n');
+    if(parma62.length > 1) {
+      let pinYin8 = parma62[0];
+      console.log('fetchByPronPinYin::title=<',title,'>');
+      console.log('fetchByPronPinYin::pinYin8=<',pinYin8,'>');
+    } else {
+      console.log('fetchByPronPinYin::parma62=<',parma62,'>');
+    }
+  });
+  if(hint) {
+    return;
+  }
   
   
   console.log('fetchByPronPinYin::title=<',title,'>');
