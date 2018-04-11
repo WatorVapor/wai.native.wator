@@ -271,7 +271,7 @@ function fetchByPronPinYin(title,textPure) {
       console.log('fetchByPronPinYin::parma122=<',parma122,'>');
       pushToDB(title,pinYin14);
     } else {
-      console.log('fetchByPronPinYin::parma122=<',parma122,'>');
+      console.log('fetchByPronPinYin::parma121=<',parma121,'>');
     }
   });
   if(hint) {
