@@ -25,14 +25,18 @@ function onPage(title,textPure){
     console.log('onPage::filter out title=<',title,'>');
     return;
   }
+  fetchKana(title,textPure);
+}
+
+function fetchKana(title,textPure) {
   let hint = false;
   hint = tryKeyWord(textPure,'{{DEFAULTSORT:',function(parma1){
     let param2 = parma1[1].split('}}');
     if(param2.length > 1) {
       let param3 = param2[0].split('{{PAGENAME');
       let hirakana = param3[0];
-      console.log('onPage:title=<',title,'>');
-      console.log('onPage:hirakana=<',hirakana,'>');
+      console.log('fetchKana:title=<',title,'>');
+      console.log('fetchKana:hirakana=<',hirakana,'>');
       //pushToDB(title,hirakana);
     }
   });
@@ -45,12 +49,12 @@ function onPage(title,textPure){
     if(param2.length > 1) {
       let param3 = param2[0].split('{{PAGENAME');
       let hirakana = param3[0];
-      console.log('onPage:title=<',title,'>');
-      console.log('onPage:hirakana=<',hirakana,'>');
+      console.log('fetchKana:title=<',title,'>');
+      console.log('fetchKana:hirakana=<',hirakana,'>');
       //pushToDB(title,hirakana);
     } else {
-      console.log('onPage:title=<',title,'>');
-      console.log('onPage:parma1[1]=<',parma1[1],'>');
+      console.log('fetchKana:title=<',title,'>');
+      console.log('fetchKana:parma1[1]=<',parma1[1],'>');
     }
   });
   if(hint) {
@@ -58,17 +62,17 @@ function onPage(title,textPure){
   }
 
   hint = tryKeyWord(textPure,'[[Category:かな]]',function(parma1){
-    console.log('onPage:title=<',title,'>');
+    console.log('fetchKana:title=<',title,'>');
   });
   if(hint) {
     return;
   }
-  
-  
-  console.log('fetchByPronPinYin::title=<',title,'>');
-  console.log('fetchByPronPinYin::textPure=<',textPure,'>');
+  console.log('fetchKana::title=<',title,'>');
+  console.log('fetchKana::textPure=<',textPure,'>');
+
 
 }
+ 
 
 function filterTitle(filters,title) {
   for(let i = 0;i < filters.length;i++) {
@@ -80,6 +84,8 @@ function filterTitle(filters,title) {
   return false;
 }
 
+
+ 
 
 function fetchByDEFAULTSORT(title,textPure) {
   let parma1 = textPure.split('{{DEFAULTSORT:');
