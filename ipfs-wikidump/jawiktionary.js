@@ -22,7 +22,7 @@ function onPage(title,textPure){
     'メインページ'
   ];
   if(filterTitle(filters,title)) {
-    console.log('onPage::filter out title=<',title,'>');
+    //console.log('onPage::filter out title=<',title,'>');
     return;
   }
   fetchKana(title,textPure);
@@ -86,16 +86,15 @@ function fetchKana(title,textPure) {
   let category = [
     '[[Category:{{en}}]]',
     '[[Category:かな]]'
-  ]
-
+  ];
   hint = tryKeyWord(textPure,category,function(parma1){
     console.log('fetchKana:title=<',title,'>');
   });
   if(hint) {
     return;
   }
-  console.log('fetchKana::title=<',title,'>');
-  console.log('fetchKana::textPure=<',textPure,'>');
+  //console.log('fetchKana::title=<',title,'>');
+  //console.log('fetchKana::textPure=<',textPure,'>');
 
 
 }
