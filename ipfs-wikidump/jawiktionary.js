@@ -45,7 +45,10 @@ function fetchKana(title,textPure) {
   }
   let categoryJa = [
     '[[category:{{ja}}|',
-    '[[Category:{{jpn}}|'
+    '[[Category:{{jpn}}|',
+    '[[Category:日本語|',
+    '[[Category:{{ja}}|',
+    '[[Category:{{jpn}}',
   ];
 
   hint = tryKeyWord(textPure,categoryJa,function(parma1){
