@@ -58,6 +58,8 @@ function fetchKana(title,textPure) {
     '[[Category:{{jpn}}',
     '[[Category:日本語|',
     '[[Category:日本語',
+    '[[category:日本語|',
+    '[[category:日本語',
     '[[カテゴリ:{{jpn}}|',
     '[[Category:漢字|',
   ];
