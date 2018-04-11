@@ -34,10 +34,10 @@ function fetchKana(title,textPure) {
     let param2 = parma1[1].split('}}');
     if(param2.length > 1) {
       let param3 = param2[0].split('{{PAGENAME');
-      let hirakana = param3[0];
+      let hirakana1 = param3[0];
       console.log('fetchKana:title=<',title,'>');
-      console.log('fetchKana:hirakana=<',hirakana,'>');
-      //pushToDB(title,hirakana);
+      console.log('fetchKana:hirakana1=<',hirakana1,'>');
+      //pushToDB(title,hirakana1);
     }
   });
   if(hint) {
@@ -47,10 +47,10 @@ function fetchKana(title,textPure) {
   hint = tryKeyWord(textPure,'[[category:{{ja}}|',function(parma1){
     let param2 = parma1[1].split(']]');
     if(param2.length > 1) {
-      let hirakana = param2[0];
+      let hirakana2 = param2[0];
       console.log('fetchKana:title=<',title,'>');
-      console.log('fetchKana:hirakana=<',hirakana,'>');
-      //pushToDB(title,hirakana);
+      console.log('fetchKana:hirakana2=<',hirakana2,'>');
+      //pushToDB(title,hirakana2);
     } else {
       console.log('fetchKana:title=<',title,'>');
       console.log('fetchKana:param2=<',param2,'>');
@@ -70,10 +70,10 @@ function fetchKana(title,textPure) {
     let param2 = parma1[1].split('===');
     if(param2.length > 1) {
       let param3 = param2[0].split('{{PAGENAME');
-      let hirakana = param3[0];
+      let hirakana3 = param3[0];
       console.log('fetchKana:title=<',title,'>');
-      console.log('fetchKana:hirakana=<',hirakana,'>');
-      //pushToDB(title,hirakana);
+      console.log('fetchKana:hirakana3=<',hirakana3,'>');
+      //pushToDB(title,hirakana3);
     } else {
       console.log('fetchKana:title=<',title,'>');
       console.log('fetchKana:parma1[1]=<',parma1[1],'>');
@@ -93,10 +93,9 @@ function fetchKana(title,textPure) {
   if(hint) {
     return;
   }
-  //console.log('fetchKana::title=<',title,'>');
-  //console.log('fetchKana::textPure=<',textPure,'>');
-
-
+  console.log('fetchKana::title=<',title,'>');
+  console.log('fetchKana::textPure=<',textPure,'>');
+  
 }
  
 
