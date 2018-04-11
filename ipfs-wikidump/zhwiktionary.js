@@ -327,8 +327,8 @@ function fetchByPronPinYin(title,textPure) {
   }
 
   
-  console.log('fetchByPronPinYin::title=<',title,'>');
-  console.log('fetchByPronPinYin::textPure=<',textPure,'>');
+  //console.log('fetchByPronPinYin::title=<',title,'>');
+  //console.log('fetchByPronPinYin::textPure=<',textPure,'>');
   
 } //fetchByPronPinYin
 
