@@ -128,7 +128,7 @@ function filterAccii(title) {
   for(let i = 0;i < title.length;i++) {
     let charCode = title.charAt(i);
     console.log('filterAccii:charCode=<',charCode,'>');
-    if(charCode > 256) {
+    if(charCode >= 'ぁ') {
       return false;
     }
   }
