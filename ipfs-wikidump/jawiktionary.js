@@ -68,6 +68,8 @@ function fetchKana(title,textPure) {
     '[[カテゴリ:{{jpn}}',
     '[[Category:漢字|',
     '[[Category:約物|',
+    '[[カテゴリ:漢字|',
+    '[[カテゴリ:漢字',
     '[[Category:Unicode_CJK_Compatibility|',
   ];
 
