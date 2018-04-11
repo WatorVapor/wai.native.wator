@@ -2,6 +2,17 @@ const wiki = require('./parseWikiDumper.js');
 let dumpPath = '/watorvapor/wai.storage/dumps.wikimedia.org/jawiktionary/jawiktionary-20180401-pages-articles.xml';
 let wikiDumper = new wiki(dumpPath,onPage);
 
+const level = require('level');
+let dbPath = '/watorvapor/wai.storage/dumps.wikimedia.org/output_leveldb/jawiktionary';
+let db = level(dbPath);
+
+function pushToDB(title,hirakana) {
+  console.log('pushToDB::title=<',title,'>');
+  console.log('pushToDB::hirakana=<',hirakana,'>');
+  db.put(title,hirakana);
+}
+
+
 function onPage(title,text){
   //console.log('onPage::title=<',title,'>');
   //console.log('onPage::text=<',text,'>');
@@ -19,8 +30,15 @@ function fetchByDEFAULTSORT(title,textPure) {
       let hirakana = param3[0];
       console.log('fetchByDEFAULTSORT:title=<',title,'>');
       console.log('fetchByDEFAULTSORT:hirakana=<',hirakana,'>');
+      pushToDB(title,hirakana);
+    } else {
+      console.log('fetchByDEFAULTSORT:title=<',title,'>');
+      console.log('fetchByDEFAULTSORT:param2=<',param2,'>');
     }
-  }  
+  } else {
+    console.log('fetchByDEFAULTSORT:title=<',title,'>');
+    console.log('fetchByDEFAULTSORT:parma1=<',parma1,'>');
+  }
 }
 
 
