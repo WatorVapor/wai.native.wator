@@ -43,8 +43,12 @@ function fetchKana(title,textPure) {
   if(hint) {
     return;
   }
+  let categoryJa = [
+    '[[category:{{ja}}|',
+    '[[Category:{{jpn}}|'
+  ];
 
-  hint = tryKeyWord(textPure,'[[category:{{ja}}|',function(parma1){
+  hint = tryKeyWord(textPure,categoryJa,function(parma1){
     let param2 = parma1[1].split(']]');
     if(param2.length > 1) {
       let hirakana2 = param2[0];
@@ -84,11 +88,12 @@ function fetchKana(title,textPure) {
   }
   
   let category = [
-    '[[Category:{{en}}]]','[[category:{{en}}]]',
-    '[[Category:かな]]',
-    '[[Category:{{pl}}]]',
+    '[[Category:{{en}}]]',      '[[category:{{en}}]]',
+    '[[Category:かな]]',        '[[category:かな]]',
+    '[[Category:{{pl}}]]',      '[[category:{{pl}}]]',
     '[[category:{{fr}}]]',
-    '[[category:{{it}}]]'
+    '[[category:{{it}}]]',      '[[Category:{{it}}]]',
+    '[[Category:Unicode Basic Latin]]' ,'[[category:Unicode Basic Latin]]'
   ];
   hint = tryKeyWord(textPure,category,function(parma1){
     console.log('fetchKana:title=<',title,'>');
