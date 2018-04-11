@@ -20,13 +20,17 @@ function onPage(title,textPure){
   let filters = [
     'MediaWiki:','Wiktionary:','テンプレート:',
     'メインページ','ヘルプ:','ファイル:',
-    'カテゴリ:','付録:','モジュール:'
+    'カテゴリ:','付録:','モジュール:',
   ];
   if(filterTitle(filters,title)) {
     //console.log('onPage::filter out title=<',title,'>');
     return;
   }
-  if(filterAccii(title)) {
+  if(filterAscii(title)) {
+    //console.log('onPage::filter out title=<',title,'>');
+    return;
+  }
+  if(filterMaoHao(title)) {
     //console.log('onPage::filter out title=<',title,'>');
     return;
   }
@@ -146,7 +150,7 @@ function filterTitle(filters,title) {
   return false;
 }
 
-function filterAccii(title) {
+function filterAscii(title) {
   for(let i = 0;i < title.length;i++) {
     let charCode = title.charAt(i);
     //console.log('filterAccii:charCode=<',charCode,'>');
@@ -155,6 +159,15 @@ function filterAccii(title) {
     }
   }
   return true;
+}
+function filterMaoHao(title) {
+  if(title.includes(':')) {
+    return true;
+  }
+  if(title.includes('：')) {
+    return true;
+  }
+  return false;
 }
 
  
