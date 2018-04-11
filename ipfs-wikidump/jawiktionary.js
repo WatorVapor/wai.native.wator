@@ -20,7 +20,7 @@ function onPage(title,textPure){
   let filters = [
     'MediaWiki:','Wiktionary:','テンプレート:',
     'メインページ','ヘルプ:','ファイル:',
-    'カテゴリ:','付録:'
+    'カテゴリ:','付録:','モジュール:'
   ];
   if(filterTitle(filters,title)) {
     //console.log('onPage::filter out title=<',title,'>');
@@ -114,7 +114,8 @@ function fetchKana(title,textPure) {
     
     '[[category:{{zh}}',        '[[Category:中国語',
     '[[Category:{{zho}}',       '[[Category:{{zh}}',
-    '[[Category:{{zh}}',
+    '[[Category:{{zh}}',        '[[Category:{{cdo}}|',
+    '[[category:{{cdo}}|',
 /*
     '[[Category:{{en}}]]',      '[[category:{{en}}]]',
     '[[Category:{{pl}}]]',      '[[category:{{pl}}]]',
