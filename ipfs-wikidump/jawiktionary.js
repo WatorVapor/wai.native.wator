@@ -84,7 +84,7 @@ function fetchKana(title,textPure) {
   }
   
   let category = [
-    '[[Category:{{en}}]]',
+    '[[Category:{{en}}]]','[[category:{{en}}]]',
     '[[Category:かな]]',
     '[[Category:{{pl}}]]',
     '[[category:{{fr}}]]'
