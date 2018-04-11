@@ -128,6 +128,7 @@ function filterAccii(title) {
   for(let i = 0;i < title.length;i++) {
     let charCode = title.charAt(i);
     if(charCode > 256) {
+      console.log('filterAccii:charCode=<',charCode,'>');
       return false;
     }
   }
