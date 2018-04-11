@@ -10,6 +10,7 @@ let db = level(dbPath);
 function pushToDB(title,pinyin) {
   console.log('pushToDB::title=<',title,'>');
   console.log('pushToDB::pinyin=<',pinyin,'>');
+  db.put(title,pinyin);
 }
 
 function onPage(title,text){
