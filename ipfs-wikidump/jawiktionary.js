@@ -44,7 +44,29 @@ function fetchKana(title,textPure) {
     return;
   }
 
-  hint = tryKeyWord(textPure,'==={{pron|ja}}===',function(parma1){
+  hint = tryKeyWord(textPure,'[[category:{{ja}}|',function(parma1){
+    let param2 = parma1[1].split(']]');
+    if(param2.length > 1) {
+      let hirakana = param2[0];
+      console.log('fetchKana:title=<',title,'>');
+      console.log('fetchKana:hirakana=<',hirakana,'>');
+      //pushToDB(title,hirakana);
+    } else {
+      console.log('fetchKana:title=<',title,'>');
+      console.log('fetchKana:param2=<',param2,'>');
+    }
+  });
+  if(hint) {
+    return;
+  }
+
+  
+  let keyswords = [
+    '==={{pron|ja}}===',
+    '===={{pron|jpn}}====',
+    '=== 読み ==='
+  ];
+  hint = tryKeyWord(textPure,keyswords,function(parma1){
     let param2 = parma1[1].split('===');
     if(param2.length > 1) {
       let param3 = param2[0].split('{{PAGENAME');
