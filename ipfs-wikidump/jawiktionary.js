@@ -46,7 +46,7 @@ function fetchKana(title,textPure) {
       let hirakana1 = param3[0];
       console.log('fetchKana:title=<',title,'>');
       console.log('fetchKana:hirakana1=<',hirakana1,'>');
-      //pushToDB(title,hirakana1);
+      pushToDB(title,hirakana1);
     }
   });
   if(hint) {
@@ -79,7 +79,7 @@ function fetchKana(title,textPure) {
       let hirakana2 = param2[0];
       console.log('fetchKana:title=<',title,'>');
       console.log('fetchKana:hirakana2=<',hirakana2,'>');
-      //pushToDB(title,hirakana2);
+      pushToDB(title,hirakana2);
     } else {
       console.log('fetchKana:title=<',title,'>');
       console.log('fetchKana:param2=<',param2,'>');
@@ -102,7 +102,7 @@ function fetchKana(title,textPure) {
       let hirakana3 = param3[0];
       console.log('fetchKana:title=<',title,'>');
       console.log('fetchKana:hirakana3=<',hirakana3,'>');
-      //pushToDB(title,hirakana3);
+      pushToDB(title,hirakana3);
     } else {
       console.log('fetchKana:title=<',title,'>');
       console.log('fetchKana:parma1[1]=<',parma1[1],'>');
@@ -131,13 +131,13 @@ function fetchKana(title,textPure) {
 */
   ];
   hint = tryKeyWord(textPure,category,function(parma1){
-    console.log('fetchKana:title=<',title,'>');
+    //console.log('fetchKana:title=<',title,'>');
   });
   if(hint) {
     return;
   }
-  console.log('fetchKana::title=<',title,'>');
-  console.log('fetchKana::textPure=<',textPure,'>');
+  //console.log('fetchKana::title=<',title,'>');
+  //console.log('fetchKana::textPure=<',textPure,'>');
   
 }
  
