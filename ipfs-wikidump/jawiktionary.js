@@ -56,6 +56,13 @@ function onPage(title,textPure){
   if(hint) {
     return;
   }
+
+  hint = tryKeyWord(textPure,'[[Category:かな]]',function(parma1){
+    console.log('onPage:title=<',title,'>');
+  });
+  if(hint) {
+    return;
+  }
   
   
   console.log('fetchByPronPinYin::title=<',title,'>');
