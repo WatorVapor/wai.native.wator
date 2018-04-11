@@ -18,7 +18,8 @@ function onPage(title,textPure){
   //console.log('onPage::text=<',textPure,'>');
   //fetchByDEFAULTSORT(title,textPure);
   let filters = [
-    'MediaWiki:','Wiktionary:','テンプレート:'
+    'MediaWiki:','Wiktionary:','テンプレート:',
+    'メインページ'
   ];
   if(filterTitle(filters,title)) {
     console.log('onPage::filter out title=<',title,'>');
