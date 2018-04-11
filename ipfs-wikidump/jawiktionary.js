@@ -25,6 +25,10 @@ function onPage(title,textPure){
     //console.log('onPage::filter out title=<',title,'>');
     return;
   }
+  if(filterAccii(title)) {
+    console.log('onPage::filter out title=<',title,'>');
+    return;
+  }
   fetchKana(title,textPure);
 }
 
@@ -120,6 +124,15 @@ function filterTitle(filters,title) {
   return false;
 }
 
+function filterAccii(title) {
+  for(let i = 0;i < title.length;i++) {
+    let charCode = title.charAt(i);
+    if(charCode > 256) {
+      return false;
+    }
+  }
+  return true;
+}
 
  
 
