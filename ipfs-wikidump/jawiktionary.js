@@ -64,6 +64,7 @@ function fetchKana(title,textPure) {
     '[[カテゴリ:{{jpn}}',
     '[[Category:漢字|',
     '[[Category:約物|',
+    '[[Category:Unicode_CJK_Compatibility|',
   ];
 
   hint = tryKeyWord(textPure,categoryJa,function(parma1){
