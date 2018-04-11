@@ -13,10 +13,27 @@ function pushToDB(title,hirakana) {
 }
 
 
-function onPage(title,text){
+function onPage(title,textPure){
   //console.log('onPage::title=<',title,'>');
-  //console.log('onPage::text=<',text,'>');
-  fetchByDEFAULTSORT(title,text);
+  //console.log('onPage::text=<',textPure,'>');
+  //fetchByDEFAULTSORT(title,textPure);
+  let hint = false;
+  hint = tryKeyWord(textPure,'{{DEFAULTSORT:',function(parma1){
+    let param2 = parma1[1].split('}}');
+    if(param2.length > 1) {
+      let param3 = param2[0].split('{{PAGENAME');
+      let hirakana = param3[0];
+      console.log('fetchByDEFAULTSORT:title=<',title,'>');
+      console.log('fetchByDEFAULTSORT:hirakana=<',hirakana,'>');
+      //pushToDB(title,hirakana);
+    }
+  });
+  if(hint) {
+    return;
+  }
+  console.log('fetchByPronPinYin::title=<',title,'>');
+  console.log('fetchByPronPinYin::textPure=<',textPure,'>');
+
 }
 
 
@@ -56,3 +73,26 @@ function fetchByPronJpn(title,textPure) {
     }
   }  
 }
+
+
+function tryKeyWord(text,Keyword,cb) {
+  if(typeof Keyword === 'string') {
+    let parma = text.split(Keyword);
+    if(parma.length > 1) {
+      cb(parma);
+      return true;
+    }
+  }
+  if(typeof Keyword === 'object') {
+    for(let i = 0;i < Keyword.length;i++) {
+      let kw = Keyword[i];
+      let parma = text.split(kw);
+      if(parma.length > 1) {
+        cb(parma);
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
