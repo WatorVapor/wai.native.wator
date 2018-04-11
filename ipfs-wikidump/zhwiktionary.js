@@ -2,6 +2,16 @@ const wiki = require('./parseWikiDumper.js');
 let dumpPath = '/watorvapor/wai.storage/dumps.wikimedia.org/zhwiktionary/zhwiktionary-20180401-pages-articles.xml';
 let wikiDumper = new wiki(dumpPath,onPage);
 
+const level = require('level');
+let dbPath = '/watorvapor/wai.storage/dumps.wikimedia.org/output_leveldb/zhwiktionary';
+let db = level(dbPath);
+
+
+function pushToDB(title,pinyin) {
+  console.log('pushToDB::title=<',title,'>');
+  console.log('pushToDB::pinyin=<',pinyin,'>');
+}
+
 function onPage(title,text){
   //console.log('onPage::title=<',title,'>');
   //console.log('onPage::text=<',text,'>');
@@ -26,6 +36,7 @@ function fetchByPronPinYin(title,textPure) {
         let pinYin1 = param5[0];
         console.log('fetchByPronPinYin::title=<',title,'>');
         console.log('fetchByPronPinYin::pinYin1=<',pinYin1,'>');
+        pushToDB(title,pinYin1);
       } else {
         let parma4 = parma2[0].split('{{國音|')
         if(parma4.length > 1) {
@@ -40,6 +51,7 @@ function fetchByPronPinYin(title,textPure) {
           }
           console.log('fetchByPronPinYin::title=<',title,'>');
           console.log('fetchByPronPinYin::pinYin2=<',pinYin2,'>');
+          pushToDB(title,pinYin2);
           //console.log('fetchByPronPinYin::title.length=<',title.length,'>');
           //console.log('fetchByPronPinYin::parma3=<',parma3,'>');
         }
@@ -55,9 +67,10 @@ function fetchByPronPinYin(title,textPure) {
     if(parma20.length > 1) {
       let parma21 = parma20[1].split('}}');
       let parma22 = parma21[0].split('|');
-      let pinYin4 = parma22[0];
+      let pinYin3 = parma22[0];
       console.log('fetchByPronPinYin::title=<',title,'>');
-      console.log('fetchByPronPinYin::pinYin4=<',pinYin4,'>');      
+      console.log('fetchByPronPinYin::pinYin3=<',pinYin3,'>');      
+      pushToDB(title,pinYin3);
     } 
   });
   if(hint) {
@@ -70,6 +83,7 @@ function fetchByPronPinYin(title,textPure) {
       let pinYin4 = parma21[0];
       console.log('fetchByPronPinYin::title=<',title,'>');
       console.log('fetchByPronPinYin::pinYin4=<',pinYin4,'>');
+      pushToDB(title,pinYin4);
     }
   });
   if(hint) {
@@ -89,6 +103,7 @@ function fetchByPronPinYin(title,textPure) {
         let pinYin5 = param35[0];
         console.log('fetchByPronPinYin::title=<',title,'>');
         console.log('fetchByPronPinYin::pinYin5=<',pinYin5,'>');
+        pushToDB(title,pinYin5);
       } else {
         //console.log('fetchByPronPinYin::parma32=<',parma32,'>');
         let parma36 = parma32[0].split('漢語拼音=');
@@ -97,6 +112,7 @@ function fetchByPronPinYin(title,textPure) {
           let pinYin7 = param35[0];
           console.log('fetchByPronPinYin::title=<',title,'>');
           console.log('fetchByPronPinYin::pinYin7=<',pinYin7,'>');
+          pushToDB(title,pinYin7);
         } else {
           //console.log('fetchByPronPinYin::parma32=<',parma32,'>');
           let parma37 = parma32[0].split('{{國音|');
@@ -113,6 +129,7 @@ function fetchByPronPinYin(title,textPure) {
             console.log('fetchByPronPinYin::title=<',title,'>');
             console.log('fetchByPronPinYin::pinYin13=<',pinYin13,'>');
             //console.log('fetchByPronPinYin::param38=<',param38,'>');
+            pushToDB(title,pinYin13);
           } else {
             console.log('fetchByPronPinYin::title=<',title,'>');
             console.log('fetchByPronPinYin::parma32=<',parma32,'>');
@@ -137,6 +154,7 @@ function fetchByPronPinYin(title,textPure) {
         let pinYin6 = param45[0];
         console.log('fetchByPronPinYin::title=<',title,'>');
         console.log('fetchByPronPinYin::pinYin6=<',pinYin6,'>');
+        pushToDB(title,pinYin6);
       } else {
         console.log('fetchByPronPinYin::parma42=<',parma42,'>');
       }
@@ -150,9 +168,10 @@ function fetchByPronPinYin(title,textPure) {
     //console.log('fetchByPronPinYin::parma51[1]=<',parma51[1],'>');
     let parma52 = parma51[1].split('\n');
     if(parma52.length > 1) {
-      let pinYin6 = parma52[0];
+      let pinYin26 = parma52[0];
       console.log('fetchByPronPinYin::title=<',title,'>');
-      console.log('fetchByPronPinYin::pinYin6=<',pinYin6,'>');
+      console.log('fetchByPronPinYin::pinYin6=<',pinYin26,'>');
+      pushToDB(title,pinYin26);
     } else {
       console.log('fetchByPronPinYin::parma52=<',parma52,'>');
     }
@@ -168,6 +187,7 @@ function fetchByPronPinYin(title,textPure) {
       let pinYin8 = parma62[0];
       console.log('fetchByPronPinYin::title=<',title,'>');
       console.log('fetchByPronPinYin::pinYin8=<',pinYin8,'>');
+      pushToDB(title,pinYin8);
     } else {
       console.log('fetchByPronPinYin::title=<',title,'>');
       console.log('fetchByPronPinYin::parma62=<',parma62,'>');
@@ -184,6 +204,7 @@ function fetchByPronPinYin(title,textPure) {
       let pinYin9 = parma72[0];
       console.log('fetchByPronPinYin::title=<',title,'>');
       console.log('fetchByPronPinYin::pinYin9=<',pinYin9,'>');
+      pushToDB(title,pinYin9);
     } else {
       console.log('fetchByPronPinYin::parma72=<',parma72,'>');
     }
@@ -199,6 +220,7 @@ function fetchByPronPinYin(title,textPure) {
       let pinYin10 = parma82[0];
       console.log('fetchByPronPinYin::title=<',title,'>');
       console.log('fetchByPronPinYin::pinYin10=<',pinYin10,'>');
+      pushToDB(title,pinYin10);
     } else {
       console.log('fetchByPronPinYin::parma82=<',parma82,'>');
     }
@@ -214,6 +236,7 @@ function fetchByPronPinYin(title,textPure) {
       let pinYin11 = parma92[0];
       console.log('fetchByPronPinYin::title=<',title,'>');
       console.log('fetchByPronPinYin::pinYin11=<',pinYin11,'>');
+      pushToDB(title,pinYin11);
     } else {
       console.log('fetchByPronPinYin::parma92=<',parma92,'>');
     }
@@ -229,6 +252,7 @@ function fetchByPronPinYin(title,textPure) {
       let pinYin12 = parma112[0];
       console.log('fetchByPronPinYin::title=<',title,'>');
       console.log('fetchByPronPinYin::pinYin12=<',pinYin12,'>');
+      pushToDB(title,pinYin12);
     } else {
       console.log('fetchByPronPinYin::parma112=<',parma112,'>');
     }
@@ -245,6 +269,7 @@ function fetchByPronPinYin(title,textPure) {
       console.log('fetchByPronPinYin::title=<',title,'>');
       console.log('fetchByPronPinYin::pinYin14=<',pinYin14,'>');
       console.log('fetchByPronPinYin::parma122=<',parma122,'>');
+      pushToDB(title,pinYin14);
     } else {
       console.log('fetchByPronPinYin::parma122=<',parma122,'>');
     }
@@ -260,6 +285,7 @@ function fetchByPronPinYin(title,textPure) {
       let pinYin15 = parma132[1];
       console.log('fetchByPronPinYin::title=<',title,'>');
       console.log('fetchByPronPinYin::pinYin15=<',pinYin15,'>');
+      pushToDB(title,pinYin15);
     } else {
       console.log('fetchByPronPinYin::parma132=<',parma132,'>');
     }
@@ -275,6 +301,7 @@ function fetchByPronPinYin(title,textPure) {
       let pinYin16 = parma142[0];
       console.log('fetchByPronPinYin::title=<',title,'>');
       console.log('fetchByPronPinYin::pinYin16=<',pinYin16,'>');
+      pushToDB(title,pinYin16);
     } else {
       console.log('fetchByPronPinYin::parma142=<',parma142,'>');
     }
@@ -290,6 +317,7 @@ function fetchByPronPinYin(title,textPure) {
       let pinYin17 = parma152[0];
       console.log('fetchByPronPinYin::title=<',title,'>');
       console.log('fetchByPronPinYin::pinYin17=<',pinYin17,'>');
+      pushToDB(title,pinYin17);
     } else {
       console.log('fetchByPronPinYin::parma142=<',parma152,'>');
     }
