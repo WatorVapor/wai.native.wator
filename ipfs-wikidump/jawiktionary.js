@@ -105,8 +105,10 @@ function fetchKana(title,textPure) {
     '[[Category:かな]]',        '[[category:かな]]',
     '[[カテゴリ:かな]]',         '[[Category:かな|',
     '[[Category:{{kor}}]]',     '[[category:{{kor}}]]',
-    '[[category:{{zh}}',        '[[Category:中国語|',
-    '[[Category:{{zho}}',
+    
+    '[[category:{{zh}}',        '[[Category:中国語',
+    '[[Category:{{zho}}',       '[[Category:{{zh}}',
+    '[[Category:{{zh}}',
 /*
     '[[Category:{{en}}]]',      '[[category:{{en}}]]',
     '[[Category:{{pl}}]]',      '[[category:{{pl}}]]',
