@@ -31,14 +31,33 @@ function onPage(title,textPure){
     if(param2.length > 1) {
       let param3 = param2[0].split('{{PAGENAME');
       let hirakana = param3[0];
-      console.log('fetchByDEFAULTSORT:title=<',title,'>');
-      console.log('fetchByDEFAULTSORT:hirakana=<',hirakana,'>');
+      console.log('onPage:title=<',title,'>');
+      console.log('onPage:hirakana=<',hirakana,'>');
       //pushToDB(title,hirakana);
     }
   });
   if(hint) {
     return;
   }
+
+  hint = tryKeyWord(textPure,'==={{pron|ja}}===',function(parma1){
+    let param2 = parma1[1].split('===');
+    if(param2.length > 1) {
+      let param3 = param2[0].split('{{PAGENAME');
+      let hirakana = param3[0];
+      console.log('onPage:title=<',title,'>');
+      console.log('onPage:hirakana=<',hirakana,'>');
+      //pushToDB(title,hirakana);
+    } else {
+      console.log('onPage:title=<',title,'>');
+      console.log('onPage:parma1[1]=<',parma1[1],'>');
+    }
+  });
+  if(hint) {
+    return;
+  }
+  
+  
   console.log('fetchByPronPinYin::title=<',title,'>');
   console.log('fetchByPronPinYin::textPure=<',textPure,'>');
 
