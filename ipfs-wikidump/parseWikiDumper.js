@@ -2,6 +2,7 @@ const fs = require('fs')
 const cheerio = require('cheerio');
 const readline = require('readline');
 
+const ShowProgreeSize = 10 * 1024 * 1024;
 module.exports = class WikiDumper {
   constructor(path,onPage) {
     this.path = path;
@@ -9,6 +10,9 @@ module.exports = class WikiDumper {
     this.stream = fs.createReadStream(path, "utf8");
     this.rl = readline.createInterface({'input': this.stream, 'output': {}});
     this.readLines_();
+    const stats = fs.statSync(path);
+    this.totalSize = stats.size;
+    this.pos = 0;
   }
   
   readLines_() {
@@ -32,6 +36,13 @@ module.exports = class WikiDumper {
   }
 
   parsePage_(page) {
+    this.pos += page.length;
+    if(this.pos % ShowProgreeSize === 0) {
+      let percent = 100 * this.pos / this.totalSize;
+      console.log('parsePage:this.pos =<',this.pos,'>');
+      console.log('parsePage:this.totalSize =<',this.totalSize,'>');
+      console.log('parsePage:percent =<',percent,'%>');
+    }
     //console.log('parsePage:page =<',page,'>');
     const $ = cheerio.load(page);
     let title = this.fetchTitle_($);
