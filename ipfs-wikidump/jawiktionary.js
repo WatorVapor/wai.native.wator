@@ -17,6 +17,12 @@ function onPage(title,textPure){
   //console.log('onPage::title=<',title,'>');
   //console.log('onPage::text=<',textPure,'>');
   //fetchByDEFAULTSORT(title,textPure);
+  let filters = [
+  ];
+  if(filterTitle(filters,title)) {
+    console.log('onPage::filter out title=<',title,'>');
+    return;
+  }
   let hint = false;
   hint = tryKeyWord(textPure,'{{DEFAULTSORT:',function(parma1){
     let param2 = parma1[1].split('}}');
@@ -34,6 +40,16 @@ function onPage(title,textPure){
   console.log('fetchByPronPinYin::title=<',title,'>');
   console.log('fetchByPronPinYin::textPure=<',textPure,'>');
 
+}
+
+function filterTitle(filters,title) {
+  for(let i = 0;i < filters.length;i++) {
+    let filter = filters[i];
+    if(title.includes(filter)) {
+      return true;
+    }
+  }
+  return false;
 }
 
 
