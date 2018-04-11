@@ -1,12 +1,11 @@
-var levelup = require('levelup');
-var leveldown = require('leveldown');
 var argv = require('argv');
 var args = argv.run();
 var pathDB = args.targets[0];
 console.log('pathDB =<',pathDB,'>');
 
+const level = require('level');
 
-var db = levelup(leveldown(pathDB));
+var db = level(pathDB);
 var stream = db.createReadStream();
 
 var counter = 0;
