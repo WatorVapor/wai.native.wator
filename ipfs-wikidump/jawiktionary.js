@@ -19,7 +19,7 @@ function onPage(title,textPure){
   //fetchByDEFAULTSORT(title,textPure);
   let filters = [
     'MediaWiki:','Wiktionary:','テンプレート:',
-    'メインページ'
+    'メインページ','ヘルプ:'
   ];
   if(filterTitle(filters,title)) {
     //console.log('onPage::filter out title=<',title,'>');
@@ -85,7 +85,8 @@ function fetchKana(title,textPure) {
   
   let category = [
     '[[Category:{{en}}]]',
-    '[[Category:かな]]'
+    '[[Category:かな]]',
+    '[[Category:{{pl}}]]'
   ];
   hint = tryKeyWord(textPure,category,function(parma1){
     console.log('fetchKana:title=<',title,'>');
