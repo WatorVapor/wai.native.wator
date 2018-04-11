@@ -87,7 +87,8 @@ function fetchKana(title,textPure) {
     '[[Category:{{en}}]]','[[category:{{en}}]]',
     '[[Category:かな]]',
     '[[Category:{{pl}}]]',
-    '[[category:{{fr}}]]'
+    '[[category:{{fr}}]]',
+    '[[category:{{it}}]]'
   ];
   hint = tryKeyWord(textPure,category,function(parma1){
     console.log('fetchKana:title=<',title,'>');
