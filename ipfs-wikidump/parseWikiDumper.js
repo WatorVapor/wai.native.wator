@@ -3,6 +3,7 @@ const cheerio = require('cheerio');
 const readline = require('readline');
 
 const ShowProgreeSize = 1024 * 1024;
+const showPerSize = 50;
 module.exports = class WikiDumper {
   constructor(path,onPage) {
     this.path = path;
@@ -37,11 +38,11 @@ module.exports = class WikiDumper {
 
   parsePage_(page) {
     this.pos += page.length;
-    console.log('parsePage:this.pos =<',this.pos,'>');
-    console.log('parsePage:ShowProgreeSize =<',ShowProgreeSize,'>');
-    console.log('parsePage:this.pos % ShowProgreeSize =<',this.pos % ShowProgreeSize,'>');
+    //console.log('parsePage:this.pos =<',this.pos,'>');
+    //console.log('parsePage:ShowProgreeSize =<',ShowProgreeSize,'>');
+    //console.log('parsePage:this.pos % ShowProgreeSize =<',this.pos % ShowProgreeSize,'>');
     this.showCounter = parseInt(this.pos / ShowProgreeSize);
-    if(this.showCounter %10 == 0) {
+    if(this.showCounter % showPerSize == 0) {
       let percent = 100 * this.pos / this.totalSize;
       console.log('parsePage:this.pos =<',this.pos,'>');
       console.log('parsePage:this.totalSize =<',this.totalSize,'>');
