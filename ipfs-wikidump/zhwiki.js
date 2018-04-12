@@ -15,13 +15,14 @@ function pushToDB(title,page) {
 
 function onPage(title,text){
   let filters = [
-    'Wikipedia:','Help:','Wikipedia:',
+    'Wikipedia:','Help:',
   ];
-  /*
+
   if(filterTitle(filters,title)) {
     //console.log('onPage::filter out title=<',title,'>');
     return;
   }
+  /*
   if(filterAscii(title)) {
     //console.log('onPage::filter out title=<',title,'>');
     return;
