@@ -25,6 +25,7 @@ rl.on('line', (line) => {
 
 
 function parseCode_(xml_data) {
+  console.log('parseCode_:xml_data=<',xml_data,'>');
   const $ = cheerio.load(xml_data);
   $('char').each( (i, elem) => {
     console.log('parseCode_:elem=<',elem,'>');
