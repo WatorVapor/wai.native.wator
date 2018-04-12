@@ -40,7 +40,8 @@ module.exports = class WikiDumper {
     console.log('parsePage:this.pos =<',this.pos,'>');
     console.log('parsePage:ShowProgreeSize =<',ShowProgreeSize,'>');
     console.log('parsePage:this.pos % ShowProgreeSize =<',this.pos % ShowProgreeSize,'>');
-    if(this.pos % ShowProgreeSize === 0) {
+    this.showCounter = parseInt(this.pos / ShowProgreeSize);
+    if(this.showCounter %10 == 0) {
       let percent = 100 * this.pos / this.totalSize;
       console.log('parsePage:this.pos =<',this.pos,'>');
       console.log('parsePage:this.totalSize =<',this.totalSize,'>');
