@@ -37,12 +37,12 @@ function parseCode_(xml_data) {
         saveHanYuPinYin(khanyupinyin,cp);
       }
       let on = elem.attribs.kjapaneseon;
-      if(cp && on)) {
+      if(cp && on) {
         saveJapaneseOn(on,cp);
       }
       let kun = elem.attribs.kjapanesekun;
       if(cp && kun) {
-        saveJapaneseKun(kun,on,cp);
+        saveJapaneseKun(kun,cp);
       }
     }
   });
