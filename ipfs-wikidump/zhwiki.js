@@ -17,6 +17,7 @@ function onPage(title,text){
   let filters = [
     'Wikipedia:','Help:',
   ];
+  /*
   if(filterTitle(filters,title)) {
     //console.log('onPage::filter out title=<',title,'>');
     return;
@@ -29,6 +30,7 @@ function onPage(title,text){
     //console.log('onPage::filter out title=<',title,'>');
     return;
   }
+  */
   console.log('onPage::title=<',title,'>');
   //console.log('onPage::text=<',text,'>');
 }
