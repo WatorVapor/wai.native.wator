@@ -36,6 +36,11 @@ function parseCode_(xml_data) {
       if(khanyupinyin && cp) {
         saveHanYuPinYin(khanyupinyin,cp);
       }
+      let kJapaneseOn = elem.attribs.kJapaneseOn;
+      let kJapaneseKun = elem.attribs.kJapaneseKun;
+      if(kJapaneseOn && kJapaneseKun && cp) {
+        saveJapanese(kun,on,cp);
+      }
     }
   });
 }
@@ -43,5 +48,11 @@ function parseCode_(xml_data) {
 function saveHanYuPinYin(pinYin,unicode) {
   //console.log('saveHanYuPinYin:pinYin=<',pinYin,'>');
   //console.log('saveHanYuPinYin:unicode=<',unicode,'>');
+}
+
+function saveJapanese(kun,on,unicode) {
+  console.log('saveJapanese:kun=<',kun,'>');
+  console.log('saveJapanese:on=<',on,'>');
+  console.log('saveJapanese:unicode=<',unicode,'>');
 }
 
