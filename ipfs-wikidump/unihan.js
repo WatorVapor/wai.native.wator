@@ -1,8 +1,8 @@
 const fs = require('fs')
 const cheerio = require('cheerio');
+const readline = require('readline');
 
 const unihanPath = '/watorvapor/wai.storage/www.unicode.org/ucd.unihan.flat.xml';
-
 let stream = fs.createReadStream(unihanPath, "utf8");
 let rl = readline.createInterface({'input': stream, 'output': {}});
 
