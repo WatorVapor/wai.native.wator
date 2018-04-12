@@ -28,6 +28,7 @@ function onPage(title,text){
   let d = new SHA3.SHA3Hash(256);
   d.update(title);
   let titleSha = d.digest('hex');
+  console.log('onPage::titleSha=<',titleSha,'>');
   
   //console.log('onPage::text=<',text,'>');
 }
