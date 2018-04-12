@@ -33,12 +33,12 @@ function parseCode_(xml_data) {
     if(elem.attribs) {
       let khanyupinyin = elem.attribs.khanyupinyin;
       let cp = elem.attribs.cp;
-      if(khanyupinyin && cp) {
+      if( cp && khanyupinyin ) {
         saveHanYuPinYin(khanyupinyin,cp);
       }
-      let kJapaneseOn = elem.attribs.kjapaneseon;
-      let kJapaneseKun = elem.attribs.kjapanesekun;
-      if(kJapaneseOn && kJapaneseKun && cp) {
+      let on = elem.attribs.kjapaneseon;
+      let kun = elem.attribs.kjapanesekun;
+      if(cp && (on || kun)) {
         saveJapanese(kun,on,cp);
       }
     }
