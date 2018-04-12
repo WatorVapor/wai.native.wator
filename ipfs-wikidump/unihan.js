@@ -16,7 +16,7 @@ rl.on('line', (line) => {
     codeXML += line;
     codeXML += '\n';
   }
-  if(line.includes('</char>')) {
+  if(line.includes('/>')) {
     codeStart = false;
     parseCode_(codeXML);
     codeXML = '';
