@@ -2,6 +2,11 @@ const fs = require('fs')
 const cheerio = require('cheerio');
 const readline = require('readline');
 
+const Iconv  = require('iconv').Iconv;
+let iconv = new Iconv('UTF-32', 'UTF-8');
+console.log('iconv=<',iconv,'>');
+
+
 const unihanPath = '/watorvapor/wai.storage/www.unicode.org/ucd.unihan.flat.xml';
 let stream = fs.createReadStream(unihanPath, "utf8");
 let rl = readline.createInterface({'input': stream, 'output': {}});
@@ -32,7 +37,7 @@ function parseCode_(xml_data) {
     //console.log('parseCode_:elem.attribs=<',elem.attribs,'>');
     if(elem.attribs) {
       let khanyupinyin = elem.attribs.khanyupinyin;
-      let cp = elem.attribs.cp;
+      let cp = getUtf8(elem.attribs.cp);
       if( cp && khanyupinyin ) {
         saveHanYuPinYin(khanyupinyin,cp);
       }
@@ -46,6 +51,10 @@ function parseCode_(xml_data) {
       }
     }
   });
+}
+
+function getUtf8(unicode) {
+  console.log('getUtf8:unicode=<',unicode,'>');
 }
 
 function saveHanYuPinYin(pinYin,unicode) {
