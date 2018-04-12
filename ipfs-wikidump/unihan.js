@@ -2,15 +2,32 @@ const fs = require('fs')
 const cheerio = require('cheerio');
 
 const unihanPath = '/watorvapor/wai.storage/www.unicode.org/ucd.unihan.flat.xml';
-let xml_data = fs.readFileSync(unihanPath, "utf-8");
-const $ = cheerio.load(xml_data);
 
-$('description').each( (i, elem) => {
-  let textElem = elem.children[0];
-  if(textElem.type === 'text') {
-    let length = textElem.data.length;
-    let description = textElem.data.substr(0,length);
-    console.log('description=<',description,'>');
+let stream = fs.createReadStream(unihanPath, "utf8");
+let rl = readline.createInterface({'input': stream, 'output': {}});
+
+let codeStart = false;
+let codeXML = '';
+rl.on('line', (line) => {
+  if(line.includes('<page>')) {
+    codeStart = true; 
+  }
+  if(codeStart) {
+    codeXML += line;
+    codeXML += '\n';
+  }
+  if(line.includes('</page>')) {
+    codeStart = false;
+    parseCode_(codeXML);
+    codeXML = '';
   }
 });
+
+
+function parseCode_(xml_data) {
+  const $ = cheerio.load(xml_data);
+  $('char').each( (i, elem) => {
+    console.log('parseCode_:elem=<',elem,'>');
+  });
+}
 
