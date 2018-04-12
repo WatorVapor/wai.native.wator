@@ -37,9 +37,12 @@ function parseCode_(xml_data) {
         saveHanYuPinYin(khanyupinyin,cp);
       }
       let on = elem.attribs.kjapaneseon;
+      if(cp && on)) {
+        saveJapaneseOn(on,cp);
+      }
       let kun = elem.attribs.kjapanesekun;
-      if(cp && (on || kun)) {
-        saveJapanese(kun,on,cp);
+      if(cp && kun) {
+        saveJapaneseKun(kun,on,cp);
       }
     }
   });
@@ -50,9 +53,14 @@ function saveHanYuPinYin(pinYin,unicode) {
   //console.log('saveHanYuPinYin:unicode=<',unicode,'>');
 }
 
-function saveJapanese(kun,on,unicode) {
-  console.log('saveJapanese:kun=<',kun,'>');
+
+function saveJapaneseOn(on,unicode) {
   console.log('saveJapanese:on=<',on,'>');
+  console.log('saveJapanese:unicode=<',unicode,'>');
+}
+
+function saveJapaneseKun(kun,unicode) {
+  console.log('saveJapanese:kun=<',kun,'>');
   console.log('saveJapanese:unicode=<',unicode,'>');
 }
 
