@@ -15,7 +15,7 @@ function pushToDB(title,page) {
 
 function onPage(title,text){
   let filters = [
-    'Wikipedia:','Help:',
+    'Wikipedia:','Help:','Wikipedia:',
   ];
   /*
   if(filterTitle(filters,title)) {
