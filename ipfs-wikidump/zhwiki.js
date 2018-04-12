@@ -7,7 +7,7 @@ let dbPath = '/watorvapor/wai.storage/dumps.wikimedia.org/output_leveldb/zhwiki'
 let db = level(dbPath);
 const SHA3 = require('sha3');
 
-const ArchiveRoot = '/watorvapor/wai.storage/dumps.wikimedia.org/output_hashindex';
+const ArchiveRoot = '/watorvapor/wai.storage/dumps.wikimedia.org/output_hashindex/zhwiki';
 
 
 function pushToDB(title,titleSha) {
