@@ -10,10 +10,10 @@ const SHA3 = require('sha3');
 
 
 
-function pushToDB(title,page) {
+function pushToDB(title,titleSha) {
   console.log('pushToDB::title=<',title,'>');
-  console.log('pushToDB::page=<',page,'>');
-  db.put(title,page);
+  console.log('pushToDB::titleSha=<',titleSha,'>');
+  db.put(title,titleSha);
 }
 
 function onPage(title,text){
@@ -29,7 +29,7 @@ function onPage(title,text){
   d.update(title);
   let titleSha = d.digest('hex');
   console.log('onPage::titleSha=<',titleSha,'>');
-  
+  //pushToDB(title,titleSha);
   //console.log('onPage::text=<',text,'>');
 }
 
