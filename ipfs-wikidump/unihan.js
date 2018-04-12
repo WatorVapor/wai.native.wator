@@ -9,7 +9,7 @@ let rl = readline.createInterface({'input': stream, 'output': {}});
 let codeStart = false;
 let codeXML = '';
 rl.on('line', (line) => {
-  if(line.includes('<char>')) {
+  if(line.includes('<char')) {
     codeStart = true; 
   }
   if(codeStart) {
