@@ -29,7 +29,7 @@ function parseCode_(xml_data) {
   const $ = cheerio.load(xml_data);
   $('char').each( (i, elem) => {
     //console.log('parseCode_:elem=<',elem,'>');
-    //console.log('parseCode_:elem.attribs=<',elem.attribs,'>');
+    console.log('parseCode_:elem.attribs=<',elem.attribs,'>');
     if(elem.attribs) {
       let khanyupinyin = elem.attribs.khanyupinyin;
       let cp = elem.attribs.cp;
@@ -41,7 +41,7 @@ function parseCode_(xml_data) {
 }
 
 function saveHanYuPinYin(pinYin,unicode) {
-  console.log('saveHanYuPinYin:pinYin=<',pinYin,'>');
-  console.log('saveHanYuPinYin:unicode=<',unicode,'>');
+  //console.log('saveHanYuPinYin:pinYin=<',pinYin,'>');
+  //console.log('saveHanYuPinYin:unicode=<',unicode,'>');
 }
 
