@@ -17,23 +17,12 @@ function onPage(title,text){
   let filters = [
     'Wikipedia:','Help:','Template:','Category:'
   ];
-
   if(filterTitle(filters,title)) {
     //console.log('onPage::filter out title=<',title,'>');
     return;
   }
-  /*
-  if(filterAscii(title)) {
-    //console.log('onPage::filter out title=<',title,'>');
-    return;
-  }
-  if(filterMaoHao(title)) {
-    //console.log('onPage::filter out title=<',title,'>');
-    return;
-  }
-  */
   console.log('onPage::title=<',title,'>');
-  //console.log('onPage::text=<',text,'>');
+  console.log('onPage::text=<',text,'>');
 }
 
 
