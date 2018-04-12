@@ -5,6 +5,9 @@ let wikiDumper = new wiki(dumpPath,onPage);
 const level = require('level');
 let dbPath = '/watorvapor/wai.storage/dumps.wikimedia.org/output_leveldb/zhwiki';
 let db = level(dbPath);
+const SHA3 = require('sha3');
+
+
 
 
 function pushToDB(title,page) {
@@ -22,7 +25,11 @@ function onPage(title,text){
     return;
   }
   console.log('onPage::title=<',title,'>');
-  console.log('onPage::text=<',text,'>');
+  let d = new SHA3.SHA3Hash(256);
+  d.update(title);
+  let titleSha = d.digest('hex');
+  
+  //console.log('onPage::text=<',text,'>');
 }
 
 
