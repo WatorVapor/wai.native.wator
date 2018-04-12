@@ -42,6 +42,7 @@ function onPage(title,text){
   lvlAllPath += '/' + lvl5Path1;
   console.log('onPage::lvlAllPath=<',lvlAllPath,'>');
   let lvlFullPath = lvlAllPath + '/' + titleSha + '.txt';
+  console.log('onPage::lvlFullPath=<',lvlFullPath,'>');
   
   //pushToDB(title,titleSha);
   //console.log('onPage::text=<',text,'>');
