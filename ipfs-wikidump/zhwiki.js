@@ -7,6 +7,7 @@ let dbPath = '/watorvapor/wai.storage/dumps.wikimedia.org/output_leveldb/zhwiki'
 let db = level(dbPath);
 const SHA3 = require('sha3');
 const execSync = require('child_process').execSync;
+const fs = require('fs');
 
 const ArchiveRoot = '/watorvapor/wai.storage/dumps.wikimedia.org/output_hashindex/zhwiki';
 
