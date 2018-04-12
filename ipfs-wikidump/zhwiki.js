@@ -31,6 +31,7 @@ function onPage(title,text){
   d.update(title);
   let titleSha = d.digest('hex');
   //console.log('onPage::titleSha=<',titleSha,'>');
+  pushToDB(title,titleSha);
   let lvl1Path = titleSha.substr(0,3);
   let lvl2Path = titleSha.substr(3,3);
   let lvl3Path = titleSha.substr(6,3);
