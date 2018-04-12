@@ -37,6 +37,7 @@ module.exports = class WikiDumper {
 
   parsePage_(page) {
     this.pos += page.length;
+    console.log('parsePage:this.pos =<',this.pos,'>');
     if(this.pos % ShowProgreeSize === 0) {
       let percent = 100 * this.pos / this.totalSize;
       console.log('parsePage:this.pos =<',this.pos,'>');
