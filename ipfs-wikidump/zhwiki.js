@@ -6,6 +6,7 @@ const level = require('level');
 let dbPath = '/watorvapor/wai.storage/dumps.wikimedia.org/output_leveldb/zhwiki';
 let db = level(dbPath);
 const SHA3 = require('sha3');
+const execSync = require('child_process').execSync;
 
 const ArchiveRoot = '/watorvapor/wai.storage/dumps.wikimedia.org/output_hashindex/zhwiki';
 
@@ -41,11 +42,10 @@ function onPage(title,text){
   lvlAllPath += '/' + lvl4Path1;
   lvlAllPath += '/' + lvl5Path1;
   console.log('onPage::lvlAllPath=<',lvlAllPath,'>');
+  execSync('mkdir -p ' + lvlAllPath);
   let lvlFullPath = lvlAllPath + '/' + titleSha + '.txt';
   console.log('onPage::lvlFullPath=<',lvlFullPath,'>');
-  
-  //pushToDB(title,titleSha);
-  //console.log('onPage::text=<',text,'>');
+  fs.writeFileSync(lvlFullPath,text);  
 }
 
 
