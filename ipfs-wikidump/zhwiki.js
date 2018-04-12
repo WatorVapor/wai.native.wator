@@ -30,7 +30,7 @@ function onPage(title,text){
   let d = new SHA3.SHA3Hash(256);
   d.update(title);
   let titleSha = d.digest('hex');
-  console.log('onPage::titleSha=<',titleSha,'>');
+  //console.log('onPage::titleSha=<',titleSha,'>');
   let lvl1Path = titleSha.substr(0,3);
   let lvl2Path = titleSha.substr(3,3);
   let lvl3Path = titleSha.substr(6,3);
@@ -42,7 +42,7 @@ function onPage(title,text){
   lvlAllPath += '/' + lvl3Path;
   lvlAllPath += '/' + lvl4Path1;
   lvlAllPath += '/' + lvl5Path1;
-  console.log('onPage::lvlAllPath=<',lvlAllPath,'>');
+  //console.log('onPage::lvlAllPath=<',lvlAllPath,'>');
   execSync('mkdir -p ' + lvlAllPath);
   let lvlFullPath = lvlAllPath + '/' + titleSha + '.txt';
   console.log('onPage::lvlFullPath=<',lvlFullPath,'>');
