@@ -7,7 +7,7 @@ let dbPath = '/watorvapor/wai.storage/dumps.wikimedia.org/output_leveldb/zhwiki'
 let db = level(dbPath);
 const SHA3 = require('sha3');
 
-
+const ArchiveRoot = '/watorvapor/wai.storage/dumps.wikimedia.org/output_hashindex';
 
 
 function pushToDB(title,titleSha) {
@@ -29,6 +29,16 @@ function onPage(title,text){
   d.update(title);
   let titleSha = d.digest('hex');
   console.log('onPage::titleSha=<',titleSha,'>');
+  let lvl1Path = titleSha.substr(0,3);
+  let lvl2Path = titleSha.substr(3,3);
+  let lvl3Path = titleSha.substr(6,3);
+  let lvl4Path1 = titleSha.substr(9,3);
+  let lvlAllPath = ArchiveRoot;
+  lvlAllPath += '/' + lvl1Path;
+  lvlAllPath += '/' + lvl2Path;
+  lvlAllPath += '/' + lvl3Path;
+  lvlAllPath += '/' + lvl4Path1;
+  console.log('onPage::lvlAllPath=<',lvlAllPath,'>');
   //pushToDB(title,titleSha);
   //console.log('onPage::text=<',text,'>');
 }
