@@ -26,6 +26,7 @@ let ResumePos = 0;
 db.get(ResumePosKey, function (err, value) {
   if (!err) {
     console.log('db.get::value=<',value,'>');
+    ResumePos = parseInt(value);
   }
   setTimeout(function(){
     let wikiDumper = new wiki(dumpPath,ResumePos,onPage);
