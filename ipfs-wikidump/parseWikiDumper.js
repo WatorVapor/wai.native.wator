@@ -5,10 +5,11 @@ const readline = require('readline');
 const ShowProgreeCountSize = 1024*1024;
 //const showPerSize = 10;
 module.exports = class WikiDumper {
-  constructor(path,onPage) {
+  constructor(path,start,onPage) {
     this.path = path;
     this.onPage = onPage;
-    this.stream = fs.createReadStream(path, "utf8");
+    let option = {encoding:'utf-8',start:start};
+    this.stream = fs.createReadStream(path, option);
     this.rl = readline.createInterface({'input': this.stream, 'output': {}});
     this.readLines_();
     const stats = fs.statSync(path);
@@ -56,7 +57,7 @@ module.exports = class WikiDumper {
     let title = this.fetchTitle_($);
     let text = this.fetchText_($);
     if(typeof this.onPage === 'function') {
-      this.onPage(title,text);
+      this.onPage(title,this.pos,text);
     }
   }
   fetchTitle_($) {
