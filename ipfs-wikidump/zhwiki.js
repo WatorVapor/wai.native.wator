@@ -16,8 +16,8 @@ const ArchiveRoot = '/watorvapor/wai.storage/dumps.wikimedia.org/output_hashinde
 
 
 function pushToDB(key,value) {
-  console.log('pushToDB::key=<',key,'>');
-  console.log('pushToDB::value=<',value,'>');
+  //console.log('pushToDB::key=<',key,'>');
+  //console.log('pushToDB::value=<',value,'>');
   db.put(key,value);
 }
 
@@ -27,8 +27,8 @@ db.get(ResumePosKey, function (err, value) {
   if (!err) {
     console.log('db.get::value=<',value,'>');
     ResumePos = parseInt(value);
-    if(ResumePos > 1024*40) {
-      ResumePos -= 1024*40;
+    if(ResumePos > 1024*10) {
+      ResumePos -= 1024*10;
     }
   }
   setTimeout(function(){
