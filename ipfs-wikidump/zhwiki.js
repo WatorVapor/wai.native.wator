@@ -35,6 +35,9 @@ db.get(ResumePosKey, function (err, value) {
 
 
 function onPage(title,pos,text){
+  if(!title) {
+    return;
+  }
   let filters = [
     'Wikipedia:','Help:','Template:','Category:'
   ];
