@@ -27,6 +27,9 @@ db.get(ResumePosKey, function (err, value) {
   if (!err) {
     console.log('db.get::value=<',value,'>');
     ResumePos = parseInt(value);
+    if(ResumePos > 1024*40) {
+      ResumePos -= 1024*40;
+    }
   }
   setTimeout(function(){
     let wikiDumper = new wiki(dumpPath,ResumePos,onPage);
