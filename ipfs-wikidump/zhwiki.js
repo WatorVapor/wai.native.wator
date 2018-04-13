@@ -15,10 +15,10 @@ const fs = require('fs');
 const ArchiveRoot = '/watorvapor/wai.storage/dumps.wikimedia.org/output_hashindex/zhwiki';
 
 
-function pushToDB(title,titleSha) {
-  console.log('pushToDB::title=<',title,'>');
-  console.log('pushToDB::titleSha=<',titleSha,'>');
-  db.put(title,titleSha);
+function pushToDB(key,value) {
+  console.log('pushToDB::key=<',key,'>');
+  console.log('pushToDB::value=<',value,'>');
+  db.put(key,value);
 }
 
 const ResumePosKey = 'wiki_dump_resume_pos';
