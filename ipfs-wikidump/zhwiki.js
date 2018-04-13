@@ -1,9 +1,12 @@
 const wiki = require('./parseWikiDumper.js');
+
+
 let dumpPath = '/watorvapor/wai.storage/dumps.wikimedia.org/zhwiki/zhwiki-20180401-pages-articles.xml';
-let wikiDumper = new wiki(dumpPath,onPage);
+
+
 
 const level = require('level');
-let dbPath = '/watorvapor/wai.storage/dumps.wikimedia.org/output_leveldb/zhwiki';
+let dbPath = '/watorvapor/wai.storage/dumps.wikimedia.org/output_leveldb/zhwiki/title';
 let db = level(dbPath);
 const SHA3 = require('sha3');
 const execSync = require('child_process').execSync;
@@ -18,7 +21,19 @@ function pushToDB(title,titleSha) {
   db.put(title,titleSha);
 }
 
-function onPage(title,text){
+const ResumePosKey = 'wiki_dump_resume_pos';
+let ResumePos = 0;
+db.get(ResumePosKey, function (err, value) {
+  if (!err) {
+    console.log('db.get::value=<',value,'>');
+  }
+  setTimeout(function(){
+    let wikiDumper = new wiki(dumpPath,ResumePos,onPage);
+  },1);
+})
+
+
+function onPage(title,pos,text){
   let filters = [
     'Wikipedia:','Help:','Template:','Category:'
   ];
@@ -47,7 +62,8 @@ function onPage(title,text){
   execSync('mkdir -p ' + lvlAllPath);
   let lvlFullPath = lvlAllPath + '/' + titleSha + '.txt';
   console.log('onPage::lvlFullPath=<',lvlFullPath,'>');
-  fs.writeFileSync(lvlFullPath,text);  
+  fs.writeFileSync(lvlFullPath,text);
+  pushToDB(ResumePosKey,pos);
 }
 
 
