@@ -25,8 +25,8 @@ db.get(ResumePosKey, function (err, value) {
   if (!err) {
     console.log('db.get::value=<',value,'>');
     ResumePos = parseInt(value);
-    if(ResumePos > 1024*10) {
-      ResumePos -= 1024*10;
+    if(ResumePos > 1024) {
+      ResumePos -= 1024;
     }
   }
   setTimeout(function(){
