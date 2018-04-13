@@ -1,15 +1,15 @@
 const wiki = require('./parseWikiDumper.js');
-let dumpPath = '/watorvapor/wai.storage/dumps.wikimedia.org/zhwiki/zhwiki-20180401-pages-articles.xml';
+let dumpPath = '/watorvapor/wai.storage/dumps.wikimedia.org/zhwiki/jawiki-20180401-pages-articles.xml';
 let wikiDumper = new wiki(dumpPath,onPage);
 
 const level = require('level');
-let dbPath = '/watorvapor/wai.storage/dumps.wikimedia.org/output_leveldb/zhwiki';
+let dbPath = '/watorvapor/wai.storage/dumps.wikimedia.org/output_leveldb/jawiki';
 let db = level(dbPath);
 const SHA3 = require('sha3');
 const execSync = require('child_process').execSync;
 const fs = require('fs');
 
-const ArchiveRoot = '/watorvapor/wai.storage/dumps.wikimedia.org/output_hashindex/zhwiki';
+const ArchiveRoot = '/watorvapor/wai.storage/dumps.wikimedia.org/output_hashindex/jawiki';
 
 
 function pushToDB(title,titleSha) {
