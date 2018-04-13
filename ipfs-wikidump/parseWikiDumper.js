@@ -2,8 +2,7 @@ const fs = require('fs')
 const cheerio = require('cheerio');
 const readline = require('readline');
 
-const ShowProgreeCountSize = 1024*1024;
-//const showPerSize = 10;
+const ShowProgreeCountSize = 10*1024*1024;
 module.exports = class WikiDumper {
   constructor(path,start,onPage) {
     this.path = path;
