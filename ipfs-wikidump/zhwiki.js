@@ -54,11 +54,11 @@ function onPage(title,pos,text){
   let titleSha = d.digest('hex');
   //console.log('onPage::titleSha=<',titleSha,'>');
   pushToDB(title,titleSha);
-  let lvl1Path = titleSha.substr(0,3);
-  let lvl2Path = titleSha.substr(3,3);
-  let lvl3Path = titleSha.substr(6,3);
-  let lvl4Path1 = titleSha.substr(9,3);
-  let lvl5Path1 = titleSha.substr(12,3);
+  let lvl1Path = titleSha.substr(0,4);
+  let lvl2Path = titleSha.substr(4,4);
+  let lvl3Path = titleSha.substr(8,4);
+  let lvl4Path1 = titleSha.substr(12,4);
+  let lvl5Path1 = titleSha.substr(16,4);
   let lvlAllPath = ArchiveRoot;
   lvlAllPath += '/' + lvl1Path;
   lvlAllPath += '/' + lvl2Path;
