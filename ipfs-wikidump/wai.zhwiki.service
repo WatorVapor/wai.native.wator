@@ -5,7 +5,8 @@ Description=Wator wai  wiktionary cn spider
 Type=simple
 ExecStart=/watorvapor/wai.storage/wiktionary/wai.native.wator/ipfs-wikidump/zhwiki.sh
 ExecStop=/bin/kill ${MAINPID}
-Restart=no
+Restart=always
+RestartSec=10s
 
 [Install]
 WantedBy=default.target
