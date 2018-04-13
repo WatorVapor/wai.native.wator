@@ -3,7 +3,7 @@ let dumpPath = '/watorvapor/wai.storage/dumps.wikimedia.org/zhwiki/jawiki-201804
 let wikiDumper = new wiki(dumpPath,onPage);
 
 const level = require('level');
-let dbPath = '/watorvapor/wai.storage/dumps.wikimedia.org/output_leveldb/jawiki';
+let dbPath = '/watorvapor/wai.storage/dumps.wikimedia.org/output_leveldb/jawiki/title';
 let db = level(dbPath);
 const SHA3 = require('sha3');
 const execSync = require('child_process').execSync;
