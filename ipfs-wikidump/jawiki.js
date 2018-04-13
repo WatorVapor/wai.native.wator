@@ -1,32 +1,52 @@
-const wiki = require('./parseWikiDumper.js');
-let dumpPath = '/watorvapor/wai.storage/dumps.wikimedia.org/zhwiki/jawiki-20180401-pages-articles.xml';
-let wikiDumper = new wiki(dumpPath,onPage);
+const dumpPath = '/watorvapor/wai.storage/dumps.wikimedia.org/zhwiki/jawiki-20180401-pages-articles.xml';
+const dbPath = '/watorvapor/wai.storage/dumps.wikimedia.org/output_leveldb/jawiki/title';
+const ArchiveRoot = '/watorvapor/wai.storage/dumps.wikimedia.org/output_hashindex/jawiki';
 
+
+
+const wiki = require('./parseWikiDumper.js');
 const level = require('level');
-let dbPath = '/watorvapor/wai.storage/dumps.wikimedia.org/output_leveldb/jawiki/title';
 let db = level(dbPath);
 const SHA3 = require('sha3');
 const execSync = require('child_process').execSync;
 const fs = require('fs');
 
-const ArchiveRoot = '/watorvapor/wai.storage/dumps.wikimedia.org/output_hashindex/jawiki';
 
 
-function pushToDB(title,titleSha) {
-  console.log('pushToDB::title=<',title,'>');
-  console.log('pushToDB::titleSha=<',titleSha,'>');
-  db.put(title,titleSha);
+function pushToDB(key,value) {
+  //console.log('pushToDB::key=<',key,'>');
+  //console.log('pushToDB::value=<',value,'>');
+  db.put(key,value);
 }
 
-function onPage(title,text){
+const ResumePosKey = 'wiki_dump_resume_pos';
+let ResumePos = 0;
+db.get(ResumePosKey, function (err, value) {
+  if (!err) {
+    console.log('db.get::value=<',value,'>');
+    ResumePos = parseInt(value);
+    if(ResumePos > 1024*10) {
+      ResumePos -= 1024*10;
+    }
+  }
+  setTimeout(function(){
+    let wikiDumper = new wiki(dumpPath,ResumePos,onPage);
+  },1);
+})
+
+
+function onPage(title,pos,text){
+  if(!title) {
+    return;
+  }
   let filters = [
-    'Wikipedia:','Help:','Template:','Category:'
+    'Wikipedia:','Help:','Template:','Category:','MediaWiki:'
   ];
   if(filterTitle(filters,title)) {
     //console.log('onPage::filter out title=<',title,'>');
     return;
   }
-  console.log('onPage::title=<',title,'>');
+  //console.log('onPage::title=<',title,'>');
   let d = new SHA3.SHA3Hash(256);
   d.update(title);
   let titleSha = d.digest('hex');
@@ -46,8 +66,9 @@ function onPage(title,text){
   //console.log('onPage::lvlAllPath=<',lvlAllPath,'>');
   execSync('mkdir -p ' + lvlAllPath);
   let lvlFullPath = lvlAllPath + '/' + titleSha + '.txt';
-  console.log('onPage::lvlFullPath=<',lvlFullPath,'>');
-  fs.writeFileSync(lvlFullPath,text);  
+  //console.log('onPage::lvlFullPath=<',lvlFullPath,'>');
+  fs.writeFileSync(lvlFullPath,text);
+  pushToDB(ResumePosKey,pos);
 }
 
 
