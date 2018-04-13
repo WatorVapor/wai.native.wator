@@ -14,7 +14,7 @@ module.exports = class WikiDumper {
     this.readLines_();
     const stats = fs.statSync(path);
     this.totalSize = stats.size;
-    this.pos = 0;
+    this.pos = start;
     this.showCounter = 0;
     this.showCounterPre = -1;
   }
