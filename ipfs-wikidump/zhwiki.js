@@ -46,7 +46,7 @@ function onPage(title,pos,text){
     //console.log('onPage::filter out title=<',title,'>');
     return;
   }
-  //console.log('onPage::title=<',title,'>');
+  console.log('onPage::title=<',title,'>');
   let d = new SHA3.SHA3Hash(256);
   d.update(title);
   let titleSha = d.digest('hex');
