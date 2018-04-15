@@ -41,7 +41,7 @@ function onPage(title,pos,text){
   }
   let filters = [
     'Wikipedia:','Help:','Template:','Category:','MediaWiki:','Hex',
-    'File:','Portal:'
+    'File:','Portal:','ファイル:'
   ];
   if(filterTitle(filters,title)) {
     //console.log('onPage::filter out title=<',title,'>');
