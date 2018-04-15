@@ -40,13 +40,14 @@ function onPage(title,pos,text){
     return;
   }
   let filters = [
-    'Wikipedia:','Help:','Template:','Category:','MediaWiki:'
+    'Wikipedia:','Help:','Template:','Category:','MediaWiki:','Hex',
+    'File:','Portal:'
   ];
   if(filterTitle(filters,title)) {
     //console.log('onPage::filter out title=<',title,'>');
     return;
   }
-  //console.log('onPage::title=<',title,'>');
+  console.log('onPage::title=<',title,'>');
   let d = new SHA3.SHA3Hash(256);
   d.update(title);
   let titleSha = d.digest('hex');
@@ -110,3 +111,4 @@ function filterMaoHao(title) {
   }
   return false;
 }
+
