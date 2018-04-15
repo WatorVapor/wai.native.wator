@@ -1,4 +1,4 @@
-const dumpPath = '/watorvapor/wai.storage/dumps.wikimedia.org/zhwiki/jawiki-20180401-pages-articles.xml';
+const dumpPath = '/watorvapor/wai.storage/dumps.wikimedia.org/jawiki/jawiki-20180401-pages-articles.xml';
 const dbPath = '/watorvapor/wai.storage/dumps.wikimedia.org/output_leveldb/jawiki/title';
 const ArchiveRoot = '/watorvapor/wai.storage/dumps.wikimedia.org/output_hashindex/jawiki';
 
