@@ -77,6 +77,10 @@ console.log('romaDB=<',romaDB,'>');
 
 function saveJapaneseOn(on,unicode) {
   console.log('saveJapanese:on=<',on,'>');
+  let lowerOn = on.toLowerCase();
+  console.log('saveJapanese:lowerOn=<',lowerOn,'>');
+  let lowerOns = lowerOn.split(' ');
+  console.log('saveJapanese:lowerOns=<',lowerOns,'>');
   console.log('saveJapanese:unicode=<',unicode,'>');
 }
 
