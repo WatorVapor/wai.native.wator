@@ -72,20 +72,37 @@ function saveHanYuPinYin(pinYin,unicode) {
 }
 
 
-let romaDB = require('./unihan_ja_roma.js')
-console.log('romaDB=<',romaDB,'>');
 
 function saveJapaneseOn(on,unicode) {
   console.log('saveJapanese:on=<',on,'>');
   let lowerOn = on.toLowerCase();
   console.log('saveJapanese:lowerOn=<',lowerOn,'>');
   let lowerOns = lowerOn.split(' ');
+  let kanas = []
   console.log('saveJapanese:lowerOns=<',lowerOns,'>');
+  for(let i = 0;i < lowerOns.length;i++) {
+    let onJa = lowerOns[i];
+    let kana = (onJa);
+    kanas.push(kana);
+  }
+  console.log('saveJapanese:kanas=<',kanas,'>');
   console.log('saveJapanese:unicode=<',unicode,'>');
 }
 
 function saveJapaneseKun(kun,unicode) {
   //console.log('saveJapanese:kun=<',kun,'>');
   //console.log('saveJapanese:unicode=<',unicode,'>');
+}
+
+let romaDB = require('./unihan_ja_roma.js')
+console.log('romaDB=<',romaDB,'>');
+
+
+function roma2kana(romaStr) {
+  let temp='';
+  for(let i = 0;i < romaStr.length;i++) {
+    temp += romaStr[i];
+    console.log('roma2kana:temp=<',temp,'>');
+  }
 }
 
