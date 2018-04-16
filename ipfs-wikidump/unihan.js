@@ -85,7 +85,7 @@ function saveJapaneseOn(on,unicode) {
 }
 
 function saveJapaneseKun(kun,unicode) {
-  console.log('saveJapanese:kun=<',kun,'>');
-  console.log('saveJapanese:unicode=<',unicode,'>');
+  //console.log('saveJapanese:kun=<',kun,'>');
+  //console.log('saveJapanese:unicode=<',unicode,'>');
 }
 
