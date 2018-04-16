@@ -4,312 +4,312 @@
             "a": "あ",
         },
         {
-            "phoneme": "い",
+            "i": "い",
         },
         {
-            "phoneme": "う",
+            "u": "う",
         },
         {
-            "phoneme": "え",
+            "e": "え",
         },
         {
-            "phoneme": "お",
+            "o": "お",
         },
         {
-            "phoneme": "か",
+            "ka": "か",
         },
         {
-            "phoneme": "き",
+            "ki": "き",
         },
         {
-            "phoneme": "く",
+            "ku": "く",
         },
         {
-            "phoneme": "け",
+            "ke": "け",
         },
         {
-            "phoneme": "こ",
+            "ko": "こ",
         },
         {
-            "phoneme": "が",
+            "ga": "が",
         },
         {
-            "phoneme": "ぎ",
+            "gi": "ぎ",
         {
-            "phoneme": "ぐ",
+            "gu": "ぐ",
         },
         {
-            "phoneme": "げ",
+            "ge": "げ",
         },
         {
-            "phoneme": "ご",
+            "go": "ご",
         },
         {
-            "phoneme": "さ",
+            "sa": "さ",
         },
         {
-            "phoneme": "し",
+            "shi": "し",
         },
         {
-            "phoneme": "す",
+            "su": "す",
         },
         {
-            "phoneme": "せ",
+            "se": "せ",
         },
         {
-            "phoneme": "そ",
+            "so": "そ",
         },
         {
-            "phoneme": "ざ",
+            "za": "ざ",
         },
         {
-            "phoneme": "じ",
+            "ji": "じ",
         },
         {
-            "phoneme": "ず",
+            "zu": "ず",
         },
         {
-            "phoneme": "ぜ",
+            "ze": "ぜ",
         },
         {
-            "phoneme": "ぞ",
+            "zo": "ぞ",
         },
         {
-            "phoneme": "た",
+            "ta": "た",
         },
         {
-            "phoneme": "ち",
+            "chi": "ち",
         },
         {
-            "phoneme": "つ",
+            "tu": "つ",
         },
         {
-            "phoneme": "て",
+            "te": "て",
         },
         {
-            "phoneme": "と",
+            "to": "と",
         },
         {
-            "phoneme": "だ",
+            "da": "だ",
         },
         {
-            "phoneme": "ぢ",
+            "di": "ぢ",
         },
         {
-            "phoneme": "づ",
+            "du": "づ",
         },
         {
-            "phoneme": "で",
+            "de": "で",
         },
         {
-            "phoneme": "ど",
+            "do": "ど",
         },
         {
-            "phoneme": "な",
+            "na": "な",
         },
         {
-            "phoneme": "に",
+            "ni": "に",
         },
         {
-            "phoneme": "ぬ",
+            "nu": "ぬ",
         },
         {
-            "phoneme": "ね",
+            "ne": "ね",
         },
         {
-            "phoneme": "の",
+            "no": "の",
         },
         {
-            "phoneme": "は",
+            "ha": "は",
         },
         {
-            "phoneme": "ひ",
+            "hi": "ひ",
         },
         {
-            "phoneme": "ふ",
+            "fu": "ふ",
         },
         {
-            "phoneme": "へ",
+            "he": "へ",
         },
         {
-            "phoneme": "ほ",
+            "ho": "ほ",
         },
         {
-            "phoneme": "ば",
+            "ba": "ば",
         },
         {
-            "phoneme": "び",
+            "bi": "び",
         },
         {
-            "phoneme": "ぶ",
+            "bu": "ぶ",
         },
         {
-            "phoneme": "べ",
+            "be": "べ",
         },
         {
-            "phoneme": "ぼ",
+            "bo": "ぼ",
         },
         {
-            "phoneme": "ぱ",
+            "pa": "ぱ",
         },
         {
-            "phoneme": "ぴ",
+            "pi": "ぴ",
         },
         {
-            "phoneme": "ぷ",
+            "pu": "ぷ",
         },
         {
-            "phoneme": "ぺ",
+            "pe": "ぺ",
         },
         {
-            "phoneme": "ぽ",
+            "po": "ぽ",
         },
         {
-            "phoneme": "ま",
+            "ms": "ま",
         },
         {
-            "phoneme": "み",
+            "mi": "み",
         },
         {
-            "phoneme": "む",
+            "mu": "む",
         },
         {
-            "phoneme": "め",
+            "me": "め",
         },
         {
-            "phoneme": "も",
+            "mo": "も",
         },
         {
-            "phoneme": "や",
+            "ya": "や",
         },
         {
-            "phoneme": "ゆ",
+            "yu": "ゆ",
         },
         {
-            "phoneme": "よ",
+            "yo": "よ",
         },
         {
-            "phoneme": "ら",
+            "ra": "ら",
         },
         {
-            "phoneme": "り",
+            "ri": "り",
         },
         {
-            "phoneme": "る",
+            "ru": "る",
         },
         {
-            "phoneme": "れ",
+            "re": "れ",
         },
         {
-            "phoneme": "ろ",
+            "ro": "ろ",
         },
         {
-            "phoneme": "わ",
+            "wa": "わ",
         },
         {
-            "phoneme": "を",
+            "wo": "を",
         },
         {
-            "phoneme": "ん",
+            "n": "ん",
         },
         {
-            "phoneme": "きゃ",
+            "kya": "きゃ",
         },
         {
-            "phoneme": "きゅ",
+            "kyu": "きゅ",
         },
         {
-            "phoneme": "きょ",
+            "kyo": "きょ",
         },
         {
-            "phoneme": "ぎゃ",
+            "gya": "ぎゃ",
         },
         {
-            "phoneme": "ぎゅ",
+            "gyu": "ぎゅ",
         },
         {
-            "phoneme": "ぎょ",
+            "gyo": "ぎょ",
         },
         {
-            "phoneme": "しゃ",
+            "sya": "しゃ",
         },
         {
-            "phoneme": "しゅ",
+            "syu": "しゅ",
         },
         {
-            "phoneme": "しょ",
+            "syo": "しょ",
         },
         {
-            "phoneme": "じゃ",
+            "jya": "じゃ",
         },
         {
-            "phoneme": "じゅ",
+            "jyu": "じゅ",
         },
         {
-            "phoneme": "じょ",
+            "jyo": "じょ",
         },
         {
-            "phoneme": "ちゃ",
+            "tya": "ちゃ",
         },
         {
-            "phoneme": "ちゅ",
+            "tyu": "ちゅ",
         },
         {
-            "phoneme": "ちょ",
+            "tyo": "ちょ",
         },
         {
-            "phoneme": "にゃ",
+            "nya": "にゃ",
         },
         {
-            "phoneme": "にゅ",
+            "nyu": "にゅ",
         },
         {
-            "phoneme": "にょ",
+            "nyo": "にょ",
         },
         {
-            "phoneme": "ひゃ",
+            "hya": "ひゃ",
         },
         {
-            "phoneme": "ひゅ",
+            "hyu": "ひゅ",
         },
         {
-            "phoneme": "ひょ",
+            "hyo": "ひょ",
         },
         {
-            "phoneme": "びゃ",
+            "bya": "びゃ",
         },
         {
-            "phoneme": "びゅ",
+            "byu": "びゅ",
         },
         {
-            "phoneme": "びょ",
+            "byo": "びょ",
         },
         {
-            "phoneme": "ぴゃ",
+            "pya": "ぴゃ",
         },
         {
-            "phoneme": "ぴゅ",
+            "pyu": "ぴゅ",
         },
         {
-            "phoneme": "ぴょ",
+            "pyo": "ぴょ",
         },
         {
-            "phoneme": "みゃ",
+            "mya": "みゃ",
         },
         {
-            "phoneme": "みゅ",
+            "myu": "みゅ",
         },
         {
-            "phoneme": "みょ",
+            "myo": "みょ",
         },
         {
-            "phoneme": "りゃ",
+            "rya": "りゃ",
         },
         {
-            "phoneme": "りゅ",
+            "ryu": "りゅ",
         },
         {
-            "phoneme": "りょ",
+            "ryo": "りょ",
         }
     ]
 }
