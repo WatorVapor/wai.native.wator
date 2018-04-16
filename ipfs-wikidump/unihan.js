@@ -82,7 +82,7 @@ function saveJapaneseOn(on,unicode) {
   console.log('saveJapanese:lowerOns=<',lowerOns,'>');
   for(let i = 0;i < lowerOns.length;i++) {
     let onJa = lowerOns[i];
-    let kana = (onJa);
+    let kana = roma2kana(onJa);
     kanas.push(kana);
   }
   console.log('saveJapanese:kanas=<',kanas,'>');
