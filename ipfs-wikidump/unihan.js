@@ -72,6 +72,9 @@ function saveHanYuPinYin(pinYin,unicode) {
 }
 
 
+let romaDB = require('./unihan_ja_roma.js')
+console.log('romaDB=<',romaDB,'>');
+
 function saveJapaneseOn(on,unicode) {
   console.log('saveJapanese:on=<',on,'>');
   console.log('saveJapanese:unicode=<',unicode,'>');
