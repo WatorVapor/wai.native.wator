@@ -79,12 +79,12 @@ function saveJapaneseOn(on,utf8) {
   //console.log('saveJapanese:lowerOn=<',lowerOn,'>');
   let lowerOns = lowerOn.split(' ');
   let kanas = []
-  //console.log('saveJapanese:lowerOns=<',lowerOns,'>');
   for(let i = 0;i < lowerOns.length;i++) {
     let onJa = lowerOns[i];
     let kana = roma2kana(onJa);
     kanas.push(kana);
   }
+  console.log('saveJapanese:lowerOns=<',lowerOns,'>');
   console.log('saveJapanese:kanas=<',kanas,'>');
   console.log('saveJapanese:utf8=<',utf8,'>');
 }
@@ -111,6 +111,7 @@ function roma2kana(romaStr) {
     }
   }
   if(!kanas) {
+    console.log('roma2kana:romaStr=<',romaStr,'>');
     console.log('roma2kana:kanas=<',kanas,'>');
   }
   return kanas;
