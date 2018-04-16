@@ -75,7 +75,26 @@ function saveHanYuPinYin(pinYin,utf8) {
 
 function saveJapaneseOn(on,utf8) {
   //console.log('saveJapanese:on=<',on,'>');
-  let lowerOn = on.toLowerCase();
+  //console.log('saveJapanese:lowerOns=<',lowerOns,'>');
+  let kanas = getKanas(on);
+  console.log('saveJapanese:kanas=<',kanas,'>');
+  console.log('saveJapanese:utf8=<',utf8,'>');
+}
+
+function saveJapaneseKun(kun,utf8) {
+  //console.log('saveJapanese:kun=<',kun,'>');
+  //console.log('saveJapanese:utf8=<',utf8,'>');
+  let kanas = getKanas(kun);
+  console.log('saveJapanese:kanas=<',kanas,'>');
+  console.log('saveJapanese:utf8=<',utf8,'>');
+}
+
+let romaDB = require('./unihan_ja_roma.js')
+//console.log('romaDB=<',romaDB,'>');
+
+
+function getKanas(romas) {
+  let lowerOn = romas.toLowerCase();
   //console.log('saveJapanese:lowerOn=<',lowerOn,'>');
   let lowerOns = lowerOn.split(' ');
   let kanas = []
@@ -84,19 +103,8 @@ function saveJapaneseOn(on,utf8) {
     let kana = roma2kana(onJa);
     kanas.push(kana);
   }
-  //console.log('saveJapanese:lowerOns=<',lowerOns,'>');
-  //console.log('saveJapanese:kanas=<',kanas,'>');
-  //console.log('saveJapanese:utf8=<',utf8,'>');
+  return kanas;
 }
-
-function saveJapaneseKun(kun,utf8) {
-  //console.log('saveJapanese:kun=<',kun,'>');
-  //console.log('saveJapanese:utf8=<',utf8,'>');
-}
-
-let romaDB = require('./unihan_ja_roma.js')
-//console.log('romaDB=<',romaDB,'>');
-
 
 function roma2kana(romaStr) {
   let temp='';
