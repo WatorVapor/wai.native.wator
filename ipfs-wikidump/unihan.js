@@ -54,15 +54,15 @@ function parseCode_(xml_data) {
 }
 
 function getUtf8(unicode) {
-  console.log('getUtf8:unicode=<',unicode,'>');
+  //console.log('getUtf8:unicode=<',unicode,'>');
   let utf32 = parseInt(unicode,16);
-  console.log('getUtf8:utf32=<',utf32,'>');
+  //console.log('getUtf8:utf32=<',utf32,'>');
   let buf = new Buffer(4);
   buf.writeUInt32BE(utf32, 0);
   //console.log('buf=<',buf,'>');
   let utf8 = iconv.convert(buf);
   //console.log('utf8=<',utf8,'>');  
-  console.log('utf8=<',utf8.toString(),'>');
+  //console.log('utf8=<',utf8.toString(),'>');
   return utf8.toString();
 }
 
