@@ -84,9 +84,9 @@ function saveJapaneseOn(on,utf8) {
     let kana = roma2kana(onJa);
     kanas.push(kana);
   }
-  console.log('saveJapanese:lowerOns=<',lowerOns,'>');
-  console.log('saveJapanese:kanas=<',kanas,'>');
-  console.log('saveJapanese:utf8=<',utf8,'>');
+  //console.log('saveJapanese:lowerOns=<',lowerOns,'>');
+  //console.log('saveJapanese:kanas=<',kanas,'>');
+  //console.log('saveJapanese:utf8=<',utf8,'>');
 }
 
 function saveJapaneseKun(kun,utf8) {
