@@ -100,9 +100,19 @@ console.log('romaDB=<',romaDB,'>');
 
 function roma2kana(romaStr) {
   let temp='';
+  let kanas='';
   for(let i = 0;i < romaStr.length;i++) {
     temp += romaStr[i];
     console.log('roma2kana:temp=<',temp,'>');
+    let kana = romaDB.roma[temp];
+    if(kana) {
+      kanas += kana;
+      temp = '';
+    }
   }
+  if(!kanas) {
+    console.log('roma2kana:kanas=<',kanas,'>');
+  }
+  return kanas;
 }
 
