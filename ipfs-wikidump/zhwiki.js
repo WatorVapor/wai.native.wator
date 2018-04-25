@@ -2,6 +2,11 @@ const dumpPath = '/watorvapor/wai.storage/dumps.wikimedia.org/zhwiki/zhwiki-2018
 const dbTitlePath = '/watorvapor/wai.storage/dumps.wikimedia.org/output_leveldb/zhwiki/title';
 const dbPagePath = '/watorvapor/wai.storage/dumps.wikimedia.org/output_leveldb/zhwiki/page';
 
+let skipTitles = [
+  'Wikipedia:','Help:','Template:','Category:','MediaWiki:','Hex',
+  'File:','Portal:','模块:',
+];
+
 const wiki = require('./parseWikiDumper.js');
 const level = require('level');
 let dbTittle = level(dbTitlePath);
@@ -45,11 +50,7 @@ function onPage(title,pos,text){
   if(!title) {
     return;
   }
-  let filters = [
-    'Wikipedia:','Help:','Template:','Category:','MediaWiki:','Hex',
-    'File:','Portal:','模块:',
-  ];
-  if(filterTitle(filters,title)) {
+  if(filterTitle(skipTitles,title)) {
     //console.log('onPage::filter out title=<',title,'>');
     return;
   }
