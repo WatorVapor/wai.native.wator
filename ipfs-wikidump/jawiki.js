@@ -1,23 +1,35 @@
-const dumpPath = '/watorvapor/wai.storage/dumps.wikimedia.org/jawiki/jawiki-20180401-pages-articles.xml';
-const dbPath = '/watorvapor/wai.storage/dumps.wikimedia.org/output_leveldb/jawiki/title';
-const ArchiveRoot = '/watorvapor/wai.storage/dumps.wikimedia.org/output_hashindex/jawiki';
+const dumpPath = '/watorvapor/wai.storage/dumps.wikimedia.org/jawiki/jawiki-20180420-pages-articles.xml';
+const dbTitlePath = '/watorvapor/wai.storage/dumps.wikimedia.org/output_leveldb/jawiki/title';
+const dbPagePath = '/watorvapor/wai.storage/dumps.wikimedia.org/output_leveldb/jawiki/page';
 
+const skipTitles = [
+    'Wikipedia:','Help:','Template:','Category:','MediaWiki:','Hex',
+    'File:','Portal:','ファイル:'
+];
 
 
 const wiki = require('./parseWikiDumper.js');
 const level = require('level');
-let db = level(dbPath);
+let dbTittle = level(dbTitlePath);
+let dbPage = level(dbPagePath);
 const SHA3 = require('sha3');
 const execSync = require('child_process').execSync;
 const fs = require('fs');
 
 
 
-function pushToDB(key,value) {
+function pushTitle2DB(key,value) {
   //console.log('pushToDB::key=<',key,'>');
   //console.log('pushToDB::value=<',value,'>');
-  db.put(key,value);
+  dbTittle.put(key,value);
 }
+
+function pushPage2DB(key,value) {
+  //console.log('pushToDB::key=<',key,'>');
+  //console.log('pushToDB::value=<',value,'>');
+  dbPage.put(key,value);
+}
+
 
 const ResumePosKey = 'wiki_dump_resume_pos';
 let ResumePos = 0;
@@ -39,11 +51,7 @@ function onPage(title,pos,text){
   if(!title) {
     return;
   }
-  let filters = [
-    'Wikipedia:','Help:','Template:','Category:','MediaWiki:','Hex',
-    'File:','Portal:','ファイル:'
-  ];
-  if(filterTitle(filters,title)) {
+  if(filterTitle(skipTitles,title)) {
     //console.log('onPage::filter out title=<',title,'>');
     return;
   }
@@ -52,24 +60,9 @@ function onPage(title,pos,text){
   d.update(title);
   let titleSha = d.digest('hex');
   //console.log('onPage::titleSha=<',titleSha,'>');
-  pushToDB(title,titleSha);
-  let lvl1Path = titleSha.substr(0,4);
-  let lvl2Path = titleSha.substr(4,4);
-  let lvl3Path = titleSha.substr(8,4);
-  let lvl4Path1 = titleSha.substr(12,4);
-  let lvl5Path1 = titleSha.substr(16,4);
-  let lvlAllPath = ArchiveRoot;
-  lvlAllPath += '/' + lvl1Path;
-  lvlAllPath += '/' + lvl2Path;
-  lvlAllPath += '/' + lvl3Path;
-  lvlAllPath += '/' + lvl4Path1;
-  lvlAllPath += '/' + lvl5Path1;
-  //console.log('onPage::lvlAllPath=<',lvlAllPath,'>');
-  execSync('mkdir -p ' + lvlAllPath);
-  let lvlFullPath = lvlAllPath + '/' + titleSha + '.txt';
-  //console.log('onPage::lvlFullPath=<',lvlFullPath,'>');
-  fs.writeFileSync(lvlFullPath,text);
-  pushToDB(ResumePosKey,pos);
+  pushTitle2DB(title,titleSha);
+  pushTitle2DB(titleSha,text);
+  pushTitle2DB(ResumePosKey,pos);
 }
 
 
