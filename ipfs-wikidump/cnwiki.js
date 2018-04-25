@@ -13,7 +13,7 @@ const opencc = require('node-opencc');
 
 let stream = dbZHTittle.createReadStream();
 let counter = 0;
-stream.on('data', function (data) {
+stream.on('data', async function (data) {
   let title = data.key.toString('utf-8');
   console.log('title=<',title,'>');
   let cnTitle = opencc.traditionalToSimplified(title);
