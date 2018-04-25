@@ -14,21 +14,21 @@ const opencc = require('node-opencc');
 let stream = dbZHTittle.createReadStream();
 let counter = 0;
 stream.on('data', function (data) {
-  //console.log(data.key.toString('utf-8'), '=', data.value.toString('utf-8'));
   let title = data.key.toString('utf-8');
   console.log('title=<',title,'>');
   let cnTitle = opencc.traditionalToSimplified(title);
   console.log('cnTitle=<',cnTitle,'>');
-  //console.log('data.value=<',data.value.toString('utf-8'),'>')
+  let pageIndex = data.value.toString('utf-8');
+  console.log('pageIndex=<',pageIndex,'>');
   counter++
 });
 stream.on('error', function (err) {
-  console.log('Oh my!', err)
+  console.log('Oh my!', err);
 });
 stream.on('close', function () {
-  console.log('Stream closed')
+  console.log('Stream closed');
 });
 stream.on('end', function () {
-  console.log('Stream ended')
-  console.log('counter=<',counter,'>')
+  console.log('Stream ended');
+  console.log('counter=<',counter,'>');
 });
