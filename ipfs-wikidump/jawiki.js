@@ -4,7 +4,7 @@ const dbPagePath = '/watorvapor/wai.storage/dumps.wikimedia.org/output_leveldb/j
 
 const skipTitles = [
     'Wikipedia:','Help:','Template:','Category:','MediaWiki:','Hex',
-    'File:','Portal:','ファイル:'
+    'HEX','File:','Portal:','ファイル:'
 ];
 
 
