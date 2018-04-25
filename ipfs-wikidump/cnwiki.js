@@ -22,11 +22,11 @@ stream.on('data', function (data) {
   console.log('pageIndex=<',pageIndex,'>');
   //console.log('dbZHPage=<',dbZHPage,'>');
   dbZHPage.get(pageIndex, function (err, value) {
-    console.log('err=<',err,'>');
     if (err) {
-      return console.log('Ooops!', err);
+      console.log('err=<',err,'>');
+    } else {
+      console.log('value=<',value,'>');
     }
-    console.log('value=<',value,'>');
   });
   counter++;
 });
