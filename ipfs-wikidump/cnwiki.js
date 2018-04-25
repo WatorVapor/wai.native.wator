@@ -25,6 +25,8 @@ stream.on('data', async function (data) {
     if (err) {
       console.log('err=<',err,'>');
     } else {
+      console.log('cnTitle=<',cnTitle,'>');
+      console.log('title=<',title,'>');
       console.log('value=<',value,'>');
     }
   });
