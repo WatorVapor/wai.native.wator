@@ -20,6 +20,7 @@ stream.on('data', function (data) {
   console.log('cnTitle=<',cnTitle,'>');
   let pageIndex = data.value.toString('utf-8');
   console.log('pageIndex=<',pageIndex,'>');
+  console.log('dbZHPage=<',dbZHPage,'>');
   dbZHPage.get(pageIndex, function (err, value) {
     if (err) {
       return console.log('Ooops!', err);
