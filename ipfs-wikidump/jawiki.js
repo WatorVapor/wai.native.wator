@@ -33,7 +33,7 @@ function pushPage2DB(key,value) {
 
 const ResumePosKey = 'wiki_dump_resume_pos';
 let ResumePos = 0;
-db.get(ResumePosKey, function (err, value) {
+dbTittle.get(ResumePosKey, function (err, value) {
   if (!err) {
     console.log('db.get::value=<',value,'>');
     ResumePos = parseInt(value);
