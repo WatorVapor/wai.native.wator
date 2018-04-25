@@ -20,14 +20,15 @@ stream.on('data', function (data) {
   console.log('cnTitle=<',cnTitle,'>');
   let pageIndex = data.value.toString('utf-8');
   console.log('pageIndex=<',pageIndex,'>');
-  console.log('dbZHPage=<',dbZHPage,'>');
+  //console.log('dbZHPage=<',dbZHPage,'>');
   dbZHPage.get(pageIndex, function (err, value) {
+    console.log('err=<',err,'>');
     if (err) {
       return console.log('Ooops!', err);
     }
     console.log('value=<',value,'>');
   });
-  counter++
+  counter++;
 });
 stream.on('error', function (err) {
   console.log('Oh my!', err);
