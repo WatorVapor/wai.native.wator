@@ -15,9 +15,6 @@ let stream = dbZHTittle.createReadStream();
 let counter = 0;
 stream.on('data', async function (data) {
   let title = data.key.toString('utf-8');
-  console.log('title=<',title,'>');
-  let cnTitle = opencc.traditionalToSimplified(title);
-  console.log('cnTitle=<',cnTitle,'>');
   let pageIndex = data.value.toString('utf-8');
   console.log('pageIndex=<',pageIndex,'>');
   //console.log('dbZHPage=<',dbZHPage,'>');
@@ -25,9 +22,7 @@ stream.on('data', async function (data) {
     if (err) {
       console.log('err=<',err,'>');
     } else {
-      console.log('cnTitle=<',cnTitle,'>');
-      console.log('title=<',title,'>');
-      console.log('value=<',value,'>');
+      saveZh2CN(title,value);
     }
   });
   counter++;
@@ -42,3 +37,13 @@ stream.on('end', function () {
   console.log('Stream ended');
   console.log('counter=<',counter,'>');
 });
+
+function saveZh2CN(zhTitle,zhPage) {
+  let cnTitle = opencc.traditionalToSimplified(zhTitle);
+  console.log('zhTitle=<',zhTitle,'>');
+  console.log('cnTitle=<',cnTitle,'>');
+  let cnPage = opencc.traditionalToSimplified(zhPage);
+  console.log('zhPage=<',zhPage,'>');
+  console.log('cnPage=<',cnPage,'>');
+}
+
