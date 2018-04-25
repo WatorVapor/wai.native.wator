@@ -60,8 +60,8 @@ function onPage(title,pos,text){
   d.update(title);
   let titleSha = d.digest('hex');
   //console.log('onPage::titleSha=<',titleSha,'>');
+  pushPage2DB(titleSha,text);
   pushTitle2DB(title,titleSha);
-  pushTitle2DB(titleSha,text);
   pushTitle2DB(ResumePosKey,pos);
 }
 
