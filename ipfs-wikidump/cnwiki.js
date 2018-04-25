@@ -21,7 +21,7 @@ stream.on('data', function (data) {
   let pageIndex = data.value.toString('utf-8');
   console.log('pageIndex=<',pageIndex,'>');
   //console.log('dbZHPage=<',dbZHPage,'>');
-  dbZHPage.get(pageIndex, function (err, value) {
+  await dbZHPage.get(pageIndex, function (err, value) {
     if (err) {
       console.log('err=<',err,'>');
     } else {
