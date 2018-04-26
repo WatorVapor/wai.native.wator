@@ -23,7 +23,7 @@ function pushTitle2DB(key,value) {
   dbTittle.put(key,value);
 }
 
-function pushPage2DB(key,value) {
+function pushPage2DB(key,value,cnTitle,zhTitle) {
   //console.log('pushPage2DB::key=<',key,'>');
   //console.log('pushPage2DB::value=<',value,'>');
   dbPage.get(key,function (err, valueOld) {
@@ -32,6 +32,8 @@ function pushPage2DB(key,value) {
         dbPage.put(key,value);
       }
     } else {
+      console.log('pushPage2DB::cnTitle=<',cnTitle,'>');
+      console.log('pushPage2DB::zhTitle=<',zhTitle,'>');
       console.log('pushPage2DB::valueOld=<',valueOld,'>');
     }
   });
@@ -65,16 +67,16 @@ function onPage(zhTitle,pos,zhText){
     //console.log('onPage::filter out zhTitle=<',zhTitle,'>');
     return;
   }
-  console.log('onPage::zhTitle=<',zhTitle,'>');
+  //console.log('onPage::zhTitle=<',zhTitle,'>');
   let cnTitle = opencc.traditionalToSimplified(zhTitle);
-  console.log('onPage::cnTitle=<',cnTitle,'>');
+  //console.log('onPage::cnTitle=<',cnTitle,'>');
   let d = new SHA3.SHA3Hash(256);
   d.update(cnTitle);
   let titleSha = d.digest('hex');
   //console.log('onPage::titleSha=<',titleSha,'>');
   let cnText = opencc.traditionalToSimplified(zhText);
   //console.log('onPage::cnText=<',cnText,'>');
-  pushPage2DB(titleSha,cnText);
+  pushPage2DB(titleSha,cnText,cnTitle,zhTitle);
   pushTitle2DB(cnTitle,titleSha);
   pushTitle2DB(ResumePosKey,pos);
 }
