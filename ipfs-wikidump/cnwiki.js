@@ -1,6 +1,6 @@
 const dumpPath = '/watorvapor/wai.storage/dumps.wikimedia.org/zhwiki/zhwiki-20180420-pages-articles.xml';
-const dbTitlePath = '/watorvapor/wai.storage/dumps.wikimedia.org/output_leveldb/zhwiki/title';
-const dbPagePath = '/watorvapor/wai.storage/dumps.wikimedia.org/output_leveldb/zhwiki/page';
+const dbTitlePath = '/watorvapor/wai.storage/dumps.wikimedia.org/output_leveldb/cnwiki/title';
+const dbPagePath = '/watorvapor/wai.storage/dumps.wikimedia.org/output_leveldb/cnwiki/page';
 
 let skipTitles = [
   'Wikipedia:','Help:','Template:','Category:','MediaWiki:','Hex',
@@ -46,21 +46,27 @@ dbTittle.get(ResumePosKey, function (err, value) {
 })
 
 
-function onPage(title,pos,text){
-  if(!title) {
+const opencc = require('node-opencc');
+
+function onPage(zhTitle,pos,zhText){
+  if(!zhTitle) {
     return;
   }
-  if(filterTitle(skipTitles,title)) {
-    //console.log('onPage::filter out title=<',title,'>');
+  if(filterTitle(skipTitles,zhTitle)) {
+    //console.log('onPage::filter out zhTitle=<',zhTitle,'>');
     return;
   }
-  console.log('onPage::title=<',title,'>');
+  console.log('onPage::zhTitle=<',zhTitle,'>');
+  let cnTitle = opencc.traditionalToSimplified(zhTitle);
+  console.log('onPage::cnTitle=<',cnTitle,'>');
   let d = new SHA3.SHA3Hash(256);
-  d.update(title);
+  d.update(cnTitle);
   let titleSha = d.digest('hex');
-  //console.log('onPage::titleSha=<',titleSha,'>');
-  pushPage2DB(titleSha,text);
-  pushTitle2DB(title,titleSha);
+  console.log('onPage::titleSha=<',titleSha,'>');
+  let cnText = opencc.traditionalToSimplified(zhText);
+  console.log('onPage::cnText=<',cnText,'>');
+  pushPage2DB(titleSha,cnText);
+  pushTitle2DB(cnTitle,titleSha);
   pushTitle2DB(ResumePosKey,pos);
 }
 
