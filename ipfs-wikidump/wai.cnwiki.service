@@ -1,0 +1,12 @@
+[Unit]
+Description=Wator wai  wiktionary cn spider
+
+[Service]
+Type=simple
+ExecStart=/watorvapor/wai.storage/wiktionary/wai.native.wator/ipfs-wikidump/zhwiki.sh
+ExecStop=/bin/kill ${MAINPID}
+Restart=always
+RestartSec=10s
+
+[Install]
+WantedBy=default.target
