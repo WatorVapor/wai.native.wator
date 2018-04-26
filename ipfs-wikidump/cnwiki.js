@@ -24,9 +24,18 @@ function pushTitle2DB(key,value) {
 }
 
 function pushPage2DB(key,value) {
-  //console.log('pushToDB::key=<',key,'>');
-  //console.log('pushToDB::value=<',value,'>');
-  dbPage.put(key,value);
+  //console.log('pushPage2DB::key=<',key,'>');
+  //console.log('pushPage2DB::value=<',value,'>');
+  dbPage.get(key,function (err, valueOld) {
+    if (err) {
+      if (err.notFound) {
+        dbPage.put(key,value);
+      }
+    } else {
+      console.log('pushPage2DB::valueOld=<',valueOld,'>');
+    }
+  });
+  
 }
 
 
