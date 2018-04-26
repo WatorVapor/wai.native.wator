@@ -62,9 +62,9 @@ function onPage(zhTitle,pos,zhText){
   let d = new SHA3.SHA3Hash(256);
   d.update(cnTitle);
   let titleSha = d.digest('hex');
-  console.log('onPage::titleSha=<',titleSha,'>');
+  //console.log('onPage::titleSha=<',titleSha,'>');
   let cnText = opencc.traditionalToSimplified(zhText);
-  console.log('onPage::cnText=<',cnText,'>');
+  //console.log('onPage::cnText=<',cnText,'>');
   pushPage2DB(titleSha,cnText);
   pushTitle2DB(cnTitle,titleSha);
   pushTitle2DB(ResumePosKey,pos);
