@@ -35,7 +35,8 @@ function pushPage2DB(key,value,cnTitle,zhTitle) {
     } else {
       console.log('pushPage2DB::cnTitle=<',cnTitle,'>');
       console.log('pushPage2DB::zhTitle=<',zhTitle,'>');
-      console.log('pushPage2DB::valueOld=<',valueOld,'>');
+      console.log('pushPage2DB::valueOld=<',valueOld.length,'>');
+      console.log('pushPage2DB::value=<',value.length,'>');
     }
   });
   
