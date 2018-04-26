@@ -29,14 +29,17 @@ function pushPage2DB(key,value,cnTitle,zhTitle) {
   dbPage.get(key,function (err, valueOld) {
     if (err) {
       if (err.notFound) {
-        console.log('pushPage2DB:: new cnTitle=<',cnTitle,'>');
+        //console.log('pushPage2DB:: new cnTitle=<',cnTitle,'>');
         dbPage.put(key,value);
       }
     } else {
-      console.log('pushPage2DB::cnTitle=<',cnTitle,'>');
-      console.log('pushPage2DB::zhTitle=<',zhTitle,'>');
-      console.log('pushPage2DB::valueOld=<',valueOld.length,'>');
-      console.log('pushPage2DB::value=<',value.length,'>');
+      //console.log('pushPage2DB::cnTitle=<',cnTitle,'>');
+      //console.log('pushPage2DB::zhTitle=<',zhTitle,'>');
+      //console.log('pushPage2DB::valueOld=<',valueOld.length,'>');
+      //console.log('pushPage2DB::value=<',value.length,'>');
+      if(value.length > valueOld.length) {
+        dbPage.put(key,value);
+      }
     }
   });
   
