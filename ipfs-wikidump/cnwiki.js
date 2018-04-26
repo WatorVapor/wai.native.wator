@@ -16,8 +16,7 @@ let counter = 0;
 stream.on('data', async function (data) {
   let title = data.key.toString('utf-8');
   let pageIndex = data.value.toString('utf-8');
-  console.log('pageIndex=<',pageIndex,'>');
-  //console.log('dbZHPage=<',dbZHPage,'>');
+  //console.log('pageIndex=<',pageIndex,'>');
   await dbZHPage.get(pageIndex, function (err, value) {
     if (err) {
       console.log('err=<',err,'>');
