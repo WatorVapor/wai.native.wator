@@ -29,6 +29,7 @@ function pushPage2DB(key,value,cnTitle,zhTitle) {
   dbPage.get(key,function (err, valueOld) {
     if (err) {
       if (err.notFound) {
+        console.log('pushPage2DB:: new cnTitle=<',cnTitle,'>');
         dbPage.put(key,value);
       }
     } else {
