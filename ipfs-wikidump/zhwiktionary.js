@@ -339,6 +339,7 @@ function fetchByPronPinYin(title,textPure) {
 
 
 function tryKeyWord(text,Keyword,cb) {
+  console.log('tryKeyWord::text=<',text,'>');
   if(typeof Keyword === 'string') {
     let parma = text.split(Keyword);
     if(parma.length > 1) {
