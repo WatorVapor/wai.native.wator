@@ -1,6 +1,6 @@
 const wiki = require('./parseWikiDumper.js');
 let dumpPath = '/watorvapor/wai.storage/dumps.wikimedia.org/zhwiktionary/zhwiktionary-20180420-pages-articles.xml';
-let wikiDumper = new wiki(dumpPath,onPage);
+let wikiDumper = new wiki(dumpPath,0,onPage);
 
 const level = require('level');
 let dbPath = '/watorvapor/wai.storage/dumps.wikimedia.org/output_leveldb/zhwiktionary';
