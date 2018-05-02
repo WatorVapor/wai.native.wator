@@ -3,14 +3,17 @@ let dumpPath = '/watorvapor/wai.storage/dumps.wikimedia.org/zhwiktionary/zhwikti
 let wikiDumper = new wiki(dumpPath,0,onPage);
 
 const level = require('level');
-let dbPath = '/watorvapor/wai.storage/dumps.wikimedia.org/output_leveldb/zhwiktionary';
+let dbPath = '/watorvapor/wai.storage/dumps.wikimedia.org/output_leveldb/cnwiktionary';
 let db = level(dbPath);
 
 
-function pushToDB(title,pinyin) {
-  console.log('pushToDB::title=<',title,'>');
+const opencc = require('node-opencc');
+function pushToDB(zhTitle,pinyin) {
+  console.log('pushToDB::zhTitle=<',zhTitle,'>');
+  let cnTitle = opencc.traditionalToSimplified(zhTitle);
+  console.log('pushToDB::cnTitle=<',cnTitle,'>');
   console.log('pushToDB::pinyin=<',pinyin,'>');
-  db.put(title,pinyin);
+  db.put(cnTitle,pinyin);
 }
 
 function onPage(title,pos,text){
