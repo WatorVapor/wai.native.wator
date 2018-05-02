@@ -12,6 +12,7 @@ const unihanPath = '/watorvapor/wai.storage/www.unicode.org/ucd.unihan.flat.xml'
 let stream = fs.createReadStream(unihanPath, "utf8");
 let rl = readline.createInterface({'input': stream, 'output': {}});
 
+
 let codeStart = false;
 let codeXML = '';
 rl.on('line', (line) => {
@@ -68,6 +69,11 @@ function getUtf8(unicode) {
   return utf8.toString();
 }
 
+const level = require('level');
+let dbPathPinyin = '/watorvapor/wai.storage/www.unicode.org/output_leveldb/pinyin';
+let dbPinyin = level(dbPathPinyin);
+
+
 function saveHanYuPinYin(pinYin,utf8) {
   //console.log('saveHanYuPinYin:utf8=<',utf8,'>');
   //console.log('saveHanYuPinYin:pinYin=<',pinYin,'>');
@@ -75,23 +81,32 @@ function saveHanYuPinYin(pinYin,utf8) {
   if(pinYins.length > 1) {
     let purePY = pinYins[1];
     //console.log('saveHanYuPinYin:purePY=<',purePY,'>');
+    dbPinyin.put(utf8,purePY);
   }
 }
 
 
+let dbPathJaOn = '/watorvapor/wai.storage/www.unicode.org/output_leveldb/jaOn';
+let dbJaOn = level(dbPathJaOn);
+
 
 function saveJapaneseOn(on,utf8) {
-  console.log('saveJapaneseOn:utf8=<',utf8,'>');
-  console.log('saveJapaneseOn:on=<',on,'>');
+  //console.log('saveJapaneseOn:utf8=<',utf8,'>');
+  //console.log('saveJapaneseOn:on=<',on,'>');
   let kanas = getKanas(on,utf8);
-  console.log('saveJapaneseOn:kanas=<',kanas,'>');
+  //console.log('saveJapaneseOn:kanas=<',kanas,'>');
+  dbJaOn.put(utf8,kanas);
 }
 
+let dbPathJaKun = '/watorvapor/wai.storage/www.unicode.org/output_leveldb/jaKun';
+let dbJaKun = level(dbPathJaKun);
+
 function saveJapaneseKun(kun,utf8) {
-  console.log('saveJapaneseKun:utf8=<',utf8,'>');
-  console.log('saveJapaneseKun:kun=<',kun,'>');
+  //console.log('saveJapaneseKun:utf8=<',utf8,'>');
+  //console.log('saveJapaneseKun:kun=<',kun,'>');
   let kanas = getKanas(kun,utf8);
-  console.log('saveJapaneseKun:kanas=<',kanas,'>');
+  //console.log('saveJapaneseKun:kanas=<',kanas,'>');
+  dbJaOn.put(utf8,dbJaKun);
 }
 
 let romaDB = require('./unihan_ja_roma.js')
