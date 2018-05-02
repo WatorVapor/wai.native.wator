@@ -130,6 +130,9 @@ function roma2kana(romaStr) {
       }
     }
   }
+  if(kanaPrev) {
+    kanas += kanaPrev;
+  }
   if(!kanas) {
     console.log('roma2kana:romaStr=<',romaStr,'>');
     console.log('roma2kana:kanas=<',kanas,'>');
