@@ -67,8 +67,8 @@ function getUtf8(unicode) {
 }
 
 function saveHanYuPinYin(pinYin,utf8) {
-  //console.log('saveHanYuPinYin:pinYin=<',pinYin,'>');
-  //console.log('saveHanYuPinYin:utf8=<',utf8,'>');
+  console.log('saveHanYuPinYin:pinYin=<',pinYin,'>');
+  console.log('saveHanYuPinYin:utf8=<',utf8,'>');
 }
 
 
