@@ -9,7 +9,7 @@ console.log('iconv=<',iconv,'>');
 
 const unihanPath = '/watorvapor/wai.storage/www.unicode.org/ucd.unihan.flat.xml';
 let stream = fs.createReadStream(unihanPath, "utf8");
-let rl = readline.createInterface({'input': stream, 'output': {}});
+//let rl = readline.createInterface({'input': stream, 'output': {}});
 
 let codeStart = false;
 let codeXML = '';
@@ -140,3 +140,4 @@ function roma2kana(romaStr) {
   return kanas;
 }
 
+roma2kana('HAN BAN');
