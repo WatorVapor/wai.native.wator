@@ -42,13 +42,43 @@ function pushPage2DB(key,value,cnTitle,zhTitle) {
       }
     }
   });
-  
 }
+
+const dbTitblePagePath = '/watorvapor/wai.storage/dumps.wikimedia.org/output_leveldb/cnwiki/titlePage';
+let dbTitlePage = level(dbTitblePagePath);
+
+async function pushTitlePage2DB(key,value,cnTitle,zhTitle) {
+  //console.log('pushPage2DB::key=<',key,'>');
+  //console.log('pushPage2DB::value=<',value,'>');
+  await dbTitlePage.get(key,function (err, valueOld) {
+    if (err) {
+      if (err.notFound) {
+        //console.log('pushPage2DB:: new cnTitle=<',cnTitle,'>');
+        dbTitlePage.put(key,value);
+      }
+    } else {
+      //console.log('pushPage2DB::cnTitle=<',cnTitle,'>');
+      //console.log('pushPage2DB::zhTitle=<',zhTitle,'>');
+      //console.log('pushPage2DB::valueOld=<',valueOld.length,'>');
+      //console.log('pushPage2DB::value=<',value.length,'>');
+      if(value.length > valueOld.length) {
+        dbTitlePage.put(key,value);
+      }
+    }
+  });
+}
+
+function pushPosTitlePage2DB(key,value) {
+  //console.log('pushToDB::key=<',key,'>');
+  //console.log('pushToDB::value=<',value,'>');
+  dbTitlePage.put(key,value);
+}
+
 
 
 const ResumePosKey = 'wiki_dump_resume_pos';
 let ResumePos = 0;
-dbTittle.get(ResumePosKey, function (err, value) {
+dbTitlePage.get(ResumePosKey, function (err, value) {
   if (!err) {
     console.log('db.get::value=<',value,'>');
     ResumePos = parseInt(value);
@@ -74,16 +104,10 @@ function onPage(zhTitle,pos,zhText){
   }
   //console.log('onPage::zhTitle=<',zhTitle,'>');
   let cnTitle = opencc.traditionalToSimplified(zhTitle);
-  //console.log('onPage::cnTitle=<',cnTitle,'>');
-  let d = new SHA3.SHA3Hash(256);
-  d.update(cnTitle);
-  let titleSha = d.digest('hex');
-  //console.log('onPage::titleSha=<',titleSha,'>');
   let cnText = opencc.traditionalToSimplified(zhText);
   //console.log('onPage::cnText=<',cnText,'>');
-  pushPage2DB(titleSha,cnText,cnTitle,zhTitle);
-  pushTitle2DB(cnTitle,titleSha);
-  pushTitle2DB(ResumePosKey,pos);
+  pushTitlePage2DB(cnTitle,cnText,cnTitle,zhTitle);
+  pushPosTitlePage2DB(ResumePosKey,pos);
 }
 
 
