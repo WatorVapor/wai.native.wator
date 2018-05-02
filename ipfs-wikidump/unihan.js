@@ -181,8 +181,8 @@ function roma2kana(romaStr) {
     console.log('roma2kana:romaStr=<',romaStr,'>');
     console.log('roma2kana:kanas=<',kanas,'>');
   }
-  console.log('roma2kana:romaStr=<',romaStr,'>');
-  console.log('roma2kana:kanas=<',kanas,'>');
+  //console.log('roma2kana:romaStr=<',romaStr,'>');
+  //console.log('roma2kana:kanas=<',kanas,'>');
   return kanas;
 }
 
