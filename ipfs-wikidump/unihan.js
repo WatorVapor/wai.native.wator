@@ -159,6 +159,9 @@ function roma2kana(romaStr) {
     //console.log('roma2kana:temp=<',temp,'>');
     let kana = romaDB.roma[temp];
     //console.log('roma2kana:kana=<',kana,'>');
+    if(romaStr[i] === 'n') {
+      console.log('roma2kana:romaStr[i]=<',romaStr[i],'>');
+    }
     if(kana) {
       kanas += kana;
       temp = '';
