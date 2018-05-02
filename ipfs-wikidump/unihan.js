@@ -160,7 +160,17 @@ function roma2kana(romaStr) {
     let kana = romaDB.roma[temp];
     //console.log('roma2kana:kana=<',kana,'>');
     if(romaStr[i] === 'n') {
-      console.log('roma2kana:romaStr[i]=<',romaStr[i],'>');
+      if(i+1 < romaStr.length) {
+        let next = romaStr[i+1];
+        if(next === 'y' 
+           || next === 'a' 
+           || next === 'i' 
+           || next === 'u' 
+           || next === 'e' 
+           || next === 'o') {
+           continue;
+        }
+      }
     }
     if(kana) {
       kanas += kana;
