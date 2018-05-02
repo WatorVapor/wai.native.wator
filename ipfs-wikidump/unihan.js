@@ -81,17 +81,17 @@ function saveHanYuPinYin(pinYin,utf8) {
 
 
 function saveJapaneseOn(on,utf8) {
-  console.log('saveJapaneseOn:utf8=<',utf8,'>');
-  console.log('saveJapaneseOn:on=<',on,'>');
+  //console.log('saveJapaneseOn:utf8=<',utf8,'>');
+  //console.log('saveJapaneseOn:on=<',on,'>');
   let kanas = getKanas(on);
-  console.log('saveJapaneseOn:kanas=<',kanas,'>');
+  //console.log('saveJapaneseOn:kanas=<',kanas,'>');
 }
 
 function saveJapaneseKun(kun,utf8) {
-  console.log('saveJapaneseKun:utf8=<',utf8,'>');
-  console.log('saveJapaneseKun:kun=<',kun,'>');
+  //console.log('saveJapaneseKun:utf8=<',utf8,'>');
+  //console.log('saveJapaneseKun:kun=<',kun,'>');
   let kanas = getKanas(kun);
-  console.log('saveJapaneseKun:kanas=<',kanas,'>');
+  //console.log('saveJapaneseKun:kanas=<',kanas,'>');
 }
 
 let romaDB = require('./unihan_ja_roma.js')
