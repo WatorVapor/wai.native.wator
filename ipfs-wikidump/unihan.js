@@ -81,17 +81,17 @@ function saveHanYuPinYin(pinYin,utf8) {
 
 
 function saveJapaneseOn(on,utf8) {
-  //console.log('saveJapaneseOn:utf8=<',utf8,'>');
-  //console.log('saveJapaneseOn:on=<',on,'>');
+  console.log('saveJapaneseOn:utf8=<',utf8,'>');
+  console.log('saveJapaneseOn:on=<',on,'>');
   let kanas = getKanas(on,utf8);
-  //console.log('saveJapaneseOn:kanas=<',kanas,'>');
+  console.log('saveJapaneseOn:kanas=<',kanas,'>');
 }
 
 function saveJapaneseKun(kun,utf8) {
-  //console.log('saveJapaneseKun:utf8=<',utf8,'>');
-  //console.log('saveJapaneseKun:kun=<',kun,'>');
+  console.log('saveJapaneseKun:utf8=<',utf8,'>');
+  console.log('saveJapaneseKun:kun=<',kun,'>');
   let kanas = getKanas(kun,utf8);
-  //console.log('saveJapaneseKun:kanas=<',kanas,'>');
+  console.log('saveJapaneseKun:kanas=<',kanas,'>');
 }
 
 let romaDB = require('./unihan_ja_roma.js')
@@ -111,45 +111,6 @@ function getKanas(romas,utf8) {
   return kanas;
 }
 
-/*
-function roma2kana(romaStr) {
-  let temp='';
-  let kanas='';
-  let hint = false;
-  let kanaPrev = '';
-  for(let i = 0;i < romaStr.length;i++) {
-    temp += romaStr[i];
-    //console.log('roma2kana:temp=<',temp,'>');
-    let kana = romaDB.roma[temp];
-    //console.log('roma2kana:kana=<',kana,'>');
-    if(kana) {
-      hint = true;
-      kanaPrev = kana;
-    } else {
-      if(hint) {
-        kanas += kanaPrev;
-        temp = romaStr[i];;
-        hint = false;
-        kanaPrev = '';
-      }
-    }
-  }
-  if(temp) {
-    let kana = romaDB.roma[temp];
-    if(kana) {
-      kanas += kana;
-    }
-  }
-  if(!kanas) {
-    console.log('roma2kana:romaStr=<',romaStr,'>');
-    console.log('roma2kana:kanas=<',kanas,'>');
-  }
-  console.log('roma2kana:romaStr=<',romaStr,'>');
-  console.log('roma2kana:kanas=<',kanas,'>');
-  return kanas;
-}
-
-*/
 
 function roma2kana(romaStr,utf8) {
   let temp='';
