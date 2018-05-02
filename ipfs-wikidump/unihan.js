@@ -111,6 +111,7 @@ function getKanas(romas) {
   return kanas;
 }
 
+/*
 function roma2kana(romaStr) {
   let temp='';
   let kanas='';
@@ -137,6 +138,30 @@ function roma2kana(romaStr) {
     let kana = romaDB.roma[temp];
     if(kana) {
       kanas += kana;
+    }
+  }
+  if(!kanas) {
+    console.log('roma2kana:romaStr=<',romaStr,'>');
+    console.log('roma2kana:kanas=<',kanas,'>');
+  }
+  console.log('roma2kana:romaStr=<',romaStr,'>');
+  console.log('roma2kana:kanas=<',kanas,'>');
+  return kanas;
+}
+
+*/
+
+function roma2kana(romaStr) {
+  let temp='';
+  let kanas='';
+  for(let i = 0;i < romaStr.length;i++) {
+    temp += romaStr[i];
+    //console.log('roma2kana:temp=<',temp,'>');
+    let kana = romaDB.roma[temp];
+    //console.log('roma2kana:kana=<',kana,'>');
+    if(kana) {
+      kanas += kana;
+      temp = '';
     }
   }
   if(!kanas) {
