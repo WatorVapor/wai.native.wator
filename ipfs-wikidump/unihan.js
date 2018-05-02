@@ -99,7 +99,7 @@ let romaDB = require('./unihan_ja_roma.js')
 
 function getKanas(romas) {
   let lowerOn = romas.toLowerCase();
-  //console.log('saveJapanese:lowerOn=<',lowerOn,'>');
+  console.log('saveJapanese:lowerOn=<',lowerOn,'>');
   let lowerOns = lowerOn.split(' ');
   let kanas = []
   for(let i = 0;i < lowerOns.length;i++) {
