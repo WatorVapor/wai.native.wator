@@ -7,7 +7,7 @@ let iconv = new Iconv('UTF-32', 'UTF-8');
 console.log('iconv=<',iconv,'>');
 
 
-
+/*
 const unihanPath = '/watorvapor/wai.storage/www.unicode.org/ucd.unihan.flat.xml';
 let stream = fs.createReadStream(unihanPath, "utf8");
 let rl = readline.createInterface({'input': stream, 'output': {}});
@@ -28,6 +28,7 @@ rl.on('line', (line) => {
     codeXML = '';
   }
 });
+*/
 
 
 function parseCode_(xml_data) {
@@ -68,12 +69,12 @@ function getUtf8(unicode) {
 }
 
 function saveHanYuPinYin(pinYin,utf8) {
-  console.log('saveHanYuPinYin:utf8=<',utf8,'>');
+  //console.log('saveHanYuPinYin:utf8=<',utf8,'>');
   //console.log('saveHanYuPinYin:pinYin=<',pinYin,'>');
   let pinYins = pinYin.split(':');
   if(pinYins.length > 1) {
     let purePY = pinYins[1];
-    console.log('saveHanYuPinYin:purePY=<',purePY,'>');
+    //console.log('saveHanYuPinYin:purePY=<',purePY,'>');
   }
 }
 
@@ -142,10 +143,13 @@ function roma2kana(romaStr) {
     console.log('roma2kana:romaStr=<',romaStr,'>');
     console.log('roma2kana:kanas=<',kanas,'>');
   }
-  //console.log('roma2kana:romaStr=<',romaStr,'>');
-  //console.log('roma2kana:kanas=<',kanas,'>');
+  console.log('roma2kana:romaStr=<',romaStr,'>');
+  console.log('roma2kana:kanas=<',kanas,'>');
   return kanas;
 }
 
 getKanas('HAN BAN');
+getKanas('OOKII HAJIME OOINI');
+getKanas('KAWARU KAERU');
+getKanas('JU NYU');
 
