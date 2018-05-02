@@ -119,6 +119,7 @@ function roma2kana(romaStr) {
     temp += romaStr[i];
     console.log('roma2kana:temp=<',temp,'>');
     let kana = romaDB.roma[temp];
+    console.log('roma2kana:kana=<',kana,'>');
     if(kana) {
       hint = true;
       kanaPrev = kana;
