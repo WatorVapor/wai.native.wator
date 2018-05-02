@@ -124,7 +124,7 @@ function roma2kana(romaStr) {
     } else {
       if(hint) {
         kanas += kanaPrev;
-        temp = '';
+        temp = romaStr[i];;
         hint = false;
         kanaPrev = '';
       }
