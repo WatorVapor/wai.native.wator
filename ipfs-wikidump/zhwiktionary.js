@@ -13,7 +13,7 @@ function pushToDB(title,pinyin) {
   db.put(title,pinyin);
 }
 
-function onPage(title,text){
+function onPage(title,pos,text){
   console.log('onPage::title=<',title,'>');
   console.log('onPage::text=<',text,'>');
   fetchByPronPinYin(title,text);
