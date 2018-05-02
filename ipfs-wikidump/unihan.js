@@ -141,4 +141,4 @@ function roma2kana(romaStr) {
   return kanas;
 }
 
-roma2kana('HAN BAN');
+getKanas('HAN BAN');
