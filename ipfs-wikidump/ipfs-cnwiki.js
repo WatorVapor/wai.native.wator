@@ -27,10 +27,10 @@ stream.on('end', function () {
 let dbPathPage = '/watorvapor/wai.storage/dumps.wikimedia.org/output_leveldb/cnwiki/page';
 var dbPage = level(dbPathPage);
 
-function GetPage(title,key) {
+function async GetPage(title,key) {
   console.log('GetPage::title=<',title,'>');
   console.log('GetPage::key=<',key,'>');
-  dbPage.get(key, function (err, value) {
+  await dbPage.get(key, function (err, value) {
     if (err) {
       console.log('GetPage::err=<',err,'>')
       return;
