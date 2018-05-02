@@ -7,7 +7,7 @@ let iconv = new Iconv('UTF-32', 'UTF-8');
 console.log('iconv=<',iconv,'>');
 
 
-/*
+
 const unihanPath = '/watorvapor/wai.storage/www.unicode.org/ucd.unihan.flat.xml';
 let stream = fs.createReadStream(unihanPath, "utf8");
 let rl = readline.createInterface({'input': stream, 'output': {}});
@@ -28,7 +28,7 @@ rl.on('line', (line) => {
     codeXML = '';
   }
 });
-*/
+
 
 function parseCode_(xml_data) {
   //console.log('parseCode_:xml_data=<',xml_data,'>');
