@@ -28,13 +28,13 @@ let dbPathPage = '/watorvapor/wai.storage/dumps.wikimedia.org/output_leveldb/cnw
 var dbPage = level(dbPathPage);
 
 async function GetPage(title,key) {
-  console.log('GetPage::title=<',title,'>');
-  console.log('GetPage::key=<',key,'>');
   await dbPage.get(key, function (err, value) {
     if (err) {
       console.log('GetPage::err=<',err,'>')
       return;
     }
+    console.log('GetPage::title=<',title,'>');
+    console.log('GetPage::key=<',key,'>');
     console.log('GetPage::value=<',value,'>');
   });
 }
