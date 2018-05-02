@@ -132,8 +132,11 @@ function roma2kana(romaStr) {
       }
     }
   }
-  if(kanaPrev) {
-    kanas += kanaPrev;
+  if(temp) {
+    let kana = romaDB.roma[temp];
+    if(kana) {
+      kanas += kana;
+    }
   }
   if(!kanas) {
     console.log('roma2kana:romaStr=<',romaStr,'>');
