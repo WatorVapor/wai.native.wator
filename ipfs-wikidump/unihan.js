@@ -112,13 +112,19 @@ function getKanas(romas) {
 function roma2kana(romaStr) {
   let temp='';
   let kanas='';
+  let hint = false;
   for(let i = 0;i < romaStr.length;i++) {
     temp += romaStr[i];
     //console.log('roma2kana:temp=<',temp,'>');
     let kana = romaDB.roma[temp];
     if(kana) {
-      kanas += kana;
-      temp = '';
+      hint = true;
+    } else {
+      if(hint) {
+        kanas += kana;
+        temp = '';
+        hint = false;
+      }
     }
   }
   if(!kanas) {
