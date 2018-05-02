@@ -99,7 +99,7 @@ let romaDB = require('./unihan_ja_roma.js')
 
 function getKanas(romas) {
   let lowerOn = romas.toLowerCase();
-  console.log('saveJapanese:lowerOn=<',lowerOn,'>');
+  //console.log('saveJapanese:lowerOn=<',lowerOn,'>');
   let lowerOns = lowerOn.split(' ');
   let kanas = []
   for(let i = 0;i < lowerOns.length;i++) {
@@ -117,9 +117,9 @@ function roma2kana(romaStr) {
   let kanaPrev = '';
   for(let i = 0;i < romaStr.length;i++) {
     temp += romaStr[i];
-    console.log('roma2kana:temp=<',temp,'>');
+    //console.log('roma2kana:temp=<',temp,'>');
     let kana = romaDB.roma[temp];
-    console.log('roma2kana:kana=<',kana,'>');
+    //console.log('roma2kana:kana=<',kana,'>');
     if(kana) {
       hint = true;
       kanaPrev = kana;
@@ -142,8 +142,8 @@ function roma2kana(romaStr) {
     console.log('roma2kana:romaStr=<',romaStr,'>');
     console.log('roma2kana:kanas=<',kanas,'>');
   }
-  console.log('roma2kana:romaStr=<',romaStr,'>');
-  console.log('roma2kana:kanas=<',kanas,'>');
+  //console.log('roma2kana:romaStr=<',romaStr,'>');
+  //console.log('roma2kana:kanas=<',kanas,'>');
   return kanas;
 }
 
