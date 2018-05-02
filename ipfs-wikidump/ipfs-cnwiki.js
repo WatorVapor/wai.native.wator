@@ -1,7 +1,10 @@
 const level = require('level');
-let dbPathTitle = '/watorvapor/wai.storage/dumps.wikimedia.org/output_leveldb/cnwiki';
+let dbPathTitle = '/watorvapor/wai.storage/dumps.wikimedia.org/output_leveldb/cnwiki/title';
 var dbTitle = level(dbPathTitle);
 var stream = dbTitle.createReadStream();
+
+let dbPathPage = '/watorvapor/wai.storage/dumps.wikimedia.org/output_leveldb/cnwiki/page';
+var dbPage = level(dbPathPage);
 
 
 var counter = 0;
