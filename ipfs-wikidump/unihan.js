@@ -106,7 +106,7 @@ function saveJapaneseKun(kun,utf8) {
   //console.log('saveJapaneseKun:kun=<',kun,'>');
   let kanas = getKanas(kun,utf8);
   //console.log('saveJapaneseKun:kanas=<',kanas,'>');
-  dbJaOn.put(utf8,dbJaKun);
+  dbJaKun.put(utf8,kanas);
 }
 
 let romaDB = require('./unihan_ja_roma.js')
