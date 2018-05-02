@@ -14,8 +14,8 @@ function pushToDB(title,pinyin) {
 }
 
 function onPage(title,text){
-  //console.log('onPage::title=<',title,'>');
-  //console.log('onPage::text=<',text,'>');
+  console.log('onPage::title=<',title,'>');
+  console.log('onPage::text=<',text,'>');
   fetchByPronPinYin(title,text);
 }
 
@@ -339,7 +339,7 @@ function fetchByPronPinYin(title,textPure) {
 
 
 function tryKeyWord(text,Keyword,cb) {
-  console.log('tryKeyWord::text=<',text,'>');
+  //console.log('tryKeyWord::text=<',text,'>');
   if(typeof Keyword === 'string') {
     let parma = text.split(Keyword);
     if(parma.length > 1) {
