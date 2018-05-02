@@ -152,4 +152,5 @@ getKanas('HAN BAN');
 getKanas('OOKII HAJIME OOINI');
 getKanas('KAWARU KAERU');
 getKanas('JU NYU');
+getKanas('HANA');
 
