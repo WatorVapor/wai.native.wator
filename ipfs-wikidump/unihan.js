@@ -142,3 +142,4 @@ function roma2kana(romaStr) {
 }
 
 getKanas('HAN BAN');
+
