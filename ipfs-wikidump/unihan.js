@@ -113,17 +113,20 @@ function roma2kana(romaStr) {
   let temp='';
   let kanas='';
   let hint = false;
+  let kanaPrev = '';
   for(let i = 0;i < romaStr.length;i++) {
     temp += romaStr[i];
     //console.log('roma2kana:temp=<',temp,'>');
     let kana = romaDB.roma[temp];
     if(kana) {
       hint = true;
+      kanaPrev = kana;
     } else {
       if(hint) {
-        kanas += kana;
+        kanas += kanaPrev;
         temp = '';
         hint = false;
+        kanaPrev = '';
       }
     }
   }
