@@ -45,7 +45,7 @@ function pushPosIpfs2DB(key,value) {
 
 const ResumePosKey = 'wiki_dump_resume_pos';
 let ResumePos = 0;
-dbTitlePage.get(ResumePosKey, function (err, value) {
+db.get(ResumePosKey, function (err, value) {
   if (!err) {
     console.log('db.get::value=<',value,'>');
     ResumePos = parseInt(value);
