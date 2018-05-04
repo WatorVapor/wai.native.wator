@@ -57,6 +57,7 @@ module.exports = class WikiDumper {
     let title = this.fetchTitle_($);
     let text = this.fetchText_($);
     if(typeof this.onPage === 'function') {
+      this.stream.pause();
       this.onPage(title,this.pos,text);
     }
   }
