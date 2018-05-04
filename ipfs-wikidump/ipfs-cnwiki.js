@@ -70,7 +70,7 @@ function onPage(zhTitle,pos,zhText){
   //console.log('onPage::zhTitle=<',zhTitle,'>');
   let cnTitle = opencc.traditionalToSimplified(zhTitle);
   let cnText = opencc.traditionalToSimplified(zhText);
-  //console.log('onPage::cnText=<',cnText,'>');
+  console.log('onPage::cnText=<',cnText,'>');
   save2Ipfs(cnTitle,cnText,pos);
 }
 
