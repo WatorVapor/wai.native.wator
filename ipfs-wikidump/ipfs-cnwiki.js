@@ -8,7 +8,7 @@ let skipTitles = [
 const wiki = require('./parseWikiDumper.js');
 const level = require('level');
 const ipfsAPI = require('ipfs-api');
-const ipfs = ipfsAPI({host: 'localhost', port: '5001', protocol: 'http'});
+const ipfs = ipfsAPI({host: 'localhost', port: '5002', protocol: 'http'});
 
 
 ipfs.id(function (err, identity) {
