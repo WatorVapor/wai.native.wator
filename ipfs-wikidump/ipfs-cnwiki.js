@@ -7,7 +7,15 @@ let skipTitles = [
 
 const wiki = require('./parseWikiDumper.js');
 const level = require('level');
+const ipfsAPI = require('ipfs-api');
+const ipfs = ipfsAPI({host: 'localhost', port: '5001', protocol: 'http'});
 
+ipfs.id(function (err, identity) {
+  if (err) {
+    throw err;
+  }
+  console.log('ipfs.id identity=<',identity,'>');
+});
 
 
 
@@ -72,7 +80,7 @@ function onPage(zhTitle,pos,zhText){
   //console.log('onPage::zhTitle=<',zhTitle,'>');
   let cnTitle = opencc.traditionalToSimplified(zhTitle);
   let cnText = opencc.traditionalToSimplified(zhText);
-  console.log('onPage::cnText=<',cnText,'>');
+  //console.log('onPage::cnText=<',cnText,'>');
 }
 
 
