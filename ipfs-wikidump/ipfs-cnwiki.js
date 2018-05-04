@@ -84,11 +84,11 @@ function onPage(zhTitle,pos,zhText){
   let cnTitle = opencc.traditionalToSimplified(zhTitle);
   let cnText = opencc.traditionalToSimplified(zhText);
   //console.log('onPage::cnText=<',cnText,'>');
-  save2Ipfs(cnTitle,cnText);
+  save2Ipfs(cnTitle,cnText,pos);
 }
 
 
-function save2Ipfs(cnTitle,cnText) {
+function save2Ipfs(cnTitle,cnText,pos) {
   let bufText = Buffer.from(cnText, 'utf8');
   ipfs.files.add(bufText,function(err, result) {
     if (err) {
@@ -97,6 +97,7 @@ function save2Ipfs(cnTitle,cnText) {
     }
     console.log('save2Ipfs::result=<',result,'>');
     console.log('save2Ipfs::cnTitle=<',cnTitle,'>');
+    console.log('save2Ipfs::pos=<',pos,'>');
   });
 }
 
