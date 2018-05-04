@@ -85,6 +85,10 @@ function save2Ipfs(cnTitle,cnText,pos) {
     console.log('save2Ipfs::hash=<',hash,'>');
     console.log('save2Ipfs::cnTitle=<',cnTitle,'>');
     console.log('save2Ipfs::pos=<',pos,'>');
+    if(hash) {
+      pushIpfs2DB(hash,cnTitle);
+      pushIpfs2DB(ResumePosKey,pos);
+    }
   });
 }
 
