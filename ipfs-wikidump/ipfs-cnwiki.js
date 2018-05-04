@@ -62,10 +62,16 @@ const opencc = require('node-opencc');
 function onPage(zhTitle,pos,zhText){
   console.log('onPage::zhTitle=<',zhTitle,'>');
   if(!zhTitle) {
+    if(wikiDumper) {
+      wikiDumper.resume();
+    }
     return;
   }
   if(filterTitle(skipTitles,zhTitle)) {
     //console.log('onPage::filter out zhTitle=<',zhTitle,'>');
+    if(wikiDumper) {
+      wikiDumper.resume();
+    }
     return;
   }
   //console.log('onPage::zhTitle=<',zhTitle,'>');
