@@ -10,12 +10,15 @@ const level = require('level');
 const ipfsAPI = require('ipfs-api');
 const ipfs = ipfsAPI({host: 'localhost', port: '5001', protocol: 'http'});
 
+/*
 ipfs.id(function (err, identity) {
   if (err) {
     throw err;
   }
   console.log('ipfs.id identity=<',identity,'>');
 });
+*/
+
 
 
 
@@ -81,10 +84,21 @@ function onPage(zhTitle,pos,zhText){
   let cnTitle = opencc.traditionalToSimplified(zhTitle);
   let cnText = opencc.traditionalToSimplified(zhText);
   //console.log('onPage::cnText=<',cnText,'>');
+  save2Ipfs(cnTitle,cnText);
 }
 
 
-
+function save2Ipfs(cnTitle,cnText) {
+  let bufText = Buffer.from(cnText, 'utf8');
+  ipfs.files.add(bufText,function(err, result) {
+    if (err) {
+      console.log('save2Ipfs::err=<',err,'>');
+      return;
+    }
+    console.log('save2Ipfs::result=<',result,'>');
+    console.log('save2Ipfs::cnTitle=<',cnTitle,'>');
+  });
+}
 
 
 
