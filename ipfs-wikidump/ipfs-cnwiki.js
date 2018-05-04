@@ -82,11 +82,11 @@ function save2Ipfs(cnTitle,cnText,pos) {
       console.log('save2Ipfs::err=<',err,'>');
       return;
     }
-    console.log('save2Ipfs::result=<',result,'>');
+    //console.log('save2Ipfs::result=<',result,'>');
     let hash = result[0].hash;
-    console.log('save2Ipfs::hash=<',hash,'>');
-    console.log('save2Ipfs::cnTitle=<',cnTitle,'>');
-    console.log('save2Ipfs::pos=<',pos,'>');
+    //console.log('save2Ipfs::hash=<',hash,'>');
+    //console.log('save2Ipfs::cnTitle=<',cnTitle,'>');
+    //console.log('save2Ipfs::pos=<',pos,'>');
     if(hash) {
       pushIpfs2DB(hash,cnTitle);
       pushIpfs2DB(ResumePosKey,pos);
