@@ -80,6 +80,7 @@ function save2Ipfs(cnTitle,cnText,pos) {
   ipfs.files.add(bufText,function(err, result) {
     if (err) {
       console.log('save2Ipfs::err=<',err,'>');
+      process.exit(0);
       return;
     }
     //console.log('save2Ipfs::result=<',result,'>');
