@@ -25,25 +25,10 @@ ipfs.id(function (err, identity) {
 const dbPath = '/watorvapor/wai.storage/dumps.wikimedia.org/output_leveldb/cnwiki/ipfs';
 let db = level(dbPath);
 
-async function pushIpfs2DB(key,value,cnTitle,zhTitle) {
+async function pushIpfs2DB(key,value) {
   //console.log('pushPage2DB::key=<',key,'>');
   //console.log('pushPage2DB::value=<',value,'>');
-  await db.get(key,function (err, valueOld) {
-    if (err) {
-      if (err.notFound) {
-        //console.log('pushPage2DB:: new cnTitle=<',cnTitle,'>');
-        db.put(key,value);
-      }
-    } else {
-      //console.log('pushPage2DB::cnTitle=<',cnTitle,'>');
-      //console.log('pushPage2DB::zhTitle=<',zhTitle,'>');
-      //console.log('pushPage2DB::valueOld=<',valueOld.length,'>');
-      //console.log('pushPage2DB::value=<',value.length,'>');
-      if(value.length > valueOld.length) {
-        db.put(key,value);
-      }
-    }
-  });
+  db.put(key,value);
 }
 
 function pushPosIpfs2DB(key,value) {
@@ -96,6 +81,8 @@ function save2Ipfs(cnTitle,cnText,pos) {
       return;
     }
     console.log('save2Ipfs::result=<',result,'>');
+    let hash = result[0].hash;
+    console.log('save2Ipfs::hash=<',hash,'>');
     console.log('save2Ipfs::cnTitle=<',cnTitle,'>');
     console.log('save2Ipfs::pos=<',pos,'>');
   });
