@@ -24,6 +24,8 @@ ipfs.id(function (err, identity) {
 
 const dbPath = '/watorvapor/wai.storage/dumps.wikimedia.org/output_leveldb/cnwiki/ipfs';
 let db = level(dbPath);
+let wikiDumper = false;
+
 
 async function pushIpfs2DB(key,value) {
   //console.log('pushPage2DB::key=<',key,'>');
@@ -50,7 +52,7 @@ db.get(ResumePosKey, function (err, value) {
     }
   }
   setTimeout(function(){
-    let wikiDumper = new wiki(dumpPath,ResumePos,onPage);
+    wikiDumper = new wiki(dumpPath,ResumePos,onPage);
   },1);
 })
 
@@ -88,6 +90,9 @@ function save2Ipfs(cnTitle,cnText,pos) {
     if(hash) {
       pushIpfs2DB(hash,cnTitle);
       pushIpfs2DB(ResumePosKey,pos);
+      if(wikiDumper) {
+        wikiDumper.resume();
+      }
     }
   });
 }
