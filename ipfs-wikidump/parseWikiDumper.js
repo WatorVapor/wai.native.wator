@@ -17,6 +17,9 @@ module.exports = class WikiDumper {
     this.showCounter = 0;
     this.showCounterPre = -1;
   }
+  resume() {
+    this.stream.resume();
+  }
   
   readLines_() {
     let pageStart = false;
