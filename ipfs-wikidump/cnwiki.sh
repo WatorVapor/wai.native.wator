@@ -1,2 +1,2 @@
 #!/bin/bash
-cd /watorvapor/wai.storage/wiktionary/wai.native.wator/ipfs-wikidump && nodejs cnwiki.js >> log.cnwiki.js.log
+cd /watorvapor/wai.storage/wiktionary/wai.native.wator/ipfs-wikidump && nodejs ipfs-cnwiki.js >> log.ipfs-cnwiki.js.log
