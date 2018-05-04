@@ -90,7 +90,7 @@ function save2Ipfs(cnTitle,cnText,pos) {
       process.exit(0);
       return;
     }
-    console.log('save2Ipfs::result=<',result,'>');
+    //console.log('save2Ipfs::result=<',result,'>');
     let hash = result[0].hash;
     //console.log('save2Ipfs::hash=<',hash,'>');
     //console.log('save2Ipfs::cnTitle=<',cnTitle,'>');
