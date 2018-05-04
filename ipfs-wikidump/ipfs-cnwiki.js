@@ -60,6 +60,7 @@ db.get(ResumePosKey, function (err, value) {
 const opencc = require('node-opencc');
 
 function onPage(zhTitle,pos,zhText){
+  console.log('onPage::zhTitle=<',zhTitle,'>');
   if(!zhTitle) {
     return;
   }
