@@ -88,8 +88,8 @@ function save2Ipfs(title,text,pos) {
     }
     //console.log('save2Ipfs::result=<',result,'>');
     let hash = result[0].hash;
-    console.log('save2Ipfs::hash=<',hash,'>');
-    console.log('save2Ipfs::title=<',title,'>');
+    //console.log('save2Ipfs::hash=<',hash,'>');
+    //console.log('save2Ipfs::title=<',title,'>');
     //console.log('save2Ipfs::pos=<',pos,'>');
     if(hash) {
       pushIpfs2DB(hash,title);
