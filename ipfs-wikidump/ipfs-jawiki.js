@@ -78,8 +78,8 @@ function onPage(title,pos,text){
 
 
 
-function save2Ipfs(cnTitle,cnText,pos) {
-  let bufText = Buffer.from(cnText, 'utf8');
+function save2Ipfs(title,text,pos) {
+  let bufText = Buffer.from(text, 'utf8');
   ipfs.files.add(bufText,function(err, result) {
     if (err) {
       console.log('save2Ipfs::err=<',err,'>');
@@ -88,11 +88,11 @@ function save2Ipfs(cnTitle,cnText,pos) {
     }
     //console.log('save2Ipfs::result=<',result,'>');
     let hash = result[0].hash;
-    //console.log('save2Ipfs::hash=<',hash,'>');
-    //console.log('save2Ipfs::cnTitle=<',cnTitle,'>');
+    console.log('save2Ipfs::hash=<',hash,'>');
+    console.log('save2Ipfs::title=<',title,'>');
     //console.log('save2Ipfs::pos=<',pos,'>');
     if(hash) {
-      pushIpfs2DB(hash,cnTitle);
+      pushIpfs2DB(hash,title);
       pushIpfs2DB(ResumePosKey,pos);
       if(wikiDumper) {
         wikiDumper.resume();
