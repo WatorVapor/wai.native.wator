@@ -1,5 +1,5 @@
 const dumpPath = '/watorvapor/wai.storage/dumps.wikimedia.org/zhwiki/zhwiki-20180420-pages-articles.xml';
-
+const dbPath = '/watorvapor/wai.storage/dumps.wikimedia.org/output_leveldb/cnwiki/ipfs';
 let skipTitles = [
   'Wikipedia:','Help:','Template:','Category:','MediaWiki:','Hex',
   'File:','Portal:','模块:',
@@ -22,7 +22,6 @@ ipfs.id(function (err, identity) {
 
 
 
-const dbPath = '/watorvapor/wai.storage/dumps.wikimedia.org/output_leveldb/cnwiki/ipfs';
 let db = level(dbPath);
 let wikiDumper = false;
 
