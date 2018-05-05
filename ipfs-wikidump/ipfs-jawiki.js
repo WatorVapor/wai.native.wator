@@ -71,7 +71,7 @@ function onPage(title,pos,text){
     }
     return;
   }
-  console.log('onPage::title=<',title,'>');
+  //console.log('onPage::title=<',title,'>');
   //console.log('onPage::titleSha=<',titleSha,'>');
   save2Ipfs(title,text,pos);
 }
