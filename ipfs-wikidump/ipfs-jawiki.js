@@ -2,7 +2,7 @@ const dumpPath = '/watorvapor/wai.storage/dumps.wikimedia.org/jawiki/jawiki-2018
 const dbPath = '/watorvapor/wai.storage/dumps.wikimedia.org/output_leveldb/jawiki/ipfs';
 const skipTitles = [
     'Wikipedia:','Help:','Template:','Category:','MediaWiki:','Hex',
-    'HEX','File:','Portal:','ファイル:'
+    'HEX','File:','Portal:','ファイル:','プロジェクト:'
 ];
 
 
