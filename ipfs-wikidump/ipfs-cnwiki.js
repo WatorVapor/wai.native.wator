@@ -1,4 +1,4 @@
-const dumpPath = '/watorvapor/wai.storage/dumps.wikimedia.org/zhwiki/zhwiki-20180420-pages-articles.xml';
+const dumpPath = '/watorvapor/wai.storage/dumps.wikimedia.org/zhwiki/zhwiki-20180501-pages-articles.xml';
 const dbPath = '/watorvapor/wai.storage/dumps.wikimedia.org/output_leveldb/cnwiki/ipfs';
 let skipTitles = [
   'Wikipedia:','Help:','Template:','Category:','MediaWiki:','Hex',
