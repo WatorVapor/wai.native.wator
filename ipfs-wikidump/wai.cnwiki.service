@@ -1,9 +1,8 @@
 [Unit]
-Description=Wator wai  wiktionary cn spider
-
+Description=Wator Wai Text Ipfs cn
 [Service]
 Type=simple
-ExecStart=/watorvapor/wai.storage/wiktionary/wai.native.wator/ipfs-wikidump/cnwiki.sh
+ExecStart=/watorvapor/wai.storage/wai.native.wator/ipfs-wikidump/cnwiki.sh
 ExecStop=/bin/kill ${MAINPID}
 Restart=always
 RestartSec=10s
