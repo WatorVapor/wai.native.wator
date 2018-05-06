@@ -3,7 +3,7 @@ Description=Wator wai jawiki to IPFS Storage
 
 [Service]
 Type=simple
-ExecStart=/watorvapor/wai.storage/wiktionary/wai.native.wator/ipfs-wikidump/jawiki.sh
+ExecStart=/watorvapor/wai.storage/wai.native.wator/ipfs-wikidump/jawiki.sh
 ExecStop=/bin/kill ${MAINPID}
 Restart=always
 RestartSec=5s
