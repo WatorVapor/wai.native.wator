@@ -1,4 +1,4 @@
-const dumpPath = '/watorvapor/wai.storage/dumps.wikimedia.org/jawiki/jawiki-20180420-pages-articles.xml';
+const dumpPath = '/watorvapor/wai.storage/dumps.wikimedia.org/jawiki/jawiki-20180501-pages-articles.xml';
 const dbPath = '/watorvapor/wai.storage/dumps.wikimedia.org/output_leveldb/jawiki/ipfs';
 const skipTitles = [
     'Wikipedia:','Help:','Template:','Category:','MediaWiki:','Hex',
