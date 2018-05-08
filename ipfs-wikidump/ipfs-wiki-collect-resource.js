@@ -75,9 +75,15 @@ function writeBlock() {
   block.resource = blockResourceCache;
   let blockStr = JSON.stringify(block);
   console.log('writeBlock::blockStr=<',blockStr,'>');
-  let bufText = Buffer.from(blockStr, 'utf8');
+  let bufBlock = Buffer.from(blockStr, 'utf8');
+  save2Ipfs(bufBlock);
   
-  ipfs.files.add(bufText,function(err, result) {
+  blockSizeCounter = 0;
+  blockCache = [];
+}
+
+function save2Ipfs(bufBlock){
+  ipfs.files.add(bufBlock,function(err, result) {
     if (err) {
       console.log('save2Ipfs::err=<',err,'>');
       process.exit(0);
@@ -94,7 +100,5 @@ function writeBlock() {
       }
     }
   });
-  
-  blockSizeCounter = 0;
-  blockCache = [];
-}
+} 
+
