@@ -42,6 +42,7 @@ function readIpfsInfo(path) {
     //console.log('readIpfsInfo::files=<',files,'>');
     files.forEach((file) => {
       console.log('readIpfsInfo::file=<',file,'>');
+      console.log('readIpfsInfo::file.content.length=<',file.content.length,'>');
     });
   });  
 /*
