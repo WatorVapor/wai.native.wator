@@ -62,6 +62,7 @@ const crypto = require('crypto');
 const hash = crypto.createHash('sha256');
 hash.update('wai text wiki cn');
 const gGroup = hash.digest('hex');
+let prevBlock = '';
 
 
 function writeBlock() {
@@ -71,6 +72,7 @@ function writeBlock() {
   block.size = blockSizeCounter;
   block.resource = blockResourceCache;
   block.group = gGroup;
+  block.prev = prevBlock;
   console.log('writeBlock::block=<',block,'>');
   blockSizeCounter = 0;
   blockCache = [];
