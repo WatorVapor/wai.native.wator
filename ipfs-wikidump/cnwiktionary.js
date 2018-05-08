@@ -9,11 +9,15 @@ let db = level(dbPath);
 
 const opencc = require('node-opencc');
 function pushToDB(zhTitle,pinyin) {
-  console.log('pushToDB::zhTitle=<',zhTitle,'>');
   let cnTitle = opencc.traditionalToSimplified(zhTitle);
-  console.log('pushToDB::cnTitle=<',cnTitle,'>');
-  console.log('pushToDB::pinyin=<',pinyin,'>');
-  db.put(cnTitle,pinyin);
+  if(cnTitle.length >1) {
+    console.log('pushToDB::zhTitle=<',zhTitle,'>');
+    console.log('pushToDB::cnTitle=<',cnTitle,'>');
+    console.log('pushToDB::pinyin=<',pinyin,'>');
+    db.put(cnTitle,pinyin);
+  } else {
+    console.log('pushToDB::******skip cnTitle=<',cnTitle,'>');
+  }
 }
 
 function onPage(title,pos,text){
