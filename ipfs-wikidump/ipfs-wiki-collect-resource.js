@@ -54,5 +54,6 @@ function readIpfsInfo(path) {
   const stream = ipfs.files.getReadableStream(path);
   stream.on('data', (file) => {
     console.log('readIpfsInfo::file=<',file,'>');
+    console.log('readIpfsInfo::file.content=<',file.content,'>');
   });
 }
