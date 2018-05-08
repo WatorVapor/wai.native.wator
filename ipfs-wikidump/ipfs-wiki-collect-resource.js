@@ -41,12 +41,13 @@ function readIpfsInfo(path) {
     console.log('readIpfsInfo::files=<',files,'>');
   });
 
-  ipfs.files.stat(path, (err, stats) => {
+  ipfs.files.stat('/ipfs/' + path, (err, stats) => {
     console.log('readIpfsInfo::err=<',err,'>');
     console.log('readIpfsInfo::stats=<',stats,'>');
   });
   
-  ipfs.ls('/ipfs/' + path, function (err, files) {
+  ipfs.files.ls('/ipfs/' + path, function (err, files) {
+    console.log('readIpfsInfo::ls err=<',err,'>');
     console.log('readIpfsInfo::ls files=<',files,'>');
   });
   
