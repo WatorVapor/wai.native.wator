@@ -57,13 +57,20 @@ function readIpfsInfo(path) {
   });  
 }
 
+
+const crypto = require('crypto');
+const hash = crypto.createHash('sha256');
+hash.update('wai text wiki cn');
+const gGroup = hash.digest('hex');
+
+
 function writeBlock() {
   //console.log('writeBlock::blockSizeCounter=<',blockSizeCounter,'>');
   //console.log('writeBlock::blockCache=<',blockCache,'>');
   let block = {};
   block.size = blockSizeCounter;
   block.resource = blockResourceCache;
-  block.group = '';
+  block.group = gGroup;
   console.log('writeBlock::block=<',block,'>');
   blockSizeCounter = 0;
   blockCache = [];
