@@ -37,10 +37,11 @@ stream.on('end', function () {
 
 function readIpfsInfo(path) {
   console.log('readIpfsInfo::path=<',path,'>');
+/*
   ipfs.files.get(path, function (err, files) {
     console.log('readIpfsInfo::files=<',files,'>');
   });
-/*
+
   ipfs.files.stat('/ipfs/' + path, (err, stats) => {
     console.log('readIpfsInfo::err=<',err,'>');
     console.log('readIpfsInfo::stats=<',stats,'>');
@@ -51,7 +52,9 @@ function readIpfsInfo(path) {
     console.log('readIpfsInfo::ls files=<',files,'>');
   });
 */  
+
   const stream = ipfs.files.getReadableStream(path);
+  console.log('readIpfsInfo::stream=<',stream,'>');
   stream.on('data', (file) => {
     console.log('readIpfsInfo::file=<',file,'>');
     console.log('readIpfsInfo::file.content=<',file.content,'>');
