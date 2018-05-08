@@ -35,6 +35,8 @@ stream.on('end', function () {
   console.log('counter=<',counter,'>')
 });
 
+
+let blockSizeCounter = 0;
 function readIpfsInfo(path) {
   console.log('readIpfsInfo::path=<',path,'>');
   
@@ -43,29 +45,8 @@ function readIpfsInfo(path) {
     files.forEach((file) => {
       console.log('readIpfsInfo::file=<',file,'>');
       console.log('readIpfsInfo::file.content.length=<',file.content.length,'>');
+      blockSizeCounter += file.content.length;
+      console.log('readIpfsInfo::blockSizeCounter=<',blockSizeCounter,'>');
     });
   });  
-/*
-  ipfs.files.stat('/ipfs/' + path, (err, stats) => {
-    console.log('readIpfsInfo::err=<',err,'>');
-    console.log('readIpfsInfo::stats=<',stats,'>');
-  });
-  
-  ipfs.files.ls('/ipfs/' + path, function (err, files) {
-    console.log('readIpfsInfo::ls err=<',err,'>');
-    console.log('readIpfsInfo::ls files=<',files,'>');
-  });
-*/  
-
-   /*
-  const stream = ipfs.files.getReadableStream(path);
-  console.log('readIpfsInfo::stream=<',stream,'>');
-  let size = stream.readableLength();
-  console.log('readIpfsInfo::size=<',size,'>');
-
-  stream.on('data', (file) => {
-    console.log('readIpfsInfo::file=<',file,'>');
-    console.log('readIpfsInfo::file.content=<',file.content,'>');
-  });
-  */
 }
