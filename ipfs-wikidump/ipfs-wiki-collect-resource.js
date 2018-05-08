@@ -11,9 +11,10 @@ let stream = db.createReadStream();
 var counter = 0;
 stream.on('data', function (data) {
   //console.log(data.key.toString('utf-8'), '=', data.value.toString('utf-8'));
-  console.log('data.key=<',data.key.toString('utf-8'),'>')
-  console.log('data.value=<',data.value.toString('utf-8'),'>')
+  console.log('data.key=<',data.key.toString('utf-8'),'>');
+  console.log('data.value=<',data.value.toString('utf-8'),'>');
   stream.pause();
+  readIpfsInfo(data.key.toString('utf-8'));
   counter++
 });
 stream.on('error', function (err) {
@@ -27,3 +28,6 @@ stream.on('end', function () {
   console.log('counter=<',counter,'>')
 });
 
+function readIpfsInfo(path) {
+  console.log('readIpfsInfo::path=<',path,'>')
+}
