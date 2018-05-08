@@ -39,7 +39,10 @@ function readIpfsInfo(path) {
   console.log('readIpfsInfo::path=<',path,'>');
   
   ipfs.files.get(path, function (err, files) {
-    console.log('readIpfsInfo::files=<',files,'>');
+    //console.log('readIpfsInfo::files=<',files,'>');
+    files.forEach((file) => {
+      console.log('readIpfsInfo::file=<',file,'>');
+    });
   });  
 /*
   ipfs.files.stat('/ipfs/' + path, (err, stats) => {
