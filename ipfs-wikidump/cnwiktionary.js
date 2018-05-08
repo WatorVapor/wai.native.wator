@@ -20,6 +20,7 @@ function onPage(title,pos,text){
   //console.log('onPage::title=<',title,'>');
   //console.log('onPage::text=<',text,'>');
   fetchByPronPinYin(title,text);
+  wikiDumper.resume();
 }
 
 
