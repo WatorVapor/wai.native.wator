@@ -62,7 +62,7 @@ function writeBlock() {
   //console.log('writeBlock::blockCache=<',blockCache,'>');
   let block = {};
   block.size = blockSizeCounter;
-  block.resource = blockCache;
+  block.resource = blockResourceCache;
   block.group = '';
   console.log('writeBlock::block=<',block,'>');
   blockSizeCounter = 0;
