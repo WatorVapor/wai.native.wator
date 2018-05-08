@@ -45,4 +45,9 @@ function readIpfsInfo(path) {
     console.log('readIpfsInfo::err=<',err,'>');
     console.log('readIpfsInfo::stats=<',stats,'>');
   });
+  
+  ipfs.ls('/ipfs/' + path, function (err, files) {
+    console.log('readIpfsInfo::ls files=<',files,'>');
+  });
+  
 }
