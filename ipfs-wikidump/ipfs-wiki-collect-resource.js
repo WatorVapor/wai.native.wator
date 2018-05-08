@@ -37,7 +37,7 @@ stream.on('end', function () {
 
 
 let blockSizeCounter = 0;
-let blockCache = [];
+let blockResourceCache = [];
 function readIpfsInfo(path) {
   console.log('readIpfsInfo::path=<',path,'>');
   
@@ -47,7 +47,7 @@ function readIpfsInfo(path) {
       //console.log('readIpfsInfo::file=<',file,'>');
       //console.log('readIpfsInfo::file.content.length=<',file.content.length,'>');
       blockSizeCounter += file.content.length;
-      blockCache.push(file.path);
+      blockResourceCache.push(file.path);
       if(blockSizeCounter >= 1024*1024) {
         writeBlock();
       } else {
@@ -58,8 +58,13 @@ function readIpfsInfo(path) {
 }
 
 function writeBlock() {
-  console.log('writeBlock::blockSizeCounter=<',blockSizeCounter,'>');
-  console.log('writeBlock::blockCache=<',blockCache,'>');
+  //console.log('writeBlock::blockSizeCounter=<',blockSizeCounter,'>');
+  //console.log('writeBlock::blockCache=<',blockCache,'>');
+  let block = {};
+  block.size = blockSizeCounter;
+  block.resource = blockCache;
+  block.group = '';
+  console.log('writeBlock::block=<',block,'>');
   blockSizeCounter = 0;
   blockCache = [];
 }
