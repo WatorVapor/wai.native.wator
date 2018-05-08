@@ -62,7 +62,7 @@ const crypto = require('crypto');
 const hash = crypto.createHash('sha256');
 hash.update('wai text wiki cn');
 const gGroup = hash.digest('hex');
-let prevBlock = '';
+let prevBlock = 'Genesis';
 
 
 function writeBlock() {
