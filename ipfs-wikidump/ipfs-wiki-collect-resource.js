@@ -75,6 +75,26 @@ function writeBlock() {
   block.resource = blockResourceCache;
   let blockStr = JSON.stringify(block);
   console.log('writeBlock::blockStr=<',blockStr,'>');
+  let bufText = Buffer.from(blockStr, 'utf8');
+  
+  ipfs.files.add(bufText,function(err, result) {
+    if (err) {
+      console.log('save2Ipfs::err=<',err,'>');
+      process.exit(0);
+      return;
+    }
+    //console.log('save2Ipfs::result=<',result,'>');
+    let hash = result[0].hash;
+    console.log('save2Ipfs::hash=<',hash,'>');
+    //console.log('save2Ipfs::cnTitle=<',cnTitle,'>');
+    //console.log('save2Ipfs::pos=<',pos,'>');
+    if(hash) {
+      if(stream) {
+        //stream.resume();
+      }
+    }
+  });
+  
   blockSizeCounter = 0;
   blockCache = [];
 }
