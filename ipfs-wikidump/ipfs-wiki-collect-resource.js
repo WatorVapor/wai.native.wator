@@ -4,6 +4,13 @@ const level = require('level');
 const ipfsAPI = require('ipfs-api');
 const ipfs = ipfsAPI({host: 'localhost', port: '5002', protocol: 'http'});
 
+ipfs.id(function (err, identity) {
+  if (err) {
+    throw err;
+  }
+  console.log('ipfs.id identity=<',identity,'>');
+});
+
 
 
 let db = level(dbPath);
