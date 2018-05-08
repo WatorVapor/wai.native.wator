@@ -73,7 +73,8 @@ function writeBlock() {
   block.resource = blockResourceCache;
   block.group = gGroup;
   block.prev = prevBlock;
-  console.log('writeBlock::block=<',block,'>');
+  let blockStr = JSON.stringify(block);
+  console.log('writeBlock::blockStr=<',blockStr,'>');
   blockSizeCounter = 0;
   blockCache = [];
 }
