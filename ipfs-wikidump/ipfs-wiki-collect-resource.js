@@ -1,4 +1,5 @@
 const dbPath = '/watorvapor/wai.storage/dumps.wikimedia.org/output_leveldb/cnwiki/ipfs';
+const dbBlockPath = '/watorvapor/wai.storage/dumps.wikimedia.org/output_leveldb/cnwiki/block';
 
 const level = require('level');
 const ipfsAPI = require('ipfs-api');
@@ -82,6 +83,13 @@ function writeBlock() {
   blockCache = [];
 }
 
+let dbBlock = level(dbBlockPath);
+async function pushIpfs2BlockDB(key,value) {
+  //console.log('pushIpfs2BlockDB::key=<',key,'>');
+  //console.log('pushIpfs2BlockDB::value=<',value,'>');
+  dbBlock.put(key,value);
+}
+
 function save2Ipfs(bufBlock){
   ipfs.files.add(bufBlock,function(err, result) {
     if (err) {
@@ -95,6 +103,7 @@ function save2Ipfs(bufBlock){
     prevBlock = hash;
     //console.log('save2Ipfs::cnTitle=<',cnTitle,'>');
     //console.log('save2Ipfs::pos=<',pos,'>');
+    pushIpfs2BlockDB(hash,cnTitle);
     if(hash) {
        stream.resume();
     }
