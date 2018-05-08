@@ -6,6 +6,7 @@ const ipfs = ipfsAPI({host: 'localhost', port: '5002', protocol: 'http'});
 
 
 
+let db = level(dbPath);
 let stream = db.createReadStream();
 var counter = 0;
 stream.on('data', function (data) {
