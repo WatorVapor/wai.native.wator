@@ -19,8 +19,8 @@ let stream = db.createReadStream();
 var counter = 0;
 stream.on('data', function (data) {
   //console.log(data.key.toString('utf-8'), '=', data.value.toString('utf-8'));
-  console.log('data.key=<',data.key.toString('utf-8'),'>');
-  console.log('data.value=<',data.value.toString('utf-8'),'>');
+  //console.log('data.key=<',data.key.toString('utf-8'),'>');
+  //console.log('data.value=<',data.value.toString('utf-8'),'>');
   stream.pause();
   readIpfsInfo(data.key.toString('utf-8'));
   counter++
@@ -75,7 +75,7 @@ function writeBlock() {
   block.size = blockSizeCounter;
   block.resource = blockResourceCache;
   let blockStr = JSON.stringify(block);
-  console.log('writeBlock::blockStr=<',blockStr,'>');
+  //console.log('writeBlock::blockStr=<',blockStr,'>');
   let bufBlock = Buffer.from(blockStr, 'utf8');
   save2Ipfs(bufBlock);
   
