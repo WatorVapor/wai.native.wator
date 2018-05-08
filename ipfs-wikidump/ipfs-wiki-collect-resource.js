@@ -38,16 +38,10 @@ stream.on('end', function () {
 function readIpfsInfo(path) {
   console.log('readIpfsInfo::path=<',path,'>');
   
-  ipfs.ls(path, function (err, files) {
-    console.log('readIpfsInfo::err=<',err,'>');
-    console.log('readIpfsInfo::files=<',files,'>');
-  });
-  
-/*
   ipfs.files.get(path, function (err, files) {
     console.log('readIpfsInfo::files=<',files,'>');
-  });
-
+  });  
+/*
   ipfs.files.stat('/ipfs/' + path, (err, stats) => {
     console.log('readIpfsInfo::err=<',err,'>');
     console.log('readIpfsInfo::stats=<',stats,'>');
