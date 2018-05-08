@@ -40,4 +40,8 @@ function readIpfsInfo(path) {
   ipfs.files.get(path, function (err, files) {
     console.log('readIpfsInfo::files=<',files,'>');
   });
+
+  ipfs.files.stat(path, (err, stats) => {
+    console.log(stats);
+  });
 }
