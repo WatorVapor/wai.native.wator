@@ -29,5 +29,8 @@ stream.on('end', function () {
 });
 
 function readIpfsInfo(path) {
-  console.log('readIpfsInfo::path=<',path,'>')
+  console.log('readIpfsInfo::path=<',path,'>');
+  ipfs.ls(path, function (err, files) {
+    console.log('readIpfsInfo::files=<',files,'>');
+  });
 }
