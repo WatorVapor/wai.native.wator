@@ -47,8 +47,19 @@ function readIpfsInfo(path) {
       //console.log('readIpfsInfo::file=<',file,'>');
       //console.log('readIpfsInfo::file.content.length=<',file.content.length,'>');
       blockSizeCounter += file.content.length;
-      console.log('readIpfsInfo::blockSizeCounter=<',blockSizeCounter,'>');
       blockCache.push(file.path);
+      if(blockSizeCounter >= 1024*1024) {
+        writeBlock();
+      } else {
+        stream.resume();
+      }
     });
   });  
+}
+
+function writeBlock() {
+  console.log('writeBlock::blockSizeCounter=<',blockSizeCounter,'>');
+  console.log('writeBlock::blockCache=<',blockCache,'>');
+  blockSizeCounter = 0;
+  blockCache = [];
 }
