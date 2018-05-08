@@ -37,7 +37,7 @@ stream.on('end', function () {
 
 function readIpfsInfo(path) {
   console.log('readIpfsInfo::path=<',path,'>');
-  ipfs.lsReadableStream('/ipfs/' + path, function (err, files) {
+  ipfs.files.get(path, function (err, files) {
     console.log('readIpfsInfo::files=<',files,'>');
   });
 }
