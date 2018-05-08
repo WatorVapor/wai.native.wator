@@ -69,10 +69,10 @@ function writeBlock() {
   //console.log('writeBlock::blockSizeCounter=<',blockSizeCounter,'>');
   //console.log('writeBlock::blockCache=<',blockCache,'>');
   let block = {};
-  block.size = blockSizeCounter;
-  block.resource = blockResourceCache;
   block.group = gGroup;
   block.prev = prevBlock;
+  block.size = blockSizeCounter;
+  block.resource = blockResourceCache;
   let blockStr = JSON.stringify(block);
   console.log('writeBlock::blockStr=<',blockStr,'>');
   blockSizeCounter = 0;
