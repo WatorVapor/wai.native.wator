@@ -40,8 +40,7 @@ stream.on('end', function () {
 let blockSizeCounter = 0;
 let blockResourceCache = [];
 function readIpfsInfo(path) {
-  console.log('readIpfsInfo::path=<',path,'>');
-  
+  //console.log('readIpfsInfo::path=<',path,'>');
   ipfs.files.get(path, function (err, files) {
     //console.log('readIpfsInfo::files=<',files,'>');
     files.forEach((file) => {
