@@ -55,7 +55,7 @@ function readIpfsInfo(path) {
 
   const stream = ipfs.files.getReadableStream(path);
   console.log('readIpfsInfo::stream=<',stream,'>');
-  let size = stream.readableLength;
+  let size = stream.readableLength();
   console.log('readIpfsInfo::size=<',size,'>');
   /*
   stream.on('data', (file) => {
