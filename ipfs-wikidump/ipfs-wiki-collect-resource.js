@@ -103,7 +103,7 @@ function save2Ipfs(bufBlock){
     prevBlock = hash;
     //console.log('save2Ipfs::cnTitle=<',cnTitle,'>');
     //console.log('save2Ipfs::pos=<',pos,'>');
-    pushIpfs2BlockDB(hash,cnTitle);
+    pushIpfs2BlockDB(hash,gGroup);
     if(hash) {
        stream.resume();
     }
