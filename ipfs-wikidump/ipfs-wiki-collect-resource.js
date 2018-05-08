@@ -37,16 +37,18 @@ stream.on('end', function () {
 
 
 let blockSizeCounter = 0;
+let blockCache = [];
 function readIpfsInfo(path) {
   console.log('readIpfsInfo::path=<',path,'>');
   
   ipfs.files.get(path, function (err, files) {
     //console.log('readIpfsInfo::files=<',files,'>');
     files.forEach((file) => {
-      console.log('readIpfsInfo::file=<',file,'>');
-      console.log('readIpfsInfo::file.content.length=<',file.content.length,'>');
+      //console.log('readIpfsInfo::file=<',file,'>');
+      //console.log('readIpfsInfo::file.content.length=<',file.content.length,'>');
       blockSizeCounter += file.content.length;
       console.log('readIpfsInfo::blockSizeCounter=<',blockSizeCounter,'>');
+      blockCache.push(file.path);
     });
   });  
 }
