@@ -42,6 +42,7 @@ function readIpfsInfo(path) {
   });
 
   ipfs.files.stat(path, (err, stats) => {
+    console.log('readIpfsInfo::err=<',err,'>');
     console.log('readIpfsInfo::stats=<',stats,'>');
   });
 }
