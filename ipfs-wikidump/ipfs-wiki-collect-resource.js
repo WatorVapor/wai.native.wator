@@ -92,12 +92,11 @@ function save2Ipfs(bufBlock){
     //console.log('save2Ipfs::result=<',result,'>');
     let hash = result[0].hash;
     console.log('save2Ipfs::hash=<',hash,'>');
+    prevBlock = hash;
     //console.log('save2Ipfs::cnTitle=<',cnTitle,'>');
     //console.log('save2Ipfs::pos=<',pos,'>');
     if(hash) {
-      if(stream) {
-        //stream.resume();
-      }
+       stream.resume();
     }
   });
 } 
