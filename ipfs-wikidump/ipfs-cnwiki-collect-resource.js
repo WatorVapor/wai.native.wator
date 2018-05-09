@@ -34,7 +34,7 @@ streamBlock.on('end', function () {
   console.log('streamBlock prevBlock=<',prevBlock,'>');
   console.log('streamBlock lastCollectedClip=<',lastCollectedClip,'>');
   setTimeout(function(){
-    
+    startReadClips();
   },1);
 });
 
