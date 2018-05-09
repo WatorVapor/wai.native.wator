@@ -36,6 +36,9 @@ dbBlock.get(topBlockPosition, function (err, value) {
         } else {
           console.log('topBlockPosition value2=<',value2,'>');
           lastCollectedClip = value2;
+          setTimeout(function(){
+            startReadClips();
+          },1);
         }
       });
     },1);
