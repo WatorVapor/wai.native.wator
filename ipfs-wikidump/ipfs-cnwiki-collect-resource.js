@@ -19,6 +19,7 @@ ipfs.id(function (err, identity) {
 
 
 let prevBlock = 'Genesis';
+let lastCollectedClip = '';
 let dbBlock = level(dbBlockPath);
 let streamBlock = dbBlock.createReadStream();
 streamBlock.on('data', function (data) {
@@ -26,17 +27,26 @@ streamBlock.on('data', function (data) {
   console.log('streamBlock data.key=<',data.key.toString('utf-8'),'>');
   console.log('streamBlock data.value=<',data.value.toString('utf-8'),'>');
   prevBlock = data.key.toString('utf-8');
+  lastCollectedClip = data.value.toString('utf-8');
 });
 streamBlock.on('end', function () {
   console.log('streamBlock Stream ended');
   console.log('streamBlock prevBlock=<',prevBlock,'>');
+  console.log('streamBlock lastCollectedClip=<',lastCollectedClip,'>');
+  setTimeout(function(){
+    
+  },1);
 });
 
 
 let db = level(dbPath);
 let stream = false;
 function startReadClips() {
-  stream = db.createReadStream();
+  if(lastCollectedClip) {
+    stream = db.createReadStream({gt:lastCollectedClip});
+  } else {
+    stream = db.createReadStream();
+  }
   stream.on('data', function (data) {
     //console.log(data.key.toString('utf-8'), '=', data.value.toString('utf-8'));
     //console.log('data.key=<',data.key.toString('utf-8'),'>');
