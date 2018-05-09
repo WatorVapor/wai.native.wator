@@ -18,28 +18,42 @@ ipfs.id(function (err, identity) {
 });
 
 
+let prevBlock = 'Genesis';
+let dbBlock = level(dbBlockPath);
+let streamBlock = dbBlock.createReadStream();
+streamBlock.on('data', function (data) {
+  //console.log(data.key.toString('utf-8'), '=', data.value.toString('utf-8'));
+  console.log('streamBlock data.key=<',data.key.toString('utf-8'),'>');
+  console.log('streamBlock data.value=<',data.value.toString('utf-8'),'>');
+  prevBlock = data.key.toString('utf-8');
+});
+streamBlock.on('end', function () {
+  console.log('streamBlock Stream ended');
+  console.log('streamBlock prevBlock=<',prevBlock,'>');
+});
+
 
 let db = level(dbPath);
-let stream = db.createReadStream();
-var counter = 0;
-stream.on('data', function (data) {
-  //console.log(data.key.toString('utf-8'), '=', data.value.toString('utf-8'));
-  //console.log('data.key=<',data.key.toString('utf-8'),'>');
-  //console.log('data.value=<',data.value.toString('utf-8'),'>');
-  stream.pause();
-  readIpfsInfo(data.key.toString('utf-8'));
-  counter++
-});
-stream.on('error', function (err) {
-  console.log('Oh my!', err)
-});
-stream.on('close', function () {
-  console.log('Stream closed')
-});
-stream.on('end', function () {
-  console.log('Stream ended')
-  console.log('counter=<',counter,'>')
-});
+let stream = false;
+function startReadClips() {
+  stream = db.createReadStream();
+  stream.on('data', function (data) {
+    //console.log(data.key.toString('utf-8'), '=', data.value.toString('utf-8'));
+    //console.log('data.key=<',data.key.toString('utf-8'),'>');
+    //console.log('data.value=<',data.value.toString('utf-8'),'>');
+    stream.pause();
+    readIpfsInfo(data.key.toString('utf-8'));
+  });
+  stream.on('error', function (err) {
+    console.log('Oh my!', err)
+  });
+  stream.on('close', function () {
+    console.log('Stream closed')
+  });
+  stream.on('end', function () {
+    console.log('Stream ended')
+  });
+}
 
 
 let blockSizeCounter = 0;
@@ -63,7 +77,6 @@ function readIpfsInfo(path) {
 }
 
 
-let prevBlock = 'Genesis';
 
 
 function writeBlock(path) {
@@ -83,7 +96,6 @@ function writeBlock(path) {
   blockCache = [];
 }
 
-let dbBlock = level(dbBlockPath);
 async function pushIpfs2BlockDB(key,value) {
   //console.log('pushIpfs2BlockDB::key=<',key,'>');
   //console.log('pushIpfs2BlockDB::value=<',value,'>');
