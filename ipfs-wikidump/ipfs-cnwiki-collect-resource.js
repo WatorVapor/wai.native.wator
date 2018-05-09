@@ -29,33 +29,24 @@ dbBlock.get(topBlockPosition, function (err, value) {
     },1);
   } else {
     console.log('topBlockPosition value=<',value,'>');
+    prevBlock = value;
+    setTimeout(function(){
+      dbBlock.get(value, function (err2, value2) {
+        if (err2) {
+        } else {
+          console.log('topBlockPosition value2=<',value2,'>');
+          lastCollectedClip = value2;
+        }
+      });
+    },1);
   }
 });
-/*
-let streamBlock = dbBlock.createReadStream();
-
-streamBlock.on('data', function (data) {
-  //console.log(data.key.toString('utf-8'), '=', data.value.toString('utf-8'));
-  console.log('streamBlock data.key=<',data.key.toString('utf-8'),'>');
-  console.log('streamBlock data.value=<',data.value.toString('utf-8'),'>');
-  prevBlock = data.key.toString('utf-8');
-  lastCollectedClip = data.value.toString('utf-8');
-});
-streamBlock.on('end', function () {
-  console.log('streamBlock Stream ended');
-  console.log('streamBlock prevBlock=<',prevBlock,'>');
-  console.log('streamBlock lastCollectedClip=<',lastCollectedClip,'>');
-  setTimeout(function(){
-    startReadClips();
-  },1);
-});
-*/
-
-
 
 let db = level(dbPath);
 let stream = false;
 function startReadClips() {
+  console.log('streamBlock prevBlock=<',prevBlock,'>');
+  console.log('streamBlock lastCollectedClip=<',lastCollectedClip,'>');
   if(lastCollectedClip) {
     stream = db.createReadStream({gt:lastCollectedClip});
   } else {
