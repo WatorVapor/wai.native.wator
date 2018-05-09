@@ -49,7 +49,7 @@ function readIpfsInfo(path) {
       blockSizeCounter += file.content.length;
       blockResourceCache.push(file.path);
       if(blockSizeCounter >= 1024*1024) {
-        writeBlock();
+        writeBlock(path);
       } else {
         stream.resume();
       }
@@ -65,7 +65,7 @@ const gGroup = hash.digest('hex');
 let prevBlock = 'Genesis';
 
 
-function writeBlock() {
+function writeBlock(path) {
   //console.log('writeBlock::blockSizeCounter=<',blockSizeCounter,'>');
   //console.log('writeBlock::blockCache=<',blockCache,'>');
   let block = {};
@@ -76,7 +76,7 @@ function writeBlock() {
   let blockStr = JSON.stringify(block);
   //console.log('writeBlock::blockStr=<',blockStr,'>');
   let bufBlock = Buffer.from(blockStr, 'utf8');
-  save2Ipfs(bufBlock);
+  save2Ipfs(bufBlock,path);
   
   blockSizeCounter = 0;
   blockCache = [];
@@ -89,7 +89,7 @@ async function pushIpfs2BlockDB(key,value) {
   dbBlock.put(key,value);
 }
 
-function save2Ipfs(bufBlock){
+function save2Ipfs(bufBlock,path){
   ipfs.files.add(bufBlock,function(err, result) {
     if (err) {
       console.log('save2Ipfs::err=<',err,'>');
@@ -102,7 +102,7 @@ function save2Ipfs(bufBlock){
     prevBlock = hash;
     //console.log('save2Ipfs::cnTitle=<',cnTitle,'>');
     //console.log('save2Ipfs::pos=<',pos,'>');
-    pushIpfs2BlockDB(hash,gGroup);
+    pushIpfs2BlockDB(hash,path);
     if(hash) {
        stream.resume();
     }
