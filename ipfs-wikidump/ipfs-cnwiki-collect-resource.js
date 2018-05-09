@@ -1,5 +1,10 @@
 const dbPath = '/watorvapor/wai.storage/dumps.wikimedia.org/output_leveldb/cnwiki/ipfs';
 const dbBlockPath = '/watorvapor/wai.storage/dumps.wikimedia.org/output_leveldb/cnwiki/block';
+const crypto = require('crypto');
+const hash = crypto.createHash('sha256');
+hash.update('wai text wiki cn');
+const gGroup = hash.digest('hex');
+
 
 const level = require('level');
 const ipfsAPI = require('ipfs-api');
@@ -58,10 +63,6 @@ function readIpfsInfo(path) {
 }
 
 
-const crypto = require('crypto');
-const hash = crypto.createHash('sha256');
-hash.update('wai text wiki cn');
-const gGroup = hash.digest('hex');
 let prevBlock = 'Genesis';
 
 
