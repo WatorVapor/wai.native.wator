@@ -21,7 +21,19 @@ ipfs.id(function (err, identity) {
 let prevBlock = 'Genesis';
 let lastCollectedClip = '';
 let dbBlock = level(dbBlockPath);
+const topBlockPosition = 'top-block-position';
+dbBlock.get(topBlockPosition, function (err, value) {
+  if (err && err.notFound) {
+    setTimeout(function(){
+      startReadClips();
+    },1);
+  } else {
+    console.log('topBlockPosition value=<',value,'>');
+  }
+});
+/*
 let streamBlock = dbBlock.createReadStream();
+
 streamBlock.on('data', function (data) {
   //console.log(data.key.toString('utf-8'), '=', data.value.toString('utf-8'));
   console.log('streamBlock data.key=<',data.key.toString('utf-8'),'>');
@@ -37,6 +49,8 @@ streamBlock.on('end', function () {
     startReadClips();
   },1);
 });
+*/
+
 
 
 let db = level(dbPath);
@@ -126,6 +140,7 @@ function save2Ipfs(bufBlock,path){
     //console.log('save2Ipfs::cnTitle=<',cnTitle,'>');
     //console.log('save2Ipfs::pos=<',pos,'>');
     pushIpfs2BlockDB(hash,path);
+    pushIpfs2BlockDB(topBlockPosition,hash);
     if(hash) {
        stream.resume();
     }
