@@ -59,8 +59,10 @@ function startReadClips() {
     //console.log(data.key.toString('utf-8'), '=', data.value.toString('utf-8'));
     console.log('data.key=<',data.key.toString('utf-8'),'>');
     //console.log('data.value=<',data.value.toString('utf-8'),'>');
-    stream.pause();
-    readIpfsInfo(data.key.toString('utf-8'));
+    if(data.key.toString('utf-8') !== 'wiki_dump_resume_pos') {
+      stream.pause();
+      readIpfsInfo(data.key.toString('utf-8'));
+    }
   });
   stream.on('error', function (err) {
     console.log('Oh my!', err)
