@@ -72,6 +72,7 @@ function startReadClips() {
   });
   stream.on('end', function () {
     console.log('Stream ended');
+    writeBlock();
   });
 }
 
@@ -135,7 +136,9 @@ function save2Ipfs(bufBlock,path){
     prevBlock = hash;
     //console.log('save2Ipfs::cnTitle=<',cnTitle,'>');
     //console.log('save2Ipfs::pos=<',pos,'>');
-    pushIpfs2BlockDB(hash,path);
+    if(path) {
+      pushIpfs2BlockDB(hash,path);
+    }
     pushIpfs2BlockDB(topBlockPosition,hash);
     if(hash) {
        stream.resume();
