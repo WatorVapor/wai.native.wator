@@ -1,8 +1,8 @@
-const dbPath = '/watorvapor/wai.storage/dumps.wikimedia.org/output_leveldb/cnwiki/ipfs';
-const dbBlockPath = '/watorvapor/wai.storage/dumps.wikimedia.org/output_leveldb/cnwiki/block';
+const dbPath = '/watorvapor/wai.storage/dumps.wikimedia.org/output_leveldb/jawiki/ipfs';
+const dbBlockPath = '/watorvapor/wai.storage/dumps.wikimedia.org/output_leveldb/jawiki/block';
 const crypto = require('crypto');
 const hash = crypto.createHash('sha256');
-hash.update('wai text wiki cn');
+hash.update('wai text wiki ja');
 const gGroup = hash.digest('hex');
 
 
