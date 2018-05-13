@@ -66,13 +66,16 @@ function readIpfsInfo(path) {
     //console.log('readIpfsInfo::files=<',files,'>');
     files.forEach((file) => {
       //console.log('readIpfsInfo::file=<',file,'>');
-      console.log('readIpfsInfo::file.content.length=<',file.content.length,'>');
-      console.log('readIpfsInfo::file.content=<',file.content.toString('utf8'),'>');
+      //console.log('readIpfsInfo::file.content.length=<',file.content.length,'>');
+      //console.log('readIpfsInfo::file.content=<',file.content.toString('utf8'),'>');
+      onIpfsWikiText(file.content.toString('utf8'));
     });
   });  
 }
 
-
+function onIpfsWikiText(text) {
+  console.log('onIpfsWikiText::text=<',text,'>');
+}
 
 
 
