@@ -114,6 +114,26 @@ function onIpfsWikiText(text,path) {
       }
     }
   }  
+
+  results = text.match(/'''(.*)'''」（(.*)）/g);
+  //console.log('onIpfsWikiText::results=<',results,'>');
+  if(results && results.length > 0) {
+    for(let i = 0;i < results.length;i++) {
+      let param1 = results[i];
+      //console.log('onIpfsWikiText::param1=<',param1,'>');
+      let param2 = param1.split("'''」（");
+      if(param2.length > 1) {
+        let title = param2[0].replace("'''",'');;
+        let hiraCandidate = param2[1].replace("）",'');
+        console.log('onIpfsWikiText::title=<',title,'>');
+        console.log('onIpfsWikiText::hiraCandidate=<',hiraCandidate,'>');
+        pushDict2DB(title,hiraCandidate);
+        pushDict2DB(lastWikiPosition,path);
+        return;
+      }
+    }
+  }  
+
   console.log('onIpfsWikiText::text=<',text,'>');
   if(filterText(text)) {
     pushDict2DB(lastWikiPosition,path);
