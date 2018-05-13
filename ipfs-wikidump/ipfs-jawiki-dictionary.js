@@ -68,13 +68,13 @@ function readIpfsInfo(path) {
       //console.log('readIpfsInfo::file=<',file,'>');
       //console.log('readIpfsInfo::file.content.length=<',file.content.length,'>');
       //console.log('readIpfsInfo::file.content=<',file.content.toString('utf8'),'>');
-      onIpfsWikiText(file.content.toString('utf8'));
+      onIpfsWikiText(file.content.toString('utf8'),path);
     });
     
   });  
 }
 
-function onIpfsWikiText(text) {
+function onIpfsWikiText(text,path) {
   console.log('onIpfsWikiText::text=<',text,'>');
   let param1 = text.split("'''（");
   if(param1.length > 1) {
@@ -93,6 +93,7 @@ function onIpfsWikiText(text) {
       }
     }
   }
+  pushDict2DB(lastWikiPosition,path);
 }
 
 
