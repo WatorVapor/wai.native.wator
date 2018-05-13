@@ -74,6 +74,7 @@ function readIpfsInfo(path) {
   });  
 }
 
+/*
 function onIpfsWikiText(text,path) {
   //console.log('onIpfsWikiText::text=<',text,'>');
   let param1 = text.split("'''（");
@@ -106,6 +107,12 @@ function onIpfsWikiText(text,path) {
       pushDict2DB(lastWikiPosition,path);
     }
   }
+}
+*/
+function onIpfsWikiText(text,path) {
+  console.log('onIpfsWikiText::text=<',text,'>');
+  let result = title1.match(/'''(.*)'''\((.*)\)/g);
+  console.log('onIpfsWikiText::result=<',result,'>');
 }
 
 function filterText(text) {
