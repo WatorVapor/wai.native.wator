@@ -90,10 +90,10 @@ function onIpfsWikiText(text,path) {
         let hiraCandidate = param3[0];
         console.log('onIpfsWikiText::hiraCandidate=<',hiraCandidate,'>');
         pushDict2DB(title,hiraCandidate);
+        pushDict2DB(lastWikiPosition,path);
       }
     }
   }
-  pushDict2DB(lastWikiPosition,path);
 }
 
 
