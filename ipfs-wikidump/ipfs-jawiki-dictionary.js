@@ -157,6 +157,8 @@ function onIpfsWikiText(text,path) {
   console.log('onIpfsWikiText::text=<',text,'>');
   if(filterText(text)) {
     pushDict2DB(lastWikiPosition,path);
+  } else {
+    pushDict2DB(lastWikiPosition,path);
   }
 }
 
