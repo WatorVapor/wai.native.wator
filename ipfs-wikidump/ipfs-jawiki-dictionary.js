@@ -70,6 +70,7 @@ function readIpfsInfo(path) {
       //console.log('readIpfsInfo::file.content=<',file.content.toString('utf8'),'>');
       onIpfsWikiText(file.content.toString('utf8'));
     });
+    
   });  
 }
 
@@ -88,6 +89,7 @@ function onIpfsWikiText(text) {
       if(param3.length > 1) {
         let hiraCandidate = param3[0];
         console.log('onIpfsWikiText::hiraCandidate=<',hiraCandidate,'>');
+        pushDict2DB(title,hiraCandidate);
       }
     }
   }
