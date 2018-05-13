@@ -63,6 +63,9 @@ ipfs.id(function (err, identity) {
 function readIpfsInfo(path) {
   //console.log('readIpfsInfo::path=<',path,'>');
   ipfs.files.get(path, function (err, files) {
+    if (err) {
+      throw err;
+    }
     //console.log('readIpfsInfo::files=<',files,'>');
     files.forEach((file) => {
       //console.log('readIpfsInfo::file=<',file,'>');
@@ -70,8 +73,8 @@ function readIpfsInfo(path) {
       //console.log('readIpfsInfo::file.content=<',file.content.toString('utf8'),'>');
       onIpfsWikiText(file.content.toString('utf8'),path);
     });
-    
-  });  
+    stream.resume();
+  });
 }
 
 
