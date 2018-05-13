@@ -133,6 +133,9 @@ function filterText(text) {
   if(text.startsWith('#REDIRECT[[')) {
     return true;
   }
+  if(text.startsWith('return {')) {
+    return true;
+  }
   return false;
 }
 
