@@ -109,6 +109,9 @@ function filterText(text) {
   if(text.startsWith('#転送[[')) {
     return true;
   }
+  if(text.startsWith('#転送 [[')) {
+    return true;
+  }
   return false;
 }
 
