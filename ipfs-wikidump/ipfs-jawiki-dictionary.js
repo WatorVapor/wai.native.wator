@@ -119,8 +119,8 @@ function onIpfsWikiText(text,path) {
       console.log('onIpfsWikiText::param1=<',param1,'>');
       let param2 = param1.split("'''(");
       if(param2.length > 1) {
-        let title = param2[0];
-        let hiraCandidate = param2[1];
+        let title = param2[0].replace("'''",'');
+        let hiraCandidate = param2[1].replace(")",'');
         console.log('onIpfsWikiText::title=<',title,'>');
         console.log('onIpfsWikiText::hiraCandidate=<',hiraCandidate,'>');
         pushDict2DB(title,hiraCandidate);
@@ -138,8 +138,8 @@ function onIpfsWikiText(text,path) {
       console.log('onIpfsWikiText::param1=<',param1,'>');
       let param2 = param1.split("'''（");
       if(param2.length > 1) {
-        let title = param2[0];
-        let hiraCandidate = param2[1];
+        let title = param2[0].replace("'''",'');;
+        let hiraCandidate = param2[1].replace("）",'');
         console.log('onIpfsWikiText::title=<',title,'>');
         console.log('onIpfsWikiText::hiraCandidate=<',hiraCandidate,'>');
         pushDict2DB(title,hiraCandidate);
