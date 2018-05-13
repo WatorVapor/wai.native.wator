@@ -112,6 +112,12 @@ function filterText(text) {
   if(text.startsWith('#転送 [[')) {
     return true;
   }
+  if(text.startsWith('#REDIRECT [[')) {
+    return true;
+  }
+  if(text.startsWith('#REDIRECT[[')) {
+    return true;
+  }
   return false;
 }
 
