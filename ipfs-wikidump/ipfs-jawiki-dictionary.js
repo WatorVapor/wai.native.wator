@@ -74,49 +74,15 @@ function readIpfsInfo(path) {
   });  
 }
 
-/*
-function onIpfsWikiText(text,path) {
-  //console.log('onIpfsWikiText::text=<',text,'>');
-  let param1 = text.split("'''（");
-  if(param1.length > 1) {
-    //console.log('onIpfsWikiText::param1[0]=<',param1[0],'>');
-    let param2 = param1[0].split("'''");
-    //console.log('onIpfsWikiText::param2.length=<',param2.length,'>');
-    if(param2.length > 1) {
-      let lastIndex = param2.length -1;
-      let title = param2[lastIndex];
-      console.log('onIpfsWikiText::title=<',title,'>');
-      let param3 = param1[1].split(")");
-      if(param3.length > 1) {
-        let hiraCandidate = param3[0];
-        console.log('onIpfsWikiText::hiraCandidate=<',hiraCandidate,'>');
-        pushDict2DB(title,hiraCandidate);
-        pushDict2DB(lastWikiPosition,path);
-      } else {
-        console.log('onIpfsWikiText::param3[0]=<',param3[0],'>');
-        console.log('onIpfsWikiText::param3.length=<',param3.length,'>');
-      }
-    } else {
-      console.log('onIpfsWikiText::param2[0]=<',param2[0],'>');
-      console.log('onIpfsWikiText::param2.length=<',param2.length,'>');
-    }
-  } else {
-    console.log('onIpfsWikiText::param1[0]=<',param1[0],'>');
-    console.log('onIpfsWikiText::param1.length=<',param1.length,'>');
-    if(filterText(text)) {
-      pushDict2DB(lastWikiPosition,path);
-    }
-  }
-}
-*/
+
 function onIpfsWikiText(text,path) {
   //console.log('onIpfsWikiText::text=<',text,'>');
   let results = text.match(/'''(.*)'''\((.*)\)/g);
-  console.log('onIpfsWikiText::results=<',results,'>');
+  //console.log('onIpfsWikiText::results=<',results,'>');
   if(results && results.length > 0) {
     for(let i = 0;i < results.length;i++) {
       let param1 = results[i];
-      console.log('onIpfsWikiText::param1=<',param1,'>');
+      //console.log('onIpfsWikiText::param1=<',param1,'>');
       let param2 = param1.split("'''(");
       if(param2.length > 1) {
         let title = param2[0].replace("'''",'');
@@ -131,11 +97,11 @@ function onIpfsWikiText(text,path) {
   }
   
   results = text.match(/'''(.*)'''（(.*)）/g);
-  console.log('onIpfsWikiText::results=<',results,'>');
+  //console.log('onIpfsWikiText::results=<',results,'>');
   if(results && results.length > 0) {
     for(let i = 0;i < results.length;i++) {
       let param1 = results[i];
-      console.log('onIpfsWikiText::param1=<',param1,'>');
+      //console.log('onIpfsWikiText::param1=<',param1,'>');
       let param2 = param1.split("'''（");
       if(param2.length > 1) {
         let title = param2[0].replace("'''",'');;
