@@ -76,10 +76,10 @@ function readIpfsInfo(path) {
 
 
 
-async function pushIpfs2BlockDB(key,value) {
-  //console.log('pushIpfs2BlockDB::key=<',key,'>');
-  //console.log('pushIpfs2BlockDB::value=<',value,'>');
-  dbBlock.put(key,value);
+async function pushDict2DB(key,value) {
+  //console.log('pushDict2DB::key=<',key,'>');
+  //console.log('pushDict2DB::value=<',value,'>');
+  dbDict.put(key,value);
 }
 
 
