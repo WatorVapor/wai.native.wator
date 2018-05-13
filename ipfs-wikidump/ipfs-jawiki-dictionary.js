@@ -111,7 +111,7 @@ function onIpfsWikiText(text,path) {
 */
 function onIpfsWikiText(text,path) {
   console.log('onIpfsWikiText::text=<',text,'>');
-  let result = title1.match(/'''(.*)'''\((.*)\)/g);
+  let result = text.match(/'''(.*)'''\((.*)\)/g);
   console.log('onIpfsWikiText::result=<',result,'>');
 }
 
