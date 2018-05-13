@@ -166,11 +166,35 @@ function onIpfsWikiText(text,path) {
     }
     return;
   }  
+
+  results = text.match(/'''(.*)'''}}』（(.*)）/g);
+  //console.log('onIpfsWikiText::results=<',results,'>');
+  if(results && results.length > 0) {
+    for(let i = 0;i < results.length;i++) {
+      let param1 = results[i];
+      console.log('onIpfsWikiText::param1=<',param1,'>');
+      let param2 = param1.split("'''}}』（");
+      if(param2.length > 1) {
+        let title = param2[0].replace("'''",'');;
+        let param3 = param2[1].split("）");
+        if(param3.length > 1) {
+          let hiraCandidate = param3[0];
+          console.log('onIpfsWikiText::title=<',title,'>');
+          console.log('onIpfsWikiText::hiraCandidate=<',hiraCandidate,'>');
+          pushDict2DB(title,hiraCandidate);
+          pushDict2DB(lastWikiPosition,path);
+        }
+      }
+    }
+    return;
+  }  
+
+  
   console.log('onIpfsWikiText::text=<',text,'>');
   if(filterText(text)) {
     pushDict2DB(lastWikiPosition,path);
   } else {
-    pushDict2DB(lastWikiPosition,path);
+    //pushDict2DB(lastWikiPosition,path);
   }
 }
 
