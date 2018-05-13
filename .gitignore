@@ -43,4 +43,4 @@ db/old.*
 *.fmt
 *.app.log
 
-
+node_modules
