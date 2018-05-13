@@ -33,6 +33,7 @@ dbBlock.get(topBlockPosition, function (err, value) {
     setTimeout(function(){
       dbBlock.get(value, function (err2, value2) {
         if (err2) {
+          console.log('topBlockPosition err2=<',err2,'>');
         } else {
           console.log('topBlockPosition value2=<',value2,'>');
           lastCollectedClip = value2;
