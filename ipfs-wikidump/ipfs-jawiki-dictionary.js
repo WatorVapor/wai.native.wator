@@ -75,12 +75,12 @@ function readIpfsInfo(path) {
 }
 
 function onIpfsWikiText(text,path) {
-  console.log('onIpfsWikiText::text=<',text,'>');
+  //console.log('onIpfsWikiText::text=<',text,'>');
   let param1 = text.split("'''（");
   if(param1.length > 1) {
     //console.log('onIpfsWikiText::param1[0]=<',param1[0],'>');
     let param2 = param1[0].split("'''");
-    console.log('onIpfsWikiText::param2.length=<',param2.length,'>');
+    //console.log('onIpfsWikiText::param2.length=<',param2.length,'>');
     if(param2.length > 1) {
       let lastIndex = param2.length -1;
       let title = param2[lastIndex];
@@ -91,8 +91,14 @@ function onIpfsWikiText(text,path) {
         console.log('onIpfsWikiText::hiraCandidate=<',hiraCandidate,'>');
         pushDict2DB(title,hiraCandidate);
         pushDict2DB(lastWikiPosition,path);
+      } else {
+        console.log('onIpfsWikiText::text=<',text,'>');
       }
+    } else {
+      console.log('onIpfsWikiText::text=<',text,'>');
     }
+  } else {
+    console.log('onIpfsWikiText::text=<',text,'>');
   }
 }
 
