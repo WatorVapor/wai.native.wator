@@ -92,13 +92,13 @@ function onIpfsWikiText(text,path) {
         pushDict2DB(title,hiraCandidate);
         pushDict2DB(lastWikiPosition,path);
       } else {
-        console.log('onIpfsWikiText::text=<',text,'>');
+        console.log('onIpfsWikiText::param3=<',param3,'>');
       }
     } else {
-      console.log('onIpfsWikiText::text=<',text,'>');
+      console.log('onIpfsWikiText::param2=<',param2,'>');
     }
   } else {
-    console.log('onIpfsWikiText::text=<',text,'>');
+    console.log('onIpfsWikiText::param1=<',param1,'>');
     if(filterText(text)) {
       pushDict2DB(lastWikiPosition,path);
     }
