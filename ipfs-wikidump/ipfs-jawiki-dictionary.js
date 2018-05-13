@@ -76,7 +76,7 @@ function readIpfsInfo(path) {
 function onIpfsWikiText(text) {
   console.log('onIpfsWikiText::text=<',text,'>');
   let param1 = text.split("'''（");
-  console.log('onIpfsWikiText::param1=<',param1,'>');
+  console.log('onIpfsWikiText::param1.length=<',param1.length,'>');
 }
 
 
