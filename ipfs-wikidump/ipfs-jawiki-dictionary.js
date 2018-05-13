@@ -111,8 +111,12 @@ function onIpfsWikiText(text,path) {
 */
 function onIpfsWikiText(text,path) {
   console.log('onIpfsWikiText::text=<',text,'>');
-  let result = text.match(/'''(.*)'''\((.*)\)/g);
-  console.log('onIpfsWikiText::result=<',result,'>');
+  let results = text.match(/'''(.*)'''\((.*)\)/g);
+  //console.log('onIpfsWikiText::results=<',results,'>');
+  for(let i = 0;i < results.length;i++) {
+    let param1 = results[i];
+    console.log('onIpfsWikiText::param1=<',param1,'>');
+  }
 }
 
 function filterText(text) {
