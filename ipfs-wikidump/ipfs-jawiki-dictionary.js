@@ -85,7 +85,7 @@ function onIpfsWikiText(text,path) {
       let lastIndex = param2.length -1;
       let title = param2[lastIndex];
       console.log('onIpfsWikiText::title=<',title,'>');
-      let param3 = param1[1].split("）は、");
+      let param3 = param1[1].split(")");
       if(param3.length > 1) {
         let hiraCandidate = param3[0];
         console.log('onIpfsWikiText::hiraCandidate=<',hiraCandidate,'>');
