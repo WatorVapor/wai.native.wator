@@ -126,7 +126,7 @@ function onIpfsWikiText(text,path) {
       pushDict2DB(lastWikiPosition,path);
     }
   }
-  if(results.length > 1) {
+  if(results.length > 0) {
     return;
   }
   console.log('onIpfsWikiText::text=<',text,'>');
