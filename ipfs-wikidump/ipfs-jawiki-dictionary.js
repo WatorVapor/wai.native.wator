@@ -99,9 +99,18 @@ function onIpfsWikiText(text,path) {
     }
   } else {
     console.log('onIpfsWikiText::text=<',text,'>');
+    if(filterText(text)) {
+      pushDict2DB(lastWikiPosition,path);
+    }
   }
 }
 
+function filterText(text) {
+  if(text.startsWith('#転送[[')) {
+    return true;
+  }
+  return false;
+}
 
 
 
