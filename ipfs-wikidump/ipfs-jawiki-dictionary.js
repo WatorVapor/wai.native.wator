@@ -77,8 +77,10 @@ function readIpfsInfo(path) {
 
 function onIpfsWikiText(text,path) {
   //console.log('onIpfsWikiText::text=<',text,'>');
+  
+  
   let results = text.match(/'''(.*)'''\((.*)\)/g);
-  //console.log('onIpfsWikiText::results=<',results,'>');
+  console.log('onIpfsWikiText::results=<',results,'>');
   if(results && results.length > 0) {
     for(let i = 0;i < results.length;i++) {
       let param1 = results[i];
@@ -97,7 +99,7 @@ function onIpfsWikiText(text,path) {
   }
   
   results = text.match(/'''(.*)'''（(.*)）/g);
-  //console.log('onIpfsWikiText::results=<',results,'>');
+  console.log('onIpfsWikiText::results=<',results,'>');
   if(results && results.length > 0) {
     for(let i = 0;i < results.length;i++) {
       let param1 = results[i];
@@ -116,7 +118,7 @@ function onIpfsWikiText(text,path) {
   }  
 
   results = text.match(/'''(.*)'''」（(.*)）/g);
-  //console.log('onIpfsWikiText::results=<',results,'>');
+  console.log('onIpfsWikiText::results=<',results,'>');
   if(results && results.length > 0) {
     for(let i = 0;i < results.length;i++) {
       let param1 = results[i];
