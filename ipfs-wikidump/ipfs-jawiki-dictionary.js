@@ -246,7 +246,28 @@ function filterText(text) {
 async function pushDict2DB(key,value) {
   //console.log('pushDict2DB::key=<',key,'>');
   //console.log('pushDict2DB::value=<',value,'>');
-  dbDict.put(key,value);
+  let newVal = refineValue(key,value);
+  if(newVal) {
+    dbDict.put(key,newVal);
+  }
 }
 
-
+const furikana = require('./furikan.json');
+function refineValue(key,value) {
+  if(isAllFurikana(key)) {
+    return null;
+  }
+  if(isAllAscii(key)) {
+    return null;
+  }
+}
+function isAllFurikana(key) {
+  console.log('isAllFurikana::key=<',key,'>');
+  for(let i = 0;i < key.length ;i++) {
+    let code = key[i];
+    if(!furikana[code]) {
+      return false;
+    }
+  }
+  return true;
+}
