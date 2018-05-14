@@ -5,13 +5,13 @@ console.log('iconv=<',iconv,'>');
 
 //console.log('UNICODE=<',UNICODE,'>');
 
-let cjkRange = [
-  'cjk','cjkA','cjkB','cjkC','cjkD','cjkE','cjkF'
+let furikanaRange = [
+  'hiragana','katakana'
 ]
-//console.log('cjkRange=<',cjkRange,'>');
+//console.log('furikanaRange=<',furikanaRange,'>');
 
-for(let index in cjkRange.reverse()) {
-  let key = cjkRange[index];
+for(let index in furikanaRange.reverse()) {
+  let key = furikanaRange[index];
   //console.log('key=<',key,'>');
   let range = UNICODE[key];
   //console.log('range=<',range,'>');
