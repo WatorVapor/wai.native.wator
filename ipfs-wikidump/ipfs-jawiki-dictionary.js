@@ -264,6 +264,7 @@ function refineValue(key,value) {
     return pureHira;
   }
   console.error('refineValue::pureHira=<',pureHira,'>');
+  console.error('refineValue::key=<',key,'>');
 }
 function isAllFurikana(key) {
   //console.log('isAllFurikana::key=<',key,'>');
