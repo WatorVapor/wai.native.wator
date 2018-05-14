@@ -34,5 +34,5 @@ function utf32to8(utf32) {
   furikanaJson[key] = true;
 }
 
-console.log('furikanaJson=<',JSON.stringify(furikanaJson),'>');
+console.log('furikanaJson=<',JSON.stringify(furikanaJson,2,' '),'>');
 
