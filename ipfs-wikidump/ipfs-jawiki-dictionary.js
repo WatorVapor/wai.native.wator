@@ -257,9 +257,6 @@ function refineValue(key,value) {
   if(isAllFurikana(key)) {
     return null;
   }
-  if(isAllAscii(key)) {
-    return null;
-  }
 }
 function isAllFurikana(key) {
   console.log('isAllFurikana::key=<',key,'>');
@@ -271,3 +268,4 @@ function isAllFurikana(key) {
   }
   return true;
 }
+
