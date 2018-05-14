@@ -258,6 +258,8 @@ function refineValue(key,value) {
   if(isAllFurikana(key)) {
     return null;
   }
+  let param1 = value.split('、');
+  console.log('refineValue::param1[0]=<',param1[0],'>');
 }
 function isAllFurikana(key) {
   console.log('isAllFurikana::key=<',key,'>');
