@@ -94,8 +94,8 @@ function onIpfsWikiText(text,path) {
         let param3 = param2[1].split(")");
         if(param3.length > 1) {
           let hiraCandidate = param3[0];
-          console.log('onIpfsWikiText::title=<',title,'>');
-          console.log('onIpfsWikiText::hiraCandidate=<',hiraCandidate,'>');
+          //console.log('onIpfsWikiText::title=<',title,'>');
+          //console.log('onIpfsWikiText::hiraCandidate=<',hiraCandidate,'>');
           pushDict2DB(title,hiraCandidate);
           pushDict2DB(lastWikiPosition,path);
         }
@@ -116,8 +116,8 @@ function onIpfsWikiText(text,path) {
         let param3 = param2[1].split("）");
         if(param3.length > 1) {
           let hiraCandidate = param3[0];
-          console.log('onIpfsWikiText::title=<',title,'>');
-          console.log('onIpfsWikiText::hiraCandidate=<',hiraCandidate,'>');
+          //console.log('onIpfsWikiText::title=<',title,'>');
+          //console.log('onIpfsWikiText::hiraCandidate=<',hiraCandidate,'>');
           pushDict2DB(title,hiraCandidate);
           pushDict2DB(lastWikiPosition,path);
         }
@@ -138,8 +138,8 @@ function onIpfsWikiText(text,path) {
         let param3 = param2[1].split("）");
         if(param3.length > 1) {
           let hiraCandidate = param3[0];
-          console.log('onIpfsWikiText::title=<',title,'>');
-          console.log('onIpfsWikiText::hiraCandidate=<',hiraCandidate,'>');
+          //console.log('onIpfsWikiText::title=<',title,'>');
+          //console.log('onIpfsWikiText::hiraCandidate=<',hiraCandidate,'>');
           pushDict2DB(title,hiraCandidate);
           pushDict2DB(lastWikiPosition,path);
         }
@@ -160,8 +160,8 @@ function onIpfsWikiText(text,path) {
         let param3 = param2[1].split("）");
         if(param3.length > 1) {
           let hiraCandidate = param3[0];
-          console.log('onIpfsWikiText::title=<',title,'>');
-          console.log('onIpfsWikiText::hiraCandidate=<',hiraCandidate,'>');
+          //console.log('onIpfsWikiText::title=<',title,'>');
+          //console.log('onIpfsWikiText::hiraCandidate=<',hiraCandidate,'>');
           pushDict2DB(title,hiraCandidate);
           pushDict2DB(lastWikiPosition,path);
         }
@@ -183,8 +183,8 @@ function onIpfsWikiText(text,path) {
         let param3 = param2[1].split("）");
         if(param3.length > 1) {
           let hiraCandidate = param3[0];
-          console.log('onIpfsWikiText::title=<',title,'>');
-          console.log('onIpfsWikiText::hiraCandidate=<',hiraCandidate,'>');
+          //console.log('onIpfsWikiText::title=<',title,'>');
+          //console.log('onIpfsWikiText::hiraCandidate=<',hiraCandidate,'>');
           pushDict2DB(title,hiraCandidate);
           pushDict2DB(lastWikiPosition,path);
         }
@@ -205,8 +205,8 @@ function onIpfsWikiText(text,path) {
         let param3 = param2[1].split("）");
         if(param3.length > 1) {
           let hiraCandidate = param3[0];
-          console.log('onIpfsWikiText::title=<',title,'>');
-          console.log('onIpfsWikiText::hiraCandidate=<',hiraCandidate,'>');
+          //console.log('onIpfsWikiText::title=<',title,'>');
+          //console.log('onIpfsWikiText::hiraCandidate=<',hiraCandidate,'>');
           pushDict2DB(title,hiraCandidate);
           pushDict2DB(lastWikiPosition,path);
         }
@@ -247,7 +247,7 @@ async function pushDict2DB(key,value) {
   //console.log('pushDict2DB::key=<',key,'>');
   //console.log('pushDict2DB::value=<',value,'>');
   let newVal = refineValue(key,value);
-  console.log('pushDict2DB::newVal=<',newVal,'>');
+  //console.log('pushDict2DB::newVal=<',newVal,'>');
   if(newVal) {
     dbDict.put(key,newVal);
   }
@@ -266,7 +266,7 @@ function refineValue(key,value) {
   console.error('refineValue::pureHira=<',pureHira,'>');
 }
 function isAllFurikana(key) {
-  console.log('isAllFurikana::key=<',key,'>');
+  //console.log('isAllFurikana::key=<',key,'>');
   for(let i = 0;i < key.length ;i++) {
     let code = key[i];
     if(!furikana[code]) {
