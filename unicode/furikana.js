@@ -31,7 +31,7 @@ function utf32to8(utf32) {
   //console.log('utf8=<',utf8,'>');  
   console.log('utf8=<',utf8.toString(),'>');
   let key = utf8.toString();
-  furikanaJson[key] = utf32;
+  furikanaJson[key] = true;
 }
 
 console.log('furikanaJson=<',JSON.stringify(furikanaJson),'>');
