@@ -9,6 +9,7 @@ let furikanaRange = [
   'hiragana','katakana'
 ]
 //console.log('furikanaRange=<',furikanaRange,'>');
+let furikanaJson = {};
 
 for(let index in furikanaRange.reverse()) {
   let key = furikanaRange[index];
@@ -21,7 +22,6 @@ for(let index in furikanaRange.reverse()) {
 }
 
 
-let furikanaJson = {};
 function utf32to8(utf32) {
   //console.log('utf32=<',utf32,'>');
   let buf = new Buffer(4);
