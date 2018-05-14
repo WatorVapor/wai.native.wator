@@ -259,7 +259,7 @@ function refineValue(key,value) {
     return null;
   }
   let param1 = value.split('、');
-  let pureHira =param1[0]; 
+  let pureHira =param1[0].replace(/'''/g,'');
   if(isAllFurikana(pureHira)) {
     return pureHira;
   }
