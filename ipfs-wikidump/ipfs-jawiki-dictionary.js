@@ -259,7 +259,11 @@ function refineValue(key,value) {
     return null;
   }
   let param1 = value.split('、');
-  console.log('refineValue::param1[0]=<',param1[0],'>');
+  let pureHira =param1[0]; 
+  if(isAllFurikana(pureHira)) {
+    return pureHira;
+  }
+  console.error('refineValue::pureHira=<',pureHira,'>');
 }
 function isAllFurikana(key) {
   console.log('isAllFurikana::key=<',key,'>');
