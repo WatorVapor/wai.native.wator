@@ -30,7 +30,8 @@ function utf32to8(utf32) {
   let utf8 = iconv.convert(buf);
   //console.log('utf8=<',utf8,'>');  
   console.log('utf8=<',utf8.toString(),'>');
-  furikanaJson[utf8.toString()] = utf32;
+  let key = utf8.toString();
+  furikanaJson[key] = utf32;
 }
 
 console.log('furikanaJson=<',JSON.stringify(furikanaJson),'>');
