@@ -247,8 +247,9 @@ async function pushDict2DB(key,value) {
   //console.log('pushDict2DB::key=<',key,'>');
   //console.log('pushDict2DB::value=<',value,'>');
   let newVal = refineValue(key,value);
-  //console.log('pushDict2DB::newVal=<',newVal,'>');
   if(newVal) {
+    console.log('pushDict2DB::key=<',key,'>');
+    console.log('pushDict2DB::newVal=<',newVal,'>');
     dbDict.put(key,newVal);
   }
 }
