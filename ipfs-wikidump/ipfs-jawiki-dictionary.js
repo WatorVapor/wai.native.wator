@@ -98,7 +98,7 @@ function onIpfsWikiText(text,path) {
           //console.log('onIpfsWikiText::title=<',title,'>');
           //console.log('onIpfsWikiText::hiraCandidate=<',hiraCandidate,'>');
           pushDict2DB(title,hiraCandidate,path);
-          pushDict2DB(lastWikiPosition,path);
+          pushIndex2DB(lastWikiPosition,path);
         }
       }
     }
@@ -120,7 +120,7 @@ function onIpfsWikiText(text,path) {
           //console.log('onIpfsWikiText::title=<',title,'>');
           //console.log('onIpfsWikiText::hiraCandidate=<',hiraCandidate,'>');
           pushDict2DB(title,hiraCandidate,path);
-          pushDict2DB(lastWikiPosition,path);
+          pushIndex2DB(lastWikiPosition,path);
         }
       }
     }
@@ -142,7 +142,7 @@ function onIpfsWikiText(text,path) {
           //console.log('onIpfsWikiText::title=<',title,'>');
           //console.log('onIpfsWikiText::hiraCandidate=<',hiraCandidate,'>');
           pushDict2DB(title,hiraCandidate,path);
-          pushDict2DB(lastWikiPosition,path);
+          pushIndex2DB(lastWikiPosition,path);
         }
       }
     }
@@ -164,7 +164,7 @@ function onIpfsWikiText(text,path) {
           //console.log('onIpfsWikiText::title=<',title,'>');
           //console.log('onIpfsWikiText::hiraCandidate=<',hiraCandidate,'>');
           pushDict2DB(title,hiraCandidate,path);
-          pushDict2DB(lastWikiPosition,path);
+          pushIndex2DB(lastWikiPosition,path);
         }
       }
     }
@@ -187,7 +187,7 @@ function onIpfsWikiText(text,path) {
           //console.log('onIpfsWikiText::title=<',title,'>');
           //console.log('onIpfsWikiText::hiraCandidate=<',hiraCandidate,'>');
           pushDict2DB(title,hiraCandidate,path);
-          pushDict2DB(lastWikiPosition,path);
+          pushIndex2DB(lastWikiPosition,path);
         }
       }
     }
@@ -209,7 +209,7 @@ function onIpfsWikiText(text,path) {
           //console.log('onIpfsWikiText::title=<',title,'>');
           //console.log('onIpfsWikiText::hiraCandidate=<',hiraCandidate,'>');
           pushDict2DB(title,hiraCandidate,path);
-          pushDict2DB(lastWikiPosition,path);
+          pushIndex2DB(lastWikiPosition,path);
         }
       }
     }
@@ -219,7 +219,7 @@ function onIpfsWikiText(text,path) {
   if(filterText(text)) {
     pushDict2DB(lastWikiPosition,path);
   } else {
-    //pushDict2DB(lastWikiPosition,path);
+    //pushIndex2DB(lastWikiPosition,path);
   }
 }
 
@@ -257,6 +257,13 @@ async function pushDict2DB(key,value,path) {
     dbDict.put(key,newVal);
   }
 }
+
+async function pushIndex2DB(key,value,path) {
+  //console.log('pushIndex2DB::key=<',key,'>');
+  //console.log('pushIndex2DB::value=<',value,'>');
+  dbDict.put(key,value);
+}
+
 
 const furikana = require('./furikan.json');
 function refineValue(key,value) {
