@@ -46,7 +46,6 @@ function startReadWiki() {
   });
   stream.on('end', function () {
     console.log('Stream ended');
-    writeBlock();
   });
 }
 
@@ -217,7 +216,7 @@ function onIpfsWikiText(text,path) {
   }
   //console.log('onIpfsWikiText::text=<',text,'>');
   if(filterText(text)) {
-    pushDict2DB(lastWikiPosition,path);
+    pushIndex2DB(lastWikiPosition,path);
   } else {
     //pushIndex2DB(lastWikiPosition,path);
   }
