@@ -7,6 +7,7 @@ const lastWikiPosition = 'last-wiki-position';
 let lastWiki = false;
 dbDict.get(lastWikiPosition, function (err, value) {
   if (err && err.notFound) {
+    console.log('lastWikiPosition err=<',err,'>');
     setTimeout(function(){
       startReadWiki();
     },1);
