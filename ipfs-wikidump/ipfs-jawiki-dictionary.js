@@ -253,7 +253,12 @@ async function pushDict2DB(key,value,path) {
     if(path) {
       console.log('pushDict2DB::path=<',path,'>');
     }
+    let compKey = key.replace(/ /g,'').replace(/　/g,'');
     dbDict.put(key,newVal);
+    if(compKey !== key) {
+      console.log('pushDict2DB::compKey=<',compKey,'>');
+      dbDict.put(compKey,newVal);
+    }
   }
 }
 
