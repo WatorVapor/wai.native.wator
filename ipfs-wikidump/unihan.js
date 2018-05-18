@@ -41,8 +41,15 @@ function parseCode_(xml_data) {
     if(elem.attribs) {
       let khanyupinyin = elem.attribs.khanyupinyin;
       let cp = getUtf8(elem.attribs.cp);
-      if( cp && khanyupinyin ) {
-        saveHanYuPinYin(khanyupinyin,cp);
+      if( cp ) {
+        if( khanyupinyin ) {
+          saveHanYuPinYin(khanyupinyin,cp);
+        } else {
+          let kmandarin = elem.attribs.kmandarin;
+          if( kmandarin ) {
+            saveHanYuPinYin(kmandarin,cp);
+          }
+        }
       }
       let on = elem.attribs.kjapaneseon;
       if(cp && on) {
