@@ -46,6 +46,7 @@ function parseCode_(xml_data) {
           saveHanYuPinYin(khanyupinyin,cp);
         } else {
           let kmandarin = elem.attribs.kmandarin;
+          console.log('parseCode_:elem.attribs=<',elem.attribs,'>');
           if( kmandarin ) {
             saveHanYuPinYin(kmandarin,cp);
           }
