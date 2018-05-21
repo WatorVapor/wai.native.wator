@@ -20,21 +20,18 @@ class IpfsTextPump {
  public:
   IpfsTextPump();
   ~IpfsTextPump();
-  string statistics(void);
-  // loop
   template <typename T> void eachText(T fn) {
     while (true) {
       pt::ptree task;
       string content;
       string ws;
-      if (fetchMasterTask(task, content)) {
+      if (this->fetchMasterTask(task, content)) {
         fn(task, content,ws_);
       }
     }
   }
  private:
   bool fetchMasterTask(pt::ptree &task, string &content);
-
  private:
   string ws_;
   const string url_ = "https://ipfs.wator.xyz/ipfs";
