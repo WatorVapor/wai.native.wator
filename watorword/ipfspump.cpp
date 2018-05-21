@@ -13,8 +13,13 @@ using namespace std;
 #include <boost/uuid/uuid_io.hpp>
 #include <boost/uuid/uuid_generators.hpp>
 #include <boost/lexical_cast.hpp>
+#include <boost/asio/ip/address.hpp>
+#include <redisclient/redisasyncclient.h>
 
 #include "ipfspump.hpp"
+
+
+void createIpfsPubSubChannel();
 
 IpfsTextPump::IpfsTextPump() : 
 resoureBlock_("") {
@@ -24,6 +29,60 @@ resoureBlock_("") {
         cmd += ws_;
   ::system(cmd.c_str());
 }
+
+#include <thread>
+
+class RedisRelayClient
+{
+public:
+    RedisRelayClient(boost::asio::io_service &ioService)
+        : ioService(ioService)
+    {}
+    void onMessage(const std::vector<char> &buf);
+private:
+    boost::asio::io_service &ioService;
+};
+
+static std::weak_ptr<redisclient::RedisAsyncClient> gPublishRef;
+
+void ipfs_redis_relay_main() {
+  boost::asio::io_service ioService;
+  boost::asio::ip::tcp::resolver resolver(ioService);
+  boost::asio::ip::tcp::resolver::query query("127.0.0.1", "6379");
+  boost::asio::ip::tcp::resolver::iterator iter = resolver.resolve(query);
+  boost::asio::ip::tcp::endpoint endpoint = iter->endpoint();
+  DUMP_VAR(endpoint);
+  
+  auto publish = std::make_shared<redisclient::RedisAsyncClient>(ioService);
+  DUMP_VAR(publish);
+  publish->connect(endpoint, [&](boost::system::error_code ec) {
+    if(ec) {
+      DUMP_VAR(ec);
+    } else {
+      DUMP_VAR(ec);
+      gPublishRef = publish;
+    }
+  });
+
+  redisclient::RedisAsyncClient subscriber(ioService);
+  RedisRelayClient client(ioService);
+  subscriber.connect(endpoint, [&](boost::system::error_code ec){
+    if(ec) {
+      DUMP_VAR(ec);
+    } else {
+      DUMP_VAR(ec);
+      subscriber.subscribe(strConstTrainChannelName,std::bind(&RedisRelayClient::onIpfsRelayMessage, &client, std::placeholders::_1));
+    }
+  });
+  ioService.run();
+}
+
+static void createIpfsPubSubChannel() {
+  std::thread t1(ipfs_redis_relay_main);
+  t1.detach();
+}
+
+
 IpfsTextPump::~IpfsTextPump() {}
 
 
