@@ -77,6 +77,6 @@ int main(int ac, char *av[]) {
     ostrich.commitArticle(task,ws);
   };
   IpfsTextPump txtPump();
-  txtPump.eachTextFromMaster(clawText);
+  txtPump.eachText(clawText);
   return 0;
 }
