@@ -19,7 +19,6 @@ namespace pt = boost::property_tree;
 class IpfsTextPump {
  public:
   IpfsTextPump();
-  IpfsTextPump(const string &ipfs);
   ~IpfsTextPump();
   string statistics(void);
   // loop
@@ -39,7 +38,6 @@ class IpfsTextPump {
   bool fetchMasterTask(pt::ptree &task, string &content);
 
  private:
-  const string ipfs_;
   int iTototl = 0;
   int iProccessed = 0;
 };
