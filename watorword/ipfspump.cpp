@@ -16,7 +16,8 @@ using namespace std;
 
 #include "ipfspump.hpp"
 
-IpfsTextPump::IpfsTextPump() {
+IpfsTextPump::IpfsTextPump() : 
+resoureBlock_("") {
   auto uuid = boost::uuids::random_generator()();
   ws_ = "/tmp/wai.native/" + boost::lexical_cast<std::string>(uuid);
   string cmd = "mkdir -p ";
@@ -31,6 +32,10 @@ IpfsTextPump::~IpfsTextPump() {}
 namespace pt = boost::property_tree;
 
 bool IpfsTextPump::fetchMasterTask(pt::ptree &task, string &content) {
+  if(resoureBlock_.empty()) {
+    return;
+  }
+  
   string taskJSONPath = ws_ + "/task.json";
   string taskTextPath = ws_ + "/task.text";
   string wget = "wget -6 --tries=3 --connect-timeout=10 \"";
