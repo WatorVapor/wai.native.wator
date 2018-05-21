@@ -49,7 +49,7 @@ private:
 
 static std::weak_ptr<redisclient::RedisAsyncClient> gPublishRef;
 
-void ipfs_redis_relay_main() {
+void ipfs_redis_relay_main(void) {
   boost::asio::io_service ioService;
   boost::asio::ip::tcp::resolver resolver(ioService);
   boost::asio::ip::tcp::resolver::query query("127.0.0.1", "6379");
@@ -75,13 +75,13 @@ void ipfs_redis_relay_main() {
       DUMP_VAR(ec);
     } else {
       DUMP_VAR(ec);
-      subscriber.subscribe(strConstRelaySubChannelName,std::bind(&RedisRelayClient::onIpfsRelayMessage, &client, std::placeholders::_1));
+      subscriber.subscribe(strConstRelaySubChannelName,std::bind(&RedisRelayClient::onMessage, &client, std::placeholders::_1));
     }
   });
   ioService.run();
 }
 
-static void createIpfsPubSubChannel() {
+void createIpfsPubSubChannel(void) {
   std::thread t1(ipfs_redis_relay_main);
   t1.detach();
 }
