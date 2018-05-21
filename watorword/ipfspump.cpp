@@ -14,22 +14,19 @@ using namespace std;
 #include <boost/uuid/uuid_generators.hpp>
 #include <boost/lexical_cast.hpp>
 
-#include "textpump.hpp"
+#include "ipfspump.hpp"
 
-TextPump::TextPump() {}
-TextPump::TextPump(const string &dir) : dir_(dir) {}
-TextPump::TextPump(const string &url, const string &tag)
-    : dir_(""), url_(url), tag_(tag) {
-    
+IpfsTextPump::IpfsTextPump() {
   auto uuid = boost::uuids::random_generator()();
   ws_ = "/tmp/wai.native/" + boost::lexical_cast<std::string>(uuid);
   string cmd = "mkdir -p ";
         cmd += ws_;
   ::system(cmd.c_str());
-    
-    }
-TextPump::~TextPump() {}
-string TextPump::statistics(void) {
+}
+IpfsTextPump::~IpfsTextPump() {}
+
+
+string IpfsTextPump::statistics(void) {
   std::stringstream ss;
   ss << "iTototl=<" << iTototl << ">,iProccessed =<" << iProccessed << ">";
   return ss.str();
@@ -38,7 +35,7 @@ string TextPump::statistics(void) {
 #include <boost/property_tree/xml_parser.hpp>
 namespace pt = boost::property_tree;
 
-bool TextPump::fetchMasterTask(pt::ptree &task, string &content) {
+bool IpfsTextPump::fetchMasterTask(pt::ptree &task, string &content) {
   string taskJSONPath = ws_ + "/task.json";
   string taskTextPath = ws_ + "/task.text";
   string wget = "wget -6 --tries=3 --connect-timeout=10 \"";
