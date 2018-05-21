@@ -41,8 +41,6 @@ bool IpfsTextPump::fetchMasterTask(pt::ptree &task, string &content) {
   string wget = "wget -6 --tries=3 --connect-timeout=10 \"";
   // string wget =  "wget ";
   wget += url_;
-  wget += "/";
-  wget += tag_;
   wget += "\" -O ";
   wget += taskJSONPath;
   DUMP_VAR(wget);
