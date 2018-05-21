@@ -47,6 +47,12 @@ private:
     boost::asio::io_service &ioService;
 };
 
+void RedisRelayClient::onMessage(const std::vector<char> &buf) {
+  string msg(buf.begin(),buf.end());
+  DUMP_VAR(msg);
+}
+
+
 static std::weak_ptr<redisclient::RedisAsyncClient> gPublishRef;
 
 void ipfs_redis_relay_main(void) {
