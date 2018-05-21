@@ -22,8 +22,7 @@ class IpfsTextPump {
   ~IpfsTextPump();
   string statistics(void);
   // loop
-  template <typename T>
-  void eachTextFromMaster(T fn) {
+  template <typename T> void eachText(T fn) {
     while (true) {
       pt::ptree task;
       string content;
