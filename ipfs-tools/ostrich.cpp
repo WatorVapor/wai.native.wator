@@ -76,7 +76,7 @@ int main(int ac, char *av[]) {
     claw.eachMultiByte(learnOstrich);
     ostrich.commitArticle(task,ws);
   };
-  IpfsTextPump txtPump();
+  IpfsTextPump txtPump;
   txtPump.eachText(clawText);
   return 0;
 }
