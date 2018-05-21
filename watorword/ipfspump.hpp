@@ -38,6 +38,7 @@ class IpfsTextPump {
   bool fetchMasterTask(pt::ptree &task, string &content);
 
  private:
+  string ws_;
   int iTototl = 0;
   int iProccessed = 0;
 };
