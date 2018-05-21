@@ -191,6 +191,15 @@ target_link_libraries(wator.castdb.app
   ${LIBS}
 )
 
+
+add_executable(wator.ipfs.ostrich.app 
+  ipfs-tools/ostrich.cpp
+)
+target_link_libraries(wator.ipfs.ostrich.app
+  watorword
+  ${LIBS}
+)
+
 add_executable(wator.ipfs.parrot.app 
   ipfs-tools/parrot.cpp
 )
