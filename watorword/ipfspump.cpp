@@ -26,11 +26,6 @@ IpfsTextPump::IpfsTextPump() {
 IpfsTextPump::~IpfsTextPump() {}
 
 
-string IpfsTextPump::statistics(void) {
-  std::stringstream ss;
-  ss << "iTototl=<" << iTototl << ">,iProccessed =<" << iProccessed << ">";
-  return ss.str();
-}
 
 #include <boost/property_tree/xml_parser.hpp>
 namespace pt = boost::property_tree;
