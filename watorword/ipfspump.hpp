@@ -24,7 +24,6 @@ class IpfsTextPump {
   // loop
   template <typename T>
   void eachTextFromMaster(T fn) {
-    DUMP_VAR2(url_, tag_);
     while (true) {
       pt::ptree task;
       string content;
