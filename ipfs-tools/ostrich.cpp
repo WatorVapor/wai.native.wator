@@ -11,7 +11,7 @@ using namespace std;
 
 #include "ctrlclaw.hpp"
 #include "ostrichword.hpp"
-#include "textpump.hpp"
+#include "ipfspump.hpp"
 
 static string longTxt(
     u8"它是由从地方到全球范围内几百万个私人的、学术界的、"
@@ -76,7 +76,7 @@ int main(int ac, char *av[]) {
     claw.eachMultiByte(learnOstrich);
     ostrich.commitArticle(task,ws);
   };
-  TextPump txtPump("https://www.wator.xyz/wai/text/train/ostrich", "tain.one");
+  IpfsTextPump txtPump();
   txtPump.eachTextFromMaster(clawText);
   return 0;
 }
