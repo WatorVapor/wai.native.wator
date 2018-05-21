@@ -33,7 +33,7 @@ namespace pt = boost::property_tree;
 
 bool IpfsTextPump::fetchMasterTask(pt::ptree &task, string &content) {
   if(resoureBlock_.empty()) {
-    return;
+    return false;
   }
   
   string taskJSONPath = ws_ + "/task.json";
