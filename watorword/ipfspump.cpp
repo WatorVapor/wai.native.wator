@@ -32,6 +32,10 @@ resoureBlock_("") {
 
 #include <thread>
 
+const string strConstRelaySubChannelName("wai.relay.ipfs.to.redis");
+const string strConstRelayPubChannelName("wai.relay.redis.to.ipfs");
+
+
 class RedisRelayClient
 {
 public:
@@ -71,7 +75,7 @@ void ipfs_redis_relay_main() {
       DUMP_VAR(ec);
     } else {
       DUMP_VAR(ec);
-      subscriber.subscribe(strConstTrainChannelName,std::bind(&RedisRelayClient::onIpfsRelayMessage, &client, std::placeholders::_1));
+      subscriber.subscribe(strConstRelaySubChannelName,std::bind(&RedisRelayClient::onIpfsRelayMessage, &client, std::placeholders::_1));
     }
   });
   ioService.run();
