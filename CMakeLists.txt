@@ -42,6 +42,7 @@ add_library(watorword
   #watorword/dictmaster.cpp
   watorword/ctrlclaw.cpp
   watorword/textpump.cpp
+  watorword/ipfspump.cpp
   watorword/wikicrawler.cpp
   watorword/api_entry.cpp
   watorword/api_wai.cpp
