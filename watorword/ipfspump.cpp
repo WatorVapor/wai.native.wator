@@ -28,6 +28,7 @@ resoureBlock_("") {
   string cmd = "mkdir -p ";
         cmd += ws_;
   ::system(cmd.c_str());
+  createIpfsPubSubChannel();
 }
 
 #include <thread>
