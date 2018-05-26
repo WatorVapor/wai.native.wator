@@ -32,6 +32,7 @@ class IpfsTextPump {
   }
  private:
   bool fetchMasterTask(pt::ptree &task, string &content);
+  bool fetchBlockResource(void);
  private:
   string ws_;
   const string url_ = "https://ipfs.wator.xyz/ipfs";
