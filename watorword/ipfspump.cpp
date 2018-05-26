@@ -55,8 +55,15 @@ using json = nlohmann::json;
 void RedisRelayClient::onMessage(const std::vector<char> &buf) {
   //string msg(buf.begin(),buf.end());
   //DUMP_VAR(msg);
-  json j = json::parse(buf.begin(),buf.end());
-  DUMP_VAR(j);
+  json jsonMsg = json::parse(buf.begin(),buf.end());
+  DUMP_VAR(jsonMsg);
+  auto jsonTask = jsonMsg["task"];
+  DUMP_VAR(jsonTask);
+  if(jsonTask.is_string()){
+    auto task = jsonTask.get<std::string>();
+    DUMP_VAR(task);
+  }
+  auto block = jsonMsg["block"];
 }
 
 
