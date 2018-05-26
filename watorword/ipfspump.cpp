@@ -53,10 +53,9 @@ using json = nlohmann::json;
 
 
 void RedisRelayClient::onMessage(const std::vector<char> &buf) {
-  string msg(buf.begin(),buf.end());
-  DUMP_VAR(msg);
-  json j;
-  msg >> j;
+  //string msg(buf.begin(),buf.end());
+  //DUMP_VAR(msg);
+  json j = json::parse(buf.begin(),buf.end());
   DUMP_VAR(j);
 }
 
