@@ -15,6 +15,8 @@ using namespace std;
 #include <boost/lexical_cast.hpp>
 #include <boost/asio/ip/address.hpp>
 #include <redisclient/redisasyncclient.h>
+#include <boost/algorithm/string/predicate.hpp>
+#include <boost/lexical_cast.hpp>
 
 #include "ipfspump.hpp"
 
@@ -51,6 +53,7 @@ private:
 #include <nlohmann/json.hpp>
 using json = nlohmann::json;
 
+static string gBlock = ""; 
 
 void RedisRelayClient::onMessage(const std::vector<char> &buf) {
   //string msg(buf.begin(),buf.end());
@@ -62,8 +65,18 @@ void RedisRelayClient::onMessage(const std::vector<char> &buf) {
   if(jsonTask.is_string()){
     auto task = jsonTask.get<std::string>();
     DUMP_VAR(task);
+    if(task == "wator.ipfs.ostrich.app") {
+      auto jsonBlock = jsonMsg["block"];
+      if(jsonBlock.is_string()){
+        auto block = jsonBlock.get<std::string>();
+        DUMP_VAR(block);
+        if(boost::starts_with(block,"Qm")) {
+          gBlock = block;
+          DUMP_VAR(gBlock);
+        }
+      }
+    }
   }
-  auto block = jsonMsg["block"];
 }
 
 
