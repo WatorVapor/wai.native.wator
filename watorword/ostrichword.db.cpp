@@ -45,12 +45,12 @@ void OstrichWord::commitArticle(const pt::ptree &task,const string &ws) {
 using json = nlohmann::json;
 void commitIpfs(const json &response);
 
-void OstrichWord::commitArticleIpfs(const pt::ptree &task,const string &ws) {
+void OstrichWord::commitArticleIpfs(const json &task,const string &ws) {
   auto wordArrays = pickupWordRanking();
   multiWordOfOneArticle_.clear();
   for (auto word : wordArrays) {
     DUMP_VAR(word);
-    json resp;
+    json resp(task);
     resp["word"] = word;
     commitIpfs(resp);
 /*    
