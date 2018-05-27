@@ -24,8 +24,8 @@ using namespace std;
 
 void createIpfsPubSubChannel();
 
-IpfsTextPump::IpfsTextPump() : 
-resoureBlock_("") {
+IpfsTextPump::IpfsTextPump()
+{
   auto uuid = boost::uuids::random_generator()();
   ws_ = "/tmp/wai.native/" + boost::lexical_cast<std::string>(uuid);
   string cmd = "mkdir -p ";
@@ -159,8 +159,9 @@ void IpfsTextPump::parseResourceBlock(const string & block) {
   json jsonBlock = json::parse(block.begin(),block.end());
   DUMP_VAR(jsonBlock);
   auto resourceJson = jsonBlock["resource"];
-  for (auto it = resourceJson.begin(); it != resourceJson.end(); ++it) {
-    auto resoureCID = it->get<std::string>();
+  
+  for (auto& element : resourceJson) {
+    auto resoureCID = element.get<std::string>();
     DUMP_VAR(resoureCID);
     if(boost::starts_with(resoureCID,"Qm")) {
       resoureCIDs_.push_back(resoureCID);
