@@ -127,8 +127,17 @@ IpfsTextPump::~IpfsTextPump() {}
 #include <boost/property_tree/xml_parser.hpp>
 namespace pt = boost::property_tree;
 
+
+bool IpfsTextPump::fetchBlockResource(void) {
+  if(gBlock.empty()) {
+    return return;
+  }
+  DUMP_VAR(gBlock);
+}
+
 bool IpfsTextPump::fetchMasterTask(pt::ptree &task, string &content) {
   if(resoureBlock_.empty()) {
+    this.fetchBlockResource();
     return false;
   }
   
