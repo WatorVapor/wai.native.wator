@@ -74,7 +74,7 @@ int main(int ac, char *av[]) {
     TRACE_VAR(ssTask.str());
     claw.claw(content);
     claw.eachMultiByte(learnOstrich);
-    ostrich.commitArticle(task,ws);
+    ostrich.commitArticleIpfs(task,ws);
   };
   IpfsTextPump txtPump;
   txtPump.eachText(clawText);
