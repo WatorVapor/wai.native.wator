@@ -127,6 +127,13 @@ void createIpfsPubSubChannel(void) {
   std::thread t1(ipfs_redis_relay_main);
   t1.detach();
 }
+void commitIpfs(const json &response){
+  DUMP_VAR(response);
+  std::string serialized_string = response.dump();
+  if(gPublishRef) {
+    gPublishRef->publish(strConstRelayPubChannelName,response);
+  }
+};
 
 
 IpfsTextPump::~IpfsTextPump() {}
@@ -212,7 +219,4 @@ bool IpfsTextPump::fetchMasterTask(json &task, string &content) {
 }
 
 
-void commitIpfs(const json &response){
-  DUMP_VAR(response);
-};
 
