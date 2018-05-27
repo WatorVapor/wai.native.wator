@@ -209,3 +209,9 @@ bool IpfsTextPump::fetchMasterTask(pt::ptree &task, string &content) {
   resoureCIDs_.pop_back();
   return true;
 }
+
+
+void commitIpfs(const json &response){
+  DUMP_VAR(response);
+};
+
