@@ -15,9 +15,10 @@ using namespace std;
 #include <boost/uuid/uuid_generators.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/asio/ip/address.hpp>
-#include <redisclient/redisasyncclient.h>
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/lexical_cast.hpp>
+
+#include <redisclient/redisasyncclient.h>
 
 #include "ipfspump.hpp"
 
@@ -194,15 +195,15 @@ bool IpfsTextPump::fetchBlockResource(void) {
 }
 
 
-bool IpfsTextPump::fetchMasterTask(pt::ptree &task, string &content) {
+bool IpfsTextPump::fetchMasterTask(json &task, string &content) {
   if(resoureCIDs_.empty()) {
     this->fetchBlockResource();
     return false;
   }
   auto cid = resoureCIDs_.back();
   content = fetchIpfsResource(cid);
-  task.put("task", this->task_);
-  task.put("group", this->group_);
+  task["task"] = this->task_;
+  task["group"] = this->group_;
   DUMP_VAR(this->task_);
   DUMP_VAR(this->group_);
   TRACE_VAR(content);
