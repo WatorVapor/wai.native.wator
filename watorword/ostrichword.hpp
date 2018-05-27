@@ -23,6 +23,7 @@ class OstrichWord {
   ~OstrichWord();
   void learn(const vector<string> &word);
   void commitArticle(const pt::ptree &task,const string &ws);
+  void commitArticleIpfs(const pt::ptree &task,const string &ws);
 
  private:
   void pushMultiWord(const string &word);
