@@ -190,7 +190,7 @@ bool IpfsTextPump::fetchMasterTask(pt::ptree &task, string &content) {
   }
   auto cid = resoureCIDs_.back();
   content = fetchIpfsResource(cid);
-  DUMP_VAR(text);
+  DUMP_VAR(content);
   resoureCIDs_.pop_back();
   return true;
 }
