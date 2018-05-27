@@ -39,6 +39,8 @@ class IpfsTextPump {
   string ws_;
   const string url_ = "https://ipfs.wator.xyz/ipfs";
   vector<string> resoureCIDs_ = {};
+  string group_;
+  string task_;
   int iTototl = 0;
   int iProccessed = 0;
 };
