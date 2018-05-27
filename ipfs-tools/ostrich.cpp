@@ -68,10 +68,8 @@ int main(int ac, char *av[]) {
     ostrich.learn(words);
   };
   CtrlClaw claw;
-  auto clawText = [&](const pt::ptree &task, string &content,string &ws) {
-    std::stringstream ssTask;
-    pt::write_json(ssTask, task);
-    TRACE_VAR(ssTask.str());
+  auto clawText = [&](const json &task, string &content,string &ws) {
+    TRACE_VAR(task);
     claw.claw(content);
     claw.eachMultiByte(learnOstrich);
     ostrich.commitArticleIpfs(task,ws);
