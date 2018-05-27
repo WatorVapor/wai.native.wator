@@ -107,6 +107,7 @@ void ipfs_redis_relay_main(void) {
     } else {
       DUMP_VAR(ec);
       gPublishRef = publish;
+      DUMP_VAR(gPublishRef.expired());
     }
   });
 
@@ -121,6 +122,7 @@ void ipfs_redis_relay_main(void) {
     }
   });
   DUMP_VAR(publish);
+  DUMP_VAR(gPublishRef.expired());
   ioService.run();
   DUMP_VAR(publish);
 }
