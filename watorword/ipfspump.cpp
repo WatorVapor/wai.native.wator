@@ -55,6 +55,7 @@ private:
 using json = nlohmann::json;
 
 static string gBlockCID = "";
+static string gTask = "";
 static mutex gBlockMutex;
 
 void RedisRelayClient::onMessage(const std::vector<char> &buf) {
@@ -66,8 +67,12 @@ void RedisRelayClient::onMessage(const std::vector<char> &buf) {
   DUMP_VAR(jsonTask);
   if(jsonTask.is_string()){
     auto task = jsonTask.get<std::string>();
-    DUMP_VAR(task);
     if(task == "wator.ipfs.ostrich.app") {
+      DUMP_VAR(task);
+      {
+        std::lock_guard<std::mutex> guard(gBlockMutex);
+        gTask = task;
+      }
       auto jsonBlock = jsonMsg["block"];
       if(jsonBlock.is_string()){
         auto block = jsonBlock.get<std::string>();
@@ -167,6 +172,10 @@ void IpfsTextPump::parseResourceBlock(const string & block) {
       resoureCIDs_.push_back(resoureCID);
     }
   }
+  auto groupJson = jsonBlock["group"];
+  if(groupJson.is_string()) {
+    this->group_ = groupJson.get<std::string>();
+  }
 }
 
 bool IpfsTextPump::fetchBlockResource(void) {
@@ -178,7 +187,9 @@ bool IpfsTextPump::fetchBlockResource(void) {
   auto blocks = this->fetchIpfsResource(gBlockCID);
   DUMP_VAR(blocks);
   this->parseResourceBlock(blocks);
+  this->task_ = gTask;
   gBlockCID = "";
+  gTask = "";
   return true;
 }
 
@@ -190,6 +201,8 @@ bool IpfsTextPump::fetchMasterTask(pt::ptree &task, string &content) {
   }
   auto cid = resoureCIDs_.back();
   content = fetchIpfsResource(cid);
+  DUMP_VAR(this->task_);
+  DUMP_VAR(this->group_);
   TRACE_VAR(content);
   resoureCIDs_.pop_back();
   return true;
