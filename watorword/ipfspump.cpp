@@ -130,6 +130,30 @@ IpfsTextPump::~IpfsTextPump() {}
 #include <boost/property_tree/xml_parser.hpp>
 namespace pt = boost::property_tree;
 
+string IpfsTextPump::fetchIpfsResource(const string &cid) {
+  string result;
+  string urlIpfs = url_ + "/" + cid;
+  DUMP_VAR(urlIpfs);
+  
+  string taskTextPath = ws_ + "/ipfs.text";
+  string wget = "wget -6 --tries=3 --connect-timeout=10 \"";
+  // string wget =  "wget ";
+  wget += urlIpfs;
+  wget += "\" -O ";
+  wget += taskTextPath;
+  DUMP_VAR(wget);
+  ::system(wget.c_str());
+  try {  
+    std::ifstream textStream(taskTextPath);
+    std::string str((std::istreambuf_iterator<char>(textStream)),
+                    std::istreambuf_iterator<char>());
+    result = str;
+    textStream.close();
+  } catch (const std::exception &ex) {
+    DUMP_VAR(ex.what());
+  }
+  return result;
+}
 
 bool IpfsTextPump::fetchBlockResource(void) {
   std::lock_guard<std::mutex> guard(gBlockMutex);
@@ -137,6 +161,8 @@ bool IpfsTextPump::fetchBlockResource(void) {
     return false;
   }
   DUMP_VAR(gBlock);
+  auto blocks = this->fetchIpfsResource(gBlock);
+  DUMP_VAR(blocks);
   gBlock = "";
   return true;
 }
