@@ -34,6 +34,7 @@ class IpfsTextPump {
   bool fetchMasterTask(pt::ptree &task, string &content);
   bool fetchBlockResource(void);
   string fetchIpfsResource(const string &cid);
+  void parseResourceBlock(const block);
  private:
   string ws_;
   const string url_ = "https://ipfs.wator.xyz/ipfs";
