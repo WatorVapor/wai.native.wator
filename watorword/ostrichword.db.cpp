@@ -41,16 +41,25 @@ void OstrichWord::commitArticle(const pt::ptree &task,const string &ws) {
   }
 }
 
+#include <nlohmann/json.hpp>
+using json = nlohmann::json;
+void commitIpfs(const json &response);
+
 void OstrichWord::commitArticleIpfs(const pt::ptree &task,const string &ws) {
   auto wordArrays = pickupWordRanking();
   multiWordOfOneArticle_.clear();
   for (auto word : wordArrays) {
     DUMP_VAR(word);
+    json resp;
+    resp["word"] = word;
+    commitIpfs(resp);
+/*    
     pt::ptree upTask = task;
     upTask.put("word", word);
     string task_word_upPath = ws + "/task_word_up.json";
     pt::write_json(task_word_upPath, upTask);    
     auto tagOpt = task.get_optional<string>("tag");
+*/
   }
 }
 
