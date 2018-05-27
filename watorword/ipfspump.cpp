@@ -7,6 +7,7 @@
 #include <string>
 #include <thread>
 #include <vector>
+#include <mutex>
 using namespace std;
 
 #include <boost/uuid/uuid.hpp>
@@ -53,7 +54,8 @@ private:
 #include <nlohmann/json.hpp>
 using json = nlohmann::json;
 
-static string gBlock = ""; 
+static string gBlock = "";
+static mutex gBlockMutex;
 
 void RedisRelayClient::onMessage(const std::vector<char> &buf) {
   //string msg(buf.begin(),buf.end());
@@ -71,6 +73,7 @@ void RedisRelayClient::onMessage(const std::vector<char> &buf) {
         auto block = jsonBlock.get<std::string>();
         DUMP_VAR(block);
         if(boost::starts_with(block,"Qm")) {
+          std::lock_guard<std::mutex> guard(gBlockMutex);
           gBlock = block;
           DUMP_VAR(gBlock);
         }
@@ -129,10 +132,12 @@ namespace pt = boost::property_tree;
 
 
 bool IpfsTextPump::fetchBlockResource(void) {
+  std::lock_guard<std::mutex> guard(gBlockMutex);
   if(gBlock.empty()) {
     return false;
   }
   DUMP_VAR(gBlock);
+  gBlock = "";
   return true;
 }
 
