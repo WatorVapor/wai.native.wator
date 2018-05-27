@@ -132,7 +132,7 @@ void commitIpfs(const json &response){
   std::string serialized_string = response.dump();
   if(gPublishRef.expired()) {
     auto ptr = gPublishRef.lock();
-    ptr->publish(strConstRelayPubChannelName,response);
+    ptr->publish(strConstRelayPubChannelName,serialized_string);
   }
 };
 
