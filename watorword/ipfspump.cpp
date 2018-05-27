@@ -135,7 +135,7 @@ void commitIpfs(const json &response){
   DUMP_VAR(response);
   std::string serialized_string = response.dump();
   DUMP_VAR(gPublishRef.expired());
-  if(gPublishRef.expired()) {
+  if(!gPublishRef.expired()) {
     auto ptr = gPublishRef.lock();
     ptr->publish(strConstRelayPubChannelName,serialized_string,[&](const redisclient::RedisValue &) {
       DUMP_VAR(serialized_string);
