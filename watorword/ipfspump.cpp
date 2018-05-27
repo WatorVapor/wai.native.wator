@@ -120,7 +120,9 @@ void ipfs_redis_relay_main(void) {
       subscriber.subscribe(strConstRelaySubChannelName,std::bind(&RedisRelayClient::onMessage, &client, std::placeholders::_1));
     }
   });
+  DUMP_VAR(publish);
   ioService.run();
+  DUMP_VAR(publish);
 }
 
 void createIpfsPubSubChannel(void) {
