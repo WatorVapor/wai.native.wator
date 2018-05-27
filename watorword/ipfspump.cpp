@@ -130,9 +130,10 @@ namespace pt = boost::property_tree;
 
 bool IpfsTextPump::fetchBlockResource(void) {
   if(gBlock.empty()) {
-    return return;
+    return false;
   }
   DUMP_VAR(gBlock);
+  return;
 }
 
 bool IpfsTextPump::fetchMasterTask(pt::ptree &task, string &content) {
