@@ -130,7 +130,7 @@ void createIpfsPubSubChannel(void) {
 void commitIpfs(const json &response){
   DUMP_VAR(response);
   std::string serialized_string = response.dump();
-  if(gPublishRef) {
+  if(gPublishRef.expired()) {
     gPublishRef->publish(strConstRelayPubChannelName,response);
   }
 };
