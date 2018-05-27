@@ -32,5 +32,5 @@ class OstrichWord {
  private:
   map<string, int> multiWordOfOneArticle_;
   const int maxWordLength_ = 32;
-  const int minWordRepeateTimes_ = 9;
+  const int minWordRepeateTimes_ = 3;
 };
