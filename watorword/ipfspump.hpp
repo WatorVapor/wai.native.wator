@@ -6,13 +6,8 @@
 using namespace std;
 #pragma once
 
-#include <boost/filesystem.hpp>
-namespace fs = boost::filesystem;
-#include <boost/foreach.hpp>
-#include <boost/optional.hpp>
-#include <boost/property_tree/json_parser.hpp>
-#include <boost/property_tree/ptree.hpp>
-namespace pt = boost::property_tree;
+#include <nlohmann/json.hpp>
+using json = nlohmann::json;
 #include "log.hpp"
 
 
@@ -22,7 +17,7 @@ class IpfsTextPump {
   ~IpfsTextPump();
   template <typename T> void eachText(T fn) {
     while (true) {
-      pt::ptree task;
+      json task;
       string content;
       string ws;
       if (this->fetchMasterTask(task, content)) {
@@ -31,7 +26,7 @@ class IpfsTextPump {
     }
   }
  private:
-  bool fetchMasterTask(pt::ptree &task, string &content);
+  bool fetchMasterTask(json &task, string &content);
   bool fetchBlockResource(void);
   string fetchIpfsResource(const string &cid);
   void parseResourceBlock(const string &block);
