@@ -201,6 +201,8 @@ bool IpfsTextPump::fetchMasterTask(pt::ptree &task, string &content) {
   }
   auto cid = resoureCIDs_.back();
   content = fetchIpfsResource(cid);
+  task.put("task", this->task_);
+  task.put("group", this->group_);
   DUMP_VAR(this->task_);
   DUMP_VAR(this->group_);
   TRACE_VAR(content);
