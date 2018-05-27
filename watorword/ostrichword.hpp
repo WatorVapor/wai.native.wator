@@ -16,6 +16,9 @@ using namespace std;
 #include <boost/property_tree/ptree.hpp>
 namespace pt = boost::property_tree;
 
+#include <nlohmann/json.hpp>
+using json = nlohmann::json;
+
 class OstrichWord {
  public:
   OstrichWord(const string &database);
@@ -23,7 +26,7 @@ class OstrichWord {
   ~OstrichWord();
   void learn(const vector<string> &word);
   void commitArticle(const pt::ptree &task,const string &ws);
-  void commitArticleIpfs(const pt::ptree &task,const string &ws);
+  void commitArticleIpfs(const json &task,const string &ws);
 
  private:
   void pushMultiWord(const string &word);
