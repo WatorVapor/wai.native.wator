@@ -137,8 +137,8 @@ void commitIpfs(const json &response){
   DUMP_VAR(gPublishRef.expired());
   if(!gPublishRef.expired()) {
     auto ptr = gPublishRef.lock();
-    ptr->publish(strConstRelayPubChannelName,serialized_string,[&](const redisclient::RedisValue &) {
-      DUMP_VAR(serialized_string);
+    ptr->publish(strConstRelayPubChannelName,serialized_string,[&](const redisclient::RedisValue &value) {
+      DUMP_VAR(value);
     });
   }
 };
