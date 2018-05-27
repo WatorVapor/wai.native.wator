@@ -54,7 +54,7 @@ private:
 #include <nlohmann/json.hpp>
 using json = nlohmann::json;
 
-static string gBlock = "";
+static string gBlockCID = "";
 static mutex gBlockMutex;
 
 void RedisRelayClient::onMessage(const std::vector<char> &buf) {
@@ -74,8 +74,8 @@ void RedisRelayClient::onMessage(const std::vector<char> &buf) {
         DUMP_VAR(block);
         if(boost::starts_with(block,"Qm")) {
           std::lock_guard<std::mutex> guard(gBlockMutex);
-          gBlock = block;
-          DUMP_VAR(gBlock);
+          gBlockCID = block;
+          DUMP_VAR(gBlockCID);
         }
       }
     }
@@ -155,20 +155,35 @@ string IpfsTextPump::fetchIpfsResource(const string &cid) {
   return result;
 }
 
+void IpfsTextPump::parseResourceBlock(const string & block) {
+  json jsonBlock = json::parse(block.begin(),block.end());
+  DUMP_VAR(jsonBlock);
+  auto resourceJson = jsonBlock["resource"];
+  for (auto it = resourceJson.begin(); it != resourceJson.end(); ++it) {
+    auto resoureCID = it->get<std::string>();
+    DUMP_VAR(resoureCID);
+    if(boost::starts_with(resoureCID,"Qm")) {
+      resoureCIDs_.push_back(resoureCID);
+    }
+  }
+}
+
 bool IpfsTextPump::fetchBlockResource(void) {
   std::lock_guard<std::mutex> guard(gBlockMutex);
-  if(gBlock.empty()) {
+  if(gBlockCID.empty()) {
     return false;
   }
-  DUMP_VAR(gBlock);
+  DUMP_VAR(gBlockCID);
   auto blocks = this->fetchIpfsResource(gBlock);
   DUMP_VAR(blocks);
-  gBlock = "";
+  this->parseResourceBlock(blocks);
+  gBlockCID = "";
   return true;
 }
 
+
 bool IpfsTextPump::fetchMasterTask(pt::ptree &task, string &content) {
-  if(resoureBlock_.empty()) {
+  if(resoureCIDs_.empty()) {
     this->fetchBlockResource();
     return false;
   }
