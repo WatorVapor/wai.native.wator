@@ -188,6 +188,10 @@ bool IpfsTextPump::fetchMasterTask(pt::ptree &task, string &content) {
     this->fetchBlockResource();
     return false;
   }
+  auto cid = resoureCIDs_.back();
+  auto text = fetchIpfsResource(cid);
+  DUMP_VAR(text);
+  resoureCIDs_.pop_back();
   
 #if 0
   string taskJSONPath = ws_ + "/task.json";
