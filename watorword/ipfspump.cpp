@@ -133,7 +133,7 @@ bool IpfsTextPump::fetchBlockResource(void) {
     return false;
   }
   DUMP_VAR(gBlock);
-  return;
+  return true;
 }
 
 bool IpfsTextPump::fetchMasterTask(pt::ptree &task, string &content) {
