@@ -137,7 +137,7 @@ bool IpfsTextPump::fetchBlockResource(void) {
 
 bool IpfsTextPump::fetchMasterTask(pt::ptree &task, string &content) {
   if(resoureBlock_.empty()) {
-    this.fetchBlockResource();
+    this->fetchBlockResource();
     return false;
   }
   
