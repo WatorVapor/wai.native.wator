@@ -175,7 +175,7 @@ bool IpfsTextPump::fetchBlockResource(void) {
     return false;
   }
   DUMP_VAR(gBlockCID);
-  auto blocks = this->fetchIpfsResource(gBlock);
+  auto blocks = this->fetchIpfsResource(gBlockCID);
   DUMP_VAR(blocks);
   this->parseResourceBlock(blocks);
   gBlockCID = "";
@@ -189,6 +189,7 @@ bool IpfsTextPump::fetchMasterTask(pt::ptree &task, string &content) {
     return false;
   }
   
+#if 0
   string taskJSONPath = ws_ + "/task.json";
   string taskTextPath = ws_ + "/task.text";
   string wget = "wget -6 --tries=3 --connect-timeout=10 \"";
@@ -235,5 +236,7 @@ bool IpfsTextPump::fetchMasterTask(pt::ptree &task, string &content) {
     DUMP_VAR(ex.what());
     return false;
   }
+#endif
+  
   return true;
 }
