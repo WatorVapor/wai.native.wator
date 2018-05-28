@@ -109,3 +109,47 @@ void OstrichWord::pushMultiWord(const string &word) {
     multiWordOfOneArticle_[word] = 1;
   }
 }
+
+
+vector<json> OstrichWord::pickupWordRankingJson(void) {
+  DUMP_VAR(multiWordOfOneArticle_.size());
+  map<int, vector<string>> localMultiWordRank;
+  for (auto wordSum : multiWordOfOneArticle_) {
+    TRACE_VAR(wordSum.first, wordSum.second);
+    if (wordSum.second >= minWordRepeateTimes_) {
+      TRACE_VAR(wordSum.first, wordSum.second);
+      auto it = localMultiWordRank.find(wordSum.second);
+      if (it != localMultiWordRank.end()) {
+        it->second.push_back(wordSum.first);
+      } else {
+        localMultiWordRank[wordSum.second] = {wordSum.first};
+      }
+    }
+  }
+  DUMP_VAR(localMultiWordRank.size());
+  vector<json> wordArrays;
+  int iCounter = 1;
+  for (auto &record : localMultiWordRank) {
+    DUMP_VAR(record.first);
+    auto words = record.second;
+    for (auto word : words) {
+      bool isShort = false;
+      for (const auto &word2 : words) {
+        auto found = word2.find(word);
+        if (found != string::npos && word2 != word) {
+          DUMP_VAR2(word,word2);
+          isShort = true;
+        }
+      }
+      if (isShort == false) {
+        json upWords;
+        upWords[word] = record.first / minWordRepeateTimes_;
+        if (iCounter % 256 == 0) {
+          wordArrays.push_back(upWords);
+        }
+      }
+    }
+  }
+  return wordArrays;
+}
+
