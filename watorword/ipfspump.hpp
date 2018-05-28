@@ -36,6 +36,7 @@ class IpfsTextPump {
   vector<string> resoureCIDs_ = {};
   string group_;
   string task_;
+  bool isRunBlock = false;
   int iTototl = 0;
   int iProccessed = 0;
 };
