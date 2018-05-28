@@ -131,14 +131,14 @@ vector<json> OstrichWord::pickupWordRankingJson(void) {
   int iCounter = 1;
   vector<json> oneArrays;
   for (auto &record : localMultiWordRank) {
-    DUMP_VAR(record.first);
+    TRACE_VAR(record.first);
     auto words = record.second;
     for (auto word : words) {
       bool isShort = false;
       for (const auto &word2 : words) {
         auto found = word2.find(word);
         if (found != string::npos && word2 != word) {
-          DUMP_VAR2(word,word2);
+          TRACE_VAR(word,word2);
           isShort = true;
         }
       }
