@@ -46,7 +46,7 @@ using json = nlohmann::json;
 void commitIpfs(const json &response);
 
 void OstrichWord::commitArticleIpfs(const json &task,const string &ws) {
-  auto wordArrays = pickupWordRanking();
+  auto wordArrays = pickupWordRankingJson();
   multiWordOfOneArticle_.clear();
   for (auto word : wordArrays) {
     DUMP_VAR(word);
