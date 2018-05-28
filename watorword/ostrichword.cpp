@@ -129,6 +129,7 @@ vector<json> OstrichWord::pickupWordRankingJson(void) {
   DUMP_VAR(localMultiWordRank.size());
   vector<json> wordArrays;
   int iCounter = 1;
+  vector<json> oneArrays;
   for (auto &record : localMultiWordRank) {
     DUMP_VAR(record.first);
     auto words = record.second;
@@ -144,11 +145,18 @@ vector<json> OstrichWord::pickupWordRankingJson(void) {
       if (isShort == false) {
         json upWords;
         upWords[word] = record.first / minWordRepeateTimes_;
+        oneArrays.push_back(upWords);
         if (iCounter % 256 == 0) {
-          wordArrays.push_back(upWords);
+          json collectWords(oneArrays);
+          wordArrays.push_back(collectWords);
+          oneArrays.clear();
         }
       }
     }
+  }
+  if(oneArrays.size() > 0) {
+    json collectWords(oneArrays);
+    wordArrays.push_back(collectWords);
   }
   return wordArrays;
 }
