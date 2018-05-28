@@ -31,6 +31,7 @@ class OstrichWord {
  private:
   void pushMultiWord(const string &word);
   vector<string> pickupWordRanking(void);
+  vector<json> pickupWordRankingJson(void);
 
  private:
   map<string, int> multiWordOfOneArticle_;
