@@ -204,6 +204,7 @@ bool IpfsTextPump::fetchBlockResource(void) {
   DUMP_VAR(blocks);
   this->parseResourceBlock(blocks);
   this->task_ = gTask;
+  this->blockCID_ = gBlockCID;
   gBlockCID = "";
   gTask = "";
   return true;
@@ -212,9 +213,19 @@ bool IpfsTextPump::fetchBlockResource(void) {
 
 bool IpfsTextPump::fetchMasterTask(json &task, string &content) {
   if(resoureCIDs_.empty()) {
+    if(isRunBlock_) {
+      json block;
+      block["task"] = this->task_;
+      block["group"] = this->group_;
+      block["cid"] = this->blockCID_;
+      block["finnish"] = true;
+      commitIpfs(block);
+    }
+    isRunBlock_ = false;
     this->fetchBlockResource();
     return false;
   }
+  isRunBlock_ = true;
   auto cid = resoureCIDs_.back();
   content = fetchIpfsResource(cid);
   task["task"] = this->task_;
