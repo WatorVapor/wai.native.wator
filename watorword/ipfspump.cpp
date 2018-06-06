@@ -185,7 +185,9 @@ void IpfsTextPump::parseResourceBlock(const string & block) {
     auto resoureCID = element.get<std::string>();
     TRACE_VAR(resoureCID);
     if(boost::starts_with(resoureCID,"Qm")) {
-      resoureCIDs_.push_back(resoureCID);
+      if(resoureCIDs_.size() <5) {
+        resoureCIDs_.push_back(resoureCID);
+      }
     }
   }
   auto groupJson = jsonBlock["group"];
