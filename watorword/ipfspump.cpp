@@ -206,7 +206,7 @@ bool IpfsTextPump::fetchBlockResource(void) {
   }
   DUMP_VAR(gBlockCID);
   auto blocks = this->fetchIpfsResource(gBlockCID);
-  DUMP_VAR(blocks);
+  TRACE_VAR(blocks);
   this->parseResourceBlock(blocks);
   this->task_ = gTask;
   this->blockCID_ = gBlockCID;
