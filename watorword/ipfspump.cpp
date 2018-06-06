@@ -178,12 +178,12 @@ string IpfsTextPump::fetchIpfsResource(const string &cid) {
 
 void IpfsTextPump::parseResourceBlock(const string & block) {
   json jsonBlock = json::parse(block.begin(),block.end());
-  DUMP_VAR(jsonBlock);
+  TRACE_VAR(jsonBlock);
   auto resourceJson = jsonBlock["resource"];
   
   for (auto& element : resourceJson) {
     auto resoureCID = element.get<std::string>();
-    DUMP_VAR(resoureCID);
+    TRACE_VAR(resoureCID);
     if(boost::starts_with(resoureCID,"Qm")) {
       resoureCIDs_.push_back(resoureCID);
     }
