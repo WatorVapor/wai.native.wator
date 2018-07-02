@@ -186,7 +186,7 @@ void IpfsTextPump::parseResourceBlock(const string & block) {
     auto resoureCID = element.get<std::string>();
     TRACE_VAR(resoureCID);
     if(boost::starts_with(resoureCID,"Qm")) {
-      if(resoureCIDs_.size() < 5) {
+      if(resoureCIDs_.size() < 20) {
         resoureCIDs_.push_back(resoureCID);
       }
     }
