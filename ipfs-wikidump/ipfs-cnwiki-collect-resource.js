@@ -85,7 +85,7 @@ function readIpfsInfo(path) {
     //console.log('readIpfsInfo::files=<',files,'>');
     files.forEach((file) => {
       //console.log('readIpfsInfo::file=<',file,'>');
-      //console.log('readIpfsInfo::file.content.length=<',file.content.length,'>');
+      console.log('readIpfsInfo::file.content.length=<',file.content.length,'>');
       blockSizeCounter += file.content.length;
       blockResourceCache.push(file.path);
       if(blockSizeCounter >= 1024*1024) {
