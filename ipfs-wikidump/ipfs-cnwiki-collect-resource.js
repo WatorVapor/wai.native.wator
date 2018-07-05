@@ -87,10 +87,14 @@ function readIpfsInfo(path) {
       //console.log('readIpfsInfo::file=<',file,'>');
       console.log('readIpfsInfo::file.path=<',file.path,'>');
       console.log('readIpfsInfo::file.content.length=<',file.content.length,'>');
-      blockSizeCounter += file.content.length;
-      blockResourceCache.push(file.path);
-      if(blockSizeCounter >= 1024*1024) {
-        writeBlock(path);
+      if(file.content.length > 100) {
+        blockSizeCounter += file.content.length;
+        blockResourceCache.push(file.path);
+        if(blockSizeCounter >= 1024*1024) {
+          writeBlock(path);
+        } else {
+          stream.resume();
+        }
       } else {
         stream.resume();
       }
