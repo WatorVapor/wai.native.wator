@@ -87,10 +87,14 @@ function readIpfsInfo(path) {
     files.forEach((file) => {
       //console.log('readIpfsInfo::file=<',file,'>');
       //console.log('readIpfsInfo::file.content.length=<',file.content.length,'>');
-      blockSizeCounter += file.content.length;
-      blockResourceCache.push(file.path);
-      if(blockSizeCounter >= 1024*1024) {
-        writeBlock(path);
+      if(file.content.length > 100) {
+        blockSizeCounter += file.content.length;
+        blockResourceCache.push(file.path);
+        if(blockSizeCounter >= 1024*1024) {
+          writeBlock(path);
+        } else {
+          stream.resume();
+        }
       } else {
         stream.resume();
       }
@@ -103,7 +107,7 @@ function readIpfsInfo(path) {
 
 function writeBlock(path) {
   //console.log('writeBlock::blockSizeCounter=<',blockSizeCounter,'>');
-  //console.log('writeBlock::blockCache=<',blockCache,'>');
+  //console.log('writeBlock::blockResourceCache=<',blockResourceCache,'>');
   let block = {};
   block.prev = prevBlock;
   block.group = gGroup;
@@ -115,7 +119,7 @@ function writeBlock(path) {
   save2Ipfs(bufBlock,path);
   
   blockSizeCounter = 0;
-  blockCache = [];
+  blockResourceCache = [];
 }
 
 async function pushIpfs2BlockDB(key,value) {
