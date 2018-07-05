@@ -57,7 +57,7 @@ function startReadClips() {
   }
   stream.on('data', function (data) {
     //console.log(data.key.toString('utf-8'), '=', data.value.toString('utf-8'));
-    console.log('data.key=<',data.key.toString('utf-8'),'>');
+    //console.log('data.key=<',data.key.toString('utf-8'),'>');
     //console.log('data.value=<',data.value.toString('utf-8'),'>');
     if(data.key.toString('utf-8') !== 'wiki_dump_resume_pos') {
       stream.pause();
@@ -85,8 +85,8 @@ function readIpfsInfo(path) {
     //console.log('readIpfsInfo::files=<',files,'>');
     files.forEach((file) => {
       //console.log('readIpfsInfo::file=<',file,'>');
-      console.log('readIpfsInfo::file.path=<',file.path,'>');
-      console.log('readIpfsInfo::file.content.length=<',file.content.length,'>');
+      //console.log('readIpfsInfo::file.path=<',file.path,'>');
+      //console.log('readIpfsInfo::file.content.length=<',file.content.length,'>');
       if(file.content.length > 100) {
         blockSizeCounter += file.content.length;
         blockResourceCache.push(file.path);
