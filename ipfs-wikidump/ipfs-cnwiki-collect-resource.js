@@ -107,7 +107,7 @@ function readIpfsInfo(path) {
 
 function writeBlock(path) {
   //console.log('writeBlock::blockSizeCounter=<',blockSizeCounter,'>');
-  //console.log('writeBlock::blockCache=<',blockCache,'>');
+  //console.log('writeBlock::blockResourceCache=<',blockResourceCache,'>');
   let block = {};
   block.prev = prevBlock;
   block.group = gGroup;
@@ -119,7 +119,7 @@ function writeBlock(path) {
   save2Ipfs(bufBlock,path);
   
   blockSizeCounter = 0;
-  blockCache = [];
+  blockResourceCache = [];
 }
 
 async function pushIpfs2BlockDB(key,value) {
