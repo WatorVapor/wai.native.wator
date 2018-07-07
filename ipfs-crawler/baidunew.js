@@ -27,6 +27,7 @@ onHttpBody= (body) => {
   for(let i = 0;i < linkKey.length;i++) {
     let key = linkKey[i];
     let linkOne = link[key];
+    console.log('onHttpBody::linkOne=<',linkOne,'>');
     let href = linkOne.attr('href');
     console.log('onHttpBody::href=<',href,'>');
   }
