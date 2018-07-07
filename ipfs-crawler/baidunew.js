@@ -30,7 +30,9 @@ onHttpBody= (body) => {
     //console.log('onHttpBody::linkOne=<',linkOne,'>');
     if(linkOne.attribs && linkOne.attribs.href) {
       let href = linkOne.attribs.href;
-      console.log('onHttpBody::href=<',href,'>');
+      if(href.startsWith('http://') || href.startsWith('https://')) {
+        console.log('onHttpBody::href=<',href,'>');
+      }
     }
   }
 }
