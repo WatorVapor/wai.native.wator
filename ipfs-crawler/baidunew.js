@@ -66,10 +66,18 @@ onHttpBody= (body) => {
 const level = require('level');
 let db = level('./.baidunew_db');
 onWatchLink = (href) => {
-  console.log('onWatchLink::href=<',href,'>');
+  //console.log('onWatchLink::href=<',href,'>');
   db.get(href, function (err, value) {
     if(err) {
-      console.log('onWatchLink::err=<',err,'>');
+      //console.log('onWatchLink::err=<',err,'>');
+      if (err.notFound) {
+        //console.log('onWatchLink::href=<',href,'>');
+        db.put(href,'');
+        onWathNewLink(href);
+      }
     }
   });
+}
+onWathNewLink = (href) => {
+  console.log('onWathNewLink::href=<',href,'>');
 }
