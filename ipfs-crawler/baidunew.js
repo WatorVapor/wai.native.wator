@@ -53,11 +53,18 @@ onHttpBody= (body) => {
     if(linkOne.attribs && linkOne.attribs.href) {
       let href = linkOne.attribs.href;
       if(href.startsWith('http://') || href.startsWith('https://')) {
-        console.log('onHttpBody::href=<',href,'>');
+        //console.log('onHttpBody::href=<',href,'>');
+        onWatchLink(href);
       }
     }
   }
   if(globalLoopIndex < requestList.length) {
     readNews(globalLoopIndex++);
   }
+}
+
+const level = require('level');
+let db = level('./.baidunew_db');
+onWatchLink = (href) => {
+  console.log('onWatchLink::href=<',href,'>');
 }
