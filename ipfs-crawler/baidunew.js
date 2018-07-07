@@ -21,7 +21,7 @@ request.get(requestParam,onHttpRequest);
 onHttpBody= (body) => {
   const $ = cheerio.load(body);
   let link = $('a');
-  //console.log('onHttpBody::link=<',link,'>');
+  console.log('onHttpBody::link=<',link,'>');
   let href = link.attr('href');
   console.log('onHttpBody::href=<',href,'>');
 }
