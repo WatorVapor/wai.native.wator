@@ -2,7 +2,7 @@ const request = require('request');
 const cheerio = require('cheerio');
 
 const requestParam = {
-  url: "http://news.baidu.com"
+  url: "https://news.baidu.com"
 };
 
 onHttpRequest = (error, response, body) => {
