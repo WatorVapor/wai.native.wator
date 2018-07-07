@@ -45,7 +45,7 @@ onHttpBody= (body) => {
   let link = $('a');
   //console.log('onHttpBody::link=<',link,'>');
   let linkKey = Object.keys(link);
-  console.log('onHttpBody::linkKey=<',linkKey,'>');
+  //console.log('onHttpBody::linkKey=<',linkKey,'>');
   for(let i = 0;i < linkKey.length;i++) {
     let key = linkKey[i];
     let linkOne = link[key];
