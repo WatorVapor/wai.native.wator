@@ -67,4 +67,9 @@ const level = require('level');
 let db = level('./.baidunew_db');
 onWatchLink = (href) => {
   console.log('onWatchLink::href=<',href,'>');
+  db.get(href, function (err, value) {
+    if(err) {
+      console.log('onWatchLink::err=<',err,'>');
+    }
+  });
 }
