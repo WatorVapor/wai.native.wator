@@ -12,7 +12,7 @@ onHttpRequest = (error, response, body) => {
   if(response.statusCode !== 200) {
     throw response.statusCode;
   }
-  console.log('onHttpRequest::body=<',body,'>');
+  //console.log('onHttpRequest::body=<',body,'>');
   onHttpBody(body);
 }
 request.get(requestParam,onHttpRequest);
