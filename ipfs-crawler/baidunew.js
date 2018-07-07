@@ -27,8 +27,10 @@ onHttpBody= (body) => {
   for(let i = 0;i < linkKey.length;i++) {
     let key = linkKey[i];
     let linkOne = link[key];
-    console.log('onHttpBody::linkOne=<',linkOne,'>');
-    let href = linkOne.attribs.href;
-    console.log('onHttpBody::href=<',href,'>');
+    //console.log('onHttpBody::linkOne=<',linkOne,'>');
+    if(linkOne.attribs && linkOne.attribs.href) {
+      let href = linkOne.attribs.href;
+      console.log('onHttpBody::href=<',href,'>');
+    }
   }
 }
