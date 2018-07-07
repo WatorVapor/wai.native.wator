@@ -6,7 +6,7 @@ const requestParam = {
 };
 request.get(requestParam,onHttpRequest);
 
-onHttpRequest(error, response, body) {
+onHttpRequest = (error, response, body) => {
   console.log('onHttpRequest::error=<',error,'>');
   console.log('onHttpRequest::response=<',response,'>');
   console.log('onHttpRequest::body=<',body,'>');
