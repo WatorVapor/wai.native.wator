@@ -6,8 +6,12 @@ const requestParam = {
 };
 
 onHttpRequest = (error, response, body) => {
-  console.log('onHttpRequest::error=<',error,'>');
-  console.log('onHttpRequest::response=<',response,'>');
+  if(error) {
+    throw error;
+  }
+  if(response.statusCode !== 200) {
+    throw response.statusCode;
+  }
   console.log('onHttpRequest::body=<',body,'>');
 }
 
