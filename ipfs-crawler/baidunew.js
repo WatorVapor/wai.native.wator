@@ -1,10 +1,22 @@
 const request = require('request');
 const cheerio = require('cheerio');
+const requestList = [
+  'https://news.baidu.com',
+  'https://news.baidu.com/guonei',
+  'https://news.baidu.com/guoji',
+  'https://news.baidu.com/mil',
+  'https://news.baidu.com/finance',
+  'https://news.baidu.com/ent',
+  'https://news.baidu.com/sports',
+  'https://news.baidu.com/internet',
+  'https://news.baidu.com/tech',
+  'https://news.baidu.com/game',
+  'https://news.baidu.com/lady',
+  'https://news.baidu.com/auto',
+  'https://news.baidu.com/house'
+];
 
-const requestParam = {
-  url: "https://news.baidu.com"
-};
-
+let globalLoopIndex = 0;
 onHttpRequest = (error, response, body) => {
   if(error) {
     throw error;
@@ -15,8 +27,18 @@ onHttpRequest = (error, response, body) => {
   //console.log('onHttpRequest::body=<',body,'>');
   onHttpBody(body);
 }
-request.get(requestParam,onHttpRequest);
 
+
+
+readNews = (index) => {
+  const requestParam = {
+    url: requestList[index]
+  };
+  request.get(requestParam,onHttpRequest);
+}
+
+
+readNews(globalLoopIndex);
 
 onHttpBody= (body) => {
   const $ = cheerio.load(body);
@@ -34,5 +56,8 @@ onHttpBody= (body) => {
         console.log('onHttpBody::href=<',href,'>');
       }
     }
+  }
+  if(globalLoopIndex < requestList.length) {
+    readNews(globalLoopIndex++);
   }
 }
