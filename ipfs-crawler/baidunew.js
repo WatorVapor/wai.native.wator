@@ -21,9 +21,13 @@ request.get(requestParam,onHttpRequest);
 onHttpBody= (body) => {
   const $ = cheerio.load(body);
   let link = $('a');
-  console.log('onHttpBody::link=<',link,'>');
+  //console.log('onHttpBody::link=<',link,'>');
   let linkKey = Object.keys(link);
   console.log('onHttpBody::linkKey=<',linkKey,'>');
-  let href = link.attr('href');
-  console.log('onHttpBody::href=<',href,'>');
+  for(let i = 0;i < linkKey.length;i++) {
+    let key = linkKey[i];
+    let linkOne = link[key];
+    let href = linkOne.attr('href');
+    console.log('onHttpBody::href=<',href,'>');
+  }
 }
