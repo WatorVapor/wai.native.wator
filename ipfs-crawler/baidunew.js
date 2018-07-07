@@ -13,6 +13,13 @@ onHttpRequest = (error, response, body) => {
     throw response.statusCode;
   }
   console.log('onHttpRequest::body=<',body,'>');
+  onHttpBody(body);
 }
-
 request.get(requestParam,onHttpRequest);
+
+
+onHttpBody= (body) => {
+  const $ = cheerio.load(body);
+  let link = $('a');
+  console.log('onHttpBody::link=<',link,'>');
+}
