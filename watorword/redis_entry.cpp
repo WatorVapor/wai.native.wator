@@ -1,8 +1,8 @@
 #include "redis_entry.hpp"
 #include "log.hpp"
 
-const string strConstTrainChannelName("wai.train");
-const string strConstTrainResponseChannelName("wai.train.response");
+const string strConstTrainChannelName("wai_train");
+const string strConstTrainResponseChannelName("wai_train_response");
 
 #include<memory>
 #include <chrono>
