@@ -31,7 +31,7 @@ void redis_sub_main(void) {
         }
       });
       ioService.run();
-    } catch(std::exception e) {
+    } catch(std::exception &e) {
       DUMP_VAR(e.what());
     }
     std::this_thread::sleep_for(10s);
@@ -68,7 +68,7 @@ void redis_pub_main(void) {
       });
       DUMP_VAR(publish);
       ioService.run();
-    } catch(std::exception e) {
+    } catch(std::exception &e) {
       DUMP_VAR(e.what());
     }
     //gPublishConnected = false;
