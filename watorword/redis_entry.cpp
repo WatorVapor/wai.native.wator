@@ -18,7 +18,7 @@ void redis_sub_main(void) {
       boost::asio::ip::tcp::resolver::query query("127.0.0.1", "6379");
       boost::asio::ip::tcp::resolver::iterator iter = resolver.resolve(query);
       */
-      boost::asio::ip::tcp::endpoint endpoint(ip::address::from_string("127.0.0.1"), 6379);
+      boost::asio::ip::tcp::endpoint endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 6379);
       DUMP_VAR(endpoint);
       RedisEntryClient client(ioService);
       redisclient::RedisAsyncClient subscriber(ioService);
@@ -52,7 +52,7 @@ void redis_pub_main(void) {
       boost::asio::ip::tcp::resolver::query query("127.0.0.1", "6379");
       boost::asio::ip::tcp::resolver::iterator iter = resolver.resolve(query);
       */
-      boost::asio::ip::tcp::endpoint endpoint(ip::address::from_string("127.0.0.1"), 6379);;
+      boost::asio::ip::tcp::endpoint endpoint(boost::asio::ip::address::from_string("127.0.0.1"), 6379);;
       DUMP_VAR(endpoint);
       RedisEntryClient client(ioService);
       auto publish = std::make_shared<redisclient::RedisAsyncClient>(ioService);
