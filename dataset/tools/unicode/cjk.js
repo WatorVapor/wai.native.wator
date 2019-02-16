@@ -9,6 +9,7 @@ let cjkRange = [
   'cjk','cjkA','cjkB','cjkC','cjkD','cjkE','cjkF'
 ]
 //console.log('cjkRange=<',cjkRange,'>');
+let cjkJson = {};
 
 for(let index in cjkRange.reverse()) {
   let key = cjkRange[index];
@@ -28,6 +29,11 @@ function utf32to8(utf32) {
   //console.log('buf=<',buf,'>');
   let utf8 = iconv.convert(buf);
   //console.log('utf8=<',utf8,'>');  
-  console.log('utf8=<',utf8.toString(),'>');
+  //console.log('utf8=<',utf8.toString(),'>');
+  let key = utf8.toString();
+  cjkJson[key] = true;
 }
+//console.log('cjkJson=<',JSON.stringify(cjkJson,2,' '),'>');
 
+const fs=require("fs");
+fs.writeFileSync('cjk.json',JSON.stringify(cjkJson,2,' '))

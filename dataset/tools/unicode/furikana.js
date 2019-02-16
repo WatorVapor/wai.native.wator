@@ -1,7 +1,7 @@
 const UNICODE = require('./unicode.js');
 const Iconv  = require('iconv').Iconv;
 let iconv = new Iconv('UTF-32', 'UTF-8');
-console.log('iconv=<',iconv,'>');
+//console.log('iconv=<',iconv,'>');
 
 //console.log('UNICODE=<',UNICODE,'>');
 
@@ -24,15 +24,17 @@ for(let index in furikanaRange.reverse()) {
 
 function utf32to8(utf32) {
   //console.log('utf32=<',utf32,'>');
-  let buf = new Buffer(4);
+  let buf = Buffer.alloc(4);
   buf.writeUInt32BE(utf32, 0);
   //console.log('buf=<',buf,'>');
   let utf8 = iconv.convert(buf);
   //console.log('utf8=<',utf8,'>');  
-  console.log('utf8=<',utf8.toString(),'>');
+  //console.log('utf8=<',utf8.toString(),'>');
   let key = utf8.toString();
   furikanaJson[key] = true;
 }
 
-console.log('furikanaJson=<',JSON.stringify(furikanaJson,2,' '),'>');
+//console.log('furikanaJson=<',JSON.stringify(furikanaJson,2,' '),'>');
 
+const fs=require("fs");
+fs.writeFileSync('furikana.json',JSON.stringify(furikanaJson,2,' '))
