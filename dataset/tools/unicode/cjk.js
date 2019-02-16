@@ -23,7 +23,7 @@ for(let index in cjkRange.reverse()) {
 
 function utf32to8(utf32) {
   //console.log('utf32=<',utf32,'>');
-  let buf = Buffer.from(4);
+  let buf = Buffer.alloc(4);
   buf.writeUInt32BE(utf32, 0);
   //console.log('buf=<',buf,'>');
   let utf8 = iconv.convert(buf);
