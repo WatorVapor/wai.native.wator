@@ -44,3 +44,5 @@ db/old.*
 *.app.log
 
 node_modules
+
+package-lock.json
