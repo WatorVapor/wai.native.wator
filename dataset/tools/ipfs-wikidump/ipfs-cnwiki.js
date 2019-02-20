@@ -25,17 +25,36 @@ ipfs.id(function (err, identity) {
 let db = level(dbPath);
 let wikiDumper = false;
 
+let batch = db.batch();
 
 async function pushIpfs2DB(key,value) {
   //console.log('pushPage2DB::key=<',key,'>');
   //console.log('pushPage2DB::value=<',value,'>');
-  db.put(key,value);
+  await db.put(key,value);
+  /*
+  batch.put(key,value);
+  if(batch.length > 16) {
+    await batch.write( (evt) =>{
+      console.log('pushPage2DB::evt=<',evt,'>');
+      batch.clear();
+    });
+  }
+  */
 }
 
-function pushPosIpfs2DB(key,value) {
+async function pushPosIpfs2DB(key,value) {
   //console.log('pushToDB::key=<',key,'>');
   //console.log('pushToDB::value=<',value,'>');
-  db.put(key,value);
+  await db.put(key,value);
+  /*
+  batch.put(key,value);
+  if(batch.length > 16) {
+    await batch.write( (evt) =>{
+      console.log('pushPage2DB::evt=<',evt,'>');
+      batch.clear();
+    });
+  }
+  */
 }
 
 
@@ -86,7 +105,10 @@ function save2Ipfs(cnTitle,cnText,pos) {
   ipfs.add(bufText,function(err, result) {
     if (err) {
       console.log('save2Ipfs::err=<',err,'>');
-      process.exit(0);
+      db.close( (evt)=> {
+        console.log('db.close save2Ipfs::evt=<',evt,'>');
+        process.exit(0);
+      });
       return;
     }
     //console.log('save2Ipfs::result=<',result,'>');
@@ -108,7 +130,35 @@ function save2Ipfs(cnTitle,cnText,pos) {
 
 
 
+process.on('exit', (code) => {
+  console.log('exit ::code=<',code,'>');
+  runCloseDB();
+  console.log('exit ::code=<',code,'>');
+});
 
+
+process.on('SIGINT', (code) => {
+  console.log('SIGINT ::code=<',code,'>');
+  runCloseDB();
+});
+process.on('SIGTERM', (code) => {
+  console.log('SIGTERM ::code=<',code,'>');
+  runCloseDB();
+});
+/*
+process.on('SIGKILL', (code) => {
+  console.log('SIGKILL ::code=<',code,'>');
+  runCloseDB();
+});
+*/
+
+
+runCloseDB = () => {
+  db.close( (evt)=> {
+    console.log('db.close save2Ipfs::evt=<',evt,'>');
+    process.exit(0);
+  });
+}
 
 
 function filterTitle(filters,title) {
