@@ -1,4 +1,4 @@
-const dumpPath = '/watorvapor/wai.storage/dumps.wikimedia.org/zhwiki/zhwiki-20180501-pages-articles.xml';
+const dumpPath = '/watorvapor/wai.storage/dumps.wikimedia.org/zhwiki/zhwiki-20190201-pages-articles.xml';
 const dbPath = '/watorvapor/wai.storage/dumps.wikimedia.org/output_leveldb/cnwiki/ipfs';
 let skipTitles = [
   'Wikipedia:','Help:','Template:','Category:','MediaWiki:','Hex',
@@ -8,8 +8,8 @@ let skipTitles = [
 const wiki = require('./parseWikiDumper.js');
 const level = require('level');
 const ipfsAPI = require('ipfs-http-client');
-const ipfs = ipfsAPI({host: 'localhost', port: '5002', protocol: 'http'});
-
+//const ipfs = ipfsAPI({host: 'localhost', port: '5001', protocol: 'http'});
+const ipfs = ipfsAPI('/ip4/127.0.0.1/tcp/5001');
 
 ipfs.id(function (err, identity) {
   if (err) {
@@ -83,7 +83,7 @@ function onPage(zhTitle,pos,zhText){
 
 function save2Ipfs(cnTitle,cnText,pos) {
   let bufText = Buffer.from(cnText, 'utf8');
-  ipfs.files.add(bufText,function(err, result) {
+  ipfs.add(bufText,function(err, result) {
     if (err) {
       console.log('save2Ipfs::err=<',err,'>');
       process.exit(0);
