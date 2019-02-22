@@ -6,76 +6,19 @@ let skipTitles = [
 ];
 
 const wiki = require('./parseWikiDumper.js');
-const level = require('level');
-const ipfsAPI = require('ipfs-http-client');
-//const ipfs = ipfsAPI({host: 'localhost', port: '5001', protocol: 'http'});
-const ipfs = ipfsAPI('/ip4/127.0.0.1/tcp/5001');
+const leveldown = require('leveldown');
+const IpfsSave = require('./ipfs-save.js');
+const LevelSave = require('./ipfs-level.js');
 
-ipfs.id(function (err, identity) {
-  if (err) {
-    throw err;
-  }
-  console.log('ipfs.id identity=<',identity,'>');
+let wikiDumper = false;
+let iSave = new IpfsSave();
+let lSave = new LevelSave(()=> {
+  wikiDumper = new wiki(dumpPath,ResumePos,onPage);
 });
 
-
-
-
-
-let db = level(dbPath);
-let wikiDumper = false;
-
-let batch = db.batch();
-
-async function pushIpfs2DB(key,value) {
-  //console.log('pushPage2DB::key=<',key,'>');
-  //console.log('pushPage2DB::value=<',value,'>');
-  await db.put(key,value);
-  /*
-  batch.put(key,value);
-  if(batch.length > 16) {
-    await batch.write( (evt) =>{
-      console.log('pushPage2DB::evt=<',evt,'>');
-      batch.clear();
-    });
-  }
-  */
-}
-
-async function pushPosIpfs2DB(key,value) {
-  //console.log('pushToDB::key=<',key,'>');
-  //console.log('pushToDB::value=<',value,'>');
-  await db.put(key,value);
-  /*
-  batch.put(key,value);
-  if(batch.length > 16) {
-    await batch.write( (evt) =>{
-      console.log('pushPage2DB::evt=<',evt,'>');
-      batch.clear();
-    });
-  }
-  */
-}
-
-
-
-const ResumePosKey = 'wiki_dump_resume_pos';
-let ResumePos = 0;
-db.get(ResumePosKey, function (err, value) {
-  if (!err) {
-    console.log('db.get::value=<',value,'>');
-    ResumePos = parseInt(value);
-    if(ResumePos > 1024) {
-      ResumePos -= 1024;
-    }
-  }
-  setTimeout(function(){
-    wikiDumper = new wiki(dumpPath,ResumePos,onPage);
-  },1);
-})
-
-
 const opencc = require('node-opencc');
+let iSavePageCounter = 0;
+const iConstSavePageOneTime = 2000;
 
 function onPage(zhTitle,pos,zhText){
   //console.log('onPage::zhTitle=<',zhTitle,'>');
@@ -96,36 +39,12 @@ function onPage(zhTitle,pos,zhText){
   let cnTitle = opencc.traditionalToSimplified(zhTitle);
   let cnText = opencc.traditionalToSimplified(zhText);
   //console.log('onPage::cnText=<',cnText,'>');
-  save2Ipfs(cnTitle,cnText,pos);
-}
-
-
-function save2Ipfs(cnTitle,cnText,pos) {
-  let bufText = Buffer.from(cnText, 'utf8');
-  ipfs.add(bufText,function(err, result) {
-    if (err) {
-      console.log('save2Ipfs::err=<',err,'>');
-      db.close( (evt)=> {
-        console.log('db.close save2Ipfs::evt=<',evt,'>');
-        process.exit(0);
-      });
-      return;
-    }
-    //console.log('save2Ipfs::result=<',result,'>');
-    let hash = result[0].hash;
-    //console.log('save2Ipfs::hash=<',hash,'>');
-    //console.log('save2Ipfs::cnTitle=<',cnTitle,'>');
-    //console.log('save2Ipfs::pos=<',pos,'>');
-    if(hash) {
-      pushIpfs2DB(hash,cnTitle);
-      pushIpfs2DB(ResumePosKey,pos);
-      if(wikiDumper) {
-        wikiDumper.resume();
-      }
-    }
+  iSave.save(cnTitle,cnText,pos,(hash) => {
+    lSave.save(cnTitle,cnText,pos,()=> {
+      wikiDumper.resume();
+    });
   });
 }
-
 
 
 
