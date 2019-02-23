@@ -69,6 +69,9 @@ module.exports = class IpfsSave {
         self._watchIPFSStatus();
       },10*1000)    
     } catch(e) {
+      if(typeof self.onError === 'function') {
+        self.onError(err);
+      }
     }
   }
   _restartIpfs() {
@@ -78,6 +81,7 @@ module.exports = class IpfsSave {
       execSync('cd /ceph/storage3/ipfs/crystal.wator/go-ipfs-cluster && docker stack deploy go-crystal -c docker-compose.yml');
       console.log('_restartIpfs');
     } catch(e) {
+      console.log('_restartIpfs e=<',e,'>');
     }
   }
 }
