@@ -7,7 +7,7 @@ module.exports = class WikiDumper {
   constructor(path,start,onPage) {
     this.path = path;
     this.onPage = onPage;
-    let option = {encoding:'utf-8',start:start};
+    let option = {encoding:'utf-8',start:start,end:start + 1024*1024*128};
     this.stream = fs.createReadStream(path, option);
     this.rl = readline.createInterface({'input': this.stream, 'output': {}});
     this.readLines_();

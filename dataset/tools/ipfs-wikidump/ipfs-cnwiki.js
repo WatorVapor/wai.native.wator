@@ -1,5 +1,6 @@
 const dumpPath = '/watorvapor/wai.storage/dumps.wikimedia.org/zhwiki/zhwiki-20190201-pages-articles.xml';
-const dbPath = '/watorvapor/wai.storage/dumps.wikimedia.org/output_leveldb/cnwiki/ipfs';
+const dbPath = '/ceph/storage3/wai.storage/dumps.wikimedia.org/output_leveldb/cnwiki/ipfs';
+
 let skipTitles = [
   'Wikipedia:','Help:','Template:','Category:','MediaWiki:','Hex',
   'File:','Portal:','模块:',
@@ -12,13 +13,17 @@ const LevelSave = require('./ipfs-level.js');
 
 let wikiDumper = false;
 let iSave = new IpfsSave();
-let lSave = new LevelSave(()=> {
+let lSave = new LevelSave(dbPath,(ResumePos)=> {
+  console.log('::ResumePos=<',ResumePos,'>');
   wikiDumper = new wiki(dumpPath,ResumePos,onPage);
 });
 
+iSave.onError = (err) => {
+  lSave.close();
+}
+
 const opencc = require('node-opencc');
 let iSavePageCounter = 0;
-const iConstSavePageOneTime = 2000;
 
 function onPage(zhTitle,pos,zhText){
   //console.log('onPage::zhTitle=<',zhTitle,'>');
@@ -40,7 +45,7 @@ function onPage(zhTitle,pos,zhText){
   let cnText = opencc.traditionalToSimplified(zhText);
   //console.log('onPage::cnText=<',cnText,'>');
   iSave.save(cnTitle,cnText,pos,(hash) => {
-    lSave.save(cnTitle,cnText,pos,()=> {
+    lSave.save(hash,cnText,pos,()=> {
       wikiDumper.resume();
     });
   });
@@ -51,33 +56,28 @@ function onPage(zhTitle,pos,zhText){
 
 process.on('exit', (code) => {
   console.log('exit ::code=<',code,'>');
-  runCloseDB();
+  lSave.close();
   console.log('exit ::code=<',code,'>');
 });
 
-
+/*
 process.on('SIGINT', (code) => {
   console.log('SIGINT ::code=<',code,'>');
-  runCloseDB();
+  lSave.close();
 });
 process.on('SIGTERM', (code) => {
   console.log('SIGTERM ::code=<',code,'>');
-  runCloseDB();
-});
-/*
-process.on('SIGKILL', (code) => {
-  console.log('SIGKILL ::code=<',code,'>');
-  runCloseDB();
+  lSave.close();
 });
 */
 
+/*
+process.on('SIGKILL', (code) => {
+  console.log('SIGKILL ::code=<',code,'>');
+  lSave.close();
+});
+*/
 
-runCloseDB = () => {
-  db.close( (evt)=> {
-    console.log('db.close save2Ipfs::evt=<',evt,'>');
-    process.exit(0);
-  });
-}
 
 
 function filterTitle(filters,title) {
