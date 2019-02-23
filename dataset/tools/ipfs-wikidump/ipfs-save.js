@@ -59,7 +59,7 @@ module.exports = class IpfsSave {
         if(memVect.length > 2) {
           let mem = parseFloat(memVect[2].trim());
           console.log('_watchIPFSStatus mem=<',mem,'>');
-          if(mem > 50.0) {
+          if(mem > 80.0) {
             this._restartIpfs();
           }
         }
@@ -73,6 +73,16 @@ module.exports = class IpfsSave {
         self.onError(err);
       }
     }
+
+    this.node.id((err, identity) => {
+      if (err) {
+        console.log('_watchIPFSStatus err=<',err,'>');
+        if(typeof self.onError === 'function') {
+          self.onError(err);
+        }
+      }
+    });
+    
   }
   _restartIpfs() {
     try {
