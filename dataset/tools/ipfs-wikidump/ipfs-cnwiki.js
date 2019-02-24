@@ -51,7 +51,7 @@ function onPage(zhTitle,pos,zhText){
   //console.log('onPage::cnTitle=<',cnTitle,'>');
   iSave.save(cnTitle,cnText,pos,(hash,resume) => {
     //console.log('onPage::hash=<',hash,'>');
-    lSave.save(hash,cnText,pos,()=> {
+    lSave.save(hash,cnTitle,pos,()=> {
       //console.log('onPage::resume=<',resume,'>');
       if(resume) {
         wikiDumper.resume();
