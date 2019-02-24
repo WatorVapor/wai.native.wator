@@ -1,5 +1,5 @@
 const dumpPath = '/watorvapor/wai.storage/dumps.wikimedia.org/zhwiki/zhwiki-20190201-pages-articles.xml';
-const dbPath = '/ceph/storage3/wai.storage/dumps.wikimedia.org/output_leveldb/cnwiki/ipfs';
+const dbPath = '/watorvapor/wai.storage/dumps.wikimedia.org/output_leveldb/cnwiki/ipfs';
 
 let skipTitles = [
   'Wikipedia:','Help:','Template:','Category:','MediaWiki:','Hex',
@@ -13,14 +13,19 @@ const LevelSave = require('./ipfs-level.js');
 
 let wikiDumper = false;
 let iSave = new IpfsSave();
-let lSave = new LevelSave(dbPath,(ResumePos)=> {
-  console.log('::ResumePos=<',ResumePos,'>');
-  wikiDumper = new wiki(dumpPath,ResumePos,onPage);
-});
+let lSave = false;
 
 iSave.onError = (err) => {
   lSave.close();
 }
+
+iSave.onReady = (err) => {
+  lSave = new LevelSave(dbPath,(ResumePos)=> {
+    console.log('::ResumePos=<',ResumePos,'>');
+    wikiDumper = new wiki(dumpPath,ResumePos,onPage);
+  });
+}
+
 
 const opencc = require('node-opencc');
 let iSavePageCounter = 0;
@@ -43,10 +48,14 @@ function onPage(zhTitle,pos,zhText){
   //console.log('onPage::zhTitle=<',zhTitle,'>');
   let cnTitle = opencc.traditionalToSimplified(zhTitle);
   let cnText = opencc.traditionalToSimplified(zhText);
-  //console.log('onPage::cnText=<',cnText,'>');
-  iSave.save(cnTitle,cnText,pos,(hash) => {
+  //console.log('onPage::cnTitle=<',cnTitle,'>');
+  iSave.save(cnTitle,cnText,pos,(hash,resume) => {
+    //console.log('onPage::hash=<',hash,'>');
     lSave.save(hash,cnText,pos,()=> {
-      wikiDumper.resume();
+      //console.log('onPage::resume=<',resume,'>');
+      if(resume) {
+        wikiDumper.resume();
+      }
     });
   });
 }

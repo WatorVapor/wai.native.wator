@@ -6,10 +6,24 @@ const execSync= require('child_process').execSync;
 module.exports = class IpfsSave {
   constructor() {
     this._tryOpenIpfsNode();
+    this.cacheToSave = [];
   }
   save(cnTitle,cnText,pos,cb) {
+    if(this.isSaving) {
+      let cache = {
+        cnTitle:cnTitle,
+        cnText:cnText,
+        pos:pos,
+        cb:cb
+      };
+      this.cacheToSave.push(cache);
+      return;
+    }
     let bufText = Buffer.from(cnText, 'utf8');
     let self = this;
+    //console.log('IpfsSave::save pos=<',pos,'>');
+    this.lastSave = new Date();
+    this.isSaving = true;
     this.node.add(bufText,(err, result) =>{
       if (err) {
         console.log('_tryOpenIpfsNode::typeof self.onError=<',typeof self.onError,'>');
@@ -18,15 +32,29 @@ module.exports = class IpfsSave {
         }
         return;
       }
+      self.isSaving = false;
+      self.lastSave = new Date();
       //console.log('IpfsSave::save result=<',result,'>');
       let hash = result[0].hash;
       //console.log('IpfsSave::save hash=<',hash,'>');
       //console.log('IpfsSave::save cnTitle=<',cnTitle,'>');
       //console.log('IpfsSave::save pos=<',pos,'>');
       if(hash && typeof cb === 'function') {
-        cb(hash);
+        if(self.cacheToSave.length > 0) {
+          cb(hash,false);
+          self._popCache();
+        } else {
+          cb(hash,true);          
+        }
       }
     });
+  }
+  _popCache() {
+    if(this.cacheToSave.length > 0) {
+      let cache = this.cacheToSave[0];
+      this.save(cache.cnTitle,cache.cnText,cache.pos,cache.cb);
+      this.cacheToSave.shift();
+    }
   }
   _tryOpenIpfsNode (cb) {
     this.node = ipfsAPI(strConstAddress);
@@ -36,10 +64,10 @@ module.exports = class IpfsSave {
       if (err) {
         return;
       }
-      //console.log('_tryOpenIpfsNode::this.node=<',this.node,'>');
+      console.log('_tryOpenIpfsNode::this.node=<',this.node,'>');
       console.log('_tryOpenIpfsNode identity=<',identity,'>');
-      if(self.remainText && self.remainTitle && self.remainPos) {
-        self.save(self.remainTitle,self.remainText,self.remainPos);
+      if(typeof self.onReady === 'function') {
+        self.onReady();
       }
       setTimeout(()=>{
         self._watchIPFSStatus();
@@ -64,10 +92,16 @@ module.exports = class IpfsSave {
           }
         }
       }
+      let now = new Date();
+      let escapeFromeLastSave = (now - this.lastSave);
+      console.log('_watchIPFSStatus escapeFromeLastSave=<',escapeFromeLastSave,'>');
+      if(escapeFromeLastSave > 1000*60) {
+        this._restartIpfs();
+      }
       let self = this;
       setTimeout(()=>{
         self._watchIPFSStatus();
-      },10*1000)    
+      },30*1000)
     } catch(e) {
       if(typeof self.onError === 'function') {
         self.onError(err);

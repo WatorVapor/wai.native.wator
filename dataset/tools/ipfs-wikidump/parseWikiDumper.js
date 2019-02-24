@@ -18,7 +18,9 @@ module.exports = class WikiDumper {
     this.showCounterPre = -1;
   }
   resume() {
+    //console.log('resume:this.pos =<',this.pos,'>');
     this.stream.resume();
+    this.rl.resume();
   }
   
   readLines_() {
@@ -61,6 +63,7 @@ module.exports = class WikiDumper {
     let text = this.fetchText_($);
     if(typeof this.onPage === 'function') {
       this.stream.pause();
+      this.rl.pause();
       this.onPage(title,this.pos,text);
     }
   }
