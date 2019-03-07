@@ -95,13 +95,13 @@ module.exports = class IpfsSave {
       let now = new Date();
       let escapeFromeLastSave = (now - this.lastSave);
       console.log('_watchIPFSStatus escapeFromeLastSave=<',escapeFromeLastSave,'>');
-      if(escapeFromeLastSave > 1000*60) {
+      if(escapeFromeLastSave > 1000*10) {
         this._restartIpfs();
       }
       let self = this;
       setTimeout(()=>{
         self._watchIPFSStatus();
-      },30*1000)
+      },5*1000)
     } catch(e) {
       if(typeof self.onError === 'function') {
         self.onError(err);
@@ -121,7 +121,7 @@ module.exports = class IpfsSave {
   _restartIpfs() {
     try {
       execSync('docker stack rm go-crystal');
-      execSync('sleep 60');
+      execSync('sleep 10');
       execSync('cd /ceph/storage3/ipfs/crystal.wator/go-ipfs-cluster && docker stack deploy go-crystal -c docker-compose.yml');
       console.log('_restartIpfs');
     } catch(e) {

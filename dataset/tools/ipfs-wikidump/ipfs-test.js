@@ -1,5 +1,7 @@
 const ipfsAPI = require('ipfs-http-client');
-const ipfs = ipfsAPI('/ip4/127.0.0.1/tcp/5001');
+//const ipfs = ipfsAPI('/ip4/127.0.0.1/tcp/5001');
+const ipfs = ipfsAPI('/ip4/192.168.0.6/tcp/5001');
+
 
 ipfs.id((err, identity) =>{
   if (err) {
@@ -7,6 +9,8 @@ ipfs.id((err, identity) =>{
   }
   console.log('ipfs.id identity=<',identity,'>');
 });
+
+/*
 ipfs.swarm.peers((err, peerInfos)=>{
   if (err) {
     throw err;
@@ -20,3 +24,4 @@ ipfs.refs.local((err,refs) => {
   }
   console.log('ipfs.refs.local refs=<',refs,'>');
 });
+*/
