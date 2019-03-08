@@ -70,6 +70,9 @@ onWaiDocument = (article) => {
   console.log('onWaiDocument uniqWords=<',uniqWords,'>');
 }
 
+
+
+
 const iConstNGramMaxWindow = 32;
 
 onWaiSentence = (sentence,collect) => {
