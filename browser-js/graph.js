@@ -1,5 +1,5 @@
 $(document).ready(function(){
-  onInitGraph();
+  //onInitGraph();
 });
 
 onInitGraph = ()=> {
