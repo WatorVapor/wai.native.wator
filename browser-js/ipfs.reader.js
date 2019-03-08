@@ -64,10 +64,10 @@ onWaiDocument = (article) => {
     onWaiSentence(cjkCollect[i],aDocumentStatistics);
   }
   //console.log('onWaiDocument aDocumentStatistics=<',aDocumentStatistics,'>');
-  FilterOutLowFreq(aDocumentStatistics);
-  console.log('onWaiDocument aDocumentStatistics=<',aDocumentStatistics,'>');
-  FilterOutInside(aDocumentStatistics);
-  console.log('onWaiDocument aDocumentStatistics=<',aDocumentStatistics,'>');
+  let highFreq = FilterOutLowFreq(aDocumentStatistics);
+  //console.log('onWaiDocument highFreq=<',highFreq,'>');
+  let uniqWords = FilterOutInside(highFreq);
+  console.log('onWaiDocument uniqWords=<',uniqWords,'>');
 }
 
 const iConstNGramMaxWindow = 32;
@@ -101,35 +101,32 @@ const iConstWordFilterOutStageOne = 3;
 
 
 FilterOutLowFreq = (collect) => {
-  let keys = Object.keys(collect);
+  let outCollect = JSON.parse(JSON.stringify(collect));
+  let keys = Object.keys(outCollect);
   for(let i = 0 ;i < keys.length;i++) {
     let key = keys[i];
-    if(collect[key] < iConstWordFilterOutStageOne) {
-      delete collect[key];
+    if(outCollect[key] < iConstWordFilterOutStageOne) {
+      delete outCollect[key];
     }
   }
+  return outCollect;
 }
 
 FilterOutInside = (collect) => {
-  let keys = Object.keys(collect);
+  let outCollect = JSON.parse(JSON.stringify(collect));
+  let keys = Object.keys(outCollect);
   for(let i = 0 ;i < keys.length;i++) {
     let key = keys[i];
+    //console.log('FilterOutInside key=<',key,'>');
     for(let j = 0 ;j < keys.length;j++) {
       let keyFound = keys[j];
-      if(keyFound.includes(key)) {
-        if(collect[keyFound] === collect[key]) {
-          delete collect[key];
+      //console.log('FilterOutInside keyFound=<',keyFound,'>');
+      if(keyFound !== key && keyFound.includes(key)) {
+        if(outCollect[keyFound] === outCollect[key]) {
+          delete outCollect[key];
         }
       }
     }
   }
-}
-
-isInsideOtherWord = (key,keys,collect) => {
-  for(let i = 0 ;i < keys.length;i++) {
-    let keyFound = keys[i];
-    if(keyFound.includes(key)) {
-      
-    }
-  }
+  return outCollect;
 }
