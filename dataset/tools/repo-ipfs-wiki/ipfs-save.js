@@ -44,7 +44,7 @@ module.exports = class IpfsSave {
     this.tempDirCounter = 0;
     this.isSaving = false;
   }
-  save2(cnTitle,cnText,pos,cb) {
+  saveFS(cnTitle,cnText,pos,cb) {
     const shasum = crypto.createHash('sha1');
     shasum.update(cnTitle);
     let hash = shasum.digest('hex');
@@ -97,8 +97,8 @@ module.exports = class IpfsSave {
     }
     let bufText = Buffer.from(cnText, 'utf8');
     let self = this;
-    console.log('IpfsSave::save pos=<',pos,'>');
-    console.log('IpfsSave::save cnText.length=<',cnText.length,'>');
+    //console.log('IpfsSave::save pos=<',pos,'>');
+    //console.log('IpfsSave::save cnText.length=<',cnText.length,'>');
     
     this.lastSave = new Date();
     this.isSaving = true;
