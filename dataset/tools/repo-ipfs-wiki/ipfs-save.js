@@ -54,6 +54,7 @@ const node = new IPFS(config);
 const execSync= require('child_process').execSync;
 const fs=require('fs');
 const crypto = require('crypto');
+const strConstTempDir = './tmp_files/';
 
 module.exports = class IpfsSave {
   constructor() {
@@ -82,10 +83,17 @@ module.exports = class IpfsSave {
   _tmpFolderCheck() {
     console.log('IpfsSave::save this.tempDirCounter=<',this.tempDirCounter,'>');
     if(this.tempDirCounter >= 3) {
-      
+      this._saveFromFS();
     }
   }
-  
+  _saveFromFS() {
+    this.node.addFromFs(strConstTempDir,{ recursive: true},(err, result) =>{
+      if (err) {
+        throw err;
+      }
+      console.log('IpfsSave::_saveFromFS result=<',result,'>');
+    })
+  }
   
   save2(cnTitle,cnText,pos,cb) {
     if(this.isSaving) {
