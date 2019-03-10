@@ -72,6 +72,7 @@ module.exports = class IpfsSave {
     let bufText = Buffer.from(cnText, 'utf8');
     let self = this;
     console.log('IpfsSave::save pos=<',pos,'>');
+    console.log('IpfsSave::save cnText.length=<',cnText.length,'>');
     
     this.lastSave = new Date();
     this.isSaving = true;
