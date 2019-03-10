@@ -67,6 +67,8 @@ module.exports = class IpfsSave {
     shasum.update(cnTitle);
     let hash = shasum.digest('hex');
     let path = './tmp_files/' + hash + '/'
+    const result =  execSync('mkdir -p ./tmp_files/' + hash);
+    console.log('IpfsSave::constructor result=<',result,'>');
     fs.writeFileSync(path + 'title',cnTitle);
     fs.writeFileSync(path + 'text',cnText);
     fs.writeFileSync(path + 'pos',pos);
