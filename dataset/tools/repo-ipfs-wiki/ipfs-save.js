@@ -71,7 +71,8 @@ module.exports = class IpfsSave {
     }
     let bufText = Buffer.from(cnText, 'utf8');
     let self = this;
-    //console.log('IpfsSave::save pos=<',pos,'>');
+    console.log('IpfsSave::save pos=<',pos,'>');
+    
     this.lastSave = new Date();
     this.isSaving = true;
     
@@ -120,6 +121,7 @@ module.exports = class IpfsSave {
     });
   }
   _watchIPFSStatus() {
+    console.log('_watchIPFSStatus this.lastSave=<',this.lastSave,'>');
     let self = this;
     this.node.id((err, identity) => {
       if (err) {
