@@ -1,0 +1,11 @@
+[Unit]
+Description=Wator Wai Text Ipfs cn
+[Service]
+Type=simple
+ExecStart=/watorvapor/workspace/node3.wai.native.wator/dataset/tools/ipfs-wikidump/cnwiki.sh
+ExecStop=/bin/kill ${MAINPID}
+Restart=always
+RestartSec=10s
+
+[Install]
+WantedBy=default.target
