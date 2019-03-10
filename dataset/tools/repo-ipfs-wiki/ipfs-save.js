@@ -52,13 +52,28 @@ const config = {
 const node = new IPFS(config);
 */
 const execSync= require('child_process').execSync;
+const fs=require('fs');
+const crypto = require('crypto');
 
 module.exports = class IpfsSave {
   constructor() {
     this._tryOpenIpfsNode();
     this.cacheToSave = [];
+    const result =  execSync('mkdir -p ./tmp_files/');
+    console.log('IpfsSave::constructor result=<',result,'>');
   }
   save(cnTitle,cnText,pos,cb) {
+    const shasum = crypto.createHash('sha1');
+    shasum.update(cnTitle);
+    let hash = shasum.digest('hex');
+    let path = './tmp_files/' + hash + '/'
+    fs.writeFileSync(path + 'title',cnTitle);
+    fs.writeFileSync(path + 'text',cnText);
+    fs.writeFileSync(path + 'pos',pos);
+  }
+  
+  
+  save2(cnTitle,cnText,pos,cb) {
     if(this.isSaving) {
       let cache = {
         cnTitle:cnTitle,
