@@ -161,10 +161,10 @@ module.exports = class IpfsSave {
         }
       }
     });
+    */
     setTimeout(()=>{
       self._watchIPFSStatus();
     },1000*10);
-    */
   }
   _restartIpfs() {
   }
