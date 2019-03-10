@@ -75,6 +75,7 @@ module.exports = class IpfsSave {
     });
   }
   _watchIPFSStatus() {
+    let self = this;
     try {
       let deamonStatus = execSync('docker stats --no-stream | grep go-crystal_ipfs-public').toString('utf-8');
       //console.log('_watchIPFSStatus deamonStatus=<',deamonStatus,'>');
@@ -98,11 +99,11 @@ module.exports = class IpfsSave {
       if(escapeFromeLastSave > 1000*10) {
         this._restartIpfs();
       }
-      let self = this;
       setTimeout(()=>{
         self._watchIPFSStatus();
       },5*1000)
-    } catch(e) {
+    } catch(err) {
+      console.log('_watchIPFSStatus err=<',err,'>');
       if(typeof self.onError === 'function') {
         self.onError(err);
       }
