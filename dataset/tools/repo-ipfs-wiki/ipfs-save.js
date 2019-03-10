@@ -59,7 +59,7 @@ module.exports = class IpfsSave {
   constructor() {
     this._tryOpenIpfsNode();
     this.cacheToSave = [];
-    const result =  execSync('mkdir -p ./tmp_files/');
+    const result = execSync('rm -rf ./tmp_files/ ; mkdir -p ./tmp_files/');
     console.log('IpfsSave::constructor result=<',result,'>');
   }
   save(cnTitle,cnText,pos,cb) {
