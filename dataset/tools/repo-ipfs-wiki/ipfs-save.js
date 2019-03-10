@@ -80,7 +80,10 @@ module.exports = class IpfsSave {
     },1000);      
   }
   _tmpFolderCheck() {
-    console.log('IpfsSave::save this.tempDirCounter=<',this.tempDirCounter,'>');    
+    console.log('IpfsSave::save this.tempDirCounter=<',this.tempDirCounter,'>');
+    if(this.tempDirCounter >= 3) {
+      
+    }
   }
   
   
