@@ -48,9 +48,9 @@ const config = {
     }
   }
 };
+/*
 const node = new IPFS(config);
-
-const iConstSavePageOneTime = 1024;
+*/
 const execSync= require('child_process').execSync;
 
 module.exports = class IpfsSave {
@@ -74,9 +74,10 @@ module.exports = class IpfsSave {
     //console.log('IpfsSave::save pos=<',pos,'>');
     this.lastSave = new Date();
     this.isSaving = true;
+    
     this.node.add(bufText,(err, result) =>{
       if (err) {
-        console.log('_tryOpenIpfsNode::typeof self.onError=<',typeof self.onError,'>');
+        console.log('save::typeof self.onError=<',typeof self.onError,'>');
         if(typeof self.onError === 'function') {
           self.onError(err);
         }
@@ -107,75 +108,19 @@ module.exports = class IpfsSave {
     }
   }
   _tryOpenIpfsNode (cb) {
-    this.node = ipfsAPI(strConstAddress);
-    this.iSavePageCounter = 0;
+    this.node = new IPFS(config);
     let self = this;
-    this.node.id((err, identity) => {
-      if (err) {
-        return;
-      }
-      console.log('_tryOpenIpfsNode::this.node=<',this.node,'>');
-      console.log('_tryOpenIpfsNode identity=<',identity,'>');
+    this.node.on('ready', () => {
       if(typeof self.onReady === 'function') {
         self.onReady();
       }
       setTimeout(()=>{
         self._watchIPFSStatus();
-      },1000)
+      },1000);      
     });
   }
   _watchIPFSStatus() {
-    try {
-      let deamonStatus = execSync('docker stats --no-stream | grep go-crystal_ipfs-public').toString('utf-8');
-      //console.log('_watchIPFSStatus deamonStatus=<',deamonStatus,'>');
-      let deamonStatusVect = deamonStatus.split('%');
-      //console.log('_watchIPFSStatus deamonStatusVect=<',deamonStatusVect,'>');
-      if(deamonStatusVect.length > 1) {
-        //console.log('_watchIPFSStatus deamonStatusVect[1]=<',deamonStatusVect[1],'>');
-        let memVect = deamonStatusVect[1].split('iB');
-        //console.log('_watchIPFSStatus memVect=<',memVect,'>');
-        if(memVect.length > 2) {
-          let mem = parseFloat(memVect[2].trim());
-          console.log('_watchIPFSStatus mem=<',mem,'>');
-          if(mem > 80.0) {
-            this._restartIpfs();
-          }
-        }
-      }
-      let now = new Date();
-      let escapeFromeLastSave = (now - this.lastSave);
-      console.log('_watchIPFSStatus escapeFromeLastSave=<',escapeFromeLastSave,'>');
-      if(escapeFromeLastSave > 1000*10) {
-        this._restartIpfs();
-      }
-      let self = this;
-      setTimeout(()=>{
-        self._watchIPFSStatus();
-      },5*1000)
-    } catch(e) {
-      if(typeof self.onError === 'function') {
-        self.onError(err);
-      }
-    }
-
-    this.node.id((err, identity) => {
-      if (err) {
-        console.log('_watchIPFSStatus err=<',err,'>');
-        if(typeof self.onError === 'function') {
-          self.onError(err);
-        }
-      }
-    });
-    
   }
   _restartIpfs() {
-    try {
-      execSync('docker stack rm go-crystal');
-      execSync('sleep 10');
-      execSync('cd /ceph/storage3/ipfs/crystal.wator/go-ipfs-cluster && docker stack deploy go-crystal -c docker-compose.yml');
-      console.log('_restartIpfs');
-    } catch(e) {
-      console.log('_restartIpfs e=<',e,'>');
-    }
   }
 }
