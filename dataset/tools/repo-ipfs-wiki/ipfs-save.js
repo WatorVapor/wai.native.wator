@@ -76,7 +76,7 @@ module.exports = class IpfsSave {
     fs.writeFileSync(path + 'pos',pos);
     let self = this;
     this.tempDirCounter++;
-    if(tempDirCounter > 100) {
+    if(this.tempDirCounter < 100) {
       cb('1111',true);
     } else {
       setTimeout(()=>{
