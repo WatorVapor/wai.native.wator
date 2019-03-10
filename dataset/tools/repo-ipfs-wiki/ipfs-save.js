@@ -81,12 +81,13 @@ module.exports = class IpfsSave {
     },1000);      
   }
   _tmpFolderCheck() {
-    console.log('IpfsSave::save this.tempDirCounter=<',this.tempDirCounter,'>');
+    console.log('IpfsSave::_tmpFolderCheck this.tempDirCounter=<',this.tempDirCounter,'>');
     if(this.tempDirCounter >= 3) {
       this._saveFromFS();
     }
   }
   _saveFromFS() {
+    console.log('IpfsSave::_saveFromFS this.tempDirCounter=<',this.tempDirCounter,'>');
     this.node.addFromFs(strConstTempDir,{ recursive: true},(err, result) =>{
       if (err) {
         throw err;
