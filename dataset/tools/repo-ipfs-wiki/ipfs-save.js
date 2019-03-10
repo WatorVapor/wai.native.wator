@@ -95,6 +95,7 @@ module.exports = class IpfsSave {
     this.isSaving = true;
     console.log('IpfsSave::_saveFromFS this.tempDirCounter=<',this.tempDirCounter,'>');
     let self = this;
+    this.lastSave = new Date();
     this.node.addFromFs(strConstTempDir,{ recursive: true},(err, result) =>{
       if (err) {
         throw err;
@@ -168,7 +169,8 @@ module.exports = class IpfsSave {
     });
   }
   _watchIPFSStatus() {
-    console.log('_watchIPFSStatus this.lastSave=<',this.lastSave,'>');
+    let now = new Date();
+    console.log('_watchIPFSStatus now - this.lastSave=<',now - this.lastSave,'>');
     let self = this;
     this.node.id((err, identity) => {
       if (err) {
