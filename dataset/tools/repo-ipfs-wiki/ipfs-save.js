@@ -61,6 +61,7 @@ module.exports = class IpfsSave {
     this.cacheToSave = [];
     const result = execSync('rm -rf ./tmp_files/ ; mkdir -p ./tmp_files/');
     console.log('IpfsSave::constructor result=<',result,'>');
+    this.tempDirCounter = 0;
   }
   save(cnTitle,cnText,pos,cb) {
     const shasum = crypto.createHash('sha1');
@@ -72,6 +73,14 @@ module.exports = class IpfsSave {
     fs.writeFileSync(path + 'title',cnTitle);
     fs.writeFileSync(path + 'text',cnText);
     fs.writeFileSync(path + 'pos',pos);
+    let self = this;
+    this.tempDirCounter++;
+    setTimeout(()=>{
+      self._tmpFolderCheck();
+    },1000);      
+  }
+  _tmpFolderCheck() {
+    console.log('IpfsSave::save this.tempDirCounter=<',this.tempDirCounter,'>');    
   }
   
   
@@ -114,7 +123,7 @@ module.exports = class IpfsSave {
           cb(hash,false);
           self._popCache();
         } else {
-          cb(hash,true);          
+          cb(hash,true);
         }
       }
     });
