@@ -63,6 +63,7 @@ module.exports = class IpfsSave {
     const result = execSync('rm -rf ./tmp_files/ ; mkdir -p ./tmp_files/');
     console.log('IpfsSave::constructor result=<',result,'>');
     this.tempDirCounter = 0;
+    this.isSaving = false;
   }
   save(cnTitle,cnText,pos,cb) {
     const shasum = crypto.createHash('sha1');
@@ -86,19 +87,20 @@ module.exports = class IpfsSave {
   }
   _tmpFolderCheck() {
     console.log('IpfsSave::_tmpFolderCheck this.tempDirCounter=<',this.tempDirCounter,'>');
-    /*
-    if(this.tempDirCounter >= 3) {
+    if(this.tempDirCounter >= 100 && this.isSaving === false) {
       this._saveFromFS();
     }
-    */
   }
   _saveFromFS() {
+    this.isSaving = true;
     console.log('IpfsSave::_saveFromFS this.tempDirCounter=<',this.tempDirCounter,'>');
+    let self = this;
     this.node.addFromFs(strConstTempDir,{ recursive: true},(err, result) =>{
       if (err) {
         throw err;
       }
       console.log('IpfsSave::_saveFromFS result=<',result,'>');
+      self.isSaving = false;
     })
   }
   
