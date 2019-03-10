@@ -120,6 +120,18 @@ module.exports = class IpfsSave {
     });
   }
   _watchIPFSStatus() {
+    let self = this;
+    this.node.id((err, identity) => {
+      if (err) {
+        console.log('_watchIPFSStatus err=<',err,'>');
+        if(typeof self.onError === 'function') {
+          self.onError(err);
+        }
+      }
+    });
+    setTimeout(()=>{
+      self._watchIPFSStatus();
+    },1000*10);      
   }
   _restartIpfs() {
   }
