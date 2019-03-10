@@ -150,6 +150,7 @@ module.exports = class IpfsSave {
   _watchIPFSStatus() {
     let now = new Date();
     console.log('_watchIPFSStatus now - this.lastSave=<',now - this.lastSave,'>');
+    /*
     let self = this;
     this.node.id((err, identity) => {
       if (err) {
@@ -161,7 +162,8 @@ module.exports = class IpfsSave {
     });
     setTimeout(()=>{
       self._watchIPFSStatus();
-    },1000*10);      
+    },1000*10);
+    */
   }
   _restartIpfs() {
   }
