@@ -1,6 +1,6 @@
 const IPFS = require('ipfs');
 const config = { 
-  repo: './ipfs_repos_public',
+  repo: './repos_ipfs_public',
   config: {
     Addresses: {
       Swarm: [
