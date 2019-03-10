@@ -76,15 +76,21 @@ module.exports = class IpfsSave {
     fs.writeFileSync(path + 'pos',pos);
     let self = this;
     this.tempDirCounter++;
-    setTimeout(()=>{
-      self._tmpFolderCheck();
-    },1000);      
+    if(tempDirCounter > 100) {
+      cb('1111',true);
+    } else {
+      setTimeout(()=>{
+        self._tmpFolderCheck();
+      },1000);      
+    }
   }
   _tmpFolderCheck() {
     console.log('IpfsSave::_tmpFolderCheck this.tempDirCounter=<',this.tempDirCounter,'>');
+    /*
     if(this.tempDirCounter >= 3) {
       this._saveFromFS();
     }
+    */
   }
   _saveFromFS() {
     console.log('IpfsSave::_saveFromFS this.tempDirCounter=<',this.tempDirCounter,'>');
