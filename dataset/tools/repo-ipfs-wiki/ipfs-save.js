@@ -143,28 +143,13 @@ module.exports = class IpfsSave {
       if(typeof self.onReady === 'function') {
         self.onReady();
       }
-      setTimeout(()=>{
-        self._watchIPFSStatus();
-      },1000);      
+      setTimeout(self._watchIPFSStatus.bind(self),1000);      
     });
   }
   _watchIPFSStatus() {
     let now = new Date();
     console.log('_watchIPFSStatus now - this.lastSave=<',now - this.lastSave,'>');
-    /*
-    let self = this;
-    this.node.id((err, identity) => {
-      if (err) {
-        console.log('_watchIPFSStatus err=<',err,'>');
-        if(typeof self.onError === 'function') {
-          self.onError(err);
-        }
-      }
-    });
-    */
-    setTimeout(()=>{
-      self._watchIPFSStatus();
-    },1000*10);
+    setTimeout(this._watchIPFSStatus.bind(this),1000*10);
   }
   _restartIpfs() {
   }
