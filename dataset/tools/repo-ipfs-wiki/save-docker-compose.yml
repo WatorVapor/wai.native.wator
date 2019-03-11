@@ -4,7 +4,10 @@ services:
     image: node:10
     volumes:
       - ./app:/opt/app
-      - ./entry.sh:/opt/app/entry.sh
+      - ./ipfs-cnwiki.js:/opt/app/ipfs-cnwiki.js
+      - ./ipfs-main.js:/opt/app/ipfs-main.js
+      - ./ipfs-save.js:/opt/app/ipfs-save.js
+      - ./parseWikiDumper.js:/opt/app/parseWikiDumper.js
       - ./repos_ipfs_public:/opt/app/repos_ipfs_public
       - ./cnwiki:/opt/app/cnwiki
       - /watorvapor/wai.storage/dumps.wikimedia.org/zhwiki:/watorvapor/wai.storage/dumps.wikimedia.org/zhwiki
