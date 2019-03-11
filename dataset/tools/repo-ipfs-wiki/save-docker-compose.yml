@@ -1,0 +1,27 @@
+version: '3'
+services:
+  ipfs-public:
+    image: node:10
+    volumes:
+      - ./app:/opt/app
+      - ./entry.sh:/opt/app/entry.sh
+      - ./storage-ipfs:/root/.jsipfs
+    working_dir: "/opt/app"
+    command: ./entry.sh
+    environment:
+      - IPFS_PATH=/root/.jsipfs
+      - IPFS_API_HOST=127.0.0.1
+    networks:
+      - outside
+    deploy:
+      resources:
+        limits:
+          cpus: '1.00'
+          memory: 1G
+        reservations:
+          cpus: '0.1'
+          memory: 256M
+networks:
+  outside:
+    external:
+      name: "host"
