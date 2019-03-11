@@ -8,9 +8,6 @@ services:
       - ./storage-ipfs:/root/.jsipfs
     working_dir: "/opt/app"
     command: ./entry.sh
-    environment:
-      - IPFS_PATH=/root/.jsipfs
-      - IPFS_API_HOST=127.0.0.1
     networks:
       - outside
     deploy:
