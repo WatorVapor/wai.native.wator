@@ -44,6 +44,8 @@ module.exports = class IpfsSave {
     console.log('IpfsSave::constructor result=<',result,'>');
     this.tempDirCounter = 0;
     this.isSaving = false;
+    this.totalTimer = 0.0;
+    this.totalSaved = 0;
   }
   saveFS(cnTitle,cnText,pos,cb) {
     const shasum = crypto.createHash('sha1');
@@ -113,7 +115,11 @@ module.exports = class IpfsSave {
         return;
       }
       let now = new Date();
-      console.log('save now - this.lastSave=<',now - this.lastSave,'>');      
+      //console.log('save now - this.lastSave=<',now - this.lastSave,'>');
+      let diff:float = now - this.lastSave;
+      self.totalTimer += diff/1000.0;
+      self.totalSaved++ ;
+      
       self.isSaving = false;
       self.lastSave = new Date();
       //console.log('IpfsSave::save result=<',result,'>');
@@ -149,8 +155,8 @@ module.exports = class IpfsSave {
     });
   }
   _watchIPFSStatus() {
-    let now = new Date();
-    console.log('_watchIPFSStatus now - this.lastSave=<',now - this.lastSave,'>');
+    let avarage:float = this.totalTimer / this.totalSaved;
+    console.log('_watchIPFSStatus avarage=<',avarage,'>');
     setTimeout(this._watchIPFSStatus.bind(this),1000*10);
   }
   _restartIpfs() {
