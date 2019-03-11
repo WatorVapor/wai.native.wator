@@ -5,7 +5,7 @@ services:
     volumes:
       - ./app:/opt/app
       - ./entry.sh:/opt/app/entry.sh
-      - ./storage-ipfs:/root/.jsipfs
+      - ./repos_ipfs_public:/root/.jsipfs
     working_dir: "/opt/app"
     command: ./entry.sh
     networks:
