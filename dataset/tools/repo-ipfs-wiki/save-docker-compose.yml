@@ -5,7 +5,8 @@ services:
     volumes:
       - ./app:/opt/app
       - ./entry.sh:/opt/app/entry.sh
-      - ./repos_ipfs_public:/root/.jsipfs
+      - ./repos_ipfs_public:/opt/app/repos_ipfs_public
+      - ./cnwiki:/opt/app/cnwiki
     working_dir: "/opt/app"
     command: ./entry.sh
     networks:
