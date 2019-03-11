@@ -46,6 +46,7 @@ module.exports = class IpfsSave {
     this.isSaving = false;
     this.totalTimer = 0.0;
     this.totalSaved = 0;
+    this.bigCounter = 0;
   }
   saveFS(cnTitle,cnText,pos,cb) {
     const shasum = crypto.createHash('sha1');
@@ -158,7 +159,21 @@ module.exports = class IpfsSave {
     let avarage = this.totalTimer / (parseFloat(this.totalSaved));
     console.log('_watchIPFSStatus avarage=<',avarage,'>');
     setTimeout(this._watchIPFSStatus.bind(this),1000*10);
+    if(avarage > 0.5) {
+      this.bigCounter++;
+    }
+    if(this.bigCounter > 2) {
+      this._restartIpfs();
+    }
   }
   _restartIpfs() {
+    try {
+      execSync('docker stack rm wiki');
+      execSync('sleep 10');
+      execSync('cd /ceph/storage3/ipfs/wai.native.wator/dataset/tools/repo-ipfs-wiki && docker stack deploy wiki -c save-docker-compose.yml');
+      console.log('_restartIpfs');
+    } catch(e) {
+      console.log('_restartIpfs e=<',e,'>');
+    }
   }
 }
