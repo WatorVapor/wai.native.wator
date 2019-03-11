@@ -115,8 +115,8 @@ module.exports = class IpfsSave {
         return;
       }
       let now = new Date();
-      //console.log('save now - this.lastSave=<',now - this.lastSave,'>');
-      let diff = parseFloat(now - this.lastSave);
+      //console.log('save now - self.lastSave=<',now - self.lastSave,'>');
+      let diff = parseFloat(now - self.lastSave);
       self.totalTimer += diff/(parseFloat(1000.0));
       self.totalSaved++ ;
       
