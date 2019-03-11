@@ -168,10 +168,9 @@ module.exports = class IpfsSave {
   }
   _restartIpfs() {
     try {
-      execSync('docker stack rm wiki');
-      execSync('sleep 10');
-      execSync('cd /ceph/storage3/ipfs/wai.native.wator/dataset/tools/repo-ipfs-wiki && docker stack deploy wiki -c save-docker-compose.yml');
-      console.log('_restartIpfs');
+      if(typeof this.onError === 'function') {
+        this.onError();
+      }
     } catch(e) {
       console.log('_restartIpfs e=<',e,'>');
     }
