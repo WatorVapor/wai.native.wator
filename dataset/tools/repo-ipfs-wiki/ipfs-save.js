@@ -116,8 +116,8 @@ module.exports = class IpfsSave {
       }
       let now = new Date();
       //console.log('save now - this.lastSave=<',now - this.lastSave,'>');
-      let diff:float = now - this.lastSave;
-      self.totalTimer += diff/1000.0;
+      let diff = parseFloat(now - this.lastSave);
+      self.totalTimer += diff/(parseFloat(1000.0));
       self.totalSaved++ ;
       
       self.isSaving = false;
@@ -155,7 +155,7 @@ module.exports = class IpfsSave {
     });
   }
   _watchIPFSStatus() {
-    let avarage:float = this.totalTimer / this.totalSaved;
+    let avarage = this.totalTimer / (parseFloat(this.totalSaved));
     console.log('_watchIPFSStatus avarage=<',avarage,'>');
     setTimeout(this._watchIPFSStatus.bind(this),1000*10);
   }
