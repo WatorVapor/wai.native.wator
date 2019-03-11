@@ -112,6 +112,8 @@ module.exports = class IpfsSave {
         }
         return;
       }
+      let now = new Date();
+      console.log('save now - this.lastSave=<',now - this.lastSave,'>');      
       self.isSaving = false;
       self.lastSave = new Date();
       //console.log('IpfsSave::save result=<',result,'>');
