@@ -61,8 +61,8 @@ module.exports = class LevelSave {
         console.log('_onDBOpen db.get::value=<',value.toString(),'>');
         ResumePos = parseInt(value.toString());
       }
-      if(ResumePos > 1024) {
-        ResumePos -= 1024;
+      if(ResumePos > 1) {
+        ResumePos -= 1;
       }
       console.log('_onDBOpen db.get::ResumePos=<',ResumePos,'>');
       setTimeout(function(){

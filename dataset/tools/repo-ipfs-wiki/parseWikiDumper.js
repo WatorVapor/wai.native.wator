@@ -19,8 +19,9 @@ module.exports = class WikiDumper {
   }
   resume() {
     //console.log('resume:this.pos =<',this.pos,'>');
-    this.stream.resume();
-    this.rl.resume();
+    if(this.stream.isPaused()) {
+      this.stream.resume();
+    }
   }
   
   readLines_() {

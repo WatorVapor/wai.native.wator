@@ -13,6 +13,8 @@ module.exports = class IpfsMain {
     this.fSave = new FSSave(fsPath);
     this.lSave = false;
     let self = this;
+    this.fsCounter = 0;
+    this.levelCounter = 0;
     this.fSave.onReady = (err) => {
       if(err) {
         throw err;
@@ -24,7 +26,7 @@ module.exports = class IpfsMain {
     }
     this.fSave.onError = (err) => {
       self.lSave.close();
-    }    
+    } 
   }
   _onPage(zhTitle,pos,zhText) {
     //console.log('_onPage::zhTitle=<',zhTitle,'>');
@@ -48,13 +50,19 @@ module.exports = class IpfsMain {
     let self = this;
     this.fSave.saveFS(cnTitle,cnText,pos,(hash,resume) => {
       //console.log('_onPage::hash=<',hash,'>');
+      self.fsCounter++;
       self.lSave.save(hash,cnTitle,pos,()=> {
         //console.log('_onPage::resume=<',resume,'>');
+        self.levelCounter++;
         if(resume) {
           self.wikiDumper.resume();
         }
       });
     });
+    if(this.fsCounter !== this.levelCounter) {
+      console.log('_onPage:: this.fsCounter=<',this.fsCounter,'>');
+      console.log('_onPage:: this.levelCounter=<',this.levelCounter,'>');
+    }
   }
   
   _filterTitle(filters,title) {
