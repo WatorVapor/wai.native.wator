@@ -1,5 +1,6 @@
 const fs=require('fs');
 const crypto = require('crypto');
+const execSync= require('child_process').execSync;
 
 module.exports = class IpfsSaveFs {
   constructor(path) {
