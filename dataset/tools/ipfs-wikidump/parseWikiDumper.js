@@ -7,20 +7,27 @@ module.exports = class WikiDumper {
   constructor(path,start,onPage) {
     this.path = path;
     this.onPage = onPage;
-    let option = {encoding:'utf-8',start:start,end:start + 1024*1024*128};
+    let option = {
+      encoding:'utf-8',
+      start:start,
+      end:start + 1024*1024*128
+    };
     this.stream = fs.createReadStream(path, option);
-    this.rl = readline.createInterface({'input': this.stream, 'output': {}});
+    this.rl = readline.createInterface({input: this.stream});
     this.readLines_();
     const stats = fs.statSync(path);
     this.totalSize = stats.size;
     this.pos = start;
+    this.length = 0;
     this.showCounter = 0;
     this.showCounterPre = -1;
   }
-  resume() {
+  resume(pos) {
     //console.log('resume:this.pos =<',this.pos,'>');
-    this.stream.resume();
-    this.rl.resume();
+    //console.log('resume:pos =<',pos,'>');
+    if(this.stream.isPaused()) {
+      this.stream.resume();
+    }
   }
   
   readLines_() {
@@ -41,10 +48,25 @@ module.exports = class WikiDumper {
         titlePage = '';
       }
     });
+    /*
+    this.lengthStream = 0;
+    this.stream.on('data', (chunk) => {
+       //console.log('readLines_: chunk=<',typeof chunk ,'>');
+       let chunkBuffer = Buffer.from(chunk,'utf-8');
+       //console.log('readLines_: chunkBuffer.length=<',chunkBuffer.length ,'>');
+       self.lengthStream += chunkBuffer.length;
+    });
+    */
+    this.stream.on('end', () => {
+      console.log('readLines_:self.length =<',self.length,'>');
+      //console.log('readLines_:self.lengthStream =<',self.lengthStream,'>');
+    });
   }
 
   parsePage_(page) {
-    this.pos += page.length;
+    let buffPage = Buffer.from(page,'utf-8');
+    this.pos += buffPage.length;
+    this.length += buffPage.length;
     //console.log('parsePage:this.pos =<',this.pos,'>');
     //console.log('parsePage:ShowProgreeSize =<',ShowProgreeSize,'>');
     //console.log('parsePage:this.showCounter =<',this.showCounter,'>');
@@ -104,3 +126,4 @@ module.exports = class WikiDumper {
   }
   
 }
+
