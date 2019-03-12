@@ -1,19 +1,19 @@
 const wiki = require('./parseWikiDumper.js');
 const leveldown = require('leveldown');
-const IpfsSave = require('./ipfs-save.js');
+const FSSave = require('./ipfs-levelfs.js');
 const LevelSave = require('./ipfs-level.js');
 const opencc = require('node-opencc');
 
 module.exports = class IpfsMain {
-  constructor(dumpPath,dbPath,skipTitles) {
+  constructor(dumpPath,dbPath,skipTitles,fsPath) {
     this.dumpPath = dumpPath;
     this.dbPath = dbPath;
     this.skipTitles = skipTitles;
     this.wikiDumper = false;
-    this.iSave = new IpfsSave();
+    this.fSave = new FSSave(fsPath);
     this.lSave = false;
     let self = this;
-    this.iSave.onReady = (err) => {
+    this.fSave.onReady = (err) => {
       if(err) {
         throw err;
       }
@@ -46,7 +46,7 @@ module.exports = class IpfsMain {
     let cnText = opencc.traditionalToSimplified(zhText);
     //console.log('_onPage::cnTitle=<',cnTitle,'>');
     let self = this;
-    this.iSave.save(cnTitle,cnText,pos,(hash,resume) => {
+    this.fSave.saveFS(cnTitle,cnText,pos,(hash,resume) => {
       //console.log('_onPage::hash=<',hash,'>');
       self.lSave.save(hash,cnTitle,pos,()=> {
         //console.log('_onPage::resume=<',resume,'>');
