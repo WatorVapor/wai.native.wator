@@ -19,7 +19,7 @@ module.exports = class IpfsSaveFs {
     shasum.update(cnTitle);
     let hash = shasum.digest('hex');
     console.log('IpfsSaveFs::saveFS hash=<',hash,'>');
-    let path = this._path + '/' + hash.substring(0, 6) + '/';
+    let path = this._path + '/' + hash.substring(0, 3) + '/';
     console.log('IpfsSaveFs::saveFS path=<',path,'>');
     const result =  execSync('mkdir -p ' + path);
     console.log('IpfsSave::save result=<',result,'>');
