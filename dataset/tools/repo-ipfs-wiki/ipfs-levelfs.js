@@ -23,7 +23,7 @@ module.exports = class IpfsSaveFs {
     console.log('IpfsSaveFs::saveFS path=<',path,'>');
     const result =  execSync('mkdir -p ' + path);
     console.log('IpfsSave::save result=<',result,'>');
-    fs.writeFileSync(path + 'text',cnText);
+    fs.writeFileSync(path + hash,cnText);
     cb(hash,true);
   }
 }
