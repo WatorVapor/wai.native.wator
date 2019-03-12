@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "iconv": "^2.3.0",
+    "level": "^3.0.0",
+    "node-opencc": "^2.0.1"
+  }
+}
