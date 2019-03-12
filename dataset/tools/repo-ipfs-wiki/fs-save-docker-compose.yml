@@ -3,17 +3,10 @@ services:
   ipfs-save:
     image: node:10
     volumes:
-      - ./app:/opt/app
-      - ./ipfs-cnwiki.js:/opt/app/ipfs-cnwiki.js
-      - ./ipfs-main.js:/opt/app/ipfs-main.js
-      - ./ipfs-save.js:/opt/app/ipfs-save.js
-      - ./ipfs-level.js:/opt/app/ipfs-level.js
-      - ./parseWikiDumper.js:/opt/app/parseWikiDumper.js
-      - ./repos_ipfs_public:/opt/app/repos_ipfs_public
-      - ./cnwiki:/opt/app/cnwiki
+      - ./:/opt/app
       - /watorvapor/wai.storage/dumps.wikimedia.org/zhwiki:/watorvapor/wai.storage/dumps.wikimedia.org/zhwiki
     working_dir: "/opt/app"
-    command: ./entry.sh
+    command: ./fs.save.sh
     networks:
       - outside
     deploy:
