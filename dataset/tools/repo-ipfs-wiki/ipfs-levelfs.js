@@ -1,3 +1,5 @@
+const fs=require('fs');
+const crypto = require('crypto');
 
 module.exports = class IpfsSaveFs {
   constructor(path) {
