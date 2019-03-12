@@ -7,6 +7,12 @@ module.exports = class IpfsSaveFs {
     this._path = path;
     const result = execSync('mkdir -p ' + this._path);
     console.log('IpfsSave::constructor result=<',result,'>');
+    let self = this;
+    setTimeout( () => {
+      if(typeof self.onReady === 'function') {
+        self.onReady();
+      }
+    },1);
   }
   saveFS(cnTitle,cnText,pos,cb) {
     const shasum = crypto.createHash('sha1');
