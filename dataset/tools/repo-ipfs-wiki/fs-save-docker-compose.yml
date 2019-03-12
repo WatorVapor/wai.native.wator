@@ -3,7 +3,12 @@ services:
   ipfs-save:
     image: node:10
     volumes:
-      - ./:/opt/app
+      - ./fs-app:/opt/app
+      - ./ipfs-cnwiki.js:/opt/app/ipfs-cnwiki.js
+      - ./ipfs-main.js:/opt/app/ipfs-main.js
+      - ./ipfs-levelfs.js:/opt/app/ipfs-levelfs.js
+      - ./output_repo:/opt/app/output_repo
+      - ./parseWikiDumper.js:/opt/app/parseWikiDumper.js
       - /watorvapor/wai.storage/dumps.wikimedia.org/zhwiki:/watorvapor/wai.storage/dumps.wikimedia.org/zhwiki
     working_dir: "/opt/app"
     command: ./fs.save.sh
