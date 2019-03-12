@@ -1,6 +1,6 @@
 const dumpPath = '/watorvapor/wai.storage/dumps.wikimedia.org/zhwiki/zhwiki-20190201-pages-articles.xml';
-const dbPath = '/watorvapor/wai.storage/dumps.wikimedia.org/output_repo/cnwiki/fs';
-const fsPath = '/watorvapor/wai.storage/dumps.wikimedia.org/output_repo/cnwiki/repo';
+const dbPath = './output_repo/cnwiki/fs';
+const fsPath = './output_repo/cnwiki/repo';
 const  skipTitles = [
   'Wikipedia:','Help:','Template:','Category:','MediaWiki:','Hex',
   'File:','Portal:','模块:',
