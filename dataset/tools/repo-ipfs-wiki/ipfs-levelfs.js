@@ -18,11 +18,11 @@ module.exports = class IpfsSaveFs {
     const shasum = crypto.createHash('sha1');
     shasum.update(cnTitle);
     let hash = shasum.digest('hex');
-    console.log('IpfsSaveFs::saveFS hash=<',hash,'>');
+    //console.log('IpfsSaveFs::saveFS hash=<',hash,'>');
     let path = this._path + '/' + hash.substring(0, 3) + '/';
-    console.log('IpfsSaveFs::saveFS path=<',path,'>');
+    //console.log('IpfsSaveFs::saveFS path=<',path,'>');
     const result =  execSync('mkdir -p ' + path);
-    console.log('IpfsSave::save result=<',result,'>');
+    //console.log('IpfsSave::save result=<',result,'>');
     fs.writeFileSync(path + hash,cnText);
     cb(hash,true);
   }
