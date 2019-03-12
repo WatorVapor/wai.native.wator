@@ -5,7 +5,7 @@ const LevelSave = require('./ipfs-level.js');
 const opencc = require('node-opencc');
 
 module.exports = class IpfsMain {
-  constructor(dumpPath,dbPath,skipTitles,fsPath) {
+  constructor(dumpPath,dbPath,fsPath,skipTitles) {
     this.dumpPath = dumpPath;
     this.dbPath = dbPath;
     this.skipTitles = skipTitles;
