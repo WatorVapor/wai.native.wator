@@ -22,7 +22,7 @@ module.exports = class IpfsMain {
         self.wikiDumper = new wiki(self.dumpPath,ResumePos,self._onPage.bind(self));
       });
     }
-    this.iSave.onError = (err) => {
+    this.fSave.onError = (err) => {
       self.lSave.close();
     }    
   }
