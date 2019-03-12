@@ -6,11 +6,19 @@ module.exports = class IpfsSaveFs {
   constructor(path) {
     this._path = path;
     const result = execSync('mkdir -p ' + this._path);
-    console.log('IpfsSaveFs::constructor result=<',result,'>');
+    //console.log('IpfsSaveFs::constructor result=<',result,'>');
     let self = this;
     setTimeout( () => {
+      let resumePos = 0;
+      try {
+        const resume = require(this._path + '/resume.json');
+        console.log('IpfsSaveFs::constructor resume=<',resume,'>');
+        resumePos = resume.pos;
+      } catch(e) {
+        
+      }
       if(typeof self.onReady === 'function') {
-        self.onReady();
+        self.onReady(resumePos);
       }
     },1);
   }
@@ -32,6 +40,8 @@ module.exports = class IpfsSaveFs {
        //console.log('IpfsSaveFs::saveFS textPath=<',textPath,'>');
        fs.writeFileSync(textPath,cnText);
     }
+    let resume = {pos:pos,title:cnTitle};
+    fs.writeFileSync(this._path + '/resume.json',JSON.stringify(resume,undefined,2));
     cb(hash,true);
   }
 }
