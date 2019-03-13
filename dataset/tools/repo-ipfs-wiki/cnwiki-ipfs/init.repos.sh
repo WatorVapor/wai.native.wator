@@ -5,4 +5,4 @@ docker run \
   -v ${wc}/export:/data/export \
   -v ${wc}/storage:/data/ipfs \
   -it ipfs/go-ipfs:release \
-  /usr/local/bin/ipfs init --profile=server
+  ipfs/go-ipfs init --profile=server
