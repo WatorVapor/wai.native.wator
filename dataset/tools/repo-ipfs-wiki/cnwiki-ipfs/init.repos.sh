@@ -5,7 +5,7 @@ docker run \
   -v ${wc}/export:/data/export \
   -v ${wc}/storage:/data/ipfs \
   -it ipfs/go-ipfs:release \
-   daemon ipfs init
+   ipfs init
 
 
 #  -e IPFS_PROFILE=server,badgerds \
