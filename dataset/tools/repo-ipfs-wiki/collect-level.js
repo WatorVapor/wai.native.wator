@@ -10,4 +10,12 @@ for(let i = 0;i < cids.length;i++) {
   //console.log('cidObj=<',cidObj,'>');
   let cid = cidObj.Ref;
   console.log('cid=<',cid,'>');
+  db.batch()
+    .put(hash, title)
+    .put(ResumePosKey, pos)
+    .write( (err)=>{
+      if(err) {
+        throw err;
+      }
+    });
 }
