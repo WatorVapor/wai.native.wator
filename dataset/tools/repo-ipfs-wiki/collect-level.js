@@ -11,8 +11,7 @@ for(let i = 0;i < cids.length;i++) {
   let cid = cidObj.Ref;
   console.log('cid=<',cid,'>');
   db.batch()
-    .put(hash, title)
-    .put(ResumePosKey, pos)
+    .put(cid, '')
     .write( (err)=>{
       if(err) {
         throw err;
