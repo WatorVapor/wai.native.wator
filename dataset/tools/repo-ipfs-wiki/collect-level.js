@@ -7,7 +7,7 @@ const dbPath = './cnwiki-cid';
 db = Level(dbPath);
 for(let i = 0;i < cids.length;i++) {
   let cidObj = cids[i];
-  console.log('cidObj=<',cidObj,'>');
+  //console.log('cidObj=<',cidObj,'>');
   let cid = cidObj.Ref;
   console.log('cid=<',cid,'>');
 }
