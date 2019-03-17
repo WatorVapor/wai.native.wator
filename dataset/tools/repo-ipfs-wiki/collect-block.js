@@ -84,7 +84,7 @@ let blockResourceCache = [];
 const OneBlockSize = 4*1024*1024;
 function readIpfsInfo(path) {
   //console.log('readIpfsInfo::path=<',path,'>');
-  ipfs.files.get(path, function (err, files) {
+  ipfs.get(path, function (err, files) {
     //console.log('readIpfsInfo::files=<',files,'>');
     files.forEach((file) => {
       //console.log('readIpfsInfo::file=<',file,'>');
