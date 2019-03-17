@@ -92,6 +92,7 @@ function readIpfsInfo(path) {
       console.log('readIpfsInfo::path=<',path,'>');
       //console.log('readIpfsInfo::err=<',err,'>');
       //throw err;
+      stream.resume();
     } else {
       try {
         files.forEach((file) => {
