@@ -88,35 +88,32 @@ function readIpfsInfo(path) {
   ipfs.get(path, function (err, files) {
     //console.log('readIpfsInfo::files=<',files,'>');
     if(err) {
+      console.log('readIpfsInfo::files=<',files,'>');
+      console.log('readIpfsInfo::path=<',path,'>');
+      console.log('readIpfsInfo::err=<',err,'>');
+      //throw err;
+    } else {
       try {
-        console.log('readIpfsInfo::files=<',files,'>');
-        console.log('readIpfsInfo::path=<',path,'>');
-        console.log('readIpfsInfo::err=<',err,'>');
-        //throw err;
-        return;
-      } catch(e) {
-      }
-    }
-    try {
-      files.forEach((file) => {
-        //console.log('readIpfsInfo::file=<',file,'>');
-        //console.log('readIpfsInfo::file.path=<',file.path,'>');
-        //console.log('readIpfsInfo::file.content.length=<',file.content.length,'>');
-          if(file.content && file.content.length > minArticleSize) {
-            blockSizeCounter += file.content.length;
-            blockResourceCache.push(file.path);
-            if(blockSizeCounter >= OneBlockSize) {
-              writeBlock(path);
+        files.forEach((file) => {
+          //console.log('readIpfsInfo::file=<',file,'>');
+          //console.log('readIpfsInfo::file.path=<',file.path,'>');
+          //console.log('readIpfsInfo::file.content.length=<',file.content.length,'>');
+            if(file.content && file.content.length > minArticleSize) {
+              blockSizeCounter += file.content.length;
+              blockResourceCache.push(file.path);
+              if(blockSizeCounter >= OneBlockSize) {
+                writeBlock(path);
+              } else {
+                stream.resume();
+              }
             } else {
               stream.resume();
             }
-          } else {
-            stream.resume();
-          }
-      });
-    } catch(e) {
-      console.log('readIpfsInfo::e=<',e,'>');
-      console.log('readIpfsInfo::files=<',files,'>');
+        });
+      } catch(e) {
+        console.log('readIpfsInfo::e=<',e,'>');
+        console.log('readIpfsInfo::files=<',files,'>');
+      }
     }
   });  
 }
