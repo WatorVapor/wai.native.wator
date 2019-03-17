@@ -103,7 +103,7 @@ async function readIpfsInfo(path) {
       } else {
         stream.resume();
       }
-    }
+    });
   } catch(e) {
     console.log('readIpfsInfo::e=<',e,'>');
     console.log('readIpfsInfo::file=<',file,'>');
