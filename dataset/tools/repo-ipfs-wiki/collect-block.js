@@ -87,6 +87,9 @@ function readIpfsInfo(path) {
   //console.log('readIpfsInfo::path=<',path,'>');
   ipfs.get(path, function (err, files) {
     //console.log('readIpfsInfo::files=<',files,'>');
+    if(err) {
+      throw err;
+    }
     files.forEach((file) => {
       //console.log('readIpfsInfo::file=<',file,'>');
       //console.log('readIpfsInfo::file.path=<',file.path,'>');
