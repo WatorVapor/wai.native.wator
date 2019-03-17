@@ -88,6 +88,8 @@ function readIpfsInfo(path) {
   ipfs.get(path, function (err, files) {
     //console.log('readIpfsInfo::files=<',files,'>');
     if(err) {
+      console.log('readIpfsInfo::files=<',files,'>');
+      console.log('readIpfsInfo::err=<',err,'>');
       throw err;
     }
     try {
