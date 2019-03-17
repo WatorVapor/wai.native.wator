@@ -83,31 +83,32 @@ let blockSizeCounter = 0;
 let blockResourceCache = [];
 const OneBlockSize = 4*1024*1024;
 const minArticleSize = 100;
-async function readIpfsInfo(path) {
+function readIpfsInfo(path) {
   //console.log('readIpfsInfo::path=<',path,'>');
-  let files = await ipfs.get(path);
-  //console.log('readIpfsInfo::files=<',files,'>');
-  try {
+  ipfs.get(path, function (err, files) {
+    //console.log('readIpfsInfo::files=<',files,'>');
     files.forEach((file) => {
       //console.log('readIpfsInfo::file=<',file,'>');
       //console.log('readIpfsInfo::file.path=<',file.path,'>');
       //console.log('readIpfsInfo::file.content.length=<',file.content.length,'>');
-      if(file.content && file.content.length > minArticleSize) {
-        blockSizeCounter += file.content.length;
-        blockResourceCache.push(file.path);
-        if(blockSizeCounter >= OneBlockSize) {
-          writeBlock(path);
+      try {
+        if(file.content && file.content.length > minArticleSize) {
+          blockSizeCounter += file.content.length;
+          blockResourceCache.push(file.path);
+          if(blockSizeCounter >= OneBlockSize) {
+            writeBlock(path);
+          } else {
+            stream.resume();
+          }
         } else {
           stream.resume();
         }
-      } else {
-        stream.resume();
+      } catch(e) {
+        console.log('readIpfsInfo::e=<',e,'>');
+        console.log('readIpfsInfo::file=<',file,'>');
       }
     });
-  } catch(e) {
-    console.log('readIpfsInfo::e=<',e,'>');
-    console.log('readIpfsInfo::file=<',file,'>');
-  }
+  });  
 }
 
 
