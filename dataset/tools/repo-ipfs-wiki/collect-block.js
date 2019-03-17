@@ -81,6 +81,7 @@ function startReadClips() {
 
 let blockSizeCounter = 0;
 let blockResourceCache = [];
+const OneBlockSize = 4*1024*1024;
 function readIpfsInfo(path) {
   //console.log('readIpfsInfo::path=<',path,'>');
   ipfs.files.get(path, function (err, files) {
@@ -92,7 +93,7 @@ function readIpfsInfo(path) {
       if(file.content.length > 100) {
         blockSizeCounter += file.content.length;
         blockResourceCache.push(file.path);
-        if(blockSizeCounter >= 1024*1024) {
+        if(blockSizeCounter >= OneBlockSize) {
           writeBlock(path);
         } else {
           stream.resume();
