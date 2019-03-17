@@ -90,7 +90,9 @@ function readIpfsInfo(path) {
     if(err) {
       console.log('readIpfsInfo::files=<',files,'>');
       console.log('readIpfsInfo::path=<',path,'>');
-      throw err;
+      console.log('readIpfsInfo::err=<',err,'>');
+      //throw err;
+      return;
     }
     try {
       files.forEach((file) => {
