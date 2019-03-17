@@ -82,12 +82,13 @@ function startReadClips() {
 let blockSizeCounter = 0;
 let blockResourceCache = [];
 const OneBlockSize = 4*1024*1024;
+const minArticleSize = 100;
 function readIpfsInfo(path) {
   //console.log('readIpfsInfo::path=<',path,'>');
   ipfs.get(path, function (err, files) {
     //console.log('readIpfsInfo::files=<',files,'>');
     files.forEach((file) => {
-      //console.log('readIpfsInfo::file=<',file,'>');
+      console.log('readIpfsInfo::file=<',file,'>');
       //console.log('readIpfsInfo::file.path=<',file.path,'>');
       //console.log('readIpfsInfo::file.content.length=<',file.content.length,'>');
       if(file.content.length > 100) {
