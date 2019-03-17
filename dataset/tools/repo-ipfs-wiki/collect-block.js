@@ -92,7 +92,7 @@ function readIpfsInfo(path) {
       //console.log('readIpfsInfo::file.path=<',file.path,'>');
       //console.log('readIpfsInfo::file.content.length=<',file.content.length,'>');
       try {
-        if(file.content.length > minArticleSize) {
+        if(file.content && file.content.length > minArticleSize) {
           blockSizeCounter += file.content.length;
           blockResourceCache.push(file.path);
           if(blockSizeCounter >= OneBlockSize) {
