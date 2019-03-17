@@ -90,6 +90,7 @@ function readIpfsInfo(path) {
     if(err) {
       console.log('readIpfsInfo::files=<',files,'>');
       console.log('readIpfsInfo::err=<',err,'>');
+      console.log('readIpfsInfo::path=<',path,'>');
       throw err;
     }
     try {
