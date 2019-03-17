@@ -134,11 +134,11 @@ function writeBlock(path) {
 async function pushIpfs2BlockDB(key,value) {
   //console.log('pushIpfs2BlockDB::key=<',key,'>');
   //console.log('pushIpfs2BlockDB::value=<',value,'>');
-  dbBlock.put(key,value);
+  await dbBlock.put(key,value);
 }
 
 
-function async save2Ipfs(bufBlock,path){
+async function save2Ipfs(bufBlock,path){
   let result = await ipfs.add(bufBlock);
   //console.log('save2Ipfs::result=<',result,'>');
   let hash = result[0].hash;
