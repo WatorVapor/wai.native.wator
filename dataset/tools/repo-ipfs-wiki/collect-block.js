@@ -90,27 +90,27 @@ function readIpfsInfo(path) {
     if(err) {
       throw err;
     }
-    files.forEach((file) => {
-      //console.log('readIpfsInfo::file=<',file,'>');
-      //console.log('readIpfsInfo::file.path=<',file.path,'>');
-      //console.log('readIpfsInfo::file.content.length=<',file.content.length,'>');
-      try {
-        if(file.content && file.content.length > minArticleSize) {
-          blockSizeCounter += file.content.length;
-          blockResourceCache.push(file.path);
-          if(blockSizeCounter >= OneBlockSize) {
-            writeBlock(path);
+    try {
+      files.forEach((file) => {
+        //console.log('readIpfsInfo::file=<',file,'>');
+        //console.log('readIpfsInfo::file.path=<',file.path,'>');
+        //console.log('readIpfsInfo::file.content.length=<',file.content.length,'>');
+          if(file.content && file.content.length > minArticleSize) {
+            blockSizeCounter += file.content.length;
+            blockResourceCache.push(file.path);
+            if(blockSizeCounter >= OneBlockSize) {
+              writeBlock(path);
+            } else {
+              stream.resume();
+            }
           } else {
             stream.resume();
           }
-        } else {
-          stream.resume();
-        }
-      } catch(e) {
-        console.log('readIpfsInfo::e=<',e,'>');
-        console.log('readIpfsInfo::file=<',file,'>');
-      }
-    });
+      });
+    } catch(e) {
+      console.log('readIpfsInfo::e=<',e,'>');
+      console.log('readIpfsInfo::files=<',files,'>');
+    }
   });  
 }
 
