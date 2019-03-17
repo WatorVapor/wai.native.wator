@@ -138,7 +138,7 @@ async function pushIpfs2BlockDB(key,value) {
 }
 
 
-function save2Ipfs(bufBlock,path){
+function async save2Ipfs(bufBlock,path){
   let result = await ipfs.add(bufBlock);
   //console.log('save2Ipfs::result=<',result,'>');
   let hash = result[0].hash;
