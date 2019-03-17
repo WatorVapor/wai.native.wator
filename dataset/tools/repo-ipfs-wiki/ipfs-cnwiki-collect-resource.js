@@ -1,5 +1,5 @@
-const dbPath = '/watorvapor/wai.storage/dumps.wikimedia.org/output_leveldb/cnwiki/ipfs';
-const dbBlockPath = '/watorvapor/wai.storage/dumps.wikimedia.org/output_leveldb/cnwiki/block';
+const dbPath = './cnwiki-cid';
+const dbBlockPath = './cnwiki-block';
 const crypto = require('crypto');
 const hash = crypto.createHash('sha256');
 hash.update('wai text wiki cn');
@@ -7,8 +7,10 @@ const gGroup = hash.digest('hex');
 
 
 const level = require('level');
-const ipfsAPI = require('ipfs-api');
-const ipfs = ipfsAPI({host: 'localhost', port: '5002', protocol: 'http'});
+const ipfsAPI = require('ipfs-http-client');
+
+const ipfs = ipfsAPI({host: 'localhost', port: '5001'});
+
 
 ipfs.id(function (err, identity) {
   if (err) {
