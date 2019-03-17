@@ -9,7 +9,7 @@ const gGroup = hash.digest('hex');
 const level = require('level');
 const ipfsAPI = require('ipfs-http-client');
 
-const ipfs = ipfsAPI({host: 'localhost', port: '5001'});
+const ipfs = ipfsAPI({host: 'localhost', port: '5011'});
 
 
 ipfs.id(function (err, identity) {
@@ -132,7 +132,7 @@ async function pushIpfs2BlockDB(key,value) {
 }
 
 function save2Ipfs(bufBlock,path){
-  ipfs.files.add(bufBlock,function(err, result) {
+  ipfs.add(bufBlock,function(err, result) {
     if (err) {
       console.log('save2Ipfs::err=<',err,'>');
       process.exit(0);
