@@ -88,11 +88,14 @@ function readIpfsInfo(path) {
   ipfs.get(path, function (err, files) {
     //console.log('readIpfsInfo::files=<',files,'>');
     if(err) {
-      console.log('readIpfsInfo::files=<',files,'>');
-      console.log('readIpfsInfo::path=<',path,'>');
-      console.log('readIpfsInfo::err=<',err,'>');
-      //throw err;
-      return;
+      try {
+        console.log('readIpfsInfo::files=<',files,'>');
+        console.log('readIpfsInfo::path=<',path,'>');
+        console.log('readIpfsInfo::err=<',err,'>');
+        //throw err;
+        return;
+      } catch(e) {
+      }
     }
     try {
       files.forEach((file) => {
