@@ -9,7 +9,8 @@ onInitIpfs = ()=> {
   node.on('ready', () => {
     //console.log('onInitIpfs node=<',node,'>');
     showIpfsInfo(node);
-    doReadFile(node);
+    //doReadFile(node);
+    doReadBlockInfo(node);
   })
 }
 
@@ -22,7 +23,65 @@ showIpfsInfo = (node) => {
   })  
 }
 
+const blockCID = 'QmcbsjA8dzaGVXJ1PbGsKoZfZWKvSecRb3Kty996rQXZkQ'
+
+doReadBlockInfo = (node) => {
+  node.get(blockCID, (err, files) => {
+    if(err) {
+      throw err;
+    }
+    for(let file of files) {
+      console.log('doReadBlockInfo file=<',file,'>');
+      //console.log('doReadBlockInfo file.path=<',file.path,'>');
+      //console.log('doReadBlockInfo file.content=<',file.content.toString('utf8'),'>');
+      onWaiBlock(node,file.content.toString('utf8'));
+    }
+  })
+};
+
+const aBlockCollect = {};
+
+onWaiBlock = async (node,block) => {
+  console.log('onWaiBlock block=<',block,'>');
+  try {
+    let jsonBlock = JSON.parse(block);
+    console.log('onWaiBlock jsonBlock=<',jsonBlock,'>');
+    for(let resourceCID of jsonBlock.resource) {
+      console.log('onWaiBlock resourceCID=<',resourceCID,'>');
+      await doReadResourceCID(node,resourceCID);
+    }
+  }
+  catch(e) {
+    console.error('onWaiBlock e=<',e,'>');
+  }
+}
+
+doReadResourceCID = async (node,cid) => {
+  let files = await node.get(cid);
+  try {
+    for(let file of files) {
+      let docCollect = onWaiDocument(file.content.toString('utf8'));
+      console.log('doReadResourceCID docCollect=<',docCollect,'>');
+      mergeDocument2Block(docCollect);
+    }    
+  } catch (e) {
+    console.error('doReadResourceCID e=<',e,'>');
+  }
+}
+
+mergeDocument2Block = (collect) => {
+  for(let key in collect) {
+    if(aBlockCollect[key]) {
+      aBlockCollect[key] += collect[key];
+    } else {
+      aBlockCollect[key] = collect[key];
+    }
+  }
+}
+
+
 const validCID = 'QmfZmje1L9tq4RMUHM7Y3sk3Zohrm9UQarujHyENUhR8cJ';
+
 doReadFile = (node) => {
   node.get(validCID, (err, files) => {
     if(err) {
@@ -67,7 +126,8 @@ onWaiDocument = (article) => {
   let highFreq = FilterOutLowFreq(aDocumentStatistics);
   //console.log('onWaiDocument highFreq=<',highFreq,'>');
   let uniqWords = FilterOutInside(highFreq);
-  console.log('onWaiDocument uniqWords=<',uniqWords,'>');
+  //console.log('onWaiDocument uniqWords=<',uniqWords,'>');
+  return uniqWords;
 }
 
 

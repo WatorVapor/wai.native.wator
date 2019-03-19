@@ -85,8 +85,8 @@ const OneBlockSize = 4*1024*1024;
 const minArticleSize = 100;
 async function readIpfsInfo(path) {
   //console.log('readIpfsInfo::path=<',path,'>');
-  let result = await ipfs.get(path);
   try {
+    let result = await ipfs.get(path);
     //console.log('readIpfsInfo::result=<',result,'>');
     if(result) {
       if(result.length === 1 ) {
