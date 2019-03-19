@@ -88,8 +88,20 @@ async function readIpfsInfo(path) {
   let result = await ipfs.get(path);
   try {
     console.log('readIpfsInfo::result=<',result,'>');
+    if(result) {
+      if(result.length === 1 ) {
+        let file = result[0];
+        onIpfsFileContent(file);
+      } else {
+        console.log('readIpfsInfo:: directory ?? path=<',path,'>');
+      }
+    } else {
+      console.log('readIpfsInfo::e=<',e,'>');
+      stream.resume();      
+    }
   }catch (e) {
-    console.log('readIpfsInfo::e=<',e,'>');    
+    console.log('readIpfsInfo::e=<',e,'>');
+    stream.resume();
   }
 /*  
   function (err, files) {
@@ -133,8 +145,21 @@ async function readIpfsInfo(path) {
 */
 }
 
-function onIpfsFileContent(path) {
-  
+function onIpfsFileContent(file) {
+  //console.log('onIpfsFileContent::file=<',file,'>');
+  //console.log('onIpfsFileContent::file.path=<',file.path,'>');
+  //console.log('onIpfsFileContent::file.content.length=<',file.content.length,'>');
+  if(file.content && file.content.length > minArticleSize) {
+    blockSizeCounter += file.content.length;
+    blockResourceCache.push(file.path);
+    if(blockSizeCounter >= OneBlockSize) {
+      writeBlock(file.path);
+    } else {
+      stream.resume();
+    }
+  } else {
+    stream.resume();
+  }  
 }
 
 
