@@ -105,7 +105,8 @@ async function readIpfsInfo(path) {
       stream.resume();      
     }
   }catch (e) {
-    console.log('readIpfsInfo::e=<',e,'>');
+    console.error('readIpfsInfo::e=<',e,'>');
+    console.error('readIpfsInfo:: path=<',path,'>');          
     stream.resume();
   }
 /*  
