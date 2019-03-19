@@ -10,7 +10,7 @@ onInitIpfs = ()=> {
     //console.log('onInitIpfs node=<',node,'>');
     showIpfsInfo(node);
     //doReadFile(node);
-    doReadBlockInfo(node);
+    //doReadBlockInfo(node);
   })
 }
 
