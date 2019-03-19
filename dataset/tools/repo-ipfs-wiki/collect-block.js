@@ -95,6 +95,9 @@ function readIpfsInfo(path) {
       stream.resume();
     } else {
       try {
+        if(files.length > 1) {
+          console.log('readIpfsInfo::files=<',files,'>');
+        }
         files.forEach((file) => {
           //console.log('readIpfsInfo::file=<',file,'>');
           //console.log('readIpfsInfo::file.path=<',file.path,'>');
