@@ -93,7 +93,7 @@ async function readIpfsInfo(path) {
         let file = result[0];
         onIpfsFileContent(file);
       } else {
-        if(result.length >== 1) {
+        if(result.length > 1) {
           console.log('readIpfsInfo:: directory ?? path=<',path,'>');
         } else {
           console.log('readIpfsInfo:: error?? path=<',path,'>');          
