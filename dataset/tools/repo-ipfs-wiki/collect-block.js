@@ -94,14 +94,14 @@ async function readIpfsInfo(path) {
         onIpfsFileContent(file);
       } else {
         if(result.length > 1) {
-          console.log('readIpfsInfo:: directory ?? path=<',path,'>');
+          //console.log('readIpfsInfo:: directory ?? path=<',path,'>');
         } else {
           console.log('readIpfsInfo:: error?? path=<',path,'>');          
         }
         stream.resume();      
       }
     } else {
-      console.log('readIpfsInfo::e=<',e,'>');
+      console.log('readIpfsInfo::result=<',result,'>');
       stream.resume();      
     }
   }catch (e) {
