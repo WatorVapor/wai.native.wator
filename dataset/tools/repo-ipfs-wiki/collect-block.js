@@ -96,6 +96,7 @@ function readIpfsInfo(path) {
     } else {
       try {
         if(files.length > 1) {
+          console.log('readIpfsInfo::path=<',path,'>');
           console.log('readIpfsInfo::files=<',files,'>');
         }
         files.forEach((file) => {
