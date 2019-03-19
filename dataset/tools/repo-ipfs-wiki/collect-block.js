@@ -133,7 +133,7 @@ async function readIpfsInfo(path) {
 */
 }
 
-onIpfsFileContent(path) {
+function onIpfsFileContent(path) {
   
 }
 
