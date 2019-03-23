@@ -30,7 +30,7 @@ stream.on('close', function () {
   for (let blockCID in gBlockPrevReferred) {
     //console.log('blockCID=<',blockCID,'>');
     if(!gBlockPrevReferred[blockCID]) {
-      console.log('blockCID=<',blockCID,'>');
+      console.log('lastblock CID=<',blockCID,'>');
     }
   }
 });
@@ -85,9 +85,9 @@ function onIpfsBlockContent(file,cid) {
   if(file.content) {
     let blockJson = JSON.parse(file.content);
     //console.log('onIpfsBlockContent::blockJson=<',blockJson,'>');
-    console.log('onIpfsBlockContent::cid=<',cid,'>');
+    //console.log('onIpfsBlockContent::cid=<',cid,'>');
     let prev = blockJson.prev;
-    console.log('onIpfsBlockContent::prev=<',prev,'>');
+    //console.log('onIpfsBlockContent::prev=<',prev,'>');
     if(!gBlockPrevReferred[prev]) {
       gBlockPrevReferred[prev] = true;
     }
