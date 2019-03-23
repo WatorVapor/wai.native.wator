@@ -9,6 +9,8 @@ const db = level(pathDB);
 const stream = db.createReadStream();
 
 let counter = 0;
+let blockPrevReferred = {};
+
 stream.on('data', function (data) {
   //console.log(data.key.toString('utf-8'), '=', data.value.toString('utf-8'));
   //console.log('data.key=<',data.key.toString('utf-8'),'>')
@@ -26,6 +28,7 @@ stream.on('close', function () {
 stream.on('end', function () {
   console.log('Stream ended');
   console.log('counter=<',counter,'>');
+  console.log('blockPrevReferred=<',blockPrevReferred,'>');
 });
 
 const ipfsAPI = require('ipfs-http-client');
@@ -66,6 +69,7 @@ async function getBlockFromIpfs(cid) {
 
 }
 
+
 function onIpfsBlockContent(file,cid) {
   //console.log('onIpfsBlockContent::file=<',file,'>');
   //console.log('onIpfsBlockContent::file.path=<',file.path,'>');
@@ -74,7 +78,14 @@ function onIpfsBlockContent(file,cid) {
     let blockJson = JSON.parse(file.content);
     //console.log('onIpfsBlockContent::blockJson=<',blockJson,'>');
     console.log('onIpfsBlockContent::cid=<',cid,'>');
-    console.log('onIpfsBlockContent::blockJson.prev=<',blockJson.prev,'>');
+    let prev = blockJson.prev;
+    console.log('onIpfsBlockContent::prev=<',prev,'>');
+    if(blockPrevReferred[prev] === false) {
+      blockPrevReferred[prev] = true;
+    }
+    if(!blockPrevReferred[cid]) {
+      blockPrevReferred[cid] = false;
+    }
  }
   stream.resume();
 }
