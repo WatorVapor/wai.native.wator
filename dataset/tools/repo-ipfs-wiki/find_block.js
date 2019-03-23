@@ -11,8 +11,8 @@ const stream = db.createReadStream();
 let counter = 0;
 stream.on('data', function (data) {
   //console.log(data.key.toString('utf-8'), '=', data.value.toString('utf-8'));
-  console.log('data.key=<',data.key.toString('utf-8'),'>')
-  console.log('data.value=<',data.value.toString('utf-8'),'>')
+  //console.log('data.key=<',data.key.toString('utf-8'),'>')
+  //console.log('data.value=<',data.value.toString('utf-8'),'>')
   counter++
   stream.pause();
   getBlockFromIpfs(data.key.toString('utf-8'));
@@ -38,10 +38,10 @@ ipfs.id(function (err, identity) {
 });
 
 async function getBlockFromIpfs(cid) {
-  console.log('getBlockFromIpfs cid=<',cid,'>');  
+  //console.log('getBlockFromIpfs cid=<',cid,'>');  
   try {
     let result = await ipfs.get(cid);
-    console.log('getBlockFromIpfs::result=<',result,'>');
+    //console.log('getBlockFromIpfs::result=<',result,'>');
     if(result) {
       if(result.length === 1 ) {
         let file = result[0];
@@ -67,9 +67,9 @@ async function getBlockFromIpfs(cid) {
 }
 
 function onIpfsBlockContent(file) {
-  console.log('onIpfsBlockContent::file=<',file,'>');
-  console.log('onIpfsBlockContent::file.path=<',file.path,'>');
-  console.log('onIpfsBlockContent::file.content.length=<',file.content.length,'>');
+  //console.log('onIpfsBlockContent::file=<',file,'>');
+  //console.log('onIpfsBlockContent::file.path=<',file.path,'>');
+  //console.log('onIpfsBlockContent::file.content.length=<',file.content.length,'>');
   if(file.content) {
     let blockJson = JSON.parse(file.content);
     console.log('onIpfsBlockContent::blockJson=<',blockJson,'>');
