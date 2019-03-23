@@ -27,8 +27,11 @@ stream.on('close', function () {
   console.log('Stream closed');
   console.log('gFirstBlock=<',gFirstBlock,'>');
   //console.log('gBlockPrevReferred=<',gBlockPrevReferred,'>');
-  for (let block in gBlockPrevReferred) {
-    console.log('block=<',block,'>');
+  for (let blockCID in gBlockPrevReferred) {
+    //console.log('blockCID=<',blockCID,'>');
+    if(!gBlockPrevReferred[blockCID]) {
+      console.log('blockCID=<',blockCID,'>');
+    }
   }
 });
 stream.on('end', function () {
