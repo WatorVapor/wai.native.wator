@@ -10,6 +10,7 @@ const stream = db.createReadStream();
 
 let counter = 0;
 let gBlockPrevReferred = {};
+let gFirstBlock = false;
 
 stream.on('data', function (data) {
   //console.log(data.key.toString('utf-8'), '=', data.value.toString('utf-8'));
@@ -24,7 +25,11 @@ stream.on('error', function (err) {
 });
 stream.on('close', function () {
   console.log('Stream closed');
-  console.log('gBlockPrevReferred=<',gBlockPrevReferred,'>');
+  console.log('gFirstBlock=<',gFirstBlock,'>');
+  //console.log('gBlockPrevReferred=<',gBlockPrevReferred,'>');
+  for (let block in gBlockPrevReferred) {
+    console.log('block=<',block,'>');
+  }
 });
 stream.on('end', function () {
   console.log('Stream ended');
@@ -85,6 +90,9 @@ function onIpfsBlockContent(file,cid) {
     }
     if(!gBlockPrevReferred[cid]) {
       gBlockPrevReferred[cid] = false;
+    }
+    if( prev === 'Genesis') {
+      gFirstBlock = cid;
     }
  }
   stream.resume();
