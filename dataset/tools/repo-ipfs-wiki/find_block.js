@@ -24,11 +24,11 @@ stream.on('error', function (err) {
 });
 stream.on('close', function () {
   console.log('Stream closed');
+  console.log('blockPrevReferred=<',blockPrevReferred,'>');
 });
 stream.on('end', function () {
   console.log('Stream ended');
   console.log('counter=<',counter,'>');
-  console.log('blockPrevReferred=<',blockPrevReferred,'>');
 });
 
 const ipfsAPI = require('ipfs-http-client');
