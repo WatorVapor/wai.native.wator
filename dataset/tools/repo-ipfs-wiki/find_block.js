@@ -45,7 +45,7 @@ async function getBlockFromIpfs(cid) {
     if(result) {
       if(result.length === 1 ) {
         let file = result[0];
-        onIpfsBlockContent(file);
+        onIpfsBlockContent(file,cid);
       } else {
         if(result.length > 1) {
           //console.log('getBlockFromIpfs:: directory ?? cid=<',cid,'>');
@@ -66,14 +66,16 @@ async function getBlockFromIpfs(cid) {
 
 }
 
-function onIpfsBlockContent(file) {
+function onIpfsBlockContent(file,cid) {
   //console.log('onIpfsBlockContent::file=<',file,'>');
   //console.log('onIpfsBlockContent::file.path=<',file.path,'>');
   //console.log('onIpfsBlockContent::file.content.length=<',file.content.length,'>');
   if(file.content) {
     let blockJson = JSON.parse(file.content);
-    console.log('onIpfsBlockContent::blockJson=<',blockJson,'>');
- }  
+    //console.log('onIpfsBlockContent::blockJson=<',blockJson,'>');
+    console.log('onIpfsBlockContent::cid=<',cid,'>');
+    console.log('onIpfsBlockContent::blockJson.prev=<',blockJson.prev,'>');
+ }
   stream.resume();
 }
 
