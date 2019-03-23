@@ -9,7 +9,7 @@ const db = level(pathDB);
 const stream = db.createReadStream();
 
 let counter = 0;
-let blockPrevReferred = {};
+let gBlockPrevReferred = {};
 
 stream.on('data', function (data) {
   //console.log(data.key.toString('utf-8'), '=', data.value.toString('utf-8'));
@@ -24,7 +24,7 @@ stream.on('error', function (err) {
 });
 stream.on('close', function () {
   console.log('Stream closed');
-  console.log('blockPrevReferred=<',blockPrevReferred,'>');
+  console.log('gBlockPrevReferred=<',gBlockPrevReferred,'>');
 });
 stream.on('end', function () {
   console.log('Stream ended');
@@ -80,11 +80,11 @@ function onIpfsBlockContent(file,cid) {
     console.log('onIpfsBlockContent::cid=<',cid,'>');
     let prev = blockJson.prev;
     console.log('onIpfsBlockContent::prev=<',prev,'>');
-    if(blockPrevReferred[prev] === false) {
-      blockPrevReferred[prev] = true;
+    if(!gBlockPrevReferred[prev]) {
+      gBlockPrevReferred[prev] = true;
     }
-    if(!blockPrevReferred[cid]) {
-      blockPrevReferred[cid] = false;
+    if(!gBlockPrevReferred[cid]) {
+      gBlockPrevReferred[cid] = false;
     }
  }
   stream.resume();
