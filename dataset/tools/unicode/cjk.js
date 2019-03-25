@@ -6,7 +6,9 @@ console.log('iconv=<',iconv,'>');
 //console.log('UNICODE=<',UNICODE,'>');
 
 let cjkRange = [
-  'cjk','cjkA','cjkB','cjkC','cjkD','cjkE','cjkF'
+  'cjkRadicals','cjkSymbolsPunctuation','cjkStrokes','enclosedCJKLettersMonths','cjkCompatibility',
+  'cjk','cjkA','cjkA2','cjkB','cjkC','cjkD','cjkE','cjkF',
+  'cjkCompatibilityIdeographs'
 ]
 //console.log('cjkRange=<',cjkRange,'>');
 let cjkJson = {};
