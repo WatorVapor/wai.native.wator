@@ -1,4 +1,4 @@
-const iConstNGramMaxWindow = 32;
+const iConstNGramMaxWindow = 64;
 class WaiParrot extends WaiBase {
   constructor() {
     super();
