@@ -1,0 +1,23 @@
+version: '3'
+services:
+  deep:
+    image: node:lts
+    volumes:
+      - ./:/opt/app
+      - /watorvapor/wai.storage/hashArchive:/watorvapor/wai.storage/hashArchive
+    working_dir: "/opt/app"
+    command: node deep.js
+    networks:
+      - outside
+    deploy:
+      resources:
+        limits:
+          cpus: '3.00'
+          memory: 1G
+        reservations:
+          cpus: '0.1'
+          memory: 256M
+networks:
+  outside:
+    external:
+      name: "host"

@@ -44,7 +44,7 @@ onNewFile = (path,name) => {
   let move = 'mv ' + oldPath + ' ' + newPath;
   console.log('onNewFile:: move=<',move,'>');
   const stdout = execSync(move);
-  console.log('onNewFile:: stdout=<',stdout,'>');
+  //console.log('onNewFile:: stdout=<',stdout,'>');
 }
 
 onNewDir(hashRoot);
