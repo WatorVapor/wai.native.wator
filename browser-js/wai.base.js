@@ -12,10 +12,11 @@ class WaiBase {
   leaveBlock() {
     //console.log('WaiBase::leaveBlock this.collectBlock_=<',this.collectBlock_,'>');
     let collectOfBlockStr = JSON.stringify(this.collectBlock_,undefined,2);
-    console.log('WaiBase::leaveBlock collectOfBlockStr=<',collectOfBlockStr,'>');
+    //console.log('WaiBase::leaveBlock collectOfBlockStr=<',collectOfBlockStr,'>');
     let now = new Date();
     let escape = now - this.start_;
-    console.log('WaiBase::leaveBlock escape/1000 =<',escape/1000,'>seconds');
+    //console.log('WaiBase::leaveBlock escape/1000 =<',escape/1000,'>seconds');
+    return this.collectBlock_;
   }
   
   

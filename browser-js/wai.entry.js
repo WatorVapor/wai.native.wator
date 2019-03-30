@@ -4,10 +4,11 @@ $(document).ready(() => {
 });
 
 onWaiInit = () => {
-  let crystal = new WaiCrystal();
-  console.log('onWaiInit crystal=<',crystal,'>');
   let parrot = new WaiParrot();
   console.log('onWaiInit parrot=<',parrot,'>');
+  let crystal = new WaiCrystal(parrot);
+  console.log('onWaiInit crystal=<',crystal,'>');
+  
   crystal.entryBlock = () => {
     parrot.entryBlock();
   }
