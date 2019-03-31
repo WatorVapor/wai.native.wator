@@ -1,6 +1,6 @@
 version: '3'
 services:
-  deep:
+  conv:
     image: node:lts
     volumes:
       - ./:/opt/app
