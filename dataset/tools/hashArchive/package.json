@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bs58": "^4.0.1",
     "js-sha3": "^0.8.0"
   }
 }

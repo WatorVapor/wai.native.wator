@@ -8,9 +8,6 @@ onWaiInit = () => {
   console.log('onWaiInit parrot=<',parrot,'>');
   let crystal = new WaiCrystal(parrot);
   console.log('onWaiInit crystal=<',crystal,'>');
-  
-  let name = shake256('Message to hash',128);
-  console.log('onWaiInit name=<',name,'>');
   crystal.entryBlock = () => {
     parrot.entryBlock();
   }
