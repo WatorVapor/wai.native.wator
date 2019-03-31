@@ -11,8 +11,8 @@ console.log('address=<',address,'>');
 const fs=require("fs");
 const { execSync } = require('child_process');
 
-const DEPTH = 2;
-const HASH_DIR_STEP = 3;
+const DEPTH = 3;
+const HASH_DIR_STEP = 2;
 
 const hashInputRoot = '/watorvapor/wai.storage/old.hashArchive'
 const hashRoot = '/watorvapor/wai.storage/hashArchive';
@@ -29,37 +29,41 @@ onNewDir = (rootDir) => {
     if (fs.statSync(fullPath).isFile()) {
       onNewFile(rootDir,dir);
     }
-  } 
+  }
+}
+
+addressOfContent = (content) => {
+  let shake = shake256(content,160);
+  //console.log('addressOfContent shake=<',shake,'>');
+  const bytes = Buffer.from(shake,'hex');
+  const address = bs58.encode(bytes);
+  //console.log('addressOfContent address=<',address,'>');  
+  return address;
 }
 
 onNewFile = (path,name) => {
-  console.log('onNewFile:: path=<',path,'>');
-  console.log('onNewFile:: name=<',name,'>');
-/*  
-  let depths = path.replace(hashRoot,'').split('/').filter(v=>v!='');
-  //console.log('onNewFile:: depths=<',depths,'>');
-  if(depths.length >= DEPTH) {
-    console.log('onNewFile:: depths=<',depths,'>');
-    return;
-  }
+  //console.log('onNewFile:: path=<',path,'>');
+  //console.log('onNewFile:: name=<',name,'>');
+  let filePath = path + '/' + name;
+  //console.log('onNewFile:: filePath=<',filePath,'>');
+  let content = fs.readFileSync(filePath, 'utf8');
+  //console.log('onNewFile:: content=<',content,'>');
+  let address = addressOfContent(content);
+  //console.log('onNewFile:: address=<',address,'>');
   let deepHash = hashRoot;
   for(let i = 0 ;i < DEPTH;i++) {
-    deepHash += '/' +  name.slice(0,(i+1) * HASH_DIR_STEP);
+    deepHash += '/' +  address.slice(i* HASH_DIR_STEP,(i+1) * HASH_DIR_STEP);
     //console.log('onNewFile:: deepHash=<',deepHash,'>');
     if(!fs.existsSync(deepHash)) {
       fs.mkdirSync(deepHash)
     }
   }
   //console.log('onNewFile:: deepHash=<',deepHash,'>');
-  let newPath = deepHash + '/' + name;
-  let oldPath = path + '/' + name;
-  //console.log('onNewFile:: newPath=<',newPath,'>');
-  //console.log('onNewFile:: oldPath=<',oldPath,'>');
-  let move = 'mv ' + oldPath + ' ' + newPath;
-  console.log('onNewFile:: move=<',move,'>');
-  const stdout = execSync(move);
-  //console.log('onNewFile:: stdout=<',stdout,'>');
-*/
+  let newPath = deepHash + '/' + address;
+  console.log('onNewFile:: newPath=<',newPath,'>');
+  if(!fs.existsSync(newPath)) {
+    fs.writeFileSync(newPath,content);
+  }
 }
 
 onNewDir(hashInputRoot);
