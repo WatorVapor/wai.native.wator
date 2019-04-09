@@ -38,6 +38,7 @@ onNewDir = (rootDir,leaf) => {
   }
 }
 
+
 setTimeout(()=> {
   onNewDir(hashInputRoot,'ffff');
 },1)
@@ -102,6 +103,10 @@ onFileContent = (content,name) =>{
   }  
 }
 
+const DEPTH = 3;
+const HASH_DIR_STEP = 2;
+
+
 writeBlock = (path) => {
   //console.log('writeBlock::blockSizeCounter=<',blockSizeCounter,'>');
   //console.log('writeBlock::blockResourceCache=<',blockResourceCache,'>');
@@ -112,23 +117,31 @@ writeBlock = (path) => {
   block.resource = blockResourceCache;
   //let blockStr = JSON.stringify(block,undefined,2);
   let blockStr = JSON.stringify(block,undefined,2);
-  console.log('writeBlock::blockStr=<',blockStr,'>');
-  let bufBlock = Buffer.from(blockStr, 'utf8');
-  save2Ipfs(bufBlock,path);
-  
+  //console.log('writeBlock::blockStr=<',blockStr,'>');
+  let address = addressOfBlock(blockStr,path);
   blockSizeCounter = 0;
   blockResourceCache = [];
+  prevBlock = address;
+  console.log('writeBlock::address=<',address,'>');
+  let deepHash = blockRoot;
+  for(let i = 0 ;i < DEPTH;i++) {
+    deepHash += '/' +  address.slice(i* HASH_DIR_STEP,(i+1) * HASH_DIR_STEP);
+    //console.log('writeBlock:: deepHash=<',deepHash,'>');
+    if(!fs.existsSync(deepHash)) {
+      fs.mkdirSync(deepHash)
+    }
+  }
+  console.log('writeBlock:: deepHash=<',deepHash,'>');
+  let blockOut = deepHash + '/' + address;
+  console.log('writeBlock::blockOut=<',blockOut,'>');
+  fs.writeFileSync(blockOut,blockStr);
 }
 
-save2Ipfs = async (bufBlock,name) => {
-  let result = await ipfs.add(bufBlock,{onlyHash:true});
-  console.log('save2Ipfs::result=<',result,'>');
+
+
+addressOfBlock = (blockStr,name) => {
+  return addressOfContent(blockStr);
 }
-
-const IPFS = require('ipfs');
-const node = new IPFS();
-
-
 
 
 
