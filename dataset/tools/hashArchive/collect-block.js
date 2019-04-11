@@ -69,8 +69,8 @@ onNewFile = (path,name) => {
   if(address === name) {
     onFileContent(content,name);
   } else {
-    console.log('onNewFile:: address=<',address,'>');
-    console.log('onNewFile:: name=<',name,'>');
+    console.log('error!!! onNewFile:: address=<',address,'>');
+    console.log('error!!! onNewFile:: name=<',name,'>');
     process.exit(-1);
   }
 
@@ -83,9 +83,8 @@ let blockResourceCache = [];
 const OneBlockSize = 4*1024*1024;
 const minArticleSize = 100;
 
-///const hash = crypto.createHash('sha256');
-//hash.update('wai text wiki cn');
-const gGroup = sha3_224('wai text wiki cn');
+const gGroupMsg = 'wai text wiki cn for carrot';
+const gGroup = sha3_224(gGroupMsg);
 
 
 
@@ -106,6 +105,14 @@ onFileContent = (content,name) =>{
 const DEPTH = 3;
 const HASH_DIR_STEP = 2;
 
+const blockChain = {
+  msg:gGroupMsg,
+  group:gGroup,
+  block:[
+    prevBlock
+  ],
+  tail:prevBlock
+};
 
 writeBlock = (path) => {
   //console.log('writeBlock::blockSizeCounter=<',blockSizeCounter,'>');
@@ -118,23 +125,27 @@ writeBlock = (path) => {
   //let blockStr = JSON.stringify(block,undefined,2);
   let blockStr = JSON.stringify(block,undefined,2);
   //console.log('writeBlock::blockStr=<',blockStr,'>');
-  let address = addressOfBlock(blockStr,path);
+  let blockAddress = addressOfBlock(blockStr,path);
   blockSizeCounter = 0;
   blockResourceCache = [];
-  prevBlock = address;
-  console.log('writeBlock::address=<',address,'>');
+  prevBlock = blockAddress;
+  console.log('writeBlock::blockAddress=<',blockAddress,'>');
   let deepHash = blockRoot;
   for(let i = 0 ;i < DEPTH;i++) {
-    deepHash += '/' +  address.slice(i* HASH_DIR_STEP,(i+1) * HASH_DIR_STEP);
+    deepHash += '/' +  blockAddress.slice(i* HASH_DIR_STEP,(i+1) * HASH_DIR_STEP);
     //console.log('writeBlock:: deepHash=<',deepHash,'>');
     if(!fs.existsSync(deepHash)) {
       fs.mkdirSync(deepHash)
     }
   }
   console.log('writeBlock:: deepHash=<',deepHash,'>');
-  let blockOut = deepHash + '/' + address;
+  let blockOut = deepHash + '/' + blockAddress;
   console.log('writeBlock::blockOut=<',blockOut,'>');
   fs.writeFileSync(blockOut,blockStr);
+  blockChain.block.push(blockAddress);
+  blockChain.tail = blockAddress;
+  let chainStr = JSON.stringify(blockChain,undefined,2);
+  fs.writeFileSync('./blockchain.json',chainStr);
 }
 
 
