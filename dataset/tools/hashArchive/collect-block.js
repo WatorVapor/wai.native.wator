@@ -9,21 +9,9 @@ const blockRoot = '/ceph/storage3/hashArchive/cnwiki/block_201903';
 
 let resume = {};
 
-
+const memNewFiles = [];
 
 onNewDir = (rootDir,leaf) => {
-  /*
-  if(resume && resume.top) {
-    let resumeTop = parseInt(resume.top,16);
-    let leafNum = parseInt(leaf,16);
-    console.log('onNewDir:: resumeTop=<',resumeTop,'>');
-    console.log('onNewDir:: leafNum=<',leafNum,'>');
-    if(resumeTop > leafNum) {
-      console.log('onNewDir:: skip finnished resumeTop > leafNum=<',resumeTop > leafNum,'>');
-      return;
-    }
-  }
-  */
   const dirs = fs.readdirSync(rootDir);
   //console.log('onNewDir:: dirs=<',dirs,'>');
   for(let dir of dirs) {
@@ -39,9 +27,14 @@ onNewDir = (rootDir,leaf) => {
 }
 
 
+
+
+/*
 setTimeout(()=> {
   onNewDir(hashInputRoot,'ffff');
 },1)
+*/
+onNewDir(hashInputRoot,'ffff');
 
 
 addressOfContent = (content) => {
@@ -53,6 +46,10 @@ addressOfContent = (content) => {
   return address;
 }
 
+
+const errorReport = {
+  badFiles:[],
+};
 
 
 onNewFile = (path,name) => {
@@ -71,9 +68,10 @@ onNewFile = (path,name) => {
   } else {
     console.log('error!!! onNewFile:: address=<',address,'>');
     console.log('error!!! onNewFile:: name=<',name,'>');
-    process.exit(-1);
+    errorReport.badFiles.push({address:address,name:name});
+    let errorReportStr = JSON.stringify(errorReport,undefined,2);
+    fs.writeFileSync('./errorReport.json',errorReportStr);
   }
-
 }
 
 
