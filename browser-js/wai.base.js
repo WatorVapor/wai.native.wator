@@ -1,16 +1,16 @@
-const iConstWordFilterOutStageOne = 3;
+const iConstWordFilterOutStageOne = 5;
 
 class WaiBase {
   constructor() {
-    
+    this.collectBlock_ = {};
   }
   entryBlock() {
     this.collectBlock_ = {};
-    //console.log('WaiBase::entryBlock this.collectBlock_=<',this.collectBlock_,'>');
+    console.log('WaiBase::entryBlock this.collectBlock_=<',this.collectBlock_,'>');
     this.start_ = new Date();
   }
   leaveBlock() {
-    //console.log('WaiBase::leaveBlock this.collectBlock_=<',this.collectBlock_,'>');
+    console.log('WaiBase::leaveBlock this.collectBlock_=<',this.collectBlock_,'>');
     let collectOfBlockStr = JSON.stringify(this.collectBlock_,undefined,2);
     //console.log('WaiBase::leaveBlock collectOfBlockStr=<',collectOfBlockStr,'>');
     let now = new Date();
@@ -58,8 +58,9 @@ class WaiBase {
   // inside
   mergeCollect_ = (collect) => {
     //console.log('mergeCollect_ collect=<',collect,'>');
+    //console.log('mergeCollect_ this.collectBlock_=<',this.collectBlock_,'>');
     for(let key in collect) {
-      if(this.collectBlock_[key]) {
+      if(typeof this.collectBlock_[key] === 'number') {
         this.collectBlock_[key] += collect[key];
       } else {
         this.collectBlock_[key] = collect[key];

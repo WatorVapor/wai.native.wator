@@ -7,7 +7,7 @@ class WaiParrot extends WaiBase {
     super.entryBlock();
   }
   leaveBlock() {
-    super.leaveBlock();
+    return super.leaveBlock();
   }
   article(doc) {
     super.article(doc,this.onSentence_.bind(this));

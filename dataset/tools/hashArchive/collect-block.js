@@ -34,7 +34,6 @@ setTimeout(()=> {
   onNewDir(hashInputRoot,'ffff');
 },1)
 */
-onNewDir(hashInputRoot,'ffff');
 
 
 addressOfContent = (content) => {
@@ -95,7 +94,7 @@ onFileContent = (content,name) =>{
     blockSizeCounter += length;
     blockResourceCache.push(name);
     if(blockSizeCounter >= OneBlockSize) {
-      writeBlock(name);
+      writeBlock();
     }
   }  
 }
@@ -112,7 +111,7 @@ const blockChain = {
   tail:prevBlock
 };
 
-writeBlock = (path) => {
+writeBlock = () => {
   //console.log('writeBlock::blockSizeCounter=<',blockSizeCounter,'>');
   //console.log('writeBlock::blockResourceCache=<',blockResourceCache,'>');
   let block = {};
@@ -123,7 +122,7 @@ writeBlock = (path) => {
   //let blockStr = JSON.stringify(block,undefined,2);
   let blockStr = JSON.stringify(block,undefined,2);
   //console.log('writeBlock::blockStr=<',blockStr,'>');
-  let blockAddress = addressOfBlock(blockStr,path);
+  let blockAddress = addressOfBlock(blockStr);
   blockSizeCounter = 0;
   blockResourceCache = [];
   prevBlock = blockAddress;
@@ -148,9 +147,11 @@ writeBlock = (path) => {
 
 
 
-addressOfBlock = (blockStr,name) => {
+addressOfBlock = (blockStr) => {
   return addressOfContent(blockStr);
 }
 
 
-
+onNewDir(hashInputRoot,'ffff');
+console.log('last::blockChain=<',blockChain,'>');
+writeBlock();
