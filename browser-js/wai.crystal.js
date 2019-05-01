@@ -27,7 +27,21 @@ class WaiCrystal {
     this.wai_.entryBlock();
     try {
       let jsonBlock = JSON.parse(block);
-      //console.log('WaiCrystal::onBlockFromCrystalPool_ jsonBlock=<',jsonBlock,'>');
+      console.log('WaiCrystal::onBlockFromCrystalPool_ jsonBlock=<',jsonBlock,'>');
+      
+      let respTask = Object.assign({}, this.currentTask_);
+      respTask.stage = 'catch';
+      let shortBlockInfo = {};
+      shortBlockInfo.prev = jsonBlock.prev;
+      shortBlockInfo.group = jsonBlock.group;
+      shortBlockInfo.size = jsonBlock.size;
+      respTask.block = shortBlockInfo;
+      let uiBlocek = Object.assign({}, respTask);
+      uiBlocek.total = jsonBlock.resource.length;
+      uiBlocek.step = 0;
+      onUpdateVueUI(uiBlocek);
+      this.ws_.send(JSON.stringify(respTask));
+      let counter = 0;
       for(let resourceAddress of jsonBlock.resource) {
         //console.log('WaiCrystal::onBlockFromCrystalPool_ resourceAddress=<',resourceAddress,'>');
         let rURL = CRYSTAL_GATEWAY + '/' + resourceAddress;
@@ -41,9 +55,11 @@ class WaiCrystal {
         let articleStart = new Date();
         this.wai_.article(result);
         let escapeArticle = new Date() - articleStart;
+        uiBlocek.step = counter++;
+        onUpdateVueUI(uiBlocek);
         //console.log('WaiCrystal::onBlockFromCrystalPool_ escapeArticle =<',escapeArticle,'>ms');
       }
-      console.log('WaiCrystal::onBlockFromCrystalPool_ this.currentTaskCID_=<',this.currentTaskCID_,'>');
+      console.log('WaiCrystal::onBlockFromCrystalPool_ this.currentTask_=<',this.currentTask_,'>');
       
       console.log('WaiCrystal::onBlockFromCrystalPool_ this.error_=<',this.error_,'>');
       let wordCollect = this.wai_.leaveBlock();
@@ -53,6 +69,7 @@ class WaiCrystal {
       console.log('WaiCrystal::onBlockFromCrystalPool_ escape/1000 =<',escape/1000,'>seconds');
       this.currentTask_.stage = 'finnish';
       this.currentTask_.error = this.error_;
+      this.currentTask_.block = shortBlockInfo;
       this.currentTask_.words = wordCollect;
       this.ws_.send(JSON.stringify(this.currentTask_));
     }
@@ -87,12 +104,8 @@ class WaiCrystal {
     //console.log('WaiCrystal::onBlockTask_ this.idle_=<',this.idle_,'>');
     if(this.idle_) {
       let url = CRYSTAL_GATEWAY + '/' + task.cid;
-      this.currentTaskCID_ = task.cid;
+      this.currentTask_ = Object.assign({}, task);
       $.get(url,this.onBlockFromCrystalPool_.bind(this));
-      let resStartTask = JSON.parse(JSON.stringify(task));
-      this.currentTask_ = Object.assign({}, task);;
-      resStartTask.stage = 'start';
-      this.ws_.send(JSON.stringify(resStartTask));
     }
   }
   addressOfContent_ = (content) => {

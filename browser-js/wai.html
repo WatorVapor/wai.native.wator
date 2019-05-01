@@ -5,21 +5,46 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=0.35, maximum-scale=0.35,minimum-scale=0.35">
     <title>Wai Parrot Inside Browser </title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha3/0.8.0/sha3.js" integrity="sha256-E1kKIBshmfALdO5xHtwb33RHBdyhL0PMbvZMMrV2f6k=" crossorigin="anonymous"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/viz.js/2.1.2/viz.js" integrity="sha256-8RHyK+AFzq9iXwbFo2unqidwPbwHU5FFWe3RwkcVtuU=" crossorigin="anonymous"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/viz.js/2.1.2/full.render.js" integrity="sha256-Ogqs510LFnekr9o7OLdpelaaAmNss9egQRTyzCqV2NQ=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js" integrity="sha256-chlNFSVx3TdcQ2Xlw7SvnbLAavAQLO0Y/LBiWX04viY=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/base-58@0.0.1/Base58.min.js"></script>
     <script src="https://dagrejs.github.io/project/graphlib/latest/graphlib.js"></script>
     <script src="https://dagrejs.github.io/project/graphlib-dot/latest/graphlib-dot.js"></script>
     
   </head>
   <body>
+    <div class="container-fluid mt-lg-5">
+      <div class="row justify-content-center" id="ui-vue-mining-block">
+        <div class="col-10">
+          <div class="card text-center">
+            <div class="card-header">
+              Text Mining of Block <span class="badge badge-secondary">{{block.cid}}</span>
+            </div>
+            <div class="card-body">
+              <div class="progress">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" :aria-valuenow="percentage" :style="{width: percentage + '%'}" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div>
+            <div class="card-footer text-muted">
+              prev resource cid:<span class="badge badge-secondary">{{block.block.prev}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <script src="./graph.js" ></script>
     <script src="./cjk.js" ></script>
     <script src="./wai.crystal.js" ></script>
     <script src="./wai.base.js" ></script>
     <script src="./wai.parrot.js" ></script>
     <script src="./wai.entry.js" ></script>
+    <script src="./wai.vue.ui.js" ></script>
   </body>
 </html>
